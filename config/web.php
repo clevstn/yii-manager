@@ -9,7 +9,7 @@ $config = [
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
         'request' => [
@@ -50,7 +50,11 @@ $config = [
             'rules' => [
             ],
         ],
-
+        'assetManager' => [
+            'appendTimestamp' => YII_ENV === 'dev',
+            /* @see compress/assets.php */
+            //'bundles' => require(__DIR__ . '/../compress/assets-prod.php'),
+        ],
     ],
     'params' => $params,
 ];
