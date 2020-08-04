@@ -11,6 +11,16 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
+    'modules' => [
+        // version 1 api
+        'v1' => [
+            'class' => \app\api\V1::class,
+        ],
+        // version 2 api
+        'v2' => [
+            'class' => \app\api\V2::class,
+        ],
+    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
