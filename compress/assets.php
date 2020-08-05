@@ -1,16 +1,26 @@
 <?php
 /**
- * step 1:
+ * Introduce:
+ * The `compiler.jar` download for https://github.com/google/closure-compiler, The Plugins used of Js compress and merge.
+ *  Command params:
+ *  --js [[Specifies the JS file to be compressed]]
+ *  --js_output_file [[The compressed JS file name and position]]
+ *  --create_source_map [[File name and location of the compressed SourceMap]]
+ *  --source_map_format [[SourceMap version]]
+ *
+ * The `yuicompressor.jar` download for https://github.com/yui/yuicompressor, The Plugins used of Css compress and merge.
+ *
+ * Step 1:
  * Dependent Java environment, The java installation address:
  * https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
  *
- * step 2:
+ * Step 2:
  * Production publish package command:
  * ```
- * console execute:
+ * Console execute:
  * yii asset compress/assets.php compress/assets-prod.php
  *
- * step 3:
+ * Step 3:
  * configure file "config/web.php":
  *    'assetManager' => [
  *          'appendTimestamp' => true,
