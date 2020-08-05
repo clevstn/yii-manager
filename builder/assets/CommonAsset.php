@@ -1,17 +1,15 @@
 <?php
 // +----------------------------------------------------------------------
-// | 表格构建器
+// | 公共资源包
 // +----------------------------------------------------------------------
 // | 日期：2020/8/5
 // +----------------------------------------------------------------------
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 
-namespace app\builder\table;
+namespace app\builder\assets;
 
-use app\builder\contract\BuilderInterface;
-
-class TableBuilder implements BuilderInterface
+class CommonAsset
 {
     
 }
