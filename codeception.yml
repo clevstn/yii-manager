@@ -7,7 +7,7 @@ paths:
     helpers: tests/_support
 settings:
     memory_limit: 1024M
-    colors: true
+    colors: false
 modules:
     config:
         Yii2:
