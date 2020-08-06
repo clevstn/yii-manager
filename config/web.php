@@ -3,8 +3,13 @@
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
+
 $config = [
     'id' => 'basic',
+    'name' => 'yii-manager',
+    'language' => 'zh-CN',
+    'sourceLanguage' => 'zh-CN',
+    'timeZone' => 'Asia/Shanghai',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -12,6 +17,10 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'modules' => [
+        // yii-manager admin
+        'admin' => [
+            'class' => \app\admin\Module::class,
+        ],
         // version 1 api
         'v1' => [
             'class' => \app\api\V1::class,
@@ -34,7 +43,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'admin/error/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -61,7 +70,7 @@ $config = [
             ],
         ],
         'assetManager' => [
-            'appendTimestamp' => YII_ENV === 'dev',
+            'appendTimestamp' => YII_ENV_DEV,
             /* @see compress/assets.php */
             //'bundles' => require(__DIR__ . '/../compress/assets-prod.php'),
         ],

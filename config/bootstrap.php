@@ -1,22 +1,18 @@
 <?php
 // +----------------------------------------------------------------------
-// | yii-manager控制器继承类
+// | yii-manager启动配置
 // +----------------------------------------------------------------------
-// | 日期：2020/8/5
+// | 日期：2020/8/6
 // +----------------------------------------------------------------------
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
+/**
+ * This is used for yii-manager parameters.
+ * Configure the parameters to params.php for users.
+ */
 
-namespace app\builder\common;
+Yii::setAlias('@builder', dirname(__DIR__) . '/builder');
 
-use yii\web\Controller;
+return [
 
-abstract class CommonController extends Controller
-{
-
-    /**
-     * yii-manager layouts
-     * @var string
-     */
-    public $layout = '@builder/layouts/layout.php';
-}
+];
