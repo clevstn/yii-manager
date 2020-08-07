@@ -11,8 +11,6 @@
  * Configure the parameters to params.php for users.
  */
 
-Yii::setAlias('@builder', dirname(__DIR__) . '/builder');
-
 return [
 
 ];
