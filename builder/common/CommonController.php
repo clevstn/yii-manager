@@ -35,6 +35,13 @@ abstract class CommonController extends Controller
     public $layout = '@builder/layouts/layout.php';
 
     /**
+     * By call this attributes `get` `post`, this is effective.
+     *
+     * @var bool
+     */
+    public $emptyStrToNull = true;
+
+    /**
      * Verbs to specify the actions.
      *
      * @var array
@@ -155,7 +162,16 @@ abstract class CommonController extends Controller
      */
     public function getGet()
     {
-        return $this->request->get();
+        $get = $this->request->get();
+        if (!empty($get)) {
+            foreach ($get as $queryStr => &$value) {
+                $value = $value === '' && true === $this->emptyStrToNull ? null : $value;
+            }
+
+            return $get;
+        }
+
+        return [];
     }
 
     /**
@@ -166,7 +182,16 @@ abstract class CommonController extends Controller
      */
     public function getPost()
     {
-        return $this->request->post();
+        $post = $this->request->post();
+        if (!empty($post)) {
+            foreach ($post as $bodyStr => &$value) {
+                $value = $value === '' && true === $this->emptyStrToNull ? null : $value;
+            }
+
+            return $post;
+        }
+
+        return [];
     }
 
     /**

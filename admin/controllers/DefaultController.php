@@ -31,6 +31,7 @@ class DefaultController extends CommonController
      */
     public function actionIndex()
     {
+        dd($this->get);
         return $this->render('index');
     }
 }
