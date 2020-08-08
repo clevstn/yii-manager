@@ -9,7 +9,9 @@
 
 namespace app\builder\contract;
 
-class BuilderException extends \Exception
+use yii\base\UserException;
+
+class BuilderException extends UserException
 {
     
 }
