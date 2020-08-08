@@ -13,6 +13,21 @@ use app\builder\common\CommonController;
 
 class ErrorController extends CommonController
 {
+
+    /**
+     * Guest actions defined.
+     *
+     * @var array
+     */
+    public $guestActions = ['error'];
+
+    /**
+     * Register undetected action ids for RBAC.
+     *
+     * @var array
+     */
+    public $undetectedActions = ['error'];
+
     /**
      * {@inheritdoc}
      */
