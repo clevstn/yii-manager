@@ -16,6 +16,7 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
         '@builder' => dirname(__DIR__) . '/builder',
+        '@api' => dirname(__DIR__) . '/api',
     ],
     'modules' => [
         // yii-manager admin

@@ -15,6 +15,8 @@ class IndexController extends RestController
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('index', [
+            'version' => $this->module->version,
+        ]);
     }
 }

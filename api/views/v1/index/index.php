@@ -7,6 +7,7 @@
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 
+/* @var string $version 当前接口版本 */
 ?>
 
-API VERSION 1.0 !
+API VERSION <?= $version ?>!
