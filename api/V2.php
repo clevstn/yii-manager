@@ -1,6 +1,6 @@
 <?php
 // +----------------------------------------------------------------------
-// | 
+// | API模块version 2
 // +----------------------------------------------------------------------
 // | 日期：2020/8/4
 // +----------------------------------------------------------------------
@@ -22,7 +22,7 @@ class V2 extends \yii\base\Module
     public function init()
     {
         parent::init();
-
+        $this->setViewPath($this->getBasePath() . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'v2');
         // custom initialization code goes here
     }
 }

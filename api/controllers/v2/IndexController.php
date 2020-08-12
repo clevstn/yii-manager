@@ -2,12 +2,12 @@
 
 namespace app\api\controllers\v2;
 
-use yii\web\Controller;
+use app\api\controllers\RestController;
 
 /**
- * Default controller for the `v1` module
+ * Default controller for the `v2` module
  */
-class IndexController extends Controller
+class IndexController extends RestController
 {
     /**
      * Renders the index view for the module
@@ -15,6 +15,6 @@ class IndexController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('/v2/index/index');
+        return $this->render('index');
     }
 }

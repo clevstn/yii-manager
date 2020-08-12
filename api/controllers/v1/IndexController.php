@@ -11,10 +11,10 @@ class IndexController extends RestController
 {
     /**
      * Renders the index view for the module
-     * @return array
+     * @return string
      */
     public function actionIndex()
     {
-        return ['ok' => 1];
+        return $this->render('index');
     }
 }
