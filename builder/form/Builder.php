@@ -1,17 +1,17 @@
 <?php
 // +----------------------------------------------------------------------
-// | 表格构建器
+// | 表单构建器
 // +----------------------------------------------------------------------
 // | 日期：2020/8/5
 // +----------------------------------------------------------------------
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 
-namespace app\builder\table;
+namespace app\builder\form;
 
 use app\builder\contract\BuilderInterface;
 
-class TableBuilder implements BuilderInterface
+class Builder implements BuilderInterface
 {
-    
+
 }

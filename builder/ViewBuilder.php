@@ -9,7 +9,9 @@
 
 namespace app\builder;
 
-class ViewBuilder
-{
+use yii\base\Component;
 
+class ViewBuilder extends Component
+{
+    
 }

@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 
 $config = [
-    'id' => 'basic',
+    'id' => 'yii-manager-basic',
     'name' => 'yii-manager',
     'language' => 'zh-CN',
     'sourceLanguage' => 'zh-CN',
@@ -15,8 +15,8 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
-        '@builder' => dirname(__DIR__) . '/builder',
-        '@api' => dirname(__DIR__) . '/api',
+        '@builder' => '@app/builder',
+        '@api' => '@app/api',
     ],
     'modules' => [
         // yii-manager admin
