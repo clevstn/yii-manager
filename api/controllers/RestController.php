@@ -13,11 +13,14 @@ use yii\web\Response;
 use yii\rest\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\RateLimiter;
+use app\builder\traits\Http;
 use yii\filters\ContentNegotiator;
 use yii\filters\auth\CompositeAuth;
 
 class RestController extends Controller
 {
+    use Http;
+
     /**
      * {@inheritdoc}
      */

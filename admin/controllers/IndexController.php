@@ -7,7 +7,7 @@ use app\builder\common\CommonController;
 /**
  * Default controller for the `admin` module
  */
-class DefaultController extends CommonController
+class IndexController extends CommonController
 {
     /**
      * Verbs to specify the actions.
@@ -31,7 +31,6 @@ class DefaultController extends CommonController
      */
     public function actionIndex()
     {
-        dd($this->get);
         return $this->render('index');
     }
 }
