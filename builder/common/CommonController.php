@@ -20,7 +20,7 @@ use app\builder\filters\RbacFilter;
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-abstract class CommonController extends Controller
+class CommonController extends Controller
 {
     use Http;
 
