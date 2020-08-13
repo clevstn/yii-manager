@@ -108,6 +108,7 @@ abstract class CommonController extends Controller
             return [
                 'access' => [
                     'class' => AccessControl::className(),
+                    'user' => 'adminUser',
                     'only' => [$this->action->id],
                     'rules' => [
                         [

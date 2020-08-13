@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['label' => 'Login', 'url' => ['/admin/site/login']]
                 ) : (
                     '<li>'
-                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::beginForm(['/admin/site/logout'], 'post')
                     . Html::submitButton(
                         'Logout (' . Yii::$app->user->identity->username . ')',
                         ['class' => 'btn btn-link logout']

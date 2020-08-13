@@ -2,6 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$db1 = require __DIR__ . '/db1.php';
 
 
 $config = [
@@ -43,6 +44,26 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'identityCookie' => ['name' => '_identity_front', 'httpOnly' => true],
+            'idParam' => '__user_id',
+            'returnUrlParam' => '__front_returnUrl',
+
+            // when `enableAutoLogin` is `false`
+            'authTimeoutParam' => '__front_expire',
+            'absoluteAuthTimeoutParam' => '__front_absoluteExpire',
+        ],
+        'adminUser' => [
+            'class' => 'yii\web\User',
+            'identityClass' => 'app\models\AdminUser',
+            'enableAutoLogin' => true,
+            'loginUrl' => ['admin/site/login'],
+            'identityCookie' => ['name' => '_identity_backend', 'httpOnly' => true],
+            'idParam' => '__admin_id',
+            'returnUrlParam' => '__admin_returnUrl',
+
+            // when `enableAutoLogin` is `false`
+            'authTimeoutParam' => '__admin_expire',
+            'absoluteAuthTimeoutParam' => '__admin_absoluteExpire',
         ],
         'errorHandler' => [
             'errorAction' => 'admin/error/error',
@@ -64,6 +85,7 @@ $config = [
             ],
         ],
         'db' => $db,
+        'db1' => $db1,
 
         'urlManager' => [
             'enablePrettyUrl' => true,

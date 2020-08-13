@@ -15,7 +15,7 @@ use yii\base\ActionEvent;
 use yii\web\UnauthorizedHttpException;
 
 /**
- * RBAC过滤器
+ * RBAC验证器
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -37,7 +37,7 @@ class RbacFilter extends Behavior
      */
     public function beforeAction($event)
     {
-        if (!\Yii::$app->user->can($event->action->controller->route)) {
+        if (!\Yii::$app->adminUser->can($event->action->controller->route)) {
             $event->isValid = false;
             \Yii::$app->getResponse()->getHeaders()->set('x-deny-all', 'No authorization');
 

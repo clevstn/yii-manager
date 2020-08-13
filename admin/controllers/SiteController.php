@@ -23,6 +23,23 @@ use app\builder\common\CommonController;
 class SiteController extends CommonController
 {
     /**
+     * @var array
+     */
+    public $actionVerbs = [
+        'login' => ['get', 'post'],
+    ];
+
+    /**
+     * @var array
+     */
+    public $guestActions = ['login'];
+
+    /**
+     * @var array
+     */
+    public $undetectedActions = ['login'];
+
+    /**
      * 登录
      *
      * @return string|\yii\web\Response
