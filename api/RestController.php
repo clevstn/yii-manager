@@ -7,7 +7,7 @@
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 
-namespace app\api\controllers;
+namespace app\api;
 
 use yii\web\Response;
 use yii\rest\Controller;
@@ -22,7 +22,7 @@ use yii\filters\auth\CompositeAuth;
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class RestController extends Controller
+abstract class RestController extends Controller
 {
     use Http;
 
@@ -31,6 +31,7 @@ class RestController extends Controller
      */
     public function behaviors()
     {
+        // 直接覆盖父级行为定义, 便于更改
         return [
             'contentNegotiator' => [
                 'class' => ContentNegotiator::className(),

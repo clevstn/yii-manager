@@ -7,12 +7,14 @@
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 
-namespace app\api\controllers\v2;
+namespace app\api\v1\controllers;
 
-use app\api\controllers\RestController;
+use app\api\RestController;
 
 /**
- * Default controller for the `v2` module
+ * 默认接口
+ * @author cleverstone <yang_hui_lei@163.com>
+ * @since 1.0
  */
 class IndexController extends RestController
 {
@@ -22,6 +24,8 @@ class IndexController extends RestController
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('index', [
+            'version' => $this->module->version,
+        ]);
     }
 }

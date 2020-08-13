@@ -26,11 +26,11 @@ $config = [
         ],
         // api version 1.0.0
         'v1' => [
-            'class' => \app\api\V1::class,
+            'class' => \app\api\v1\Module::class,
         ],
         // api version 2.0.0
         'v2' => [
-            'class' => \app\api\V2::class,
+            'class' => \app\api\v2\Module::class,
         ],
     ],
     'components' => [
