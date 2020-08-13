@@ -32,7 +32,7 @@ class PasswordBehavior extends AttributeBehavior
      * @see generatePasswordHash()
      * @since 1.0
      */
-    public $passwordHashCost = 27;
+    public $passwordHashCost = 4;
 
     /**
      * {@inheritdoc}
@@ -99,6 +99,7 @@ class PasswordBehavior extends AttributeBehavior
      * $model->touch('lastVisit', $password);
      * ```
      * @param string $attribute the name of the attribute to update.
+     * @param string $password 明文密码
      * @throws InvalidCallException if owner is a new record (since version 2.0.6).
      * @throws \yii\base\Exception
      */
