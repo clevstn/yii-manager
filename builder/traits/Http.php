@@ -1,6 +1,6 @@
 <?php
 // +----------------------------------------------------------------------
-// | Http常用方法封装
+// | yii-manager version 1.0.0
 // +----------------------------------------------------------------------
 // | 日期：2020/8/12
 // +----------------------------------------------------------------------
@@ -13,6 +13,8 @@ use yii\web\Request;
 use yii\web\Response;
 
 /**
+ * HTTP常用方法
+ *
  * @property array $get             Verb `get` params
  * @property array $post            Verb `post` params
  * @property boolean $isGet         Is verb `get` params

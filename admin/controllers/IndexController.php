@@ -1,11 +1,20 @@
 <?php
+// +----------------------------------------------------------------------
+// | yii-manager version 1.0.0
+// +----------------------------------------------------------------------
+// | 日期：2020/8/13
+// +----------------------------------------------------------------------
+// | 作者：cleverstone <yang_hui_lei@163.com>
+// +----------------------------------------------------------------------
 
 namespace app\admin\controllers;
 
 use app\builder\common\CommonController;
 
 /**
- * Default controller for the `admin` module
+ * 首页
+ * @author cleverstone <yang_hui_lei@163.com>
+ * @since 1.0
  */
 class IndexController extends CommonController
 {
@@ -23,7 +32,7 @@ class IndexController extends CommonController
      *
      * @var array
      */
-    public $guestActions = ['index'];
+    public $guestActions = [];
 
     /**
      * Renders the index view for the module

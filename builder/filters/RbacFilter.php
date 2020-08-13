@@ -1,6 +1,6 @@
 <?php
 // +----------------------------------------------------------------------
-// | Rbac行为过滤器
+// | yii-manager version 1.0.0
 // +----------------------------------------------------------------------
 // | 日期：2020/8/8
 // +----------------------------------------------------------------------
@@ -14,6 +14,11 @@ use yii\web\Controller;
 use yii\base\ActionEvent;
 use yii\web\UnauthorizedHttpException;
 
+/**
+ * RBAC过滤器
+ * @author cleverstone <yang_hui_lei@163.com>
+ * @since 1.0
+ */
 class RbacFilter extends Behavior
 {
     /**

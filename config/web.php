@@ -23,11 +23,11 @@ $config = [
         'admin' => [
             'class' => \app\admin\Module::class,
         ],
-        // api version 1
+        // api version 1.0.0
         'v1' => [
             'class' => \app\api\V1::class,
         ],
-        // api version 2
+        // api version 2.0.0
         'v2' => [
             'class' => \app\api\V2::class,
         ],

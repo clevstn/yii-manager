@@ -1,6 +1,6 @@
 <?php
 // +----------------------------------------------------------------------
-// | 接口继承类
+// | yii-manager version 1.0.0
 // +----------------------------------------------------------------------
 // | 日期：2020/8/5
 // +----------------------------------------------------------------------
@@ -17,6 +17,11 @@ use app\builder\traits\Http;
 use yii\filters\ContentNegotiator;
 use yii\filters\auth\CompositeAuth;
 
+/**
+ * 接口继承类
+ * @author cleverstone <yang_hui_lei@163.com>
+ * @since 1.0
+ */
 class RestController extends Controller
 {
     use Http;
