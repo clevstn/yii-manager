@@ -12,7 +12,7 @@
  */
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii_manager2',
+    'dsn' => 'mysql:host=localhost;dbname=yii_manager1',
     'username' => 'root',
     'password' => 'root',
     'charset' => 'utf8',
