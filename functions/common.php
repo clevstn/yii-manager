@@ -34,3 +34,143 @@ if (!function_exists('export_str')) {
         return \yii\helpers\VarDumper::export($mixed);
     }
 }
+
+if (!function_exists('encrypt_password')) {
+    /**
+     * 密码加密
+     * @param string $password 明文密码
+     * @return string
+     * @throws \yii\base\Exception
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function encrypt_password($password)
+    {
+        /**
+         * @var int Default cost used for password hashing.
+         * Allowed value is between 4 and 31.
+         * @see generatePasswordHash()
+         * @since 1.0
+         */
+        $passwordHashCost = 4;
+        return \Yii::$app->security->generatePasswordHash($password, $passwordHashCost);
+    }
+}
+
+if (!function_exists('check_password')) {
+
+    /**
+     * 密码校验
+     * @param string $password 明文密码
+     * @param string $hash 密码hash
+     * @return boolean
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function check_password($password, $hash)
+    {
+        return \Yii::$app->security->validatePassword($password, $hash);
+    }
+}
+
+if (!function_exists('random_string')) {
+    /**
+     * 生成指定长度的字符串
+     * @param boolean $trimSpecial 是否去除特殊字符, 如: -_
+     * @param int $len 字符串长度
+     * @return string
+     * @throws \yii\base\Exception
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function random_string($trimSpecial = false, $len = 32)
+    {
+        if ($len < 1 || $len > 255) {
+            $len = 32;
+        }
+
+        $randomStr = \Yii::$app->security->generateRandomString($len);
+        if ($trimSpecial === true) {
+            return strtr($randomStr, '-_', '');
+        }
+
+        return $randomStr;
+    }
+}
+
+if (!function_exists('random_number')) {
+    /**
+     * 生成指定长度的数字串
+     * @param int $len 数字串长度
+     * @return int
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function random_number($len = 6)
+    {
+        $minLength = 1;
+        $defaultLength = 6;
+        // 最大长度不能超出10位数,否则PHP引擎会自动转换为浮点型
+        $maxLength = 10;
+        if ($len < $minLength || $len > $maxLength) {
+            $len = $defaultLength;
+        }
+
+        if ($len <= 1) {
+            $min = 0;
+        } else {
+            $min = pow(10, $len - 1);
+        }
+
+        if ($len >= 10) {
+            $max = 2147483647;
+        } else {
+            $max = pow(10, $len) - 1;
+        }
+
+        return mt_rand($min, $max);
+    }
+}
+
+if (!function_exists('order_number')) {
+    /**
+     * 生成指定前缀的订单号
+     * @param string $prefix 订单前缀
+     * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function order_number($prefix = '')
+    {
+        $prefix = (string)$prefix;
+        return $prefix . date('YmdHis') . substr(microtime(), 2, 4) . random_number(5);
+    }
+}
+
+if (!function_exists('now')) {
+
+    /**
+     * 获取当前时间
+     * @param bool|string $toString 是否格式化或格式化正则
+     * @param string $timeZone 时区
+     * @return false|int|string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     *
+     */
+    function now($toString = true, $timeZone = '')
+    {
+        if (!empty($timeZone)) {
+            date_default_timezone_set($timeZone);
+        }
+
+        if ($toString === true) {
+            return date('Y-m-d H:i:s');
+        } elseif (is_string($toString)) {
+            return date($toString);
+        } else {
+            return time();
+        }
+    }
+}
+

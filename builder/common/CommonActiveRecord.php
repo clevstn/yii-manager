@@ -9,8 +9,8 @@
 
 namespace app\builder\common;
 
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use app\behaviors\DatetimeBehavior;
 
 /**
  * 模型继承类
@@ -28,15 +28,13 @@ class CommonActiveRecord extends ActiveRecord
     public function behaviors()
     {
         return [
-            // 时间戳处理器
+            // 日期处理器
             'timestampBehavior' => [
-                'class' => TimestampBehavior::className(),
+                'class' => DatetimeBehavior::className(),
                 'attributes' => [
                     CommonActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
                     CommonActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
-                // if you're using datetime instead of UNIX timestamp:
-                // 'value' => new Expression('NOW()'),
             ],
         ];
     }

@@ -11,7 +11,6 @@ namespace app\models;
 
 use yii\web\IdentityInterface;
 use app\behaviors\PasswordBehavior;
-use yii\behaviors\TimestampBehavior;
 use app\builder\common\CommonActiveRecord;
 
 /**

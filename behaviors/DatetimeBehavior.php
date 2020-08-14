@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | yii-manager version 1.0.0
 // +----------------------------------------------------------------------
-// | 日期：2020/8/13
+// | 日期：2020/8/14
 // +----------------------------------------------------------------------
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
@@ -14,18 +14,22 @@ use yii\base\InvalidCallException;
 use yii\behaviors\AttributeBehavior;
 
 /**
- * 密码处理器
+ * 日期处理器
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class PasswordBehavior extends AttributeBehavior
+class DatetimeBehavior extends AttributeBehavior
 {
     /**
      * @var string the attribute that will receive timestamp value
      * Set this property to false if you do not want to record the creation time.
      */
-    public $passwordAttribute = 'password';
-
+    public $createdAtAttribute = 'created_at';
+    /**
+     * @var string the attribute that will receive timestamp value.
+     * Set this property to false if you do not want to record the update time.
+     */
+    public $updatedAtAttribute = 'updated_at';
     /**
      * {@inheritdoc}
      *
@@ -44,8 +48,8 @@ class PasswordBehavior extends AttributeBehavior
 
         if (empty($this->attributes)) {
             $this->attributes = [
-                BaseActiveRecord::EVENT_BEFORE_INSERT => $this->passwordAttribute,
-                BaseActiveRecord::EVENT_BEFORE_UPDATE => $this->passwordAttribute,
+                BaseActiveRecord::EVENT_BEFORE_INSERT => [$this->createdAtAttribute, $this->updatedAtAttribute],
+                BaseActiveRecord::EVENT_BEFORE_UPDATE => $this->updatedAtAttribute,
             ];
         }
     }
@@ -59,13 +63,7 @@ class PasswordBehavior extends AttributeBehavior
     protected function getValue($event)
     {
         if ($this->value === null) {
-            $attribute = $this->passwordAttribute;
-            $value = $this->owner->$attribute;
-            if (empty($value)) {
-                return '';
-            }
-
-            return encrypt_password($value);
+            return date('Y-m-d H:i:s', time());
         }
 
         return parent::getValue($event);
@@ -75,21 +73,18 @@ class PasswordBehavior extends AttributeBehavior
      * Updates a timestamp attribute to the current timestamp.
      *
      * ```php
-     * $model->touch('lastVisit', $password);
+     * $model->touch('lastVisit');
      * ```
      * @param string $attribute the name of the attribute to update.
-     * @param string $password 明文密码
      * @throws InvalidCallException if owner is a new record (since version 2.0.6).
-     * @throws \yii\base\Exception
      */
-    public function touch($attribute, $password)
+    public function touch($attribute)
     {
         /* @var $owner BaseActiveRecord */
         $owner = $this->owner;
         if ($owner->getIsNewRecord()) {
-            throw new InvalidCallException('Updating the password is not possible on a new record.');
+            throw new InvalidCallException('Updating the timestamp is not possible on a new record.');
         }
-
-        $owner->updateAttributes(array_fill_keys((array)$attribute, encrypt_password($password)));
+        $owner->updateAttributes(array_fill_keys((array) $attribute, $this->getValue(null)));
     }
 }
