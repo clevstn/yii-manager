@@ -45,24 +45,17 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      */
     public function behaviors()
     {
-        return [
-            [
-                'class' => PasswordBehavior::className(),
-                'attributes' => [
-                    CommonActiveRecord::EVENT_BEFORE_INSERT => 'password',
-                    CommonActiveRecord::EVENT_BEFORE_UPDATE => 'password',
-                ],
-            ],
-            [
-                'class' => TimestampBehavior::className(),
-                'attributes' => [
-                    CommonActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    CommonActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-                ],
-                // if you're using datetime instead of UNIX timestamp:
-                // 'value' => new Expression('NOW()'),
+        $parentBehaviors = parent::behaviors();
+        // 密码处理器
+        $parentBehaviors['passwordBehavior'] = [
+            'class' => PasswordBehavior::className(),
+            'attributes' => [
+                CommonActiveRecord::EVENT_BEFORE_INSERT => 'password',
+                CommonActiveRecord::EVENT_BEFORE_UPDATE => 'password',
             ],
         ];
+
+        return $parentBehaviors;
     }
 
     /**
