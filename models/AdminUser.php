@@ -7,7 +7,7 @@
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 
-namespace app\admin\models;
+namespace app\models;
 
 use yii\web\IdentityInterface;
 use app\behaviors\PasswordBehavior;
