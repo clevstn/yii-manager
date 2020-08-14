@@ -9,6 +9,8 @@
 
 namespace app\admin;
 
+use Yii;
+
 /**
  * 后台管理模块
  * @author cleverstone <yang_hui_lei@163.com>
@@ -36,5 +38,16 @@ class Module extends \yii\base\Module
     public function init()
     {
         parent::init();
+        $this->setErrorHandler();
+    }
+
+    /**
+     * 设置当前模块的错误处理动作
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setErrorHandler()
+    {
+        Yii::$app->errorHandler->errorAction = 'admin/error/error';
     }
 }

@@ -66,7 +66,7 @@ $config = [
             'absoluteAuthTimeoutParam' => '__admin_absoluteExpire',
         ],
         'errorHandler' => [
-            'errorAction' => 'admin/error/error',
+            'errorAction' => 'error/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
