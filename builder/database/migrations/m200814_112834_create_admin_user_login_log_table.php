@@ -22,7 +22,7 @@ class m200814_112834_create_admin_user_login_log_table extends Migration
         $this->createTable(self::TABLE_NAME, [
             'id' => $this->primaryKey(),
             'admin_user_id' => $this->integer()->defaultValue(0)->notNull()->comment('管理员ID'),
-            'safe_way' => $this->boolean()->defaultValue(0)->notNull()->comment('安全认证, 0:无 1:邮箱认证 2:短信认证 3:MFA认证'),
+            'identify_type' => $this->boolean()->defaultValue(0)->notNull()->comment('认证类型, 0:基本认证 1:邮箱认证 2:短信认证 3:MFA认证'),
             'client_info' => $this->text()->comment('客户端信息'),
             'attempt_info' => $this->text()->comment('尝试信息'),
             'attempt_status' => $this->boolean()->defaultValue(0)->notNull()->comment('尝试状态, 0:失败 1:成功'),
