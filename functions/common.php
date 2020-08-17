@@ -174,3 +174,37 @@ if (!function_exists('now')) {
     }
 }
 
+if (!function_exists('custom_config')) {
+    /**
+     * 获取用户自定义配置
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function custom_config()
+    {
+        $files = \yii\helpers\FileHelper::findFiles(\Yii::getAlias('@builder/database/config'), [
+            'only' => ['*.php'],
+        ]);
+
+        $config = [];
+        $temp = [];
+        if (!empty($files)) {
+            foreach ($files as $file) {
+                $temp = array_merge((array)include $file, $temp);
+            }
+
+            foreach ($temp as $item) {
+                if (is_array($item)) {
+                    array_push($config, $item);
+                }
+            }
+        }
+
+        return $config;
+    }
+}
+
+// 包含用户自定义函数文件
+include __DIR__ . '/function.php';
+
