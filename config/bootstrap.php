@@ -9,7 +9,7 @@
 
 /**
  * This is used for yii-manager parameters.
- * Configure the parameters to params.php for users.
+ * Please the users config the parameters to `params.php`.
  */
 
 return [
