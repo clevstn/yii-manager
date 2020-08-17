@@ -20,8 +20,22 @@ class m200814_133439_create_system_config_table extends Migration
         }
 
         $this->createTable(self::TABLE_NAME, [
-            'id' => $this->primaryKey(),
+            'code' => $this->string(50)->notNull()->comment('代码'),
+            'name' => $this->string(50)->notNull()->defaultValue('')->comment('名称'),
+            'desc' => $this->string()->notNull()->defaultValue('')->comment('描述'),
+            'type' => $this->boolean()->notNull()->defaultValue(1)->comment('类型, 1:分组 2:普通配置'),
+            'group' => $this->string(50)->notNull()->defaultValue('')->comment('所属分组'),
+            'created_at' => $this->dateTime()->notNull()->comment('创建时间'),
         ], $tableOptions);
+
+        // 主键
+        $this->addPrimaryKey('code', self::TABLE_NAME, ['code']);
+        // 类型索引
+        $this->createIndex('index_type', self::TABLE_NAME, ['type']);
+        // 配置项
+        $this->insert(self::TABLE_NAME, [
+
+        ]);
     }
 
     /**

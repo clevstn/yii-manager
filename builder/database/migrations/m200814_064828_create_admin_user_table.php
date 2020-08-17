@@ -44,14 +44,10 @@ class m200814_064828_create_admin_user_table extends Migration
             'updated_at' => $this->dateTime()->comment('更新时间'),
         ], $tableOptions);
 
-        // 是否开启安全认证索引
-        $this->createIndex('index_safe_auth', self::TABLE_NAME, ['safe_auth']);
-        // 状态索引
-        $this->createIndex('index_status', self::TABLE_NAME, ['status']);
-        // 访问令牌索引
-        $this->createIndex('index_access_token', self::TABLE_NAME, ['access_token']);
         // 管理组索引
         $this->createIndex('index_group', self::TABLE_NAME, ['group']);
+        // 父ID索引
+        $this->createIndex('index_pid', self::TABLE_NAME, ['pid']);
         // 注册时间索引
         $this->createIndex('index_created_at', self::TABLE_NAME, ['created_at']);
 
