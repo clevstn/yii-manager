@@ -12,7 +12,7 @@
  * 例如:
  * return [
  *    ['配置项代码', '配置值', '配置名称', '配置描述', '表单提示', '类型, 1:分组 2:配置', '所属分组', '创建时间'],
- * ]
+ * ];
  *
  * @see builder/database/migrations/m200814_133439_create_system_config_table.php
  */
