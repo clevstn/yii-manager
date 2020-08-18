@@ -4,3 +4,32 @@ html, body {
     margin: 0;
 }
 
+.app {
+    height: 100%;
+    position: relative;
+}
+
+.aside-menu {
+    width: 240px;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    padding-top: 50px;
+    padding-bottom: 30px;
+    z-index: 1030;
+}
+
+.content {
+    padding-top: 50px;
+    padding-left: 240px;
+    padding-bottom: 30px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 30px;
+    z-index: 1050;
+}

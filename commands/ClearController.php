@@ -7,6 +7,7 @@
 
 namespace app\commands;
 
+use yii\helpers\Console;
 use yii\console\ExitCode;
 use yii\helpers\FileHelper;
 use yii\console\Controller;
@@ -19,23 +20,30 @@ use yii\console\Controller;
 class ClearController extends Controller
 {
     /**
-     * Clear the published resource bundles
-     *
+     * @var int
+     * @since 1.0
+     */
+    public $success = ExitCode::OK;
+
+    /**
+     * Deletes a subdirectory of the special directory
+     * default clear the published resource bundles
+     * @param string $d 指定目录
      * @return int
      * @throws \yii\base\ErrorException
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function actionAsset()
+    public function actionAsset($d = '@app/web/assets')
     {
-        $subDirs = FileHelper::findDirectories(\Yii::getAlias('@app/web/assets'), ['recursive' => false]);
+        $subDirs = FileHelper::findDirectories(\Yii::getAlias($d), ['recursive' => false]);
         if (!empty($subDirs)) {
             foreach ($subDirs as $dir) {
                 FileHelper::removeDirectory($dir);
             }
         }
 
-        echo ExitCode::getReason(0);
-        return ExitCode::OK;
+        $this->stdout(ExitCode::getReason($this->success), Console::FG_GREEN);
+        return $this->success;
     }
 }

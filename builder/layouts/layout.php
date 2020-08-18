@@ -38,14 +38,14 @@ MainAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div class="wrap">
+<div class="app">
     <!--头部导航-->
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->params['adminTitle'],
         'brandUrl' => Yii::$app->params['adminUrl'],
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse navbar-fixed-top navbar-custom',
         ],
     ]);
     echo Nav::widget([
@@ -67,45 +67,45 @@ MainAsset::register($this);
     ]);
     NavBar::end();
     ?>
-
     <!--左侧菜单-->
-    <?=
-    \yii\widgets\Menu::widget([
-        'options' => ['class' => 'aside-menu'],
-        'items' => [
-            // Important: you need to specify url as 'controller/action',
-            // not just as 'controller' even if default action is used.
-            ['label' => 'Home', 'url' => ['site/index'], 'options' => ['class' => '']],
-            // 'Products' menu item will be selected as long as the route is 'product/index'
-            ['label' => 'Products', 'url' => ['product/index'], 'items' => [
-                ['label' => 'New Arrivals', 'url' => ['product/index', 'tag' => 'new']],
-                ['label' => 'Most Popular', 'url' => ['product/index', 'tag' => 'popular']],
-            ], 'options' => [
-                'data-toggle' => 'collapse',
-            ]],
-            ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
-        ],
-    ]);
-    ?>
-
-    <div class="container">
+    <aside class="aside-menu">
+        <?=
+        \yii\widgets\Menu::widget([
+            'options' => ['class' => ''],
+            'items' => [
+                // Important: you need to specify url as 'controller/action',
+                // not just as 'controller' even if default action is used.
+                ['label' => 'Home', 'url' => ['site/index'], 'options' => ['class' => '']],
+                // 'Products' menu item will be selected as long as the route is 'product/index'
+                ['label' => 'Products', 'url' => ['product/index'], 'items' => [
+                    ['label' => 'New Arrivals', 'url' => ['product/index', 'tag' => 'new']],
+                    ['label' => 'Most Popular', 'url' => ['product/index', 'tag' => 'popular']],
+                ], 'options' => [
+                    'data-toggle' => 'collapse',
+                ]],
+                ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+            ],
+        ]);
+        ?>
+    </aside>
+    <main class="content">
         <!--面包屑导航-->
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
 
-        <!--内容-->
-        <?= $content ?>
-    </div>
+        <div class="container-fluid">
+            <!--内容-->
+            <?= $content ?>
+        </div>
+    </main>
+    <!--尾部-->
+    <footer class="footer">
+        <div class="container">
+            <p class="pull-left">&copy; <?= Yii::$app->name ?> <?= date('Y') ?></p>
+        </div>
+    </footer>
 </div>
-
-<!--尾部-->
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Yii::$app->name ?> <?= date('Y') ?></p>
-    </div>
-</footer>
-
 <?php $this->endBody() ?>
 </body>
 </html>
