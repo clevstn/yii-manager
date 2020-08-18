@@ -2,29 +2,25 @@
 // +----------------------------------------------------------------------
 // | yii-manager version 1.0.0
 // +----------------------------------------------------------------------
-// | 日期：2020/8/5
+// | 日期：2020/8/18
 // +----------------------------------------------------------------------
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 
 namespace app\builder\assets;
 
-use yii\web\YiiAsset;
-use yii\bootstrap\BootstrapPluginAsset;
+use yii\web\AssetBundle;
 
 /**
- * 公共依赖包
+ * Builder资源包继承类
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class CommonAsset extends BaseAsset
+abstract class BaseAsset extends AssetBundle
 {
     /**
-     * 注册依赖包
-     * @var array
+     * asset source path
+     * @var string
      */
-    public $depends = [
-        BootstrapPluginAsset::class,    // bootstrap3
-        YiiAsset::class,                // yii2 js
-    ];
+    public $sourcePath = '@builder/static';
 }
