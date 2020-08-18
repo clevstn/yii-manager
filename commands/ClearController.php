@@ -20,7 +20,9 @@ class ClearController extends Controller
 {
     /**
      * Clear the published resource bundles
+     *
      * @return int
+     * @throws \yii\base\ErrorException
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -33,6 +35,7 @@ class ClearController extends Controller
             }
         }
 
+        echo ExitCode::getReason(0);
         return ExitCode::OK;
     }
 }
