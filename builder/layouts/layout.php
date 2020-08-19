@@ -42,10 +42,11 @@ MainAsset::register($this);
     <!--头部导航-->
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->params['adminTitle'],
-        'brandUrl' => Yii::$app->params['adminUrl'],
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top navbar-custom',
+            'class' => 'navbar-fixed-top navbar-custom',
+        ],
+        'innerContainerOptions' => [
+                'class' => 'inner-container',
         ],
     ]);
     echo Nav::widget([
@@ -69,6 +70,11 @@ MainAsset::register($this);
     ?>
     <!--左侧菜单-->
     <aside class="aside-menu">
+        <div class="brand-wrap">
+            <a class="brand-label" href="<?= Yii::$app->params['adminUrl'] ?>">
+                <?= Yii::$app->params['adminTitle'] ?>
+            </a>
+        </div>
         <?=
         \yii\widgets\Menu::widget([
             'options' => ['class' => ''],
@@ -101,8 +107,8 @@ MainAsset::register($this);
     </main>
     <!--尾部-->
     <footer class="footer">
-        <div class="container">
-            <p class="pull-left">&copy; <?= Yii::$app->name ?> <?= date('Y') ?></p>
+        <div class="inner-container">
+            <p class="pull-left copyright">&copy; <?= Yii::$app->name ?> <?= date('Y') ?></p>
         </div>
     </footer>
 </div>
