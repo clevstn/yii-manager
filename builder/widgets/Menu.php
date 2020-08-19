@@ -12,7 +12,6 @@ namespace app\builder\widgets;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use function Webmozart\Assert\Tests\StaticAnalysis\false;
 
 /**
  * 菜单组件
