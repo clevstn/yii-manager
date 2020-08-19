@@ -12,6 +12,7 @@ namespace app\builder\widgets;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
+use function Webmozart\Assert\Tests\StaticAnalysis\false;
 
 /**
  * 菜单组件
@@ -32,7 +33,7 @@ class Menu extends \yii\widgets\Menu
      * @var string
      * @since 1.0
      */
-    public $submenuTemplate = "\n<ul id=\"{id}\" class=\"ym-submenu-wrap collapse\">\n{items}\n</ul>\n";
+    public $submenuTemplate = "\n<ul id=\"{id}\" class=\"ym-submenu-wrap {collapse}\">\n{items}\n</ul>\n";
 
     /**
      * 重写选中样式
@@ -84,11 +85,19 @@ class Menu extends \yii\widgets\Menu
 
             $menu = $this->renderItem($item);
             if (!empty($item['items'])) {
+                $activeMap = ArrayHelper::getColumn($item['items'], 'active');
+                $activeSubmenu = false;
+                if (!empty($activeMap) && array_search(true, $activeMap) !== false) {
+                    $activeSubmenu = true;
+                }
+
                 $item['items']['targetId'] = $item['targetId'];
                 $submenuTemplate = ArrayHelper::getValue($item, 'submenuTemplate', $this->submenuTemplate);
+                $collapseClass = $activeSubmenu === true ? 'collapse in' : 'collapse';
                 $menu .= strtr($submenuTemplate, [
                     '{items}' => $this->renderItems($item['items']),
                     '{id}' => $item['targetId'],
+                    '{collapse}' => $collapseClass
                 ]);
             }
             $lines[] = Html::tag($tag, $menu, $options);
