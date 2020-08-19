@@ -77,19 +77,52 @@ MainAsset::register($this);
             </a>
         </div>
         <?=
-        \yii\widgets\Menu::widget([
-            'options' => ['class' => 'menu-wrap'],
+        \app\builder\widgets\Menu::widget([
             'items' => [
                 // Important: you need to specify url as 'controller/action',
                 // not just as 'controller' even if default action is used.
-                ['label' => 'Home', 'url' => ['site/index'], 'options' => ['class' => 'menu-item']],
-                // 'Products' menu item will be selected as long as the route is 'product/index'
-                ['label' => 'Products', 'url' => 'javascript:void(0);', 'items' => [
-                    ['label' => 'New Arrivals', 'url' => ['product/index', 'tag' => 'new']],
-                    ['label' => 'Most Popular', 'url' => ['product/index', 'tag' => 'popular']],
-                ], 'options' => ['class' => 'menu-item']
+                [
+                    'label' => 'Test1',
+                    'url' => ['site/test1'],
+                    'options' => [
+                        'class' => 'ym-menu-item',
+                    ],
                 ],
-                ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->adminUser->isGuest, 'options' => ['class' => 'menu-item']],
+                // 'Products' menu item will be selected as long as the route is 'product/index'
+                [
+                    'label' => 'Test',
+                    'url' => 'javascript:void(0);',
+                    'template' => '<a class="ym-submenu-module" data-toggle="collapse" href="{id}">{label}</a>',
+                    'options' => [
+                        'class' => 'ym-submenu',
+                    ],
+                    'items' => [
+                        [
+                            'label' => 'New Arrivals',
+                            'url' => ['site/test2', 'tag' => 'new'],
+                            'template' => '<a class="ym-menu-subitem-link" href="{url}">{label}</a>',
+                            'options' => [
+                                'class' => 'ym-menu-item',
+                            ],
+                        ],
+                        [
+                            'label' => 'Most Popular',
+                            'url' => ['site/test3', 'tag' => 'popular'],
+                            'template' => '<a class="ym-menu-subitem-link" href="{url}">{label}</a>',
+                            'options' => [
+                                'class' => 'ym-menu-item',
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'label' => 'Login',
+                    'url' => ['site/login'],
+                    'visible' => Yii::$app->adminUser->isGuest,
+                    'options' => [
+                        'class' => 'ym-menu-item',
+                    ]
+                ],
             ],
         ]);
         ?>
