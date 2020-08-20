@@ -43,12 +43,8 @@ MainAsset::register($this);
     <!--头部导航-->
     <?php
     NavBar::begin([
-        'options' => [
-            'class' => 'navbar-default navbar-fixed-top ym-navbar-custom',
-        ],
-        'innerContainerOptions' => [
-            'class' => 'ym-inner-container',
-        ],
+        'options' => ['class' => 'navbar-default navbar-fixed-top ym-navbar-custom'],
+        'innerContainerOptions' => ['class' => 'ym-inner-container'],
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
@@ -82,46 +78,27 @@ MainAsset::register($this);
                 // Important: you need to specify url as 'controller/action',
                 // not just as 'controller' even if default action is used.
                 [
-                    'label' => 'Test1',
+                    'label' => '仪表盘',
                     'url' => ['site/test1'],
-                    'options' => [
-                        'class' => 'ym-menu-item',
-                    ],
                 ],
                 // 'Products' menu item will be selected as long as the route is 'product/index'
                 [
-                    'label' => 'Test',
-                    'url' => 'javascript:void(0);',
-                    'template' => '<a class="ym-submenu-module" data-toggle="collapse" href="{id}">{label}</a>',
-                    'options' => [
-                        'class' => 'ym-submenu',
-                    ],
+                    'label' => '会员管理',
                     'items' => [
                         [
-                            'label' => 'New Arrivals',
+                            'label' => '会员列表',
                             'url' => ['site/test2', 'tag' => 'new'],
-                            'template' => '<a class="ym-menu-subitem-link" href="{url}">{label}</a>',
-                            'options' => [
-                                'class' => 'ym-menu-item',
-                            ],
                         ],
                         [
-                            'label' => 'Most Popular',
+                            'label' => '账户管理',
                             'url' => ['site/test3', 'tag' => 'popular'],
-                            'template' => '<a class="ym-menu-subitem-link" href="{url}">{label}</a>',
-                            'options' => [
-                                'class' => 'ym-menu-item',
-                            ],
                         ],
                     ],
                 ],
                 [
-                    'label' => 'Login',
+                    'label' => '系统设置',
                     'url' => ['site/login'],
                     'visible' => Yii::$app->adminUser->isGuest,
-                    'options' => [
-                        'class' => 'ym-menu-item',
-                    ]
                 ],
             ],
         ]);

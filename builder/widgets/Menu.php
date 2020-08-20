@@ -21,7 +21,33 @@ use yii\helpers\ArrayHelper;
 class Menu extends \yii\widgets\Menu
 {
     /**
-     * 重写link模板
+     * 菜单id
+     * @var string
+     * @since 1.0
+     */
+    public $menuId = 'ym';
+
+    /**
+     * @var string 菜单模块class
+     * @since 1.0
+     */
+    public $menuModuleClass = 'ym-submenu';
+
+    /**
+     * 菜单模块link模板
+     * @var string
+     * @since 1.0
+     */
+    public $menuModuleLinkTemplate = '<a class="ym-submenu-module" data-toggle="collapse" href="{id}">{label}</a>';
+
+    /**
+     * @var string 菜单项class
+     * @since 1.0
+     */
+    public $menuItemClass = 'ym-menu-item';
+
+    /**
+     * 菜单项link模板
      * @var string
      * @since 1.0
      */
@@ -64,7 +90,7 @@ class Menu extends \yii\widgets\Menu
         $lines = [];
         $targetId = ArrayHelper::remove($items, 'targetId');
         foreach ($items as $i => $item) {
-            $item['targetId'] = $targetId ? "{$targetId}_{$i}" : "ym_{$i}";
+            $item['targetId'] = $targetId ? "{$targetId}_{$i}" : "{$this->menuId}_{$i}";
             $options = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
             $tag = ArrayHelper::remove($options, 'tag', 'li');
             $class = [];
@@ -84,6 +110,7 @@ class Menu extends \yii\widgets\Menu
 
             $menu = $this->renderItem($item);
             if (!empty($item['items'])) {
+                Html::addCssClass($options, [$this->menuModuleClass]);
                 $activeMap = ArrayHelper::getColumn($item['items'], 'active');
                 $activeSubmenu = false;
                 if (!empty($activeMap) && array_search(true, $activeMap) !== false) {
@@ -98,7 +125,10 @@ class Menu extends \yii\widgets\Menu
                     '{id}' => $item['targetId'],
                     '{collapse}' => $collapseClass
                 ]);
+            } else {
+                Html::addCssClass($options, [$this->menuItemClass]);
             }
+
             $lines[] = Html::tag($tag, $menu, $options);
         }
 
@@ -115,11 +145,12 @@ class Menu extends \yii\widgets\Menu
      */
     protected function renderItem($item)
     {
-        if (isset($item['url'])) {
-            $template = ArrayHelper::getValue($item, 'template', $this->linkTemplate);
+        if (isset($item['url']) || !empty($item['items'])) {
+            $linkTemplate = !empty($item['items']) ? $this->menuModuleLinkTemplate : $this->linkTemplate;
+            $template = ArrayHelper::getValue($item, 'template', $linkTemplate);
 
             return strtr($template, [
-                '{url}' => Html::encode(Url::to($item['url'])),
+                '{url}' => isset($item['url']) ? Html::encode(Url::to($item['url'])) : '',
                 '{label}' => $item['label'],
                 '{id}' => "#{$item['targetId']}",
             ]);

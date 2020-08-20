@@ -205,6 +205,40 @@ if (!function_exists('custom_config')) {
     }
 }
 
+if (!function_exists('xss_filter')) {
+
+    /**
+     * Formats the value as HTML text.
+     * The value will be purified using [[HtmlPurifier]] to avoid XSS attacks.
+     * @param string $html html文本
+     * @param null $config 配置项
+     * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function xss_filter($html, $config = null)
+    {
+        return \yii\helpers\HtmlPurifier::process($html, $config);
+    }
+}
+
+if (!function_exists('html_escape')) {
+    /**
+     * Encodes special characters into HTML entities.
+     * The [[\yii\base\Application::charset|application charset]] will be used for encoding.
+     * @param string $content the content to be encoded
+     * @param bool $doubleEncode whether to encode HTML entities in `$content`. If false,
+     * HTML entities in `$content` will not be further encoded.
+     * @return string the encoded content
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function html_escape($content, $doubleEncode = false)
+    {
+        return \yii\helpers\Html::encode($content, $doubleEncode);
+    }
+}
+
 // 包含用户自定义函数文件
 include __DIR__ . '/function.php';
 

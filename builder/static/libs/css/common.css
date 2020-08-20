@@ -63,6 +63,7 @@ ul,ol,dl {
 
 .ym-menu-wrap {
     color: #f3f3f3;
+    font-size: 14px;
 }
 
 .ym-menu-wrap .ym-active {
@@ -79,13 +80,12 @@ ul,ol,dl {
 }
 
 .ym-submenu-wrap {
-    background-color: rgba(0, 0, 0, .075);
+    background-color: rgba(0, 0, 0, .25);
     color: #eeeeee;
 }
 
 .ym-menu-wrap .ym-menu-item,
 .ym-menu-wrap .ym-menu-item-link,
-.ym-menu-wrap .ym-menu-subitem-link,
 .ym-menu-wrap .ym-submenu-module {
     display: block;
     width: 100%;
@@ -98,7 +98,7 @@ ul,ol,dl {
     padding-left: 15px;
 }
 
-.ym-menu-wrap .ym-menu-subitem-link {
+.ym-submenu-wrap .ym-menu-item-link {
     padding-left: 30px;
 }
 

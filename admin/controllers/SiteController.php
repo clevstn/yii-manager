@@ -14,8 +14,7 @@ use yii\web\Response;
 use app\builder\common\CommonController;
 
 /**
- *
- * 门面
+ * 站点相关
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
