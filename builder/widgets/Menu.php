@@ -68,6 +68,12 @@ class Menu extends \yii\widgets\Menu
     public $activeCssClass = 'ym-active';
 
     /**
+     * @var bool whether to activate parent menu items when one of the corresponding child menu items is active.
+     * The activated parent menu items will also have its CSS classes appended with [[activeCssClass]].
+     */
+    public $activateParents = true;
+
+    /**
      * 重写根节点选项
      * @var array
      * @since 1.0

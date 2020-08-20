@@ -79,25 +79,30 @@ MainAsset::register($this);
                 // not just as 'controller' even if default action is used.
                 [
                     'label' => '仪表盘',
-                    'url' => ['site/test1'],
+                    'url' => ['/admin/index/index'],
                 ],
                 // 'Products' menu item will be selected as long as the route is 'product/index'
                 [
                     'label' => '会员管理',
+                    'url' => '',
                     'items' => [
                         [
                             'label' => '会员列表',
-                            'url' => ['site/test2', 'tag' => 'new'],
+                            'url' => ['/admin/site/test1', 'tag' => 'new'],
                         ],
                         [
                             'label' => '账户管理',
-                            'url' => ['site/test3', 'tag' => 'popular'],
+                            'url' => ['/admin/site/test2', 'tag' => 'popular'],
+                        ],
+                        [
+                            'label' => '银行卡',
+                            'url' => ['/admin/site/test3', 'tag' => 'popular'],
                         ],
                     ],
                 ],
                 [
                     'label' => '系统设置',
-                    'url' => ['site/login'],
+                    'url' => ['/admin/site/login'],
                     'visible' => Yii::$app->adminUser->isGuest,
                 ],
             ],

@@ -6,7 +6,7 @@ html, body {
     background-color: #f5f5f5;
 }
 
-ul,ol,dl {
+ul, ol, dl {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -40,11 +40,13 @@ ul,ol,dl {
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    display: none;
 }
 
 .ym-aside-menu > .ym-brand-wrap {
     height: 50px;
     background-color: rgba(0, 0, 0, .15);
+    display: none;
 }
 
 .ym-aside-menu > .ym-brand-wrap .ym-brand-label {
@@ -68,6 +70,28 @@ ul,ol,dl {
 
 .ym-menu-wrap .ym-active {
     background-color: #337ab7;
+}
+
+.ym-active.ym-submenu {
+    position: relative;
+    background-color: inherit;
+}
+
+.ym-active.ym-submenu:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    bottom: 50%;
+    width: 2px;
+    background-color: #337ab7;
+    transition: all .3s linear;
+}
+
+.ym-active.ym-submenu:hover:before,
+.ym-active.ym-submenu:active:before {
+    top: 0;
+    bottom: 0;
 }
 
 .ym-menu-wrap a {
@@ -131,6 +155,11 @@ ul,ol,dl {
 
     .ym-aside-menu {
         width: 240px;
+        display: block;
+    }
+
+    .ym-aside-menu > .ym-brand-wrap {
+        display: block;
     }
 
     .ym-content {

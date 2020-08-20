@@ -32,7 +32,9 @@ class IndexController extends CommonController
      *
      * @var array
      */
-    public $guestActions = [];
+    public $guestActions = [
+        'index',
+    ];
 
     /**
      * Renders the index view for the module
