@@ -72,7 +72,7 @@ MainAsset::register($this);
     NavBar::end();
     ?>
     <!--左侧菜单-->
-    <aside class="ym-aside-menu">
+    <aside class="ym-aside-menu" id="ym-sidebar">
         <div class="ym-brand-wrap">
             <a class="ym-brand-label" href="<?= Yii::$app->params['adminUrl'] ?>">
                 <?= Yii::$app->params['adminTitle'] ?>

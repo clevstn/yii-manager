@@ -34,9 +34,9 @@ class NavbarHelper
         $screenReader = "<span class=\"sr-only\">{$context->screenReaderToggleText}</span>";
 
         return Html::button("{$screenReader}\n{$bar}\n{$bar}\n{$bar}", [
-            'class' => 'navbar-toggle ym-toggle-menu',
-            'data-toggle' => 'collapse',
-            'data-target' => "#test1",
+            'class' => 'navbar-toggle ym-toggle-sidebar',
+            'data-toggle' => 'sidebar',
+            'data-target' => "#ym-sidebar",
         ]);
     }
 }

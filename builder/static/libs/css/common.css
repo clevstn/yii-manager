@@ -1,4 +1,6 @@
-@charset "UTF-8";
+/**
+ * this is a background style-file for Yii-Manager
+ */
 html, body {
     height: 100%;
     margin: 0;
@@ -38,14 +40,14 @@ ul, ol, dl {
     text-align: center;
 }
 
-.ym-toggle-menu {
+.ym-toggle-sidebar {
     float: left !important;
     border: none !important;
     margin-right: 0;
     margin-left: 15px;
 }
 
-.ym-navbar-custom .ym-toggle-menu .icon-bar{
+.ym-navbar-custom .ym-toggle-sidebar .icon-bar{
     background-color: #337ab7 !important;
 }
 
