@@ -78,14 +78,30 @@ ul, ol, dl {
 }
 
 .ym-aside-menu > .ym-brand-wrap {
+    position: relative;
     height: 50px;
     background-color: rgba(0, 0, 0, .15);
-    display: none;
+}
+
+.ym-aside-menu > .ym-brand-wrap .ym-asidebar-close {
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #cccccc;
+    font-size: 16px;
+    color: #f3f3f3;
+    float: none;
+    outline: 0;
+    font-weight: lighter;
+    display: block;
 }
 
 .ym-aside-menu > .ym-brand-wrap .ym-brand-label {
     display: inline-block;
-    width: 100%;
+    max-width: 100%;
     height: 50px;
     padding: 15px 15px;
     font-size: 16px;
@@ -191,12 +207,12 @@ ul, ol, dl {
         display: none;
     }
 
-    .ym-aside-menu {
-        width: 240px;
-        display: block;
+    .ym-aside-menu > .ym-brand-wrap .ym-asidebar-close {
+        display: none;
     }
 
-    .ym-aside-menu > .ym-brand-wrap {
+    .ym-aside-menu {
+        width: 240px;
         display: block;
     }
 
@@ -214,4 +230,8 @@ ul, ol, dl {
     clear: both;
     display: table;
     content: " ";
+}
+
+.ym-show {
+    display: block !important;
 }

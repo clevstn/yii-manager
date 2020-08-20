@@ -77,6 +77,10 @@ MainAsset::register($this);
             <a class="ym-brand-label" href="<?= Yii::$app->params['adminUrl'] ?>">
                 <?= Yii::$app->params['adminTitle'] ?>
             </a>
+            <button type="button" class="close ym-asidebar-close" aria-label="Close" data-toggle="sidebar"
+                    data-target="#ym-sidebar">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <?=
         \app\builder\widgets\Menu::widget([

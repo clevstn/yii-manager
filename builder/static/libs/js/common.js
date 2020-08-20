@@ -29,8 +29,14 @@
      */
     YmConstructor.prototype.toggleSideBar = function () {
         jQuery(document).on('click', '[data-toggle="sidebar"]', function (e) {
-            var targetElement = jQuery(this).data('target');
-            jQuery(targetElement).css('display', 'block');
+            var targetElement = jQuery(this).data('target'),
+                jQueryElement = jQuery(targetElement);
+            if (jQueryElement.hasClass('ym-show')) {
+                jQueryElement.removeClass('ym-show');
+            } else {
+                jQueryElement.addClass('ym-show');
+            }
+
         });
     };
 
