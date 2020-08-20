@@ -11,12 +11,14 @@
 
 /* @var $content string */
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\builder\assets\MainAsset;
 use app\builder\assets\CommonAsset;
+use app\builder\helper\NavbarHelper;
 
 // 公共依赖包
 CommonAsset::register($this);
@@ -44,7 +46,11 @@ MainAsset::register($this);
     <?php
     NavBar::begin([
         'options' => ['class' => 'navbar-default navbar-fixed-top ym-navbar-custom'],
+        'headerContent' => NavbarHelper::renderToggleButton(),
         'innerContainerOptions' => ['class' => 'ym-inner-container'],
+        'brandLabel' => $this->title ?: Yii::$app->params['adminTitle'],
+        'brandUrl' => Url::current() ?: Yii::$app->params['adminUrl'],
+        'brandOptions' => ['class' => 'ym-brand-mobile']
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
