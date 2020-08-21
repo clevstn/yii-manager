@@ -40,9 +40,18 @@
         });
     };
 
+    /**
+     * Init all plugins
+     */
+    YmConstructor.prototype.initAllPlugins = function () {
+        /* Sets select2 bootstrap3-theme */
+        jQuery.fn.select2.defaults.set("theme", "bootstrap");
+    };
+
     Ym = new YmConstructor();
     YmConstructor.prototype.run = function () {
         Ym.toggleSideBar();
+        Ym.initAllPlugins();
     };
 
     Ym.run();
