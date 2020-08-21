@@ -77,7 +77,7 @@ MainAsset::register($this);
         <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
 
         <!--content-->
-        <div class="container-fluid">
+        <div class="container-fluid ym-content-fluid">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <?= $content ?>

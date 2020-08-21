@@ -213,6 +213,11 @@ ul, ol, dl {
 
 .ym-content .breadcrumb {
     background-color: #eeeeee;
+    margin-bottom: 0;
+}
+
+.ym-content .ym-content-fluid {
+    margin-top: 15px;
 }
 
 .ym-footer {
