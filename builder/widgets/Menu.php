@@ -38,7 +38,7 @@ class Menu extends \yii\widgets\Menu
      * @var string
      * @since 1.0
      */
-    public $menuModuleLinkTemplate = '<a class="ym-submenu-module" data-toggle="collapse" href="{id}">{label}</a>';
+    public $menuModuleLinkTemplate = '<a class="ym-submenu-module{collapsed}" data-toggle="collapse" href="{id}">{icon}{label}</a>';
 
     /**
      * @var string 菜单项class
@@ -51,7 +51,7 @@ class Menu extends \yii\widgets\Menu
      * @var string
      * @since 1.0
      */
-    public $linkTemplate = '<a class="ym-menu-item-link" href="{url}">{label}</a>';
+    public $linkTemplate = '<a class="ym-menu-item-link" href="{url}">{icon}{label}</a>';
 
     /**
      * 重写子菜单模板
@@ -59,6 +59,13 @@ class Menu extends \yii\widgets\Menu
      * @since 1.0
      */
     public $submenuTemplate = "\n<ul id=\"{id}\" class=\"ym-submenu-wrap {collapse}\">\n{items}\n</ul>\n";
+
+    /**
+     * @var string the template used to render the body of a menu which is NOT a link.
+     * In this template, the token `{label}` will be replaced with the label of the menu item.
+     * This property will be overridden by the `template` option set in individual menu items via [[items]].
+     */
+    public $labelTemplate = '<span>{icon}{label}</span>';
 
     /**
      * 重写选中样式
@@ -126,6 +133,10 @@ class Menu extends \yii\widgets\Menu
                 $item['items']['targetId'] = $item['targetId'];
                 $submenuTemplate = ArrayHelper::getValue($item, 'submenuTemplate', $this->submenuTemplate);
                 $collapseClass = $activeSubmenu === true ? 'collapse in' : 'collapse';
+                $menu = strtr($menu, [
+                    '{collapsed}' => $activeSubmenu === true ? '' : ' collapsed',
+                ]);
+
                 $menu .= strtr($submenuTemplate, [
                     '{items}' => $this->renderItems($item['items']),
                     '{id}' => $item['targetId'],
@@ -151,6 +162,11 @@ class Menu extends \yii\widgets\Menu
      */
     protected function renderItem($item)
     {
+        $icon = '';
+        if (isset($item['icon'])) {
+            $icon = Html::tag('i', '', ['class' => [$item['icon'], 'ym-sidebar-icon']]);
+        }
+
         if (isset($item['url']) || !empty($item['items'])) {
             $linkTemplate = !empty($item['items']) ? $this->menuModuleLinkTemplate : $this->linkTemplate;
             $template = ArrayHelper::getValue($item, 'template', $linkTemplate);
@@ -159,6 +175,7 @@ class Menu extends \yii\widgets\Menu
                 '{url}' => isset($item['url']) ? Html::encode(Url::to($item['url'])) : '',
                 '{label}' => $item['label'],
                 '{id}' => "#{$item['targetId']}",
+                '{icon}' => $icon,
             ]);
         }
 
@@ -166,6 +183,7 @@ class Menu extends \yii\widgets\Menu
 
         return strtr($template, [
             '{label}' => $item['label'],
+            '{icon}' => $icon,
         ]);
     }
 }

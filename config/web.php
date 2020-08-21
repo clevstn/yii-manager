@@ -38,6 +38,10 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'XaAN1rnY43OVTxmc',
         ],
+        'response' => [
+            'class' => 'yii\web\Response',
+            'as beforeResponseSend' => \app\behaviors\BeforeResponseBehavior::class,
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

@@ -90,29 +90,35 @@ MainAsset::register($this);
                 [
                     'label' => '仪表盘',
                     'url' => ['/admin/index/index'],
+                    'icon' => 'glyphicon glyphicon-th-large',
                 ],
                 // 'Products' menu item will be selected as long as the route is 'product/index'
                 [
                     'label' => '会员管理',
                     'url' => '',
+                    'icon' => 'glyphicon glyphicon-shopping-cart',
                     'items' => [
                         [
                             'label' => '会员列表',
                             'url' => ['/admin/site/test1', 'tag' => 'new'],
+                            'icon' => 'glyphicon glyphicon-list-alt',
                         ],
                         [
                             'label' => '账户管理',
                             'url' => ['/admin/site/test2', 'tag' => 'popular'],
+                            'icon' => 'glyphicon glyphicon-envelope',
                         ],
                         [
                             'label' => '银行卡',
                             'url' => ['/admin/site/test3', 'tag' => 'popular'],
+                            'icon' => 'glyphicon glyphicon-globe',
                         ],
                     ],
                 ],
                 [
                     'label' => '系统设置',
                     'url' => ['/admin/site/login'],
+                    'icon' => 'glyphicon glyphicon-hdd',
                     'visible' => Yii::$app->adminUser->isGuest,
                 ],
             ],

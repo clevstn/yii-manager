@@ -47,7 +47,7 @@ ul, ol, dl {
     margin-left: 15px;
 }
 
-.ym-navbar-custom .ym-toggle-sidebar .icon-bar{
+.ym-navbar-custom .ym-toggle-sidebar .icon-bar {
     background-color: #337ab7 !important;
 }
 
@@ -113,6 +113,11 @@ ul, ol, dl {
     color: #f3f3f3;
 }
 
+.ym-aside-menu .ym-sidebar-icon {
+    font-size: 15px;
+    margin-right: 15px;
+}
+
 .ym-menu-wrap {
     color: #f3f3f3;
     font-size: 14px;
@@ -150,12 +155,16 @@ ul, ol, dl {
 }
 
 .ym-menu-wrap .ym-active a {
-    color: #f3f3f3;
+    color: #ffffff;
 }
 
 .ym-submenu-wrap {
     background-color: rgba(0, 0, 0, .25);
     color: #eeeeee;
+}
+
+.ym-menu-wrap .ym-submenu-module {
+    position: relative;
 }
 
 .ym-menu-wrap .ym-menu-item,
@@ -172,8 +181,32 @@ ul, ol, dl {
     padding-left: 15px;
 }
 
+.ym-menu-wrap .ym-submenu-module:before {
+    font-family: "Glyphicons Halflings";
+    display: block;
+    font-style: normal;
+    font-weight: lighter;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: absolute;
+    right: 15px;
+    top: 0;
+    content: "\e114";
+    transition: all .3s linear;
+}
+
+.ym-menu-wrap .ym-submenu-module.collapsed:before {
+    content: "\e079";
+    transition: all .3s linear;
+}
+
 .ym-submenu-wrap .ym-menu-item-link {
-    padding-left: 30px;
+    padding-left: 45px;
+    font-size: 13px;
+}
+
+.ym-submenu-wrap .ym-sidebar-icon {
+    font-size: 14px;
 }
 
 .ym-content {
