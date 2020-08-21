@@ -15,6 +15,16 @@ $config = [
         '@tests' => '@app/tests',
         '@builder' => '@app/builder',
     ],
+    'modules' => [
+        // 计划任务模块
+        'cron' => [
+            'class' => \app\commands\cronjobs\Module::class,
+        ],
+        // 队列任务模块
+        'queue' => [
+            'class' => \app\commands\queuejobs\Module::class,
+        ],
+    ],
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',

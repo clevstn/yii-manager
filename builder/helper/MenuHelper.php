@@ -9,7 +9,6 @@
 
 namespace app\builder\helper;
 
-use Yii;
 use app\builder\widgets\Menu;
 
 /**
@@ -37,6 +36,8 @@ class MenuHelper
 
     /**
      * 获取菜单项
+     * Important: you need to specify url as 'controller/action',
+     * not just as 'controller' even if default action is used.
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -44,41 +45,33 @@ class MenuHelper
     public function getItems()
     {
         return [
-            // Important: you need to specify url as 'controller/action',
-            // not just as 'controller' even if default action is used.
             [
                 'label' => '首页',
                 'url' => ['/admin/index/index'],
-                'icon' => 'glyphicon glyphicon-th-large',
+                'icon' => 'glyphicon glyphicon-home',
             ],
             // 'Products' menu item will be selected as long as the route is 'product/index'
             [
-                'label' => '会员管理',
+                'label' => '运维管理',
                 'url' => '',
-                'icon' => 'glyphicon glyphicon-shopping-cart',
+                'icon' => 'glyphicon glyphicon-blackboard',
                 'items' => [
                     [
-                        'label' => '会员列表',
-                        'url' => ['/admin/site/test1', 'tag' => 'new'],
-                        'icon' => 'glyphicon glyphicon-list-alt',
+                        'label' => '运维脚本',
+                        'url' => ['/admin/site/test3', 'tag' => 'popular'],
+                        'icon' => 'glyphicon glyphicon-globe',
                     ],
                     [
-                        'label' => '账户管理',
+                        'label' => '计划任务监控',
                         'url' => ['/admin/site/test2', 'tag' => 'popular'],
                         'icon' => 'glyphicon glyphicon-envelope',
                     ],
                     [
-                        'label' => '银行卡',
-                        'url' => ['/admin/site/test3', 'tag' => 'popular'],
-                        'icon' => 'glyphicon glyphicon-globe',
+                        'label' => '队列监控',
+                        'url' => ['/admin/site/test1'],
+                        'icon' => 'glyphicon glyphicon-list-alt',
                     ],
                 ],
-            ],
-            [
-                'label' => '系统设置',
-                'url' => ['/admin/site/login'],
-                'icon' => 'glyphicon glyphicon-hdd',
-                'visible' => Yii::$app->adminUser->isGuest,
             ],
         ];
     }
