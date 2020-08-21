@@ -9,10 +9,10 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\builder\assets\MainAsset;
+use app\builder\helper\NavHelper;
 use app\builder\helper\MenuHelper;
 use app\builder\assets\CommonAsset;
 use app\builder\helper\NavbarHelper;
@@ -52,23 +52,7 @@ MainAsset::register($this);
         'brandUrl' => Url::current() ?: Yii::$app->params['adminUrl'],
         'brandOptions' => ['class' => 'ym-brand-mobile']
     ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            Yii::$app->adminUser->isGuest ? (
-            ['label' => '<i class="glyphicon glyphicon-log-out"></i><span>&nbsp;登录</span>', 'url' => ['/admin/site/login'], 'encode' => false]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/admin/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->adminUser->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
+    echo NavHelper::renderItems();
     NavBar::end();
     ?>
     <!--asideBar-->
