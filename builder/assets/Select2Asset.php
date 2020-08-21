@@ -9,6 +9,8 @@
 
 namespace app\builder\assets;
 
+use yii\web\JqueryAsset;
+
 /**
  * Select2资源包<Bootstrap3主题>
  * @author cleverstone <yang_hui_lei@163.com>

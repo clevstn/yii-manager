@@ -9,6 +9,9 @@
 
 namespace app\builder\assets;
 
+use yii\web\YiiAsset;
+use yii\bootstrap\BootstrapPluginAsset;
+
 /**
  * 公共依赖包
  * @author cleverstone <yang_hui_lei@163.com>
@@ -21,7 +24,7 @@ class CommonAsset extends BaseAsset
      * @var array
      */
     public $depends = [
-        BootstrapAsset::class,          // bootstrap3
+        BootstrapPluginAsset::class,    // bootstrap3
         Select2Asset::class,            // select2
         YiiAsset::class,                // yii2 js
         FontAwesomeAsset::class,        // fontAwesome图标库
