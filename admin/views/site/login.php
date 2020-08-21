@@ -10,8 +10,5 @@
 /* @var $this \yii\web\View */
 /* @var $param */
 
-$this->title = '登录';
-$this->params['breadcrumbs'][] = '登录';
 ?>
-
-<?= $param ?>
+Login

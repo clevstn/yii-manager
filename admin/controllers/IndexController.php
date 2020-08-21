@@ -19,21 +19,10 @@ use app\builder\common\CommonController;
 class IndexController extends CommonController
 {
     /**
-     * Verbs to specify the actions.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     public $actionVerbs = [
         'index' => ['get'],
-    ];
-
-    /**
-     * Define actions that do not require authorization.
-     *
-     * @var array
-     */
-    public $guestActions = [
-        'index',
     ];
 
     /**

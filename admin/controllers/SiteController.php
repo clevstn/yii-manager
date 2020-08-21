@@ -21,80 +21,43 @@ use app\builder\common\CommonController;
 class SiteController extends CommonController
 {
     /**
-     * @var array
+     * {@inheritdoc}
      */
     public $actionVerbs = [
         'login' => ['get', 'post'],
     ];
 
     /**
-     * @var array
+     * {@inheritdoc}
      */
     public $guestActions = [
         'login',
-        'test1',
-        'test2',
-        'test3',
     ];
 
     /**
-     * @var array
+     * {@inheritdoc}
      */
     public $undetectedActions = [
         'login',
-        'test1',
-        'test2',
-        'test3',
     ];
 
     /**
-     * 登录
+     * login
      * @return string|\yii\web\Response
      * @author cleverstone <yang_hui_lei@163.com>
      */
     public function actionLogin()
     {
-        return $this->render('login', ['param' => 'login']);
+        return $this->render('login');
     }
 
     /**
-     * test1
-     * @return string|\yii\web\Response
-     * @author cleverstone <yang_hui_lei@163.com>
-     */
-    public function actionTest1()
-    {
-        return $this->render('login', ['param' => 'test1']);
-    }
-
-    /**
-     * test2
-     * @return string|\yii\web\Response
-     * @author cleverstone <yang_hui_lei@163.com>
-     */
-    public function actionTest2()
-    {
-        return $this->render('login', ['param' => 'test2']);
-    }
-
-    /**
-     * test3
-     * @return string|\yii\web\Response
-     * @author cleverstone <yang_hui_lei@163.com>
-     */
-    public function actionTest3()
-    {
-        return $this->render('login', ['param' => 'test3']);
-    }
-
-    /**
-     * Logout action.
+     * logout
      * @return Response
      */
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 }
