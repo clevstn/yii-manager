@@ -19,6 +19,6 @@ return [
 
     // 首页
     'adminUrl' => '/admin/index/index',
-    // 后台标题
-    'adminTitle' => 'Yii-Manager',
+    // 后台brand title
+    'adminTitle' => 'Yii-Manager CRM',
 ];

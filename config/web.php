@@ -6,8 +6,8 @@ $db1 = require __DIR__ . '/db1.php';
 
 
 $config = [
-    'id' => 'yii-manager-basic',
-    'name' => 'yii-manager',
+    'id' => 'Yii-Manager-1.0',
+    'name' => 'Yii-Manager',
     'language' => 'zh-CN',
     'sourceLanguage' => 'zh-CN',
     'timeZone' => 'Asia/Shanghai',

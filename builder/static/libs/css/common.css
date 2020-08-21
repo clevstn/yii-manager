@@ -228,6 +228,7 @@ ul, ol, dl {
     height: 30px;
     z-index: 1030;
     background-color: #eeeeee;
+    color: #737373;
 }
 
 .ym-footer .ym-copyright {
