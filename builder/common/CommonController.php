@@ -9,6 +9,7 @@
 
 namespace app\builder\common;
 
+use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\builder\traits\Http;
@@ -23,6 +24,13 @@ use app\builder\filters\RbacFilter;
 class CommonController extends Controller
 {
     use Http;
+
+    /**
+     * 后台首页
+     * @var string
+     * @since 1.0
+     */
+    public $homeUrl = '/admin/index/index';
 
     /**
      * Yii-manager layouts.
@@ -51,6 +59,18 @@ class CommonController extends Controller
      * @var array
      */
     public $undetectedActions = [];
+
+    /**
+     * {@inheritdoc}
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function init()
+    {
+        parent::init();
+        /* 定义后台首页路径 */
+        Yii::$app->homeUrl = $this->homeUrl;
+    }
 
     /**
      * Behaviors

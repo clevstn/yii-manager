@@ -34,7 +34,7 @@ class MenuHelper
                 // Important: you need to specify url as 'controller/action',
                 // not just as 'controller' even if default action is used.
                 [
-                    'label' => '仪表盘',
+                    'label' => '首页',
                     'url' => ['/admin/index/index'],
                     'icon' => 'glyphicon glyphicon-th-large',
                 ],

@@ -21,9 +21,6 @@ ul, ol, dl {
 
 .ym-navbar-custom {
     background-color: #ffffff;
-    box-shadow: 1px 0 3px 0 rgba(0, 0, 0, .15);
-    -webkit-box-shadow: 1px 0 3px 0 rgba(0, 0, 0, .15);
-    -moz-box-shadow: 1px 0 3px 0 rgba(0, 0, 0, .15);
     font-size: 13px;
 }
 
@@ -212,6 +209,10 @@ ul, ol, dl {
     padding-left: 0;
     padding-top: 50px;
     padding-bottom: 30px;
+}
+
+.ym-content .breadcrumb {
+    background-color: #eeeeee;
 }
 
 .ym-footer {

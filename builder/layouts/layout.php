@@ -36,7 +36,7 @@ MainAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=0">
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Yii::$app->params['adminTitle'] . ($this->title ? ' | ' . Html::encode($this->title) : '') ?></title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -55,6 +55,7 @@ MainAsset::register($this);
     echo NavHelper::renderItems();
     NavBar::end();
     ?>
+
     <!--asideBar-->
     <aside class="ym-aside-menu" id="ym-sidebar">
         <!--brand-->
@@ -70,17 +71,21 @@ MainAsset::register($this);
         <!--menu-->
         <?= MenuHelper::render() ?>
     </aside>
+
     <main class="ym-content">
         <!--breadcrubs-->
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+        <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
 
+        <!--content-->
         <div class="container-fluid">
-            <!--content-->
-            <?= $content ?>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <?= $content ?>
+                </div>
+            </div>
         </div>
     </main>
+
     <!--footer-->
     <footer class="ym-footer">
         <div class="ym-inner-container">
