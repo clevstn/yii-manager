@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | yii-manager version 1.0.0
 // +----------------------------------------------------------------------
-// | 日期：2020/8/13
+// | 日期：2020/8/21
 // +----------------------------------------------------------------------
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
@@ -12,11 +12,11 @@ namespace app\admin\controllers;
 use app\builder\common\CommonController;
 
 /**
- * 首页
+ * 计划任务监控
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class IndexController extends CommonController
+class OpsCronController extends CommonController
 {
     /**
      * {@inheritdoc}
@@ -40,11 +40,12 @@ class IndexController extends CommonController
     ];
 
     /**
-     * Renders the index view for the module
      * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('/index/index');
     }
 }

@@ -58,18 +58,45 @@ class MenuHelper
                 'items' => [
                     [
                         'label' => '运维脚本',
-                        'url' => ['/admin/site/test3', 'tag' => 'popular'],
-                        'icon' => 'glyphicon glyphicon-globe',
-                    ],
-                    [
-                        'label' => '计划任务监控',
-                        'url' => ['/admin/site/test2', 'tag' => 'popular'],
-                        'icon' => 'glyphicon glyphicon-envelope',
+                        'url' => ['/admin/ops-script/index'],
+                        'icon' => 'glyphicon glyphicon-flash',
                     ],
                     [
                         'label' => '队列监控',
-                        'url' => ['/admin/site/test1'],
-                        'icon' => 'glyphicon glyphicon-list-alt',
+                        'url' => ['/admin/ops-queue/index'],
+                        'icon' => 'fa fa-line-chart',
+                    ],
+                    [
+                        'label' => '计划任务监控',
+                        'url' => ['/admin/ops-cron/index'],
+                        'icon' => 'fa fa-tasks',
+                    ],
+                ],
+            ],
+            [
+                'label' => '日志管理',
+                'url' => '',
+                'icon' => 'fa fa-connectdevelop',
+                'items' => [
+                    [
+                        'label' => '错误日志',
+                        'url' => ['/admin/error-log/index'],
+                        'icon' => 'fa fa-exclamation-triangle',
+                    ],
+                    [
+                        'label' => '应用日志',
+                        'url' => ['/admin/app-log/index'],
+                        'icon' => 'glyphicon glyphicon-phone',
+                    ],
+                    [
+                        'label' => '管理员登录日志',
+                        'url' => ['/admin/admin-login-log/index'],
+                        'icon' => 'glyphicon glyphicon-cloud',
+                    ],
+                    [
+                        'label' => '管理员操作日志',
+                        'url' => ['/admin/admin-behavior-log/index'],
+                        'icon' => 'glyphicon glyphicon-calendar',
                     ],
                 ],
             ],
