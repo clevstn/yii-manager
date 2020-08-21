@@ -193,12 +193,10 @@ ul, ol, dl {
     right: 15px;
     top: 0;
     content: "\e114";
-    transition: all .3s linear;
 }
 
 .ym-menu-wrap .ym-submenu-module.collapsed:before {
     content: "\e079";
-    transition: all .3s linear;
 }
 
 .ym-submenu-wrap .ym-menu-item-link {
