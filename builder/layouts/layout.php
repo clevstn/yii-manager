@@ -7,18 +7,18 @@
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 
-/* @var $this \yii\web\View */
-
-/* @var $content string */
-
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\builder\assets\MainAsset;
+use app\builder\helper\MenuHelper;
 use app\builder\assets\CommonAsset;
 use app\builder\helper\NavbarHelper;
+
+/* @var $this \yii\web\View */
+/* @var $content string */
 
 // 公共依赖包
 CommonAsset::register($this);
@@ -42,7 +42,7 @@ MainAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 <div class="ym-app">
-    <!--头部导航-->
+    <!--navbar-->
     <?php
     NavBar::begin([
         'options' => ['class' => 'navbar-default navbar-fixed-top ym-navbar-custom'],
@@ -56,7 +56,7 @@ MainAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             Yii::$app->adminUser->isGuest ? (
-            ['label' => 'Login', 'url' => ['/admin/site/login']]
+            ['label' => '<i class="glyphicon glyphicon-log-out"></i><span>&nbsp;登录</span>', 'url' => ['/admin/site/login'], 'encode' => false]
             ) : (
                 '<li>'
                 . Html::beginForm(['/admin/site/logout'], 'post')
@@ -71,8 +71,9 @@ MainAsset::register($this);
     ]);
     NavBar::end();
     ?>
-    <!--左侧菜单-->
+    <!--asideBar-->
     <aside class="ym-aside-menu" id="ym-sidebar">
+        <!--brand-->
         <div class="ym-brand-wrap">
             <a class="ym-brand-label" href="<?= Yii::$app->params['adminUrl'] ?>">
                 <?= Yii::$app->params['adminTitle'] ?>
@@ -82,61 +83,21 @@ MainAsset::register($this);
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <?=
-        \app\builder\widgets\Menu::widget([
-            'items' => [
-                // Important: you need to specify url as 'controller/action',
-                // not just as 'controller' even if default action is used.
-                [
-                    'label' => '仪表盘',
-                    'url' => ['/admin/index/index'],
-                    'icon' => 'glyphicon glyphicon-th-large',
-                ],
-                // 'Products' menu item will be selected as long as the route is 'product/index'
-                [
-                    'label' => '会员管理',
-                    'url' => '',
-                    'icon' => 'glyphicon glyphicon-shopping-cart',
-                    'items' => [
-                        [
-                            'label' => '会员列表',
-                            'url' => ['/admin/site/test1', 'tag' => 'new'],
-                            'icon' => 'glyphicon glyphicon-list-alt',
-                        ],
-                        [
-                            'label' => '账户管理',
-                            'url' => ['/admin/site/test2', 'tag' => 'popular'],
-                            'icon' => 'glyphicon glyphicon-envelope',
-                        ],
-                        [
-                            'label' => '银行卡',
-                            'url' => ['/admin/site/test3', 'tag' => 'popular'],
-                            'icon' => 'glyphicon glyphicon-globe',
-                        ],
-                    ],
-                ],
-                [
-                    'label' => '系统设置',
-                    'url' => ['/admin/site/login'],
-                    'icon' => 'glyphicon glyphicon-hdd',
-                    'visible' => Yii::$app->adminUser->isGuest,
-                ],
-            ],
-        ]);
-        ?>
+        <!--menu-->
+        <?= MenuHelper::render() ?>
     </aside>
     <main class="ym-content">
-        <!--面包屑导航-->
+        <!--breadcrubs-->
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
 
         <div class="container-fluid">
-            <!--内容-->
+            <!--content-->
             <?= $content ?>
         </div>
     </main>
-    <!--尾部-->
+    <!--footer-->
     <footer class="ym-footer">
         <div class="ym-inner-container">
             <p class="pull-left ym-copyright">&copy; <?= Yii::$app->name ?> <?= date('Y') ?></p>

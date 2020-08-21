@@ -24,6 +24,7 @@ ul, ol, dl {
     box-shadow: 1px 0 3px 0 rgba(0, 0, 0, .15);
     -webkit-box-shadow: 1px 0 3px 0 rgba(0, 0, 0, .15);
     -moz-box-shadow: 1px 0 3px 0 rgba(0, 0, 0, .15);
+    font-size: 13px;
 }
 
 .ym-navbar-custom .ym-brand-mobile {
