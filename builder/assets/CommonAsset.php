@@ -24,6 +24,7 @@ class CommonAsset extends BaseAsset
      * @var array
      */
     public $depends = [
+        PromiseAsset::class,            // Es6 Promise
         BootstrapPluginAsset::class,    // Bootstrap3
         Toastr2::class,                 // ToaStr2
         Select2Asset::class,            // Select2
