@@ -29,7 +29,8 @@ class CommonAsset extends BaseAsset
         Toastr2::class,                 // ToaStr2
         Select2Asset::class,            // Select2
         YiiAsset::class,                // Yii2 js
-        FontAwesomeAsset::class,        // FontAwesome图标库
+        FontAwesomeAsset::class,        // FontAwesome
         SweetAlert2::class,             // SweetAlert2
+        SpinnerAsset::class,            // Spinner
     ];
 }

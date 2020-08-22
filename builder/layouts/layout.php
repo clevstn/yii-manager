@@ -14,15 +14,11 @@ use yii\widgets\Breadcrumbs;
 use app\builder\assets\MainAsset;
 use app\builder\helper\NavHelper;
 use app\builder\helper\MenuHelper;
-use app\builder\assets\CommonAsset;
 use app\builder\helper\NavbarHelper;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-// 公共依赖包
-CommonAsset::register($this);
-// 公共定义包
 MainAsset::register($this);
 ?>
 

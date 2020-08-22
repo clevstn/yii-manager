@@ -12,26 +12,18 @@ namespace app\builder\assets;
 use yii\web\JqueryAsset;
 
 /**
- * Toastr2
+ * Spinner modal
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class Toastr2 extends BaseAsset
+class SpinnerAsset extends BaseAsset
 {
-    /**
-     * @var array css路径
-     * @since 1.0
-     */
-    public $css = [
-        'libs/toastr2/toastr.css',
-    ];
-
     /**
      * @var array js路径
      * @since 1.0
      */
     public $js = [
-        'libs/toastr2/toastr.min.js',
+        'libs/js/spinner.js',
     ];
 
     /**

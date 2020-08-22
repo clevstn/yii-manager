@@ -56,30 +56,7 @@
         global.toastr.options.closeMethod = 'fadeOut';
         global.toastr.options.closeDuration = 300;
         // global.toastr.options.positionClass = 'toast-top-center';
-        global.Swal.fire({
-            title: '确定删除么?',
-            text: '删除后文件将不能恢复!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: '确定',
-            cancelButtonText: '取消'
-        }).then(function (result) {
-            if (result.value) {
-                Swal.fire(
-                    '提示',
-                    '删除成功',
-                    'success'
-                )
-                // For more information about handling dismissals please visit
-                // https://sweetalert2.github.io/#handling-dismissals
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(
-                    '提示',
-                    '删除失败',
-                    'error'
-                )
-            }
-        });
+
     };
 
     Ym = new YmConstructor();

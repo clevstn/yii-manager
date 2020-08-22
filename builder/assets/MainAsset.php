@@ -14,7 +14,7 @@ namespace app\builder\assets;
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class MainAsset extends BaseAsset
+class MainAsset extends CommonAsset
 {
     /**
      * @var array
