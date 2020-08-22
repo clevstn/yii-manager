@@ -58,7 +58,8 @@ ul, ol, dl {
 
 .ym-inner-container {
     padding-right: 15px;
-    padding-left: 15px
+    padding-left: 15px;
+    zoom: 1;
 }
 
 .ym-aside-menu {
@@ -79,6 +80,7 @@ ul, ol, dl {
     position: relative;
     height: 50px;
     background-color: rgba(0, 0, 0, .15);
+    zoom: 1;
 }
 
 .ym-aside-menu > .ym-brand-wrap .ym-asidebar-close {
@@ -264,11 +266,13 @@ ul, ol, dl {
     }
 }
 
-.ym-inner-container:before,
-.ym-aside-menu > .ym-brand-wrap:before {
+.ym-inner-container:after,
+.ym-aside-menu > .ym-brand-wrap:after {
+    display: block;
     clear: both;
-    display: table;
-    content: " ";
+    content: "";
+    visibility: hidden;
+    height: 0
 }
 
 .ym-show {
