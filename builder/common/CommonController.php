@@ -17,7 +17,7 @@ use yii\filters\AccessControl;
 use app\builder\filters\RbacFilter;
 
 /**
- * 公共继承类
+ * 控制器继承类
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

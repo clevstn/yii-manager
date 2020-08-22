@@ -36,7 +36,7 @@ MainAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=0">
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Yii::$app->params['adminTitle'] . ($this->title ? ' | ' . Html::encode($this->title) : '') ?></title>
+    <title><?= Yii::$app->params['admin_title'] . ($this->title ? ' | ' . Html::encode($this->title) : '') ?></title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -48,8 +48,8 @@ MainAsset::register($this);
         'options' => ['class' => 'navbar-default navbar-fixed-top ym-navbar-custom'],
         'headerContent' => NavbarHelper::renderToggleButton(),
         'innerContainerOptions' => ['class' => 'ym-inner-container'],
-        'brandLabel' => $this->title ?: Yii::$app->params['adminTitle'],
-        'brandUrl' => Url::current() ?: Yii::$app->params['adminUrl'],
+        'brandLabel' => $this->title ?: Yii::$app->params['admin_title'],
+        'brandUrl' => Url::current() ?: Yii::$app->params['admin_url'],
         'brandOptions' => ['class' => 'ym-brand-mobile']
     ]);
     echo NavHelper::renderItems();
@@ -60,8 +60,8 @@ MainAsset::register($this);
     <aside class="ym-aside-menu" id="ym-sidebar">
         <!--brand-->
         <div class="ym-brand-wrap">
-            <a class="ym-brand-label" href="<?= Yii::$app->params['adminUrl'] ?>">
-                <?= Yii::$app->params['adminTitle'] ?>
+            <a class="ym-brand-label" href="<?= Yii::$app->params['admin_url'] ?>">
+                <?= Yii::$app->params['admin_title'] ?>
             </a>
             <button type="button" class="close ym-asidebar-close" aria-label="Close" data-toggle="sidebar"
                     data-target="#ym-sidebar">

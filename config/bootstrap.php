@@ -18,7 +18,14 @@ return [
     // +----------------------------------------------------------------------
 
     // 首页
-    'adminUrl' => '/admin/index/index',
+    'admin_url' => '/admin/index/index',
     // 后台brand title
-    'adminTitle' => 'Yii-Manager CRM',
+    'admin_title' => 'Yii-Manager CRM',
+    // 分组配置
+    'group_config' => [
+        \app\builder\database\config\WebsiteGroup::class,
+        \app\builder\database\config\AdminGroup::class,
+        \app\builder\database\config\EmailGroup::class,
+        \app\builder\database\config\UploadGroup::class,
+    ],
 ];
