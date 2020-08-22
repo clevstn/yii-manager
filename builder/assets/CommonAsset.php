@@ -24,9 +24,11 @@ class CommonAsset extends BaseAsset
      * @var array
      */
     public $depends = [
-        BootstrapPluginAsset::class,    // bootstrap3
-        Select2Asset::class,            // select2
-        YiiAsset::class,                // yii2 js
-        FontAwesomeAsset::class,        // fontAwesome图标库
+        BootstrapPluginAsset::class,    // Bootstrap3
+        Toastr2::class,                 // ToaStr2
+        Select2Asset::class,            // Select2
+        YiiAsset::class,                // Yii2 js
+        FontAwesomeAsset::class,        // FontAwesome图标库
+        SweetAlert2::class,             // SweetAlert2
     ];
 }
