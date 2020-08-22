@@ -12,6 +12,11 @@
  * Please the users config the parameters to `params.php`.
  */
 
+use app\builder\database\config\AdminGroup;
+use app\builder\database\config\EmailGroup;
+use app\builder\database\config\UploadGroup;
+use app\builder\database\config\WebsiteGroup;
+
 return [
     // +----------------------------------------------------------------------
     // | 后台配置
@@ -23,9 +28,9 @@ return [
     'admin_title' => 'Yii-Manager CRM',
     // 分组配置
     'group_config' => [
-        \app\builder\database\config\WebsiteGroup::class,
-        \app\builder\database\config\AdminGroup::class,
-        \app\builder\database\config\EmailGroup::class,
-        \app\builder\database\config\UploadGroup::class,
+        WebsiteGroup::class,
+        AdminGroup::class,
+        EmailGroup::class,
+        UploadGroup::class,
     ],
 ];

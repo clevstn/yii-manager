@@ -10,14 +10,14 @@
 namespace app\builder\contract;
 
 /**
- * Configuration definition interface
+ * 配置接口
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 interface ConfigureInterface
 {
     /**
-     * Get configuration items
+     * 获取配置
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -25,10 +25,18 @@ interface ConfigureInterface
     public function getConfig();
 
     /**
-     * Get grouping items
+     * 获取分组
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
     public function getGroup();
+
+    /**
+     * 校验规则
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function rules();
 }

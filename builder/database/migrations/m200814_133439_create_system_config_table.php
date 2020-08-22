@@ -23,12 +23,15 @@ class m200814_133439_create_system_config_table extends Migration
         $this->createTable(self::TABLE_NAME, [
             'code' => $this->string(50)->notNull()->comment('代码'),
             'value' => $this->text()->comment('值'),
+            'control' => $this->string(50)->comment('控件类型'),
+            'options' => $this->string()->comment('选项'),
             'name' => $this->string(50)->notNull()->defaultValue('')->comment('名称'),
             'desc' => $this->string()->notNull()->defaultValue('')->comment('字段描述'),
             'tips' => $this->string()->notNull()->defaultValue('')->comment('表单提示'),
             'type' => $this->boolean()->notNull()->defaultValue(1)->comment('类型, 1:分组 2:配置'),
             'group' => $this->string(50)->notNull()->defaultValue('')->comment('所属分组'),
             'created_at' => $this->dateTime()->notNull()->comment('创建时间'),
+            'updated_at' => $this->dateTime()->null()->defaultValue(null)->comment('更新时间'),
         ], $tableOptions);
 
         // 主键
@@ -38,7 +41,7 @@ class m200814_133439_create_system_config_table extends Migration
         // 配置项
         $this->batchInsert(
             self::TABLE_NAME,
-            ['code', 'value', 'name', 'desc', 'tips', 'type', 'group', 'created_at'],
+            ['code', 'value', 'control', 'options', 'name', 'desc', 'tips', 'type', 'group', 'created_at'],
             array_merge(
                 ConfigHelper::normalizeGroup(),
                 ConfigHelper::normalizeConfig()

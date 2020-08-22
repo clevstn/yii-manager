@@ -14,7 +14,7 @@ use app\behaviors\PasswordBehavior;
 use app\builder\common\CommonActiveRecord;
 
 /**
- * 后台管理员模型
+ * 后台管理员
  * @property integer $id 主键ID
  * @property string $username 用户名
  * @property string $email 邮箱

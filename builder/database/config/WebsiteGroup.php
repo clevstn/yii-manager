@@ -10,6 +10,7 @@
 namespace app\builder\database\config;
 
 use app\builder\common\Group;
+use app\models\SystemConfig;
 
 /**
  * 网站配置
@@ -41,14 +42,15 @@ class WebsiteGroup extends Group
     /**
      * {@inheritDoc}
      * @return array
+     * @throws \yii\base\NotSupportedException
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
     public function define()
     {
         return [
-            $this->normalizeItem('WEBSITE_SWITCH', '0', '网站维护开关', '0:关闭 1:开启, 当开启后, 网站将显示网站维护标语, 网站将无法使用', '当开启后, 网站将显示网站维护标语, 网站将无法使用'),
-            $this->normalizeItem('WEBSITE_DENY_TIPS', '网站维护中.我们工程师正在努力抢修,请您耐心等待...', '网站维护标语', '关闭后,网站将禁止访问', '关闭后,网站将禁止访问'),
+            $this->normalizeItem('WEBSITE_SWITCH', '0', SystemConfig::SW, '0:关闭|1:开启', '网站维护开关', '0:关闭 1:开启, 当开启后, 网站将显示网站维护标语, 网站将无法使用', '当开启后, 网站将显示网站维护标语, 网站将无法使用'),
+            $this->normalizeItem('WEBSITE_DENY_TIPS', '网站维护中.我们工程师正在努力抢修,请您耐心等待...', SystemConfig::TEXTAREA, '', '网站维护标语', '关闭后,网站将禁止访问', '关闭后,网站将禁止访问'),
         ];
     }
 }

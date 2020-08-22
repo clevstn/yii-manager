@@ -10,12 +10,14 @@
 namespace app\builder\common;
 
 use yii\base\BaseObject;
-use yii\base\ErrorException;
+use app\models\SystemConfig;
+use yii\base\NotSupportedException;
 use yii\base\InvalidValueException;
 use app\builder\contract\ConfigureInterface;
 
 /**
- *  A configuration-defined inherited class
+ * 配置分组逻辑层
+ *
  * @property array $config 配置项
  * @property array $group 分组
  * @author cleverstone <yang_hui_lei@163.com>
@@ -23,44 +25,59 @@ use app\builder\contract\ConfigureInterface;
  */
 abstract class Group extends BaseObject implements ConfigureInterface
 {
-    // group type
-    const TYPE_GROUP = 1;
-    // item type
-    const TYPE_ITEM = 2;
+
+    const TYPE_GROUP = 1;       // 类型: 分组
+    const TYPE_ITEM = 2;        // 类型: 普通配置
 
     /**
-     * @var string Configure group name
+     * 分组名称
+     * @var string
      * @since 1.0
      */
     public $name = '默认分组';
 
     /**
-     * @var string Configure group code
+     * 组别代码
+     * @var string
      * @since 1.0
      */
     public $code = 'DEFAULT_GROUP';
 
     /**
-     * @var string Configuration group description[read-only]
+     * 描述
+     * @var string
      * @since 1.0
      */
     public $desc = '这是一个默认分组';
 
     /**
-     * @var string Configuration group form description
+     * 表单提示
+     * @var string
      * @since 1.0
      */
-    public $formTips = '这是一个默认分组项';
+    public $formTips = '这是一个默认分组';
 
     /**
-     * Configuration items
+     * 配置项
      * @var array
      * @since 1.0
      */
     private $_config = [];
 
     /**
-     * Initializes the configuration item
+     * 获取分组ID
+     * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public static function getId()
+    {
+        $context = new static();
+        return $context->code;
+    }
+
+    /**
+     * 初始化配置项
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -69,21 +86,6 @@ abstract class Group extends BaseObject implements ConfigureInterface
         $config = $this->define();
         if (!is_array($config) || !is_array(current($config))) {
             throw new InvalidValueException('The method `define()` must return a array. ');
-        }
-
-        foreach ($config as $key => $item) {
-            $item = array_values($item);
-            if (count($item) !== count($this->group)) {
-                throw new ErrorException("The item count error with index of {$key}. ");
-            }
-
-            if ($item[5] != self::TYPE_ITEM) {
-                throw new ErrorException("The item type error with index of {$key}. ");
-            }
-
-            if (strcmp($item[6], $this->code)) {
-                throw new ErrorException("The item belong group error with index of {$key}. ");
-            }
         }
 
         $this->_config = $config;
@@ -102,15 +104,6 @@ abstract class Group extends BaseObject implements ConfigureInterface
     }
 
     /**
-     * Define the configuration
-     * the method must be inherited
-     * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
-     */
-    abstract public function define();
-
-    /**
      * {@inheritDoc}
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
@@ -119,40 +112,69 @@ abstract class Group extends BaseObject implements ConfigureInterface
     public function getGroup()
     {
         return [
-            $this->code,
-            '',
-            $this->name,
-            $this->desc,
-            $this->formTips,
-            self::TYPE_GROUP,
-            '',
-            now(),
+            $this->code,        // 配置项代码
+            '',                 // 配置值
+            '',                 // 控件类型
+            '',                 // 选项
+            $this->name,        // 配置名称
+            $this->desc,        // 配置描述
+            $this->formTips,    // 表单提示
+            self::TYPE_GROUP,   // 类型
+            '',                 // 所属分组
+            now(),              // 时间
         ];
     }
 
     /**
-     * 格式化配置项
-     * @param string $code
-     * @param mixed $value
-     * @param string $name
-     * @param string $desc
-     * @param string $formTips
+     * 定义配置
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    protected function normalizeItem($code, $value, $name, $desc, $formTips)
+    abstract public function define();
+
+    /**
+     * 校验规则
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function rules()
     {
-        // ['配置项代码', '配置值', '配置名称', '配置描述', '表单提示', '类型, 1:分组 2:配置', '所属分组', '创建时间']
+        return [];
+    }
+
+    /**
+     * 格式化配置项
+     * @param string $code 配置项代码
+     * @param mixed $value 配置值
+     * @param $control string 控件类型
+     * @param $options $options 选项
+     * @param string $name 配置名称
+     * @param string $desc 配置描述
+     * @param string $formTips 表单提示
+     * @return array
+     * @throws NotSupportedException
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    protected function normalizeItem($code, $value, $control, $options, $name, $desc, $formTips)
+    {
+        if (!in_array($control, SystemConfig::$controlMap, true)) {
+            throw new NotSupportedException("{$control} not supported. ");
+        }
+
         return [
-            $code,
-            $value,
-            $name,
-            $desc,
-            $formTips,
-            self::TYPE_ITEM,
-            $this->code,
-            now(),
+            $code,          // 配置项代码
+            $value,         // 配置值
+            $control,       // 控件类型
+            $options,       // 选项
+            $name,          // 配置名称
+            $desc,          // 配置描述
+            $formTips,      // 表单提示
+            self::TYPE_ITEM,// 类型
+            $this->code,    // 所属分组
+            now(),          // 时间
         ];
     }
 }
