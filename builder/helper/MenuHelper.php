@@ -52,7 +52,7 @@ class MenuHelper
             ],
             // 'Products' menu item will be selected as long as the route is 'product/index'
             [
-                'label' => '运维管理',
+                'label' => '后台管理',
                 'url' => '',
                 'icon' => 'glyphicon glyphicon-blackboard',
                 'items' => [
@@ -71,13 +71,6 @@ class MenuHelper
                         'url' => ['/admin/ops-cron/index'],
                         'icon' => 'fa fa-tasks',
                     ],
-                ],
-            ],
-            [
-                'label' => '日志管理',
-                'url' => '',
-                'icon' => 'fa fa-connectdevelop',
-                'items' => [
                     [
                         'label' => '错误日志',
                         'url' => ['/admin/error-log/index'],
