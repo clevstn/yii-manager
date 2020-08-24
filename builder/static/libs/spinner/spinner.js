@@ -19,6 +19,14 @@
 
     var YmSpinner;
 
+    var jQueryContainer;
+    var jQueryInner;
+    var jQueryInnerWarp;
+    var jQueryInnerLeft;
+    var jQueryInnerRight;
+
+    var viewRender = false;
+
     /**
      * YmSpinner constructor
      * @constructor
@@ -50,44 +58,74 @@
      * html template
      * @returns {*|jQuery|HTMLElement}
      */
-    YmSpinnerConstructor.prototype.createTemplate = function () {
-        var container = document.createElement('div');
-        var inner = document.createElement('div');
-        var innerWarp = document.createElement('div');
-        var innerLeft = document.createElement('img');
-        var innerRight = document.createElement('p');
+    YmSpinnerConstructor.prototype.createTemplate = function (tips) {
+        var innerText = tips ? tips : YmSpinner.options.contentTips[Math.floor(Math.random() * YmSpinner.options.contentTips.length)];
+        if (!jQueryContainer) {
+            jQueryContainer = jQuery(document.createElement('div')).addClass(YmSpinner.options.containerClass);
+        }
 
-        innerLeft.src = YmSpinner.options.loadingImage;
-        innerLeft.alt = "";
-        innerRight.innerText = YmSpinner.options.contentTips[Math.floor(Math.random() * YmSpinner.options.contentTips.length)];
+        if (!jQueryInner) {
+            jQueryInner = jQuery(document.createElement('div')).addClass(YmSpinner.options.innerClass);
+        }
 
-        var jQueryContainer = jQuery(container);
-        var jQueryInner = jQuery(inner);
-        var jQueryInnerWarp = jQuery(innerWarp);
-        var jQueryInnerLeft = jQuery(innerLeft);
-        var jQueryInnerRight = jQuery(innerRight);
+        if (!jQueryInnerWarp) {
+            jQueryInnerWarp = jQuery(document.createElement('div')).addClass(YmSpinner.options.innerWrapClass);
+        }
 
-        jQueryContainer.addClass(YmSpinner.options.containerClass);
-        jQueryInner.addClass(YmSpinner.options.innerClass);
-        jQueryInnerWarp.addClass(YmSpinner.options.innerWrapClass);
-        jQueryInnerLeft.addClass(YmSpinner.options.innerLeftClass);
-        jQueryInnerRight.addClass(YmSpinner.options.innerRightClass);
+        if (!jQueryInnerLeft) {
+            var innerLeft = document.createElement('img');
+            innerLeft.src = YmSpinner.options.loadingImage;
+            innerLeft.alt = "";
+            jQueryInnerLeft = jQuery(innerLeft).addClass(YmSpinner.options.innerLeftClass);
+        }
 
+        if (!jQueryInnerRight) {
+            var innerRight = document.createElement('p');
+            innerRight.innerText = innerText;
+            jQueryInnerRight = jQuery(innerRight).addClass(YmSpinner.options.innerRightClass);
+        } else {
+            jQueryInnerRight.text(innerText)
+        }
+
+        return this;
+    };
+
+    /**
+     * render
+     */
+    YmSpinnerConstructor.prototype.render = function () {
         jQueryContainer.html(jQueryInnerWarp.html(jQueryInner.html(jQueryInnerLeft).append(jQueryInnerRight)));
-        return jQueryContainer;
+        if (!viewRender) {
+            jQuery('body').append(jQueryContainer);
+            viewRender = true;
+        }
+
+        return this;
     };
 
-
-    YmSpinnerConstructor.prototype.show = function () {
-        jQuery('body').append(YmSpinner.createTemplate());
+    /**
+     * show
+     * @param tips
+     * @returns {YmSpinnerConstructor}
+     */
+    YmSpinnerConstructor.prototype.show = function (tips) {
+        this.createTemplate(tips).render();
+        return this;
     };
 
+    /**
+     * hide
+     * @returns {YmSpinnerConstructor}
+     */
     YmSpinnerConstructor.prototype.hide = function () {
+        if (jQueryContainer) {
+            jQueryContainer.remove();
+            viewRender = false;
+        }
 
+        return this;
     };
 
     YmSpinner = new YmSpinnerConstructor();
-    // test
-    YmSpinner.show();
     return YmSpinner;
 }));
