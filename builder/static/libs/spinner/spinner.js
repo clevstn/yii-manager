@@ -71,13 +71,13 @@
      * payload
      */
     YmSpinnerConstructor.prototype.payload = function (currentMask, currentSpinner) {
-        var __ = this
+        var __ = this;
 
         this.spinnerIndex++;
-        var currentIndex = this.spinnerIndex
+        var currentIndex = this.spinnerIndex;
 
         var timeoutIndex = this.options.timeout ? setTimeout(function () {
-            __.hide(currentIndex)
+            __.hide(currentIndex);
         }, this.options.timeout) : null;
 
         this.spinnerTree[currentIndex] = {
@@ -99,7 +99,7 @@
         var currentMask = jQuery(document.createElement('div')).addClass('ym-spinner-mask');
         this.viewContext.append(currentMask).append(currentSpinner);
 
-        return this.payload(currentMask, currentSpinner)
+        return this.payload(currentMask, currentSpinner);
     };
 
     /**
@@ -107,29 +107,24 @@
      * @returns {YmSpinnerConstructor}
      */
     YmSpinnerConstructor.prototype.hide = function (index) {
-        var currentSpinner = this.spinnerTree[index] || null
+        var currentSpinner = this.spinnerTree[index] || null;
         if (currentSpinner) {
             currentSpinner.vm.addClass('spinner-bounce-close');
             currentSpinner.mask.remove();
 
             var removeDuration = setTimeout(function () {
-                clearTimeout(removeDuration)
+                clearTimeout(removeDuration);
                 currentSpinner.vm.remove();
-            }, 300)
+            }, 300);
 
             if (currentSpinner.timeout !== null) {
-                clearTimeout(currentSpinner.timeout)
+                clearTimeout(currentSpinner.timeout);
             }
 
-            delete this.spinnerTree[index]
+            delete this.spinnerTree[index];
         }
     };
 
     YmSpinner = new YmSpinnerConstructor();
-
-    // --- test
-    var i = YmSpinner.show()
-    // ---
-
     return YmSpinner;
 }));
