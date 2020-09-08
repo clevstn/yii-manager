@@ -1,38 +1,48 @@
-.ym-spinner-container {
+.ym-spinner-mask {
     position: fixed;
-    z-index: 99999;
+    z-index: 99998;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, .35);
+    background-color: #000;
+    opacity: .2;
+    filter: alpha(opacity=20);
+    pointer-events: auto;
 }
 
-.ym-spinner-container .ym-spinner-inner-wrap {
-    position: absolute;
+.ym-spinner-container {
+    position: fixed;
     top: 50%;
     left: 50%;
-    width: 200px;
-    height: 60px;
+    width: 190px;
+    height: 58px;
+    z-index: 99999;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
-.ym-spinner-container .ym-spinner-inner {
+.ym-spinner-inner {
     width: 100%;
     height: 100%;
     position: relative;
-    right: 100px;
-    bottom: 30px;
+    right: 95px;
+    bottom: 29px;
     padding: 15px;
     border-radius: 4px;
-    background-color: #ffffff;
-    border: 1px solid #CCCCCC;
+    background-color: #fff;
     zoom: 1;
-    box-shadow: 1px 0 5px 0 rgba(0, 0, 0, .35);
-    -webkit-box-shadow: 1px 0 5px 0 rgba(0, 0, 0, .35);
-    -moz-box-shadow: 1px 0 5px 0 rgba(0, 0, 0, .35);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
+    -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
+
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
 }
 
-.ym-spinner-container .ym-spinner-inner:after {
+.ym-spinner-inner:after {
     display: block;
     clear: both;
     content: " ";
@@ -40,14 +50,58 @@
     height: 0;
 }
 
-.ym-spinner-container .ym-spinner-inner .ym-spinner-inner-left {
-    float: left;
+.spinner-bounce-in .spinner-dialog {
+    -webkit-animation-name: ym-bounce-in;
+    animation-name: ym-bounce-in;
 }
 
-.ym-spinner-container .ym-spinner-inner .ym-spinner-inner-right {
+.spinner-bounce-close .spinner-dialog {
+    -webkit-animation-name: ym-bounce-out;
+    animation-name: ym-bounce-out;
+}
+
+.ym-spinner-inner-left {
+    float: left;
+    font-size: 0;
+    width: 28px;
+}
+
+.ym-spinner-inner-right {
     float: right;
     margin: 0;
-    color: #737373;
+    color: #333333;
     font-size: 13px;
     line-height: 30px;
+}
+
+@keyframes ym-bounce-in {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(.5);
+        -ms-transform: scale(.5);
+        transform: scale(.5);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes ym-bounce-out {
+    0% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(.5);
+        -ms-transform: scale(.5);
+        transform: scale(.5);
+    }
 }
