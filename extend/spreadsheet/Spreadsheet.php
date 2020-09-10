@@ -6,7 +6,17 @@
 // +----------------------------------------------------------------------
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
-class Spreadsheet
+
+namespace app\extend\spreadsheet;
+
+use yii\base\BaseObject;
+
+/**
+ * 电子表格扩展
+ * @author cleverstone <yang_hui_lei@163.com>
+ * @since 1.0
+ */
+class Spreadsheet extends BaseObject
 {
 
 }

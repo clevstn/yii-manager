@@ -3,17 +3,20 @@
 namespace app\extend\google;
 
 use Exception;
+use yii\base\BaseObject;
 
 /**
  * PHP Class for handling Google Authenticator 2-factor authentication.
  *
+ * @property string $codeLength The code length
  * @author Michael Kliewe
+ * @author cleverstone
  * @copyright 2012 Michael Kliewe
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  *
  * @link http://www.phpgangsta.de/
  */
-class GoogleAuthenticator
+class GoogleAuthenticator extends BaseObject
 {
     protected $_codeLength = 6;
 
@@ -144,6 +147,17 @@ class GoogleAuthenticator
         }
 
         return false;
+    }
+
+    /**
+     * Get the code length
+     * @return int
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getCodeLength()
+    {
+        return $this->_codeLength;
     }
 
     /**
