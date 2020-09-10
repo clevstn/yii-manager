@@ -9,10 +9,10 @@
 
 namespace app\commands\cronjobs\jobs;
 
-use app\commands\cronjobs\business\Demo;
 use yii\helpers\Console;
 use yii\console\ExitCode;
 use app\commands\cronjobs\Cron;
+use app\commands\cronjobs\business\Demo;
 
 /**
  * cron jobs demo

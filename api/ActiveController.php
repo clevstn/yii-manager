@@ -9,8 +9,8 @@
 
 namespace app\api;
 
-use yii\rest\ActiveController as BaseActiveController;
 use yii\web\ForbiddenHttpException;
+use yii\rest\ActiveController as BaseActiveController;
 use function Webmozart\Assert\Tests\StaticAnalysis\throws;
 
 /**
