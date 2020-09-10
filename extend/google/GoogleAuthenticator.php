@@ -2,12 +2,33 @@
 
 namespace app\extend\google;
 
+use app\extend\Extend;
+use Endroid\QrCode\ErrorCorrectionLevel;
 use Exception;
 use yii\base\BaseObject;
 
 /**
  * PHP Class for handling Google Authenticator 2-factor authentication.
+ * ```php
  *
+ *  // Generate `OTP` secret.
+ *  $googleAuth = Extend::googleAuth();
+ *  return $googleAuth->createSecret();
+ * ```
+ *
+ * ```php
+ *
+ *  // Get `OTP` bind qr code.
+ *  $img = $googleAuth->getQRCodeGoogleUrl('Test', $secret, 'cleverstone');
+ *  echo '<img src="'.$img.'" alt>';
+ *  exit(0);
+ * ```
+ *
+ * ```php
+ *
+ *  // Verify whether the `OTP` code is correct.
+ *  return $googleAuth->verifyCode('BL444IWYGMI4XIZ6', '081110');
+ * ```
  * @property string $codeLength The code length
  * @author Michael Kliewe
  * @author cleverstone
@@ -116,7 +137,49 @@ class GoogleAuthenticator extends BaseObject
             $urlencoded .= urlencode('&issuer='.urlencode($title));
         }
 
-        return "https://api.qrserver.com/v1/create-qr-code/?data=$urlencoded&size=${width}x${height}&ecc=$level";
+        return $this->generateQrcode($urlencoded, $width, $height, $level);
+        //return "https://api.qrserver.com/v1/create-qr-code/?data=$urlencoded&size=${width}x${height}&ecc=$level";
+    }
+
+    /**
+     * generate qrcode
+     * @param string $content
+     * @param int $w
+     * @param int $h
+     * @param string $ecc
+     * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    private function generateQrcode($content, $w, $h, $ecc)
+    {
+        $content = urldecode($content);
+
+        if ($w < $h) {
+            $w = $h;
+        }
+
+        switch ($ecc) {
+            case 'L':
+                $errorCorrection = ErrorCorrectionLevel::LOW();
+                break;
+            case 'M':
+                $errorCorrection = ErrorCorrectionLevel::MEDIUM();
+                break;
+            case 'Q':
+                $errorCorrection = ErrorCorrectionLevel::QUARTILE();
+                break;
+            case 'H':
+                $errorCorrection = ErrorCorrectionLevel::HIGH();
+                break;
+            default:
+                $errorCorrection = ErrorCorrectionLevel::MEDIUM();
+        }
+
+        return Extend::qrcode([
+            'size' => $w,
+            'errorCorrectionLevel' => $errorCorrection,
+        ])->returnStr($content);
     }
 
     /**

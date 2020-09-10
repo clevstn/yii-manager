@@ -16,6 +16,23 @@ use Endroid\QrCode\QrCode as EndroidQrcode;
 
 /**
  * Qrcode扩展
+ * ```php
+ *
+ * // return `qrcode` string
+ * return Extend::qrcode()->returnStr($content);
+ * ```
+ *
+ * ```php
+ *
+ * // write `qrcode` to file.
+ * return Extend::qrcode()->writeFile($content, $filepath);
+ * ```
+ *
+ * ```php
+ * 
+ * // output `qrcode` image.
+ * return Extend::qrcode()->output($content);
+ * ```
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
