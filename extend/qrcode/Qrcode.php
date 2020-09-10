@@ -29,7 +29,7 @@ use Endroid\QrCode\QrCode as EndroidQrcode;
  * ```
  *
  * ```php
- * 
+ *
  * // output `qrcode` image.
  * return Extend::qrcode()->output($content);
  * ```

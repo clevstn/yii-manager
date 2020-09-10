@@ -2,10 +2,10 @@
 
 namespace app\extend\google;
 
-use app\extend\Extend;
-use Endroid\QrCode\ErrorCorrectionLevel;
 use Exception;
+use app\extend\Extend;
 use yii\base\BaseObject;
+use Endroid\QrCode\ErrorCorrectionLevel;
 
 /**
  * PHP Class for handling Google Authenticator 2-factor authentication.
