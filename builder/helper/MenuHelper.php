@@ -91,6 +91,11 @@ class MenuHelper
                         'url' => ['/admin/admin-behavior-log/index'],
                         'icon' => 'glyphicon glyphicon-calendar',
                     ],
+                    [
+                        'label' => '系统设置',
+                        'url' => ['/admin/system-setting/index'],
+                        'icon' => 'fa fa-cog',
+                    ],
                 ],
             ],
         ];
