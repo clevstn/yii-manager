@@ -226,6 +226,30 @@ ul, ol, dl {
     margin-bottom: 0;
 }
 
+.table > thead > tr > .row-handle,
+.table > tbody > tr > .row-handle,
+.table > tfoot > tr > .row-handle {
+    padding-top: 0;
+    padding-bottom: 0;
+    vertical-align: middle;
+    min-width: 80px;
+}
+
+.table > thead > tr > .row-handle .dropdown-menu,
+.table > tbody > tr > .row-handle .dropdown-menu,
+.table > tfoot > tr > .row-handle .dropdown-menu {
+    min-width: auto;
+}
+
+.table > thead > tr > .row-handle .btn,
+.table > tbody > tr > .row-handle .btn,
+.table > tfoot > tr > .row-handle .btn {
+    padding: 3px 8px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 4px;
+}
+
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th,

@@ -65,7 +65,21 @@
             <td>15</td>
             <td>98.7分</td>
             <td>2020/09/11 13:22</td>
-            <td>2020/09/11 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Tom</td>
@@ -82,7 +96,21 @@
             <td>15</td>
             <td>98.7分</td>
             <td>2020/09/11 13:22</td>
-            <td>2020/09/11 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Tom</td>
@@ -99,7 +127,21 @@
             <td>15</td>
             <td>98.7分</td>
             <td>2020/09/11 13:22</td>
-            <td>2020/09/11 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Tom</td>
@@ -116,7 +158,21 @@
             <td>15</td>
             <td>98.7分</td>
             <td>2020/09/11 13:22</td>
-            <td>2020/09/11 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Tom</td>
@@ -133,7 +189,21 @@
             <td>15</td>
             <td>98.7分</td>
             <td>2020/09/11 13:22</td>
-            <td>2020/09/11 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Tom</td>
@@ -150,7 +220,21 @@
             <td>15</td>
             <td>98.7分</td>
             <td>2020/09/11 13:22</td>
-            <td>2020/09/11 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Tom</td>
@@ -167,7 +251,21 @@
             <td>15</td>
             <td>98.7分</td>
             <td>2020/09/11 13:22</td>
-            <td>2020/09/11 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Tom</td>
@@ -184,7 +282,21 @@
             <td>15</td>
             <td>98.7分</td>
             <td>2020/09/11 13:22</td>
-            <td>2020/09/11 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Tom</td>
@@ -201,7 +313,21 @@
             <td>15</td>
             <td>98.7分</td>
             <td>2020/09/11 13:22</td>
-            <td>2020/09/11 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Tom</td>
@@ -218,7 +344,21 @@
             <td>15</td>
             <td>98.7分</td>
             <td>2020/09/11 13:22</td>
-            <td>2020/09/11 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Sunny</td>
@@ -235,7 +375,21 @@
             <td>15</td>
             <td>88.7分</td>
             <td>2020/09/09 13:22</td>
-            <td>2020/09/10 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Sunny</td>
@@ -252,7 +406,21 @@
             <td>15</td>
             <td>88.7分</td>
             <td>2020/09/09 13:22</td>
-            <td>2020/09/10 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Sunny</td>
@@ -269,7 +437,21 @@
             <td>15</td>
             <td>88.7分</td>
             <td>2020/09/09 13:22</td>
-            <td>2020/09/10 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Sunny</td>
@@ -286,7 +468,21 @@
             <td>15</td>
             <td>88.7分</td>
             <td>2020/09/09 13:22</td>
-            <td>2020/09/10 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Sunny</td>
@@ -303,7 +499,21 @@
             <td>15</td>
             <td>88.7分</td>
             <td>2020/09/09 13:22</td>
-            <td>2020/09/10 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Sunny</td>
@@ -320,7 +530,21 @@
             <td>15</td>
             <td>88.7分</td>
             <td>2020/09/09 13:22</td>
-            <td>2020/09/10 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Sunny</td>
@@ -337,7 +561,21 @@
             <td>15</td>
             <td>88.7分</td>
             <td>2020/09/09 13:22</td>
-            <td>2020/09/10 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Sunny</td>
@@ -354,7 +592,21 @@
             <td>15</td>
             <td>88.7分</td>
             <td>2020/09/09 13:22</td>
-            <td>2020/09/10 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Sunny</td>
@@ -371,7 +623,21 @@
             <td>15</td>
             <td>88.7分</td>
             <td>2020/09/09 13:22</td>
-            <td>2020/09/10 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Sunny</td>
@@ -388,7 +654,21 @@
             <td>15</td>
             <td>88.7分</td>
             <td>2020/09/09 13:22</td>
-            <td>2020/09/10 13:22</td>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
