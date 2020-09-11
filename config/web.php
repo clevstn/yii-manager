@@ -7,7 +7,7 @@ $db1 = require __DIR__ . '/db1.php';
 
 $config = [
     'id' => 'Yii-Manager-1.0',
-    'name' => 'Yii-Manager',
+    'name' => 'YII MANAGER CRM',
     'language' => 'zh-CN',
     'sourceLanguage' => 'zh-CN',
     'timeZone' => 'Asia/Shanghai',

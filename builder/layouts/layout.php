@@ -10,7 +10,6 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\builder\assets\MainAsset;
 use app\builder\helper\NavHelper;
 use app\builder\helper\MenuHelper;
@@ -69,9 +68,6 @@ MainAsset::register($this);
     </aside>
 
     <main class="ym-content">
-        <!--breadcrubs-->
-        <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
-
         <!--content-->
         <div class="container-fluid ym-content-fluid">
             <div class="panel panel-default">

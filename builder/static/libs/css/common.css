@@ -410,6 +410,18 @@ ul, ol, dl {
     outline: 0;
 }
 
+.f-15 {
+    font-size: 15px;
+}
+
+.f-14 {
+    font-size: 14px;
+}
+
+.f-13 {
+    font-size: 13px;
+}
+
 .ym-footer {
     position: fixed;
     left: 0;
