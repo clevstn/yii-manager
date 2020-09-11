@@ -71,7 +71,7 @@ ul, ol, dl {
     overflow-y: auto;
     overflow-x: hidden;
     padding-bottom: 30px;
-    background-color: #2c343f;
+    background-color: #20222a;
     -webkit-overflow-scrolling: touch;
     display: none;
 }
@@ -79,7 +79,7 @@ ul, ol, dl {
 .ym-aside-menu > .ym-brand-wrap {
     position: relative;
     height: 50px;
-    background-color: rgba(0, 0, 0, .15);
+    background-color: rgba(0, 0, 0, .5);
     zoom: 1;
 }
 
@@ -90,7 +90,7 @@ ul, ol, dl {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    border: 1px solid #cccccc;
+    border: 1px solid #f3f3f3;
     font-size: 16px;
     color: #f3f3f3;
     float: none;
@@ -159,7 +159,7 @@ ul, ol, dl {
 }
 
 .ym-submenu-wrap {
-    background-color: rgba(0, 0, 0, .25);
+    background-color: rgba(0, 0, 0, .5);
     color: #eeeeee;
 }
 
@@ -220,6 +220,170 @@ ul, ol, dl {
 
 .ym-content .ym-content-fluid {
     margin-top: 15px;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    min-width: 50px;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th {
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.table-bordered {
+    border: 1px solid #eee;
+}
+
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+    border: 1px solid #eee;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #eee !important;
+}
+
+.border-top {
+    border-top: 1px solid #eee !important;
+}
+
+.pt-0 {
+    padding-top: 0px !important;
+}
+
+.pb-0 {
+    padding-bottom: 0px !important;
+}
+
+.pl-0 {
+    padding-left: 0px !important;
+}
+
+.pr-0 {
+    padding-right: 0px !important;
+}
+
+.px-0 {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.py-0 {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.py-3 {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.bg-light {
+    background-color: #f2f2f2;
+}
+
+.overflow-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.overflow-x-nowrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+}
+
+.pagination {
+    margin: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.pagination .page-left,
+.pagination .page-right {
+    font-size: 14px;
+    vertical-align: top;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+    border: none;
+}
+
+.page-block {
+    margin: 0;
+    display: inline-block;
+    padding-left: 0;
+    border-radius: 4px;
+}
+
+.page-block li {
+    display: inline;
+}
+
+.page-block > li > a,
+.page-block > li > span {
+    position: relative;
+    float: left;
+    padding: 6px 8px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    background-color: #fff;
+    color: #737373;
+}
+
+.page-block > li > a {
+    padding: 4px 8px;
+}
+
+.page-block .page-dump-control,
+.page-block .page-select-control {
+    padding: 0;
+}
+
+.page-block .page-dump-control input {
+    width: 50px;
+    height: 27px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    outline: 0;
+}
+
+.page-block .page-select-control select {
+    height: 27px;
+    padding: 0 6px;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    outline: 0;
 }
 
 .ym-footer {

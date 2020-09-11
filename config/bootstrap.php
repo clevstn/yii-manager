@@ -25,7 +25,7 @@ return [
     // 首页
     'admin_url' => '/admin/index/index',
     // 后台brand title
-    'admin_title' => 'Yii-Manager CRM',
+    'admin_title' => 'YII MANAGER CRM',
     // 分组配置
     'group_config' => [
         WebsiteGroup::class,

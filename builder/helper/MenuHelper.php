@@ -94,7 +94,7 @@ class MenuHelper
                     [
                         'label' => '系统设置',
                         'url' => ['/admin/system-setting/index'],
-                        'icon' => 'fa fa-cog',
+                        'icon' => 'glyphicon glyphicon-cog',
                     ],
                 ],
             ],

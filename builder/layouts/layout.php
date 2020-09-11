@@ -75,9 +75,7 @@ MainAsset::register($this);
         <!--content-->
         <div class="container-fluid ym-content-fluid">
             <div class="panel panel-default">
-                <div class="panel-body">
-                    <?= $content ?>
-                </div>
+                <?= $content ?>
             </div>
         </div>
     </main>
