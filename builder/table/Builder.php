@@ -17,7 +17,9 @@ use app\builder\contract\BuilderInterface;
 
 /**
  * 表格构建器
- * @property string $title 表格名
+ * @property string $title  表格名
+ * @property array $data    表格数据
+ * @property array $columns 数据列
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -28,6 +30,18 @@ class Builder extends BaseObject implements BuilderInterface
      * @since 1.0
      */
     private $_title = '';
+
+    /**
+     * @var array
+     * @since 1.0
+     */
+    private $_data = [];
+
+    /**
+     * @var array
+     * @since 1.0
+     */
+    private $_columns = [];
 
     /**
      * @var string
@@ -85,6 +99,62 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
+     * 设置表格数据
+     * @param array $data
+     * ```php
+     *  ViewBuilder::table()
+     *      ->setData([
+     *          ['name' => 'Tom', 'sex' => '男'],
+     *          ['name' => 'Sunny', 'sex' => '女'],
+     *      ])
+     *      ->setColumns([
+     *          'name' => table_column_helper('名称'),
+     *          'sex' => table_column_helper('性别'),
+     *      ])
+     *      ->render($this)
+     * ```
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setData(array $data)
+    {
+        return $this;
+    }
+
+    public function getData()
+    {
+
+    }
+
+    /**
+     * 设置数据列
+     * @param array $columns
+     * ```php
+     * ViewBuilder::table()
+     *      ->setColumns([
+     *          'name' => table_column_helper('名称'),
+     *          'sex' => table_column_helper('性别'),
+     *      ])
+     *      ->render($this)
+     *
+     * ```
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setColumns(array $columns)
+    {
+
+        return $this;
+    }
+
+    public function getColumns()
+    {
+        return [];
+    }
+
+    /**
      * 渲染表格
      * @param Controller $context
      * @return string
@@ -94,9 +164,10 @@ class Builder extends BaseObject implements BuilderInterface
     public function render(Controller $context)
     {
         $this->_view->title = $this->getTitle();
+        $columns = $this->getColumns();
         $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
 
-        return $context->render($this->_viewPath);
+        return $context->render($this->_viewPath, $columns);
     }
 
     /**

@@ -47,7 +47,14 @@ class IndexController extends CommonController
     public function actionIndex()
     {
         return ViewBuilder::table()
-            ->setTitle('会员列表')
+            ->setData([
+                ['name' => 'Tom', 'sex' => '男'],
+                ['name' => 'Sunny', 'sex' => '女'],
+            ])
+            ->setColumns([
+                'name' => table_column_helper('名称'),
+                'sex' => table_column_helper('性别'),
+            ])
             ->render($this);
     }
 }

@@ -208,6 +208,24 @@ if (!function_exists('html_escape')) {
     }
 }
 
+if (!function_exists('table_column_helper')) {
+    /**
+     * 快捷注册表格字段
+     * @param string $title     字段标题，设置则以字段名作为标题
+     * @param null $width       单元格宽度，不设置则跟随构建器
+     * @param null $minWidth    单元格最小宽度，不设置则跟随构建器
+     * @param null $maxWidth    单元格最大宽度，不设置则跟随构建器
+     * @param null $callback    自定义回调，用来自定义字段值
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function table_column_helper($title = null, $width = null, $minWidth = null, $maxWidth = null, $callback = null)
+    {
+        return [$title, $width, $minWidth, $maxWidth, $callback];
+    }
+}
+
 // 包含用户自定义函数文件
 include __DIR__ . '/function.php';
 
