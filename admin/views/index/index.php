@@ -22,7 +22,7 @@ $this->title = 'CRM';
     </div>
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">
         <div class="btn-group btn-group-sm pull-right">
-            <a href="#" type="button" class="btn btn-default">
+            <a href="#" type="button" class="ym_script_refresh btn btn-default">
                 <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i>
                 <span>刷新</span>
             </a>

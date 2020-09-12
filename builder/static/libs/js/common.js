@@ -73,10 +73,23 @@
 
     };
 
+    // Refresh page
+    YmAppConstructor.prototype.refresh = function () {
+        jQuery(document).on('click', '.ym_script_refresh', function (e) {
+            if (global === window) {
+                global.self.location.reload();
+            } else if (typeof window !== 'undefined') {
+                window.self.location.reload();
+            }
+        });
+
+    };
+
     YmApp = new YmAppConstructor();
     YmAppConstructor.prototype.run = function () {
         YmApp.toggleSideBar();
         YmApp.initAllPlugins();
+        YmApp.refresh();
     };
 
     YmApp.run();
