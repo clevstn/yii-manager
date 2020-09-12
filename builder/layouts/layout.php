@@ -34,7 +34,7 @@ MainAsset::register($this);
     <title><?= Yii::$app->params['admin_title'] . ($this->title ? ' | ' . Html::encode($this->title) : '') ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body ng-app="thisApp" ng-controller="thisCtrl">
 <?php $this->beginBody() ?>
 <div class="ym-app">
     <!--navbar-->
@@ -67,7 +67,7 @@ MainAsset::register($this);
         <?= MenuHelper::render() ?>
     </aside>
 
-    <main class="ym-content">
+    <main class="ym-content" ng-cloak>
         <!--content-->
         <div class="container-fluid ym-content-fluid">
             <div class="panel panel-default">
@@ -82,6 +82,7 @@ MainAsset::register($this);
             <p class="pull-left ym-copyright">&copy; <?= Yii::$app->name ?> <?= date('Y') ?></p>
         </div>
     </footer>
+
 </div>
 <?php $this->endBody() ?>
 </body>

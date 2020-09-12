@@ -9,6 +9,11 @@
 
 namespace app\builder\assets;
 
+/**
+ * Angular
+ * @author cleverstone <yang_hui_lei@163.com>
+ * @since 1.0
+ */
 class AngularAsset extends BaseAsset
 {
     /**

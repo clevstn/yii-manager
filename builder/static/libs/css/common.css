@@ -426,6 +426,20 @@ ul, ol, dl {
     padding: 10px !important;
 }
 
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak,
+.ng-hide:not(.ng-hide-animate) {
+    display: none !important;
+}
+
+.swal2-popup {
+    border-radius: 4px !important;
+}
+
 .ym-footer {
     position: fixed;
     left: 0;

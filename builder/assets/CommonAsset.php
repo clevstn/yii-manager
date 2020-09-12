@@ -29,10 +29,11 @@ class CommonAsset extends BaseAsset
         Toastr2::class,                 // ToaStr2
         Select2Asset::class,            // Select2
         YiiAsset::class,                // Yii2Js
+        SpinnerAsset::class,            // Spinner
         FontAwesomeAsset::class,        // FontAwesome
         SweetAlert2::class,             // SweetAlert2
-        SpinnerAsset::class,            // Spinner
         IcheckAsset::class,             // Icheck
-        LaydateAsset::class,            // laydate
+        LaydateAsset::class,            // Laydate
+        AngularAsset::class,            // Angular 1.7.5
     ];
 }

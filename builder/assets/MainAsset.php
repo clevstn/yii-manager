@@ -30,5 +30,6 @@ class MainAsset extends CommonAsset
      */
     public $js = [
         'libs/js/common.js',
+        'libs/js/service.js',
     ];
 }
