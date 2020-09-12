@@ -422,6 +422,10 @@ ul, ol, dl {
     font-size: 13px;
 }
 
+.panel-body {
+    padding: 10px !important;
+}
+
 .ym-footer {
     position: fixed;
     left: 0;
@@ -429,8 +433,8 @@ ul, ol, dl {
     bottom: 0;
     height: 30px;
     z-index: 1030;
-    background-color: #eeeeee;
-    color: #737373;
+    background-color: #fbfbfb;
+    color: #9195a3;
 }
 
 .ym-footer .ym-copyright {
