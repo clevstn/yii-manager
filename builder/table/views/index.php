@@ -1,12 +1,8 @@
 <?php
 /* @var $this \yii\web\View */
-/* @var $param */
-
-$this->title = 'CRM';
 ?>
-
 <div class="panel-heading border-bottom">
-    <span class="f-13">会员列表</span>
+    <span class="f-13"><?= $this->title ?></span>
 </div>
 <div class="panel-body border-bottom">
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">

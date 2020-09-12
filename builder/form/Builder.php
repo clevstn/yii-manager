@@ -9,6 +9,8 @@
 
 namespace app\builder\form;
 
+use yii\base\Controller;
+use yii\base\BaseObject;
 use app\builder\contract\BuilderInterface;
 
 /**
@@ -16,7 +18,11 @@ use app\builder\contract\BuilderInterface;
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class Builder implements BuilderInterface
+class Builder extends BaseObject implements BuilderInterface
 {
 
+    public function render(Controller $context)
+    {
+
+    }
 }

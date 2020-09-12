@@ -9,6 +9,7 @@
 
 namespace app\admin\controllers;
 
+use app\builder\ViewBuilder;
 use app\builder\common\CommonController;
 
 /**
@@ -45,6 +46,8 @@ class IndexController extends CommonController
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return ViewBuilder::table()
+            ->setTitle('会员列表')
+            ->render($this);
     }
 }
