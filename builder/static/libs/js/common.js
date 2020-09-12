@@ -46,13 +46,13 @@
      * Init all plugins
      */
     YmAppConstructor.prototype.initAllPlugins = function () {
-        if (typeof jQuery.fn.select2 !== 'undefined') {
+        if (typeof jQuery.fn !== 'undefined' && jQuery.fn.select2) {
             /* Sets select2 bootstrap3-theme */
             jQuery.fn.select2.defaults.set("theme", "bootstrap");
         }
 
         if (typeof global.toastr !== 'undefined' && global.toastr.options) {
-            /* Initial toaStr options */
+            /* Initial toastr options */
             global.toastr.options.closeButton = true;
             global.toastr.options.progressBar = true;
             global.toastr.options.timeOut = 2500; // How long the toast will display without user interaction
@@ -63,6 +63,13 @@
             global.toastr.options.closeDuration = 300;
             // global.toastr.options.positionClass = 'toast-top-center';
         }
+
+        // Initial icheck options
+        jQuery('.icheckbox').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue',
+            increaseArea: '20%' // optional
+        });
 
     };
 

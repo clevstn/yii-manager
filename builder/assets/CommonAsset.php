@@ -28,9 +28,10 @@ class CommonAsset extends BaseAsset
         BootstrapPluginAsset::class,    // Bootstrap3
         Toastr2::class,                 // ToaStr2
         Select2Asset::class,            // Select2
-        YiiAsset::class,                // Yii2 js
+        YiiAsset::class,                // Yii2Js
         FontAwesomeAsset::class,        // FontAwesome
         SweetAlert2::class,             // SweetAlert2
         SpinnerAsset::class,            // Spinner
+        IcheckAsset::class,             // Icheck
     ];
 }

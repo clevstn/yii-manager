@@ -41,6 +41,9 @@ $this->title = 'CRM';
     <table class="table table-bordered table-hover">
         <thead>
         <tr class="bg-light">
+            <th>
+                <input type="checkbox" class="icheckbox invisible">
+            </th>
             <th>姓名</th>
             <th>年龄</th>
             <th>性别</th>
@@ -60,6 +63,9 @@ $this->title = 'CRM';
         </thead>
         <tbody>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Tom</td>
             <td>22</td>
             <td>男</td>
@@ -91,6 +97,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Tom</td>
             <td>22</td>
             <td>男</td>
@@ -122,6 +131,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Tom</td>
             <td>22</td>
             <td>男</td>
@@ -153,6 +165,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Tom</td>
             <td>22</td>
             <td>男</td>
@@ -184,6 +199,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Tom</td>
             <td>22</td>
             <td>男</td>
@@ -215,6 +233,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Tom</td>
             <td>22</td>
             <td>男</td>
@@ -246,6 +267,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Tom</td>
             <td>22</td>
             <td>男</td>
@@ -277,6 +301,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Tom</td>
             <td>22</td>
             <td>男</td>
@@ -308,6 +335,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Tom</td>
             <td>22</td>
             <td>男</td>
@@ -339,6 +369,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Tom</td>
             <td>22</td>
             <td>男</td>
@@ -370,6 +403,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Sunny</td>
             <td>18</td>
             <td>女</td>
@@ -401,6 +437,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Sunny</td>
             <td>18</td>
             <td>女</td>
@@ -432,6 +471,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Sunny</td>
             <td>18</td>
             <td>女</td>
@@ -463,6 +505,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Sunny</td>
             <td>18</td>
             <td>女</td>
@@ -494,6 +539,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Sunny</td>
             <td>18</td>
             <td>女</td>
@@ -525,6 +573,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Sunny</td>
             <td>18</td>
             <td>女</td>
@@ -556,6 +607,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Sunny</td>
             <td>18</td>
             <td>女</td>
@@ -587,6 +641,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Sunny</td>
             <td>18</td>
             <td>女</td>
@@ -618,6 +675,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Sunny</td>
             <td>18</td>
             <td>女</td>
@@ -649,6 +709,9 @@ $this->title = 'CRM';
             </td>
         </tr>
         <tr>
+            <td>
+                <input type="checkbox" class="icheckbox invisible">
+            </td>
             <td>Sunny</td>
             <td>18</td>
             <td>女</td>
