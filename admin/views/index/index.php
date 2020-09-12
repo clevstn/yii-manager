@@ -4,6 +4,7 @@
 
 $this->title = 'CRM';
 ?>
+
 <div class="panel-heading border-bottom">
     <span class="f-13">会员列表</span>
 </div>
@@ -42,7 +43,7 @@ $this->title = 'CRM';
         <thead>
         <tr class="bg-light">
             <th>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </th>
             <th>姓名</th>
             <th>年龄</th>
@@ -64,7 +65,7 @@ $this->title = 'CRM';
         <tbody>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Tom</td>
             <td>22</td>
@@ -98,7 +99,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Tom</td>
             <td>22</td>
@@ -132,7 +133,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Tom</td>
             <td>22</td>
@@ -166,7 +167,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Tom</td>
             <td>22</td>
@@ -200,7 +201,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Tom</td>
             <td>22</td>
@@ -234,7 +235,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Tom</td>
             <td>22</td>
@@ -268,7 +269,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Tom</td>
             <td>22</td>
@@ -302,7 +303,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Tom</td>
             <td>22</td>
@@ -336,7 +337,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Tom</td>
             <td>22</td>
@@ -370,7 +371,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Tom</td>
             <td>22</td>
@@ -404,7 +405,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Sunny</td>
             <td>18</td>
@@ -438,7 +439,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Sunny</td>
             <td>18</td>
@@ -472,7 +473,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Sunny</td>
             <td>18</td>
@@ -506,7 +507,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Sunny</td>
             <td>18</td>
@@ -540,7 +541,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Sunny</td>
             <td>18</td>
@@ -574,7 +575,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Sunny</td>
             <td>18</td>
@@ -608,7 +609,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Sunny</td>
             <td>18</td>
@@ -642,7 +643,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Sunny</td>
             <td>18</td>
@@ -676,7 +677,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Sunny</td>
             <td>18</td>
@@ -710,7 +711,7 @@ $this->title = 'CRM';
         </tr>
         <tr>
             <td>
-                <input type="checkbox" class="icheckbox invisible">
+                <input type="checkbox" class="icheckbox hidden">
             </td>
             <td>Sunny</td>
             <td>18</td>

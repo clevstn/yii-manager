@@ -33,5 +33,6 @@ class CommonAsset extends BaseAsset
         SweetAlert2::class,             // SweetAlert2
         SpinnerAsset::class,            // Spinner
         IcheckAsset::class,             // Icheck
+        LaydateAsset::class,            // laydate
     ];
 }
