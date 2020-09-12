@@ -1,6 +1,8 @@
 /**
  * this is a background js-file for Yii-Manager
  * if env is windows, the global object is `YmSpinner`
+ * @author cleverstone
+ * @since 1.0
  */
 (function (global, jQuery, factory) {
     "use strict"

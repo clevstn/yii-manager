@@ -1,3 +1,8 @@
+/**
+ * table builder js
+ * @author cleverstone
+ * @since 1.0
+ */
 !function (window, angular) {
     "use strict";
 

@@ -1,5 +1,7 @@
 /**
  * Yii-manager angular service register
+ * @author cleverstone
+ * @since 1.0
  */
 !function (global, angular) {
     "use strict";
