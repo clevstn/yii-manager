@@ -45,6 +45,7 @@ class IndexController extends CommonController
      * Renders the index view for the module
      * @return string
      * @throws \yii\base\NotSupportedException
+     * @throws \Throwable
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */

@@ -222,6 +222,10 @@ ul, ol, dl {
     margin-top: 8px;
 }
 
+.dropdown-menu {
+    z-index: 1050 !important;
+}
+
 .table {
     margin-bottom: 0;
 }

@@ -34,6 +34,11 @@
             $swal,
             $laydate
         ) {
+            // 初始化数据列表
+            ($scope.initList = function () {
+                $scope.list = <?= $data ?>;
+            }());
+
 
         }]);
 }(window, window.angular);

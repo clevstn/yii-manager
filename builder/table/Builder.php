@@ -22,7 +22,7 @@ use app\builder\contract\BuilderInterface;
  * 表格构建器
  * @property string $title 标题
  * @property array $data 数据
- * @property array $pages 分页
+ * @property Linkable $pages 分页
  * @property array $columns 列
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
@@ -60,7 +60,7 @@ class Builder extends BaseObject implements BuilderInterface
     private $_columns = [];
 
     /**
-     * @var array
+     * @var Linkable
      * @since 1.0
      */
     private $_pages;
@@ -223,7 +223,7 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function setPages(Linkable $pages)
     {
-        $this->_pages = $pages->getLinks();
+        $this->_pages = $pages;
         return $this;
     }
 
@@ -241,6 +241,7 @@ class Builder extends BaseObject implements BuilderInterface
      * 渲染表格
      * @param Controller $context
      * @return string
+     * @throws \Throwable
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -272,6 +273,7 @@ class Builder extends BaseObject implements BuilderInterface
      * html渲染
      * @param Controller $context
      * @return string
+     * @throws \Throwable
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -281,23 +283,25 @@ class Builder extends BaseObject implements BuilderInterface
         $this->_view->title = $this->getTitle();
 
         // Register the table widget script js
-        $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
+        $this->_view->registerJs($this->resolveJsScript(Json::encode($this->data)), View::POS_END);
 
         return $context->render($this->_viewPath, [
             'columns' => $this->columns,
-            'data' => $this->data,
             'page' => $this->pages,
         ]);
     }
 
     /**
      * 解析表格组件JS脚本
+     * @param string $data
+     * @return string
+     * @throws \Throwable
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    protected function resolveJsScript()
+    protected function resolveJsScript($data)
     {
-        return $this->_view->renderPhpFile(__DIR__ . '/app.js');
+        return $this->_view->renderPhpFile(__DIR__ . '/app.js', compact('data'));
     }
 
     /**

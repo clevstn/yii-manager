@@ -1,7 +1,6 @@
 <?php
 /* @var $this \yii\web\View */
 /* @var $columns array */
-/* @var $data array */
 /* @var $page array */
 ?>
 <div class="panel-heading border-bottom">
@@ -53,76 +52,35 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($data as $i => $item): ?>
-            <tr>
-                <td>
-                    <input type="checkbox" class="icheckbox hidden">
-                </td>
-                <?php foreach ($item as $field => $value): ?>
-                    <td data-field="<?= $field ?>"><?= $value ?></td>
-                <?php endforeach; ?>
-                <td class="row-handle">
-                    <div class="dropdown">
-                        <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            操作
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">编辑</a></li>
-                            <li><a href="#">删除</a></li>
-                            <li><a href="#">详情</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">更多操作</a></li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-        <?php endforeach; ?>
+        <tr ng-repeat="(key, value) in list track by key">
+            <td>
+                <input type="checkbox" class="icheckbox hidden">
+            </td>
+            <?php foreach ($columns as $field => $item): ?>
+            <td ng-bind="value.<?= $field ?>" style="<?= !empty($item['options']['style']) ? $item['options']['style'] : '' ?>" <?= !empty($item['options']['attribute']) ? $item['options']['attribute'] : '' ?>></td>
+            <?php endforeach; ?>
+            <td class="row-handle">
+                <div class="dropdown">
+                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">编辑</a></li>
+                        <li><a href="#">删除</a></li>
+                        <li><a href="#">详情</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">更多操作</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
 <div class="panel-body overflow-x-nowrap border-top">
-    <ul class="pagination">
-        <li>
-            <a href="#" aria-label="Previous">
-                <span aria-hidden="true" class="page-left glyphicon glyphicon-menu-left"></span>
-            </a>
-        </li>
-        <li><a href="#">1</a></li>
-        <li class="active"><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li>
-            <a href="#" aria-label="Next">
-                <span aria-hidden="true" class="page-right glyphicon glyphicon-menu-right"></span>
-            </a>
-        </li>
-    </ul>
-    <ul class="page-block">
-        <li>
-            <span>到第</span>
-            <span class="page-dump-control">
-                <label for="page-dump" aria-hidden="true" class="hidden"></label>
-                <input type="number" id="page-dump" min="1"/>
-            </span>
-            <span>页</span>
-            <a href="#" type="button" class="btn btn-sm btn-default">确定</a>
-        </li>
-        <li>
-            <span>共135条</span>
-        </li>
-        <li>
-            <span class="page-select-control">
-                <label for="page-select" aria-hidden="true" class="hidden"></label>
-                <select name="page-select" id="page-select">
-                    <option value="20">每页20条</option>
-                    <option value="100">每页100条</option>
-                    <option value="300">每页300条</option>
-                    <option value="500">每页500条</option>
-                </select>
-            </span>
-        </li>
-    </ul>
+    <?= \app\builder\widgets\LinkPager::widget([
+            'pagination' => $page,
+    ]) ?>
 </div>
