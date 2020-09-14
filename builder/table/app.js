@@ -36,6 +36,7 @@
         ) {
             // 获取URL
             var link = '<?= $link ?>';
+            $scope.pageSelect = '20';
             $scope.getUrl = function (page, perPage) {
                 page = page || 1;
                 perPage = perPage || 20;
@@ -66,9 +67,9 @@
                 $scope.getList(page, perPage);
             };
 
-            $scope.selectPerPage = function (page) {
-                $scope.getList(page, $scope.pageSelect);
-            };
+            $jq('body').on('change', '#pageSelect', function () {
+                $scope.getList(1, $jq(this).val());
+            });
 
         }]);
 }(window, window.angular);

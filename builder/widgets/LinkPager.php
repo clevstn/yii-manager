@@ -80,7 +80,7 @@ class LinkPager extends \yii\widgets\LinkPager
                     '300' => '每页300条',
                     '500' => '每页500条',
                 ]), [
-                    'name' => 'pageSelect',
+                    'id' => 'pageSelect',
                 ]),
                 ['class' => 'page-select-control']
             )
