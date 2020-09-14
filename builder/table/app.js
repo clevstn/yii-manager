@@ -34,42 +34,41 @@
             $swal,
             $laydate
         ) {
-            // 初始化数据列表
-            $scope.page = 1;
-            $scope.perPage = 20;
-            $scope.link = '<?= $link ?>';
-            var param = {
-                page: $scope.page,
-                'per-page': $scope.perPage,
+            // 获取URL
+            var link = '<?= $link ?>';
+            $scope.getUrl = function (page, perPage) {
+                page = page || 1;
+                perPage = perPage || 20;
+                var param = {
+                    page: page,
+                    'per-page': perPage,
+                };
+
+                return link + '?' + $jq.param(param);
             };
-            ($scope.getList = function () {
-                $http.get($scope.link + '?' + $.param(param)).then(function (result) {
+            // 获取列表
+            $scope.getList = function (page, perPage) {
+                var i = $YmSpinner.show();
+                $http.get($scope.getUrl(page, perPage)).then(function (result) {
+                    $YmSpinner.hide(i);
                     var data = result.data;
                     $scope.ymPage = data.page;
                     $scope.list = data.data;
                 }, function (error) {
+                    $YmSpinner.hide(i);
                     console.error(error);
-                })
-            }());
-
-            // 获取分页列表数据
-            $scope.getPage = function (link) {
-                var i = $YmSpinner.show();
-
-                $http.get(link).then(function (result) {
-                    $YmSpinner.hide(i);
-                    $scope.ymPage = result.data.page;
-                    $scope.list = result.data.data;
-                }, function (error) {
-                    $YmSpinner.hide(i);
-                    console.error(error)
                 });
             };
 
-            // 更改每页数据条数
-            $scope.dumpPage = function (link) {
-                var pageSize = $scope.pageSelect;
-                $scope.getPage(link, pageSize);
+            $scope.getList();
+
+            $scope.getPage = function (page, perPage) {
+                $scope.getList(page, perPage);
             };
+
+            $scope.selectPerPage = function (page) {
+                $scope.getList(page, $scope.pageSelect);
+            };
+
         }]);
 }(window, window.angular);

@@ -241,7 +241,10 @@ if (!function_exists('resolve_pages')) {
     function resolve_pages(\yii\db\QueryInterface $query)
     {
         $countQuery = clone $query;
-        $pages = new \yii\data\Pagination(['totalCount' => $countQuery->count()]);
+        $pages = new \yii\data\Pagination([
+            'totalCount' => $countQuery->count(),
+            'pageSizeLimit' => [1, 500],
+        ]);
         $models = $query->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
