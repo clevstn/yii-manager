@@ -9,7 +9,9 @@
 
 namespace app\builder\table;
 
+use app\builder\widgets\LinkPager;
 use Yii;
+use yii\helpers\Html;
 use yii\web\View;
 use yii\helpers\Json;
 use yii\web\Linkable;
@@ -258,6 +260,7 @@ class Builder extends BaseObject implements BuilderInterface
      * ajax渲染
      * @param Controller $context
      * @return string
+     * @throws \Exception
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -265,7 +268,9 @@ class Builder extends BaseObject implements BuilderInterface
     {
         return Json::encode([
             'data' => $this->data,
-            'page' => $this->pages,
+            'page' => LinkPager::widget([
+                'pagination' => $this->pages,
+            ]),
         ]);
     }
 
@@ -283,25 +288,25 @@ class Builder extends BaseObject implements BuilderInterface
         $this->_view->title = $this->getTitle();
 
         // Register the table widget script js
-        $this->_view->registerJs($this->resolveJsScript(Json::encode($this->data)), View::POS_END);
+        $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
 
         return $context->render($this->_viewPath, [
             'columns' => $this->columns,
-            'page' => $this->pages,
         ]);
     }
 
     /**
      * 解析表格组件JS脚本
-     * @param string $data
      * @return string
      * @throws \Throwable
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    protected function resolveJsScript($data)
+    protected function resolveJsScript()
     {
-        return $this->_view->renderPhpFile(__DIR__ . '/app.js', compact('data'));
+        return $this->_view->renderPhpFile(__DIR__ . '/app.js', [
+            'link' => Yii::$app->request->url,
+        ]);
     }
 
     /**

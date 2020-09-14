@@ -24,7 +24,7 @@ class IndexController extends CommonController
      * {@inheritdoc}
      */
     public $actionVerbs = [
-        'index' => ['get'],
+        'index' => ['get', 'post'],
     ];
 
     /**

@@ -74,12 +74,17 @@ class LinkPager extends \yii\widgets\LinkPager
             'li',
             Html::tag(
                 'span',
-                Html::tag('select', Html::renderSelectOptions('20', [
+                Html::tag('select', Html::renderSelectOptions($this->pagination->limit, [
                     '20' => '每页20条',
                     '100' => '每页100条',
                     '300' => '每页300条',
                     '500' => '每页500条',
-                ]), ['name' => 'pageSelect']),
+                ]), [
+                    'name' => 'pageSelect',
+                    'ng-change' => 'dumpPage("'.$this->pagination->createUrl($this->pagination->getPage()).'")',
+                    'ng-model' => 'pageSelect',
+                    'ng-init' => 'pageSelect=' . $this->pagination->pageSize,
+                ]),
                 ['class' => 'page-select-control']
             )
         );
@@ -106,6 +111,7 @@ class LinkPager extends \yii\widgets\LinkPager
         if ($active) {
             Html::addCssClass($options, $this->activePageCssClass);
         }
+
         if ($disabled) {
             Html::addCssClass($options, $this->disabledPageCssClass);
             $disabledItemOptions = $this->disabledListItemSubTagOptions;
@@ -113,9 +119,9 @@ class LinkPager extends \yii\widgets\LinkPager
 
             return Html::tag($linkWrapTag, Html::tag($tag, $label, $disabledItemOptions), $options);
         }
-        $linkOptions = $this->linkOptions;
-        $linkOptions['data-page'] = $page;
 
-        return Html::tag($linkWrapTag, Html::a($label, $this->pagination->createUrl($page), $linkOptions), $options);
+        $linkOptions = $this->linkOptions;
+        $linkOptions['ng-click'] = 'getPage("'. $this->pagination->createUrl($page, $this->pagination->pageSize) .'")';
+        return Html::tag($linkWrapTag, Html::a($label, '#', $linkOptions), $options);
     }
 }

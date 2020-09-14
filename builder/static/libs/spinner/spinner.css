@@ -6,8 +6,8 @@
     right: 0;
     bottom: 0;
     background-color: #000;
-    opacity: .2;
-    filter: alpha(opacity=20);
+    opacity: 0;
+    filter: alpha(opacity=0);
     pointer-events: auto;
 }
 

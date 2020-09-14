@@ -80,7 +80,5 @@
     </table>
 </div>
 <div class="panel-body overflow-x-nowrap border-top">
-    <?= \app\builder\widgets\LinkPager::widget([
-            'pagination' => $page,
-    ]) ?>
+    <cleverstonepage angularajaxpage angularmethod="ymPage"></cleverstonepage>
 </div>
