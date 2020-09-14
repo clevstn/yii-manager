@@ -9,6 +9,7 @@
 
 namespace app\admin\controllers;
 
+use app\models\AdminUser;
 use app\builder\ViewBuilder;
 use app\builder\common\CommonController;
 
@@ -43,17 +44,27 @@ class IndexController extends CommonController
     /**
      * Renders the index view for the module
      * @return string
+     * @throws \yii\base\NotSupportedException
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
      */
     public function actionIndex()
     {
+        $query = AdminUser::find();
+        @list($pages, $models) = resolve_pages($query);
+
         return ViewBuilder::table()
-            ->setData([
-                ['name' => 'Tom', 'sex' => '男'],
-                ['name' => 'Sunny', 'sex' => '女'],
-            ])
+            ->setTitle('首页')
+            ->setData($models)
+            ->setPages($pages)
             ->setColumns([
-                'name' => table_column_helper('名称'),
-                'sex' => table_column_helper('性别'),
+                'username' => table_column_helper('用户名'),
+                'email' => table_column_helper('邮箱'),
+                'mobile' => table_column_helper('电话', [], function ($item) {
+                    return '+' . $item['an'] . ' ' . $item['mobile'];
+                }),
+                'created_at' => table_column_helper('注册时间'),
+                'updated_at' => table_column_helper('更新时间'),
             ])
             ->render($this);
     }

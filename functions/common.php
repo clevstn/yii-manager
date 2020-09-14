@@ -211,18 +211,42 @@ if (!function_exists('html_escape')) {
 if (!function_exists('table_column_helper')) {
     /**
      * 快捷注册表格字段
-     * @param string $title     字段标题，设置则以字段名作为标题
-     * @param null $width       单元格宽度，不设置则跟随构建器
-     * @param null $minWidth    单元格最小宽度，不设置则跟随构建器
-     * @param null $maxWidth    单元格最大宽度，不设置则跟随构建器
-     * @param null $callback    自定义回调，用来自定义字段值
+     * @param string $title 字段标题，不设置则已该字段作为该表格列的标题
+     * @param array $options 选项
+     * - attribute html属性
+     * - style     css样式
+     * @param null $callback 自定义回调，用来自定义字段值
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    function table_column_helper($title = null, $width = null, $minWidth = null, $maxWidth = null, $callback = null)
+    function table_column_helper($title = null, $options = [], $callback = null)
     {
-        return [$title, $width, $minWidth, $maxWidth, $callback];
+        return [
+            'title' => $title,
+            'options' => $options,
+            'callback' => $callback,
+        ];
+    }
+}
+
+if (!function_exists('resolve_pages')) {
+    /**
+     * 解析分页
+     * @param \yii\db\QueryInterface $query
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function resolve_pages(\yii\db\QueryInterface $query)
+    {
+        $countQuery = clone $query;
+        $pages = new \yii\data\Pagination(['totalCount' => $countQuery->count()]);
+        $models = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        return [$pages, $models];
     }
 }
 

@@ -11,20 +11,36 @@ namespace app\builder\table;
 
 use Yii;
 use yii\web\View;
-use yii\base\Controller;
+use yii\helpers\Json;
+use yii\web\Linkable;
 use yii\base\BaseObject;
+use yii\base\Controller;
+use yii\base\NotSupportedException;
 use app\builder\contract\BuilderInterface;
 
 /**
  * 表格构建器
- * @property string $title  表格名
- * @property array $data    表格数据
- * @property array $columns 数据列
+ * @property string $title 标题
+ * @property array $data 数据
+ * @property array $pages 分页
+ * @property array $columns 列
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 class Builder extends BaseObject implements BuilderInterface
 {
+    /**
+     * @var string
+     * @since 1.0
+     */
+    private $_viewPath = '@builder/table/views/index.php';
+
+    /**
+     * @var View
+     * @since 1.0
+     */
+    private $_view;
+
     /**
      * @var string
      * @since 1.0
@@ -44,19 +60,12 @@ class Builder extends BaseObject implements BuilderInterface
     private $_columns = [];
 
     /**
-     * @var string
+     * @var array
      * @since 1.0
      */
-    private $_viewPath = '@builder/table/views/index.php';
+    private $_pages;
 
     /**
-     * @var View
-     * @since 1.0
-     */
-    private $_view;
-
-    /**
-     * 初始化
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -93,8 +102,7 @@ class Builder extends BaseObject implements BuilderInterface
             return $this->_title;
         }
 
-        // 从节点获取表格名
-        $title = '默认表格名';
+        $title = '';
         return $title;
     }
 
@@ -119,12 +127,42 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function setData(array $data)
     {
+        $this->_data = $data;
         return $this;
     }
 
-    public function getData()
+    /**
+     * 获取表格数据
+     * @param array $columns
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getData(array $columns = [])
     {
+        if (empty($columns)) {
+            $columns = $this->_columns;
+        }
 
+        $holeColumns = [];
+        foreach ($this->_data as $item) {
+            $line = [];
+            foreach ($columns as $field => $options) {
+                if (!empty($options['callback']) && is_callable($options['callback'])) {
+                    $value = call_user_func($options['callback'], $item);
+                } elseif (isset($item[$field])) {
+                    $value = html_escape($item[$field]);
+                } else {
+                    $value = '';
+                }
+
+                $line[$field] = $value;
+            }
+
+            array_push($holeColumns, $line);
+        }
+
+        return $holeColumns;
     }
 
     /**
@@ -140,18 +178,63 @@ class Builder extends BaseObject implements BuilderInterface
      *
      * ```
      * @return $this
+     * @throws NotSupportedException
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
     public function setColumns(array $columns)
     {
+        foreach ($columns as $key => $item) {
+            if (is_int($key)) {
+                if (is_string($item)) {
+                    $this->_columns[$item] = [
+                        'title' => $item,
+                        'options' => [],
+                        'callback' => null,
+                    ];
+                }
+
+                throw new NotSupportedException('The columns item is not supported. ');
+            } else {
+                $this->_columns[$key] = $item;
+            }
+        }
 
         return $this;
     }
 
+    /**
+     * 获取数据列
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
     public function getColumns()
     {
-        return [];
+        return $this->_columns;
+    }
+
+    /**
+     * 设置分页
+     * @param Linkable $pages
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setPages(Linkable $pages)
+    {
+        $this->_pages = $pages->getLinks();
+        return $this;
+    }
+
+    /**
+     * 获取分页
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getPages()
+    {
+        return $this->_pages;
     }
 
     /**
@@ -163,15 +246,52 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function render(Controller $context)
     {
-        $this->_view->title = $this->getTitle();
-        $columns = $this->getColumns();
-        $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
-
-        return $context->render($this->_viewPath, $columns);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax($context);
+        } else {
+            return $this->renderHtml($context);
+        }
     }
 
     /**
-     * 解析table组件js脚本
+     * ajax渲染
+     * @param Controller $context
+     * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    protected function renderAjax(Controller $context)
+    {
+        return Json::encode([
+            'data' => $this->data,
+            'page' => $this->pages,
+        ]);
+    }
+
+    /**
+     * html渲染
+     * @param Controller $context
+     * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    protected function renderHtml(Controller $context)
+    {
+        // Sets table title
+        $this->_view->title = $this->getTitle();
+
+        // Register the table widget script js
+        $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
+
+        return $context->render($this->_viewPath, [
+            'columns' => $this->columns,
+            'data' => $this->data,
+            'page' => $this->pages,
+        ]);
+    }
+
+    /**
+     * 解析表格组件JS脚本
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -181,12 +301,13 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
-     * 注册view组件实例
+     * 注册视图组件实例
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
     protected function registerView()
     {
         $this->_view = Yii::$app->getView();
+        return $this;
     }
 }
