@@ -43,7 +43,7 @@
             <th>
                 <input type="checkbox" class="icheckbox hidden">
             </th>
-            <?php foreach ($columns as $field => $item): ?>
+            <?php foreach ($columns as $item): ?>
                 <th style="<?= !empty($item['options']['style']) ? $item['options']['style'] : '' ?>" <?= !empty($item['options']['attribute']) ? $item['options']['attribute'] : '' ?>>
                     <?= $item['title'] ?>
                 </th>
