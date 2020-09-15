@@ -230,6 +230,14 @@ if (!function_exists('table_column_helper')) {
     }
 }
 
+if (!function_exists('table_row_action_helper')) {
+
+    function table_row_action_helper($title, $icon)
+    {
+
+    }
+}
+
 if (!function_exists('resolve_pages')) {
     /**
      * 解析分页

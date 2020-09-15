@@ -26,6 +26,7 @@ use app\builder\contract\NotFoundAttributeException;
  * @property boolean $page
  * @property array $columns
  * @property \Closure $query
+ * @property array $rowActions
  * @property array|string $orderBy
  * @property boolean $hideCheckbox
  * @property array|string $primaryKey
@@ -83,6 +84,13 @@ class Builder extends BaseObject implements BuilderInterface
      * @since 1.0
      */
     private $_hideCheckbox = false;
+
+    /**
+     * 设置行操作项
+     * @var array
+     * @since 1.0
+     */
+    private $_rowActions = [];
 
     /**
      * 表格数据
@@ -321,6 +329,30 @@ class Builder extends BaseObject implements BuilderInterface
     public function getHideCheckbox()
     {
         return $this->_hideCheckbox;
+    }
+
+    /**
+     * 设置行操作项
+     * @param array $actions
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setRowActions(array $actions)
+    {
+        $this->_rowActions = $actions;
+        return $this;
+    }
+
+    /**
+     * 获取行情操作项
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getRowActions()
+    {
+        return $this->_rowActions;
     }
 
     /**
