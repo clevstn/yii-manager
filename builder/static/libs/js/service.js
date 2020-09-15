@@ -69,7 +69,7 @@
             link: function (scope, element, attr) {
                 if (scope.$last === true) {
                     $timeout(function () {
-                        // ngRepeatFinished
+                        // ev-repeat-finished
                         scope.$emit(attr.onFinishRender);
                     });
                 }

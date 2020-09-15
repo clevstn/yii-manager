@@ -82,5 +82,10 @@
                 $scope.getList(1, $jq(this).val());
             });
 
+            // 监听angular列表渲染完成
+            $scope.$on('ev-repeat-finished', function () {
+
+            });
+
         }]);
 }(window, window.angular);

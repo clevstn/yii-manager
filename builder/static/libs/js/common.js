@@ -44,6 +44,18 @@
     };
 
     /**
+     * Init Icheck Plugin
+     */
+    YmAppConstructor.prototype.initIcheck = function () {
+        // Initial icheck options
+        jQuery('.icheckbox').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue',
+            increaseArea: '20%' // optional
+        });
+    };
+
+    /**
      * Init all plugins
      */
     YmAppConstructor.prototype.initAllPlugins = function () {
@@ -65,13 +77,8 @@
             // global.toastr.options.positionClass = 'toast-top-center';
         }
 
-        // Initial icheck options
-        jQuery('.icheckbox').iCheck({
-            checkboxClass: 'icheckbox_minimal-blue',
-            radioClass: 'iradio_minimal-blue',
-            increaseArea: '20%' // optional
-        });
-
+        // Init Icheck Plugin
+        this.initIcheck();
     };
 
     // Refresh page
@@ -86,13 +93,16 @@
 
     };
 
-    YmApp = new YmAppConstructor();
+    // Run
     YmAppConstructor.prototype.run = function () {
-        YmApp.toggleSideBar();
-        YmApp.initAllPlugins();
-        YmApp.refresh();
+        this.toggleSideBar();
+        this.initAllPlugins();
+        this.refresh();
     };
 
+    YmApp = new YmAppConstructor();
     YmApp.run();
+
     return YmApp;
+
 }));
