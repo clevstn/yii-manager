@@ -73,11 +73,11 @@ class LinkPager extends \yii\widgets\LinkPager
                 Html::input(
                     'number',
                     'page-dump',
-                    $this->pagination->getPage() + 1,
+                    ($this->pagination->getPage() + 1),
                     ['min' => 1]
                 ),
                 ['class' => 'page-dump-control']
-            ) . "\n<span>页</span>\n" . Html::a('确定', 'javascript:;', ['class' => 'btn btn-sm btn-default'])
+            ) . "\n<span>页</span>\n" . Html::a('确定', '#', ['class' => 'btn btn-sm btn-default'])
         );
 
         $items[] = Html::tag('li', "<span>共{$this->pagination->totalCount}条</span>");
@@ -124,8 +124,8 @@ class LinkPager extends \yii\widgets\LinkPager
         }
 
         $linkOptions = $this->linkOptions;
-        $linkOptions['ng-click'] = 'getPage(' . ($page + 1) . ', ' . $this->pagination->pageSize . ')';
+        $linkOptions['ng-click'] = 'getPage(' . ($page + 1) . ', ' . $this->pagination->limit . ')';
 
-        return Html::tag($linkWrapTag, Html::a($label, 'javascript:;', $linkOptions), $options);
+        return Html::tag($linkWrapTag, Html::a($label, '#', $linkOptions), $options);
     }
 }
