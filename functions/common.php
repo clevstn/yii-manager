@@ -253,6 +253,24 @@ if (!function_exists('resolve_pages')) {
     }
 }
 
+if (!function_exists('accept_json')) {
+    /**
+     * 是否接收Json
+     * @return bool
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function accept_json()
+    {
+        $acceptableTypes = Yii::$app->getRequest()->getAcceptableContentTypes();
+        if (!empty($acceptableTypes) && array_keys($acceptableTypes)[0] === 'application/json') {
+            return true;
+        }
+
+        return false;
+    }
+}
+
 // 包含用户自定义函数文件
 include __DIR__ . '/function.php';
 

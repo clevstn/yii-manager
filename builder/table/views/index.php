@@ -79,6 +79,4 @@
         </tbody>
     </table>
 </div>
-<div class="panel-body overflow-x-nowrap border-top">
-    <cleverstonepage angularajaxpage angularmethod="ymPage"></cleverstonepage>
-</div>
+<div class="panel-body overflow-x-nowrap border-top" angularajaxpage angularmethod="ymPage"></div>

@@ -36,7 +36,6 @@
         ) {
             // 获取URL
             var link = '<?= $link ?>';
-            $scope.pageSelect = '20';
             $scope.getUrl = function (page, perPage) {
                 page = page || 1;
                 perPage = perPage || 20;
@@ -47,7 +46,7 @@
 
                 return link + '?' + $jq.param(param);
             };
-            // 获取列表
+            // 获取数据列表
             $scope.getList = function (page, perPage) {
                 var i = $YmSpinner.show();
                 $http.get($scope.getUrl(page, perPage)).then(function (result) {
@@ -57,16 +56,19 @@
                     $scope.list = data.data;
                 }, function (error) {
                     $YmSpinner.hide(i);
+                    $toastr.error('错误', '数据列表加载失败');
                     console.error(error);
                 });
             };
-
-            $scope.getList();
-
+            // 初始化
+            ($scope.init = function () {
+                $scope.getList();
+            }());
+            // 分页
             $scope.getPage = function (page, perPage) {
                 $scope.getList(page, perPage);
             };
-
+            // 设置数据条数
             $jq('body').on('change', '#pageSelect', function () {
                 $scope.getList(1, $jq(this).val());
             });

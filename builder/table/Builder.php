@@ -198,6 +198,16 @@ class Builder extends BaseObject implements BuilderInterface
 
                 throw new NotSupportedException('The columns item is not supported. ');
             } else {
+                if (!empty($item['options'])) {
+                    if (!empty($item['options']['style']) && is_array($item['options']['style'])) {
+                        $item['options']['style'] = implode(' ', $item['options']['style']);
+                    }
+
+                    if (!empty($item['options']['attribute']) && is_array($item['options']['attribute'])) {
+                        $item['options']['attribute'] = implode(' ', $item['options']['attribute']);
+                    }
+                }
+
                 $this->_columns[$key] = $item;
             }
         }
@@ -249,7 +259,7 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function render(Controller $context)
     {
-        if (Yii::$app->request->isAjax) {
+        if (Yii::$app->request->isAjax || accept_json()) {
             return $this->renderAjax($context);
         } else {
             return $this->renderHtml($context);
