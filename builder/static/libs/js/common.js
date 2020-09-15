@@ -44,9 +44,9 @@
     };
 
     /**
-     * Init Icheck Plugin
+     * Init table Icheck
      */
-    YmAppConstructor.prototype.initIcheck = function () {
+    YmAppConstructor.prototype.initTableIcheck = function () {
         // Initial icheck options
         jQuery('.tableCheckbox').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
@@ -77,9 +77,9 @@
             // global.toastr.options.positionClass = 'toast-top-center';
         }
 
-        // Init Icheck Plugin
+        // Init table Icheck
         // note: 这里开启后，angular ng-repeat完成事件时，Icheck的初始化绑定将失效
-        // this.initIcheck();
+        // this.initTableIcheck();
     };
 
     // Refresh page

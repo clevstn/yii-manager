@@ -47,6 +47,7 @@
 
                 return link + '?' + $jq.param(param);
             };
+
             // 获取数据列表
             $scope.getList = function (page, perPage) {
                 // 节流
@@ -64,19 +65,23 @@
                     console.error(error);
                 });
             };
-            // 初始化
+
+            // 初始化方法
             ($scope.init = function () {
                 $scope.getList();
             }());
+
             // 分页
             $scope.getPage = function (page, perPage) {
                 $scope.getList(page, perPage);
             };
+
             // 跳转到指定页
             $scope.dumpSpecialPage = function (perPage) {
                 var page = $scope.currentPage;
                 $scope.getList(page, perPage);
             };
+
             // 设置数据条数
             $jq('body').on('change', '#pageSelect', function () {
                 $scope.getList(1, $jq(this).val());
@@ -85,7 +90,7 @@
             // 监听angular列表渲染完成
             $scope.$on('ev-repeat-finished', function () {
                 // 初始化Icheck
-                $YmApp.initIcheck();
+                $YmApp.initTableIcheck();
             });
 
         }]);
