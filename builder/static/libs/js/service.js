@@ -7,6 +7,8 @@
     "use strict";
 
     var $YmApp = angular.module("$YmApp", []);
+
+    // 自定义服务
     $YmApp.service("$YmApp", function () {
         // YmApp
         return global.YmApp;
@@ -28,8 +30,22 @@
     }).service("$laydate", function () {
         // Laydate
         return global.laydate;
-    }).directive('angularajaxpage', function ($compile) {
-        // 分页
+    });
+
+    // 自定义过滤器
+    $YmApp.filter("toHtml", ['$sce', function ($sce) {
+        return function (value) { // 过滤html
+            return $sce.trustAsHtml(value);
+        };
+    }]).filter("default", function () {
+        return function (value, defaultVal) { // 默认值
+            return value || defaultVal;
+        };
+    });
+
+    // 自定义指令
+    $YmApp.directive('angularajaxpage', function ($compile) {
+        // 分页指令
         return {
             restrict: 'A',
             replace: true,
@@ -46,7 +62,11 @@
                 );
             }
         };
-    }).factory("httpInterceptor", ["$q", function ($q) {
+    });
+
+    // 服务驱动配置
+    $YmApp.factory("httpInterceptor", ["$q", function ($q) {
+        // http拦截器
         return {
             'responseError': function (response) { // 错误拦截
                 return $q.reject(response);
@@ -66,4 +86,5 @@
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         $httpProvider.interceptors.push('httpInterceptor'); //添加拦截器
     }]);
+
 }(window, window.angular);
