@@ -41,7 +41,7 @@
         <thead>
         <tr class="bg-light">
             <th>
-                <input type="checkbox" class="icheckbox hidden">
+                <input type="checkbox" class="tableCheckbox hidden">
             </th>
             <?php foreach ($columns as $item): ?>
                 <th style="<?= !empty($item['options']['style']) ? $item['options']['style'] : '' ?>" <?= !empty($item['options']['attribute']) ? $item['options']['attribute'] : '' ?>>
