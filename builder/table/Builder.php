@@ -9,23 +9,22 @@
 
 namespace app\builder\table;
 
-use app\builder\widgets\LinkPager;
 use Yii;
-use yii\helpers\Html;
 use yii\web\View;
 use yii\helpers\Json;
 use yii\web\Linkable;
 use yii\base\BaseObject;
 use yii\base\Controller;
+use app\builder\widgets\LinkPager;
 use yii\base\NotSupportedException;
 use app\builder\contract\BuilderInterface;
 
 /**
  * 表格构建器
- * @property string $title 标题
- * @property array $data 数据
+ * @property string $title   标题
+ * @property array $data     数据
  * @property Linkable $pages 分页
- * @property array $columns 列
+ * @property array $columns  列
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -267,7 +266,7 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
-     * ajax渲染
+     * Ajax渲染
      * @param Controller $context
      * @return string
      * @throws \Exception

@@ -35,6 +35,17 @@ class LinkPager extends \yii\widgets\LinkPager
     public $hideOnSinglePage = false;
 
     /**
+     * @var array
+     * @since 1.0
+     */
+    public $pageRowsMap = [
+        '20' => '每页20条',
+        '100' => '每页100条',
+        '300' => '每页300条',
+        '500' => '每页500条',
+    ];
+
+    /**
      * Executes the widget.
      * This overrides the parent implementation by displaying the generated page buttons.
      */
@@ -74,12 +85,7 @@ class LinkPager extends \yii\widgets\LinkPager
             'li',
             Html::tag(
                 'span',
-                Html::tag('select', Html::renderSelectOptions($this->pagination->limit, [
-                    '20' => '每页20条',
-                    '100' => '每页100条',
-                    '300' => '每页300条',
-                    '500' => '每页500条',
-                ]), [
+                Html::tag('select', Html::renderSelectOptions($this->pagination->limit, $this->pageRowsMap), [
                     'id' => 'pageSelect',
                 ]),
                 ['class' => 'page-select-control']
@@ -119,6 +125,7 @@ class LinkPager extends \yii\widgets\LinkPager
 
         $linkOptions = $this->linkOptions;
         $linkOptions['ng-click'] = 'getPage(' . ($page + 1) . ', ' . $this->pagination->pageSize . ')';
+
         return Html::tag($linkWrapTag, Html::a($label, 'javascript:;', $linkOptions), $options);
     }
 }
