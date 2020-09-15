@@ -70,7 +70,6 @@ class IndexController extends CommonController
             ->setOrderBy('id DESC')
             ->setPage()
             ->setHideCheckbox(false)
-            ->setCheckboxOptions(['style' => ['width' => '50px']])
             ->setRowActions([
 
             ])

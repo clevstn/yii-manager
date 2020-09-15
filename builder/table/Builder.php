@@ -476,9 +476,10 @@ class Builder extends BaseObject implements BuilderInterface
         $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
 
         return $context->render($this->_viewPath, [
-            'columns' => $this->columns,
-            'hideCheckbox' => $this->hideCheckbox,
-            'checkboxOptions' => $this->checkboxOptions,
+            'columns'           => $this->columns,
+            'hideCheckbox'      => $this->hideCheckbox,
+            'checkboxOptions'   => $this->checkboxOptions,
+            'rowActions'        => $this->rowActions,
         ]);
     }
 

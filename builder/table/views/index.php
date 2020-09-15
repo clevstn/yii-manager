@@ -1,13 +1,15 @@
 <?php
 /* @var $this \yii\web\View */
-/* @var $columns array */
-/* @var $page array */
-/* @var $hideCheckbox boolean */
-/* @var $checkboxOptions array */
+/* @var array $columns 数据列选项 */
+/* @var boolean $hideCheckbox 是否隐藏复选框 */
+/* @var array $checkboxOptions 复选框选项 */
+/* @var array $rowActions 行操作项 */
 ?>
+<!--页面标题-->
 <div class="panel-heading border-bottom">
     <span class="f-13"><?= $this->title ?></span>
 </div>
+<!--头部工具栏-->
 <div class="panel-body border-bottom">
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">
         <div class="btn-group btn-group-sm pull-left">
@@ -39,9 +41,11 @@
     </div>
 </div>
 <div class="panel-body overflow-x">
+    <!--表格-->
     <table class="table table-bordered table-hover">
         <thead>
         <tr class="bg-light">
+
             <!--隐藏多选框-->
             <?php if(!$hideCheckbox): ?>
             <th style="<?= $checkboxOptions['style'] ?>"<?= $checkboxOptions['attribute'] ?>>
@@ -57,11 +61,16 @@
                 </th>
             <?php endforeach; ?>
 
+            <!--操作项渲染-->
+            <?php if (!empty($rowActions)): ?>
             <th>操作</th>
+            <?php endif; ?>
+
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="(key, value) in list track by key" on-finish-render="ev-repeat-finished">
+
             <!--隐藏多选框-->
             <?php if(!$hideCheckbox): ?>
             <td style="<?= $checkboxOptions['style'] ?>"<?= $checkboxOptions['attribute'] ?>>
@@ -75,6 +84,8 @@
             <td ng-bind="value['<?= $field ?>']" style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>></td>
             <?php endforeach; ?>
 
+            <!--操作项渲染-->
+            <?php if (!empty($rowActions)): ?>
             <td class="row-handle">
                 <div class="dropdown">
                     <a href="#" type="button" class="btn btn-sm btn-default dropdown-toggle"
@@ -91,10 +102,12 @@
                     </ul>
                 </div>
             </td>
+            <?php endif; ?>
 
         </tr>
         </tbody>
     </table>
 </div>
 
+<!--分页-->
 <div class="panel-body overflow-x-nowrap border-top" ng-show="ymPage" angular-ajax-page page-model="ymPage"></div>
