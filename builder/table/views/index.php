@@ -13,7 +13,7 @@
                 <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
                 <span>新增</span>
             </a>
-            <a href="#" type="button" class="btn btn-default">
+            <a href="#" type="button" class="btn btn-default" ng-click="deleteSelected()">
                 <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                 <span>删除</span>
             </a>
@@ -41,7 +41,8 @@
         <thead>
         <tr class="bg-light">
             <th>
-                <input type="checkbox" class="tableCheckbox hidden">
+                <label for="th_0"></label>
+                <input type="checkbox" id="th_0" class="tableCheckboxTool hidden">
             </th>
             <?php foreach ($columns as $item): ?>
                 <th style="<?= !empty($item['options']['style']) ? $item['options']['style'] : '' ?>" <?= !empty($item['options']['attribute']) ? $item['options']['attribute'] : '' ?>>
@@ -54,7 +55,8 @@
         <tbody>
         <tr ng-repeat="(key, value) in list track by key" on-finish-render="ev-repeat-finished">
             <td>
-                <input type="checkbox" class="tableCheckbox hidden" value="{{value.id}}">
+                <label for="td_{{key}}"></label>
+                <input type="checkbox" id="td_{{key}}" class="tableCheckbox hidden" value="{{value}}">
             </td>
             <?php foreach ($columns as $field => $item): ?>
             <td ng-bind="value.<?= $field ?>" style="<?= !empty($item['options']['style']) ? $item['options']['style'] : '' ?>" <?= !empty($item['options']['attribute']) ? $item['options']['attribute'] : '' ?>></td>
@@ -79,4 +81,5 @@
         </tbody>
     </table>
 </div>
+
 <div class="panel-body overflow-x-nowrap border-top" ng-show="ymPage" angular-ajax-page page-model="ymPage"></div>

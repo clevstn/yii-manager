@@ -1,6 +1,6 @@
 /**
  * this is a background js-file for Yii-Manager
- * if env is windows, the global object is `YmApp`
+ * if the env is windows, the global object is `YmApp`
  * @author cleverstone
  * @since 1.0
  */
@@ -48,18 +48,74 @@
      */
     YmAppConstructor.prototype.initTableIcheck = function () {
         // Initial icheck options
-        jQuery('.tableCheckbox').iCheck({
+        jQuery('.tableCheckbox,.tableCheckboxTool').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
             radioClass: 'iradio_minimal-blue',
             increaseArea: '20%' // optional
         });
+
+        jQuery(".tableCheckboxTool").on("ifClicked", function (e) {
+            if (e.target.checked) {
+                // All unchecked
+                jQuery(".tableCheckbox").iCheck("uncheck");
+            } else {
+                // All checked
+                jQuery(".tableCheckbox").iCheck("check");
+            }
+        });
+
+        // Cancel all checked or submit all checked
+        jQuery(".tableCheckbox").on("ifClicked", function (e) {
+            var checkedCount = 0;
+            var unCheckedCount = 0;
+
+            var jqTableCheckbox = jQuery(".tableCheckbox");
+            jqTableCheckbox.each(function () {
+                if (this.checked) {
+                    checkedCount++;
+                } else {
+                    unCheckedCount++;
+                }
+            });
+
+            if (e.target.checked) {
+                checkedCount--;
+                unCheckedCount++;
+            } else {
+                unCheckedCount--;
+                checkedCount++;
+            }
+
+            if (jqTableCheckbox.length === checkedCount) {
+                jQuery(".tableCheckboxTool").iCheck("check");
+            } else {
+                jQuery(".tableCheckboxTool").iCheck("uncheck");
+            }
+        });
+
     };
 
     /**
      * Uncheck table icheck checked status
      */
     YmAppConstructor.prototype.uncheckTableIcheck = function () {
-        jQuery('.tableCheckbox').iCheck("uncheck");
+        jQuery('.tableCheckbox,.tableCheckboxTool').iCheck("uncheck");
+    };
+
+    /**
+     * Get the table items for checked
+     */
+    YmAppConstructor.prototype.getTableCheckedData = function () {
+        var dataMap = [];
+        jQuery(".tableCheckbox").each(function () {
+            var flag = jQuery(this).is(":checked");
+            if (flag) {
+                var thisVal = jQuery(this).val();
+                dataMap.push(jQuery.parseJSON(thisVal));
+            }
+        });
+
+        return dataMap;
     };
 
     /**
@@ -84,9 +140,6 @@
             // global.toastr.options.positionClass = 'toast-top-center';
         }
 
-        // Init table Icheck
-        // note: 这里开启后，angular ng-repeat完成事件时，Icheck的初始化绑定将失效
-        // this.initTableIcheck();
     };
 
     // Refresh page

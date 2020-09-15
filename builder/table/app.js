@@ -34,6 +34,7 @@
             $swal,
             $laydate
         ) {
+            // ----- 列表start
             // 获取请求链接
             var link = '<?= $link ?>';
 
@@ -94,6 +95,15 @@
                 // 初始化Icheck
                 $YmApp.initTableIcheck();
             });
+
+            // ----- 列表end
+
+            // ------ 工具栏 start
+            // 选中删除
+            $scope.deleteSelected = function () {
+                var data = $YmApp.getTableCheckedData();
+
+            };
 
         }]);
 }(window, window.angular);
