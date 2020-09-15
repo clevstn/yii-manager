@@ -44,7 +44,7 @@
     });
 
     // 自定义指令
-    $YmApp.directive('angularajaxpage', function ($compile) {
+    $YmApp.directive('angularAjaxPage', function ($compile) {
         // 分页指令
         return {
             restrict: 'A',
@@ -53,13 +53,26 @@
             link: function (scope, element, attrs) {
                 scope.$watch(
                     function (scope) {
-                        return scope.$eval(attrs.angularmethod);
+                        return scope.$eval(attrs.pageModel);
                     },
                     function (value) {
                         element.html(value);
                         $compile(element.contents())(scope);
                     }
                 );
+            }
+        };
+    }).directive('onFinishRender', function ($timeout) {
+        // 监听ng-repeat执行完成指令
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+                if (scope.$last === true) {
+                    $timeout(function () {
+                        // ngRepeatFinished
+                        scope.$emit(attr.onFinishRender);
+                    });
+                }
             }
         };
     });

@@ -34,7 +34,7 @@
             $swal,
             $laydate
         ) {
-            // 获取URL
+            // 获取请求链接
             var link = '<?= $link ?>';
 
             $scope.getUrl = function (page, perPage) {
