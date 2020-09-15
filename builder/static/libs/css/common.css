@@ -334,14 +334,29 @@ ul, ol, dl {
 }
 
 .overflow-x {
-    overflow-x: auto;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
     -webkit-overflow-scrolling: touch;
+}
+
+.overflow-y-visible {
+    overflow-y: visible !important;
 }
 
 .overflow-x-nowrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     white-space: nowrap;
+}
+
+.dropup,
+.dropdown {
+    position: static;
+}
+
+.dropdown-menu {
+    top: initial;
+    left: initial;
 }
 
 .pagination {

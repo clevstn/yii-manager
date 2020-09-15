@@ -37,7 +37,7 @@
         </div>
     </div>
 </div>
-<div class="panel-body">
+<div class="panel-body overflow-x">
     <table class="table table-bordered table-hover">
         <thead>
         <tr class="bg-light">
@@ -76,7 +76,7 @@
 
             <td class="row-handle">
                 <div class="dropdown">
-                    <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle"
+                    <a href="#" type="button" class="btn btn-sm btn-default dropdown-toggle"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         操作
                         <span class="caret"></span>
