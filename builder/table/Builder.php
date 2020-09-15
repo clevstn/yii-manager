@@ -12,6 +12,7 @@ namespace app\builder\table;
 use Yii;
 use yii\web\View;
 use yii\helpers\Json;
+use yii\helpers\Html;
 use yii\web\Linkable;
 use yii\base\BaseObject;
 use yii\base\Controller;
@@ -29,6 +30,7 @@ use app\builder\contract\NotFoundAttributeException;
  * @property array $rowActions
  * @property array|string $orderBy
  * @property boolean $hideCheckbox
+ * @property array $checkboxOptions
  * @property array|string $primaryKey
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
@@ -84,6 +86,15 @@ class Builder extends BaseObject implements BuilderInterface
      * @since 1.0
      */
     private $_hideCheckbox = false;
+
+    /**
+     * @var array
+     * @since 1.0
+     */
+    private $_checkboxOptions = [
+        'style' => 'width:50px;',
+        'attribute' => '',
+    ];
 
     /**
      * 设置行操作项
@@ -177,7 +188,10 @@ class Builder extends BaseObject implements BuilderInterface
                 if (is_string($item)) {
                     $this->_columns[$item] = [
                         'title' => $item,
-                        'options' => [],
+                        'options' => [
+                            'style' => '',
+                            'attribute' => '',
+                        ],
                         'callback' => null,
                     ];
                 }
@@ -186,13 +200,25 @@ class Builder extends BaseObject implements BuilderInterface
             } else {
                 // resolve options
                 if (!empty($item['options'])) {
-                    if (!empty($item['options']['style']) && is_array($item['options']['style'])) {
-                        $item['options']['style'] = implode(' ', $item['options']['style']);
+                    if (!empty($item['options']['style'])) {
+                        if (is_array($item['options']['style'])) {
+                            $item['options']['style'] = Html::cssStyleFromArray($item['options']['style']) ?: '';
+                        }
+                    } else {
+                        $item['options']['style'] = '';
                     }
 
-                    if (!empty($item['options']['attribute']) && is_array($item['options']['attribute'])) {
-                        $item['options']['attribute'] = implode(' ', $item['options']['attribute']);
+                    if (!empty($item['options']['attribute'])) {
+                        if (is_array($item['options']['attribute'])) {
+                            $item['options']['attribute'] = Html::renderTagAttributes($item['options']['attribute']);
+                        }
+                    } else {
+                        $item['options']['attribute'] = '';
                     }
+
+                } else {
+                    $item['options']['style'] = '';
+                    $item['options']['attribute'] = '';
                 }
 
                 $this->_columns[$key] = $item;
@@ -332,6 +358,49 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
+     * 设置多选框options
+     * @param array $options
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setCheckboxOptions(array $options)
+    {
+        if (!empty($options['style'])) {
+            if (is_array($options['style'])) {
+                $cssOptions = Html::cssStyleFromArray($options['style']) ?: '';
+            } else {
+                $cssOptions = $options['style'];
+            }
+
+            $this->_checkboxOptions['style'] = $cssOptions;
+        }
+
+        if (!empty($options['attribute'])) {
+            if (is_array($options['attribute'])) {
+                $attributeOptions = Html::renderTagAttributes($options['attribute']);
+            } else {
+                $attributeOptions = $options['attribute'];
+            }
+
+            $this->_checkboxOptions['attribute'] = $attributeOptions;
+        }
+
+        return $this;
+    }
+
+    /**
+     * 获取多选框options
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getCheckboxOptions()
+    {
+        return $this->_checkboxOptions;
+    }
+
+    /**
      * 设置行操作项
      * @param array $actions
      * @return $this
@@ -409,6 +478,7 @@ class Builder extends BaseObject implements BuilderInterface
         return $context->render($this->_viewPath, [
             'columns' => $this->columns,
             'hideCheckbox' => $this->hideCheckbox,
+            'checkboxOptions' => $this->checkboxOptions,
         ]);
     }
 

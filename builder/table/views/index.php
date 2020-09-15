@@ -3,6 +3,7 @@
 /* @var $columns array */
 /* @var $page array */
 /* @var $hideCheckbox boolean */
+/* @var $checkboxOptions array */
 ?>
 <div class="panel-heading border-bottom">
     <span class="f-13"><?= $this->title ?></span>
@@ -43,7 +44,7 @@
         <tr class="bg-light">
             <!--隐藏多选框-->
             <?php if(!$hideCheckbox): ?>
-            <th>
+            <th style="<?= $checkboxOptions['style'] ?>"<?= $checkboxOptions['attribute'] ?>>
                 <label for="th_0"></label>
                 <input type="checkbox" id="th_0" class="tableCheckboxTool hidden">
             </th>
@@ -51,7 +52,7 @@
 
             <!--渲染表头-->
             <?php foreach ($columns as $item): ?>
-                <th style="<?= !empty($item['options']['style']) ? $item['options']['style'] : '' ?>" <?= !empty($item['options']['attribute']) ? $item['options']['attribute'] : '' ?>>
+                <th style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>>
                     <?= $item['title'] ?>
                 </th>
             <?php endforeach; ?>
@@ -63,7 +64,7 @@
         <tr ng-repeat="(key, value) in list track by key" on-finish-render="ev-repeat-finished">
             <!--隐藏多选框-->
             <?php if(!$hideCheckbox): ?>
-            <td>
+            <td style="<?= $checkboxOptions['style'] ?>"<?= $checkboxOptions['attribute'] ?>>
                 <label for="td_{{key}}"></label>
                 <input type="checkbox" id="td_{{key}}" class="tableCheckbox hidden" value="{{value}}">
             </td>
@@ -71,7 +72,7 @@
 
             <!--渲染列表-->
             <?php foreach ($columns as $field => $item): ?>
-            <td ng-bind="value.<?= $field ?>" style="<?= !empty($item['options']['style']) ? $item['options']['style'] : '' ?>" <?= !empty($item['options']['attribute']) ? $item['options']['attribute'] : '' ?>></td>
+            <td ng-bind="value['<?= $field ?>']" style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>></td>
             <?php endforeach; ?>
 
             <td class="row-handle">

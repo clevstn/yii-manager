@@ -220,7 +220,7 @@ if (!function_exists('table_column_helper')) {
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    function table_column_helper($title = null, $options = [], $callback = null)
+    function table_column_helper($title = '', $options = [], $callback = null)
     {
         return [
             'title' => $title,

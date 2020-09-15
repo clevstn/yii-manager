@@ -54,7 +54,7 @@ class IndexController extends CommonController
         return ViewBuilder::table()
             ->setTitle('首页')
             ->setColumns([
-                'username' => table_column_helper('用户名'),
+                'username' => table_column_helper('用户名', ['style' => ['width' => '100px']]),
                 'email' => table_column_helper('邮箱'),
                 'mobile' => table_column_helper('电话', [], function ($item) {
                     return '+' . $item['an'] . ' ' . $item['mobile'];
@@ -70,6 +70,7 @@ class IndexController extends CommonController
             ->setOrderBy('id DESC')
             ->setPage()
             ->setHideCheckbox(false)
+            ->setCheckboxOptions(['style' => ['width' => '50px']])
             ->setRowActions([
 
             ])
