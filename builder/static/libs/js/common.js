@@ -48,7 +48,7 @@
      */
     YmAppConstructor.prototype.initIcheck = function () {
         // Initial icheck options
-        jQuery('.icheckbox').iCheck({
+        jQuery('.tableCheckbox').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
             radioClass: 'iradio_minimal-blue',
             increaseArea: '20%' // optional
