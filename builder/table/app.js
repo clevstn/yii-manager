@@ -36,6 +36,7 @@
         ) {
             // 获取URL
             var link = '<?= $link ?>';
+
             $scope.getUrl = function (page, perPage) {
                 page = page || 1;
                 perPage = perPage || 20;
@@ -48,15 +49,18 @@
             };
             // 获取数据列表
             $scope.getList = function (page, perPage) {
+                // 节流
                 var i = $YmSpinner.show();
                 $http.get($scope.getUrl(page, perPage)).then(function (result) {
                     $YmSpinner.hide(i);
                     var data = result.data;
+                    // 分页
                     $scope.ymPage = data.page;
+                    // 列表
                     $scope.list = data.data;
                 }, function (error) {
                     $YmSpinner.hide(i);
-                    $toastr.error('错误', '数据列表加载失败');
+                    $toastr.error('系统错误', '数据加载失败，请稍后重试');
                     console.error(error);
                 });
             };
@@ -66,6 +70,11 @@
             }());
             // 分页
             $scope.getPage = function (page, perPage) {
+                $scope.getList(page, perPage);
+            };
+            // 跳转到指定页
+            $scope.dumpSpecialPage = function (perPage) {
+                var page = $scope.currentPage;
                 $scope.getList(page, perPage);
             };
             // 设置数据条数

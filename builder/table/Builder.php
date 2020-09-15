@@ -287,7 +287,6 @@ class Builder extends BaseObject implements BuilderInterface
     protected function renderAjax(Controller $context)
     {
         $this->resolveQuery();
-
         return Json::encode([
             'data' => $this->_data,
             'page' => $this->page ? LinkPager::widget([

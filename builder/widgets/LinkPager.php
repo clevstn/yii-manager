@@ -66,6 +66,7 @@ class LinkPager extends \yii\widgets\LinkPager
      */
     protected function renderPageRight()
     {
+        $currentPage = $this->pagination->getPage() + 1;
         $items[] = Html::tag(
             'li',
             "<span>到第</span>\n" . Html::tag(
@@ -73,11 +74,18 @@ class LinkPager extends \yii\widgets\LinkPager
                 Html::input(
                     'number',
                     'page-dump',
-                    ($this->pagination->getPage() + 1),
-                    ['min' => 1]
+                    $currentPage,
+                    [
+                        'min' => 1,
+                        'ng-model' => 'currentPage',
+                        'ng-init' => 'currentPage=' . $currentPage,
+                    ]
                 ),
                 ['class' => 'page-dump-control']
-            ) . "\n<span>页</span>\n" . Html::a('确定', '#', ['class' => 'btn btn-sm btn-default'])
+            ) . "\n<span>页</span>\n" . Html::a('确定', '#', [
+                'class' => 'btn btn-sm btn-default',
+                'ng-click' => 'dumpSpecialPage(' . $this->pagination->limit . ')',
+            ])
         );
 
         $items[] = Html::tag('li', "<span>共{$this->pagination->totalCount}条</span>");
