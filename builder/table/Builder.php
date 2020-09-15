@@ -18,15 +18,17 @@ use yii\base\Controller;
 use app\builder\widgets\LinkPager;
 use yii\base\NotSupportedException;
 use app\builder\contract\BuilderInterface;
+use app\builder\contract\NotFoundAttributeException;
 
 /**
  * 表格构建器
  * @property string $title
  * @property boolean $page
- * @property boolean $hideCheckbox
  * @property array $columns
  * @property \Closure $query
  * @property array|string $orderBy
+ * @property boolean $hideCheckbox
+ * @property array|string $primaryKey
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -55,6 +57,12 @@ class Builder extends BaseObject implements BuilderInterface
      * @see $query
      */
     private $_query;
+
+    /**
+     * @var string|array
+     * @since 1.0
+     */
+    private $_primaryKey = 'id';
 
     /**
      * @var array
@@ -222,6 +230,30 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
+     * 设置主键
+     * @param string|array $field
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setPrimaryKey($field = 'id')
+    {
+        $this->_primaryKey = $field;
+        return $this;
+    }
+
+    /**
+     * 获取主键
+     * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getPrimaryKey()
+    {
+        return $this->_primaryKey;
+    }
+
+    /**
      * 设置Query排序
      * @param array|string $orderBy
      * @return $this
@@ -351,6 +383,7 @@ class Builder extends BaseObject implements BuilderInterface
     /**
      * 解析Query
      * @return $this
+     * @throws NotFoundAttributeException
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -369,6 +402,7 @@ class Builder extends BaseObject implements BuilderInterface
 
         foreach ($models as $item) {
             $lines = [];
+            // 根据表格列格式化数据
             foreach ($this->columns as $field => $options) {
                 if (!empty($options['callback']) && is_callable($options['callback'])) {
                     $value = call_user_func($options['callback'], $item);
@@ -379,6 +413,27 @@ class Builder extends BaseObject implements BuilderInterface
                 }
 
                 $lines[$field] = $value;
+            }
+
+            // 当前行添加主键
+            if (is_array($this->primaryKey)) {
+                // 联合主键
+                foreach ($this->primaryKey as $key) {
+                    if (is_string($key) && !isset($lines[$key])) {
+                        if (!isset($item[$key])) {
+                            throw new NotFoundAttributeException('Undefined properties ' . $key);
+                        }
+
+                        $lines[$key] = $item[$key];
+                    }
+                }
+            } elseif (is_string($this->primaryKey) && !isset($lines[$this->primaryKey])) {
+                // 主键
+                if (!isset($item[$this->primaryKey])) {
+                    throw new NotFoundAttributeException('Undefined properties ' . $this->primaryKey);
+                }
+
+                $lines[$this->primaryKey] = $item[$this->primaryKey];
             }
 
             $this->_data[] = $lines;
