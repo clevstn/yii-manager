@@ -84,7 +84,8 @@
 
             // 监听angular列表渲染完成
             $scope.$on('ev-repeat-finished', function () {
-
+                // 初始化Icheck
+                $YmApp.initIcheck();
             });
 
         }]);

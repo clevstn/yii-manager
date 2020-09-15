@@ -78,7 +78,8 @@
         }
 
         // Init Icheck Plugin
-        this.initIcheck();
+        // note: 这里开启后，angular ng-repeat完成事件时，Icheck的初始化绑定将失效
+        // this.initIcheck();
     };
 
     // Refresh page
