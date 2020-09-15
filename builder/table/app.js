@@ -60,13 +60,17 @@
                     $scope.ymPage = data.page;
                     $scope.list = data.data;
 
-                    $YmApp.uncheckTableIcheck();
-
+                    $scope.cancalCheckboxChecked();
                 }, function (error) {
                     $YmSpinner.hide(i);
                     $toastr.error('系统错误', '数据加载失败，请稍后重试');
                     console.error(error);
                 });
+            };
+
+            // 列表刷新时，取消多选框的选中状态
+            $scope.cancalCheckboxChecked = function () {
+                $YmApp.uncheckTableIcheck();
             };
 
             // 初始化方法
@@ -102,7 +106,6 @@
             // 选中删除
             $scope.deleteSelected = function () {
                 var data = $YmApp.getTableCheckedData();
-
             };
 
         }]);

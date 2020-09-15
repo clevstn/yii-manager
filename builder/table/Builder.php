@@ -23,6 +23,7 @@ use app\builder\contract\BuilderInterface;
  * 表格构建器
  * @property string $title
  * @property boolean $page
+ * @property boolean $hideCheckbox
  * @property array $columns
  * @property \Closure $query
  * @property array|string $orderBy
@@ -67,6 +68,13 @@ class Builder extends BaseObject implements BuilderInterface
      * @see $page
      */
     private $_page = true;
+
+    /**
+     * 是否隐藏多选框
+     * @var bool
+     * @since 1.0
+     */
+    private $_hideCheckbox = false;
 
     /**
      * 表格数据
@@ -260,6 +268,30 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
+     * 设置隐藏多选框
+     * @param bool $isHide
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setHideCheckbox($isHide = true)
+    {
+        $this->_hideCheckbox = $isHide;
+        return $this;
+    }
+
+    /**
+     * 获取是否隐藏多选框
+     * @return bool
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getHideCheckbox()
+    {
+        return $this->_hideCheckbox;
+    }
+
+    /**
      * 渲染表格
      * @param Controller $context
      * @return string
@@ -312,6 +344,7 @@ class Builder extends BaseObject implements BuilderInterface
 
         return $context->render($this->_viewPath, [
             'columns' => $this->columns,
+            'hideCheckbox' => $this->hideCheckbox,
         ]);
     }
 

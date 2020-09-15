@@ -69,6 +69,7 @@ class IndexController extends CommonController
             })
             ->setOrderBy('id DESC')
             ->setPage()
+            ->setHideCheckbox()
             ->render($this);
     }
 }
