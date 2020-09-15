@@ -56,6 +56,13 @@
     };
 
     /**
+     * Uncheck table icheck checked status
+     */
+    YmAppConstructor.prototype.uncheckTableIcheck = function () {
+        jQuery('.tableCheckbox').iCheck("uncheck");
+    };
+
+    /**
      * Init all plugins
      */
     YmAppConstructor.prototype.initAllPlugins = function () {

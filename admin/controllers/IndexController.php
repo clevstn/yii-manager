@@ -54,6 +54,7 @@ class IndexController extends CommonController
         return ViewBuilder::table()
             ->setTitle('首页')
             ->setColumns([
+                'id' => table_column_helper('ID'),
                 'username' => table_column_helper('用户名'),
                 'email' => table_column_helper('邮箱'),
                 'mobile' => table_column_helper('电话', [], function ($item) {

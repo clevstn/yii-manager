@@ -54,11 +54,13 @@
                 var i = $YmSpinner.show();
                 $http.get($scope.getUrl(page, perPage)).then(function (result) {
                     $YmSpinner.hide(i);
+
                     var data = result.data;
-                    // 分页
                     $scope.ymPage = data.page;
-                    // 列表
                     $scope.list = data.data;
+
+                    $YmApp.uncheckTableIcheck();
+
                 }, function (error) {
                     $YmSpinner.hide(i);
                     $toastr.error('系统错误', '数据加载失败，请稍后重试');

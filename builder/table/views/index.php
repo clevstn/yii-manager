@@ -54,7 +54,7 @@
         <tbody>
         <tr ng-repeat="(key, value) in list track by key" on-finish-render="ev-repeat-finished">
             <td>
-                <input type="checkbox" class="tableCheckbox hidden">
+                <input type="checkbox" class="tableCheckbox hidden" value="{{value.id}}">
             </td>
             <?php foreach ($columns as $field => $item): ?>
             <td ng-bind="value.<?= $field ?>" style="<?= !empty($item['options']['style']) ? $item['options']['style'] : '' ?>" <?= !empty($item['options']['attribute']) ? $item['options']['attribute'] : '' ?>></td>
