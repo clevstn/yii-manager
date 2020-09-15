@@ -21,50 +21,80 @@ use app\builder\contract\BuilderInterface;
 
 /**
  * 表格构建器
- * @property string $title   标题
- * @property array $data     数据
- * @property Linkable $pages 分页
- * @property array $columns  列
+ * @property string $title
+ * @property boolean $page
+ * @property array $columns
+ * @property \Closure $query
+ * @property array|string $orderBy
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 class Builder extends BaseObject implements BuilderInterface
 {
     /**
+     * 表格标题
      * @var string
      * @since 1.0
-     */
-    private $_viewPath = '@builder/table/views/index.php';
-
-    /**
-     * @var View
-     * @since 1.0
-     */
-    private $_view;
-
-    /**
-     * @var string
-     * @since 1.0
+     * @see $title
      */
     private $_title = '';
 
     /**
+     * 表格列
+     * @var array
+     * @since 1.0
+     * @see $columns
+     */
+    private $_columns = [];
+
+    /**
+     * query
+     * @var \Closure
+     * @since 1.0
+     * @see $query
+     */
+    private $_query;
+
+    /**
+     * @var array
+     * @since 1.0
+     */
+    private $_orderBy = ['id' => SORT_DESC];
+
+    /**
+     * 是否分页
+     * @since 1.0
+     * @see $page
+     */
+    private $_page = true;
+
+    /**
+     * 表格数据
      * @var array
      * @since 1.0
      */
     private $_data = [];
 
     /**
-     * @var array
+     * 分页实例
+     * @var Linkable|null
      * @since 1.0
      */
-    private $_columns = [];
+    private $_pagination;
 
     /**
-     * @var Linkable
+     * 视图组件实例
+     * @var View
      * @since 1.0
      */
-    private $_pages;
+    private $_view;
+
+    /**
+     * 模板路径
+     * @var string
+     * @since 1.0
+     */
+    private $_viewPath = '@builder/table/views/index.php';
 
     /**
      * @author cleverstone <yang_hui_lei@163.com>
@@ -108,76 +138,8 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
-     * 设置表格数据
-     * @param array $data
-     * ```php
-     *  ViewBuilder::table()
-     *      ->setData([
-     *          ['name' => 'Tom', 'sex' => '男'],
-     *          ['name' => 'Sunny', 'sex' => '女'],
-     *      ])
-     *      ->setColumns([
-     *          'name' => table_column_helper('名称'),
-     *          'sex' => table_column_helper('性别'),
-     *      ])
-     *      ->render($this)
-     * ```
-     * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
-     */
-    public function setData(array $data)
-    {
-        $this->_data = $data;
-        return $this;
-    }
-
-    /**
-     * 获取表格数据
-     * @param array $columns
-     * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
-     */
-    public function getData(array $columns = [])
-    {
-        if (empty($columns)) {
-            $columns = $this->_columns;
-        }
-
-        $holeColumns = [];
-        foreach ($this->_data as $item) {
-            $line = [];
-            foreach ($columns as $field => $options) {
-                if (!empty($options['callback']) && is_callable($options['callback'])) {
-                    $value = call_user_func($options['callback'], $item);
-                } elseif (isset($item[$field])) {
-                    $value = html_escape($item[$field]);
-                } else {
-                    $value = '';
-                }
-
-                $line[$field] = $value;
-            }
-
-            array_push($holeColumns, $line);
-        }
-
-        return $holeColumns;
-    }
-
-    /**
      * 设置数据列
      * @param array $columns
-     * ```php
-     * ViewBuilder::table()
-     *      ->setColumns([
-     *          'name' => table_column_helper('名称'),
-     *          'sex' => table_column_helper('性别'),
-     *      ])
-     *      ->render($this)
-     *
-     * ```
      * @return $this
      * @throws NotSupportedException
      * @author cleverstone <yang_hui_lei@163.com>
@@ -186,6 +148,7 @@ class Builder extends BaseObject implements BuilderInterface
     public function setColumns(array $columns)
     {
         foreach ($columns as $key => $item) {
+            // single
             if (is_int($key)) {
                 if (is_string($item)) {
                     $this->_columns[$item] = [
@@ -197,6 +160,7 @@ class Builder extends BaseObject implements BuilderInterface
 
                 throw new NotSupportedException('The columns item is not supported. ');
             } else {
+                // resolve options
                 if (!empty($item['options'])) {
                     if (!empty($item['options']['style']) && is_array($item['options']['style'])) {
                         $item['options']['style'] = implode(' ', $item['options']['style']);
@@ -226,26 +190,73 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
-     * 设置分页
-     * @param Linkable $pages
+     * 设置query
+     * @param \Closure $query
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function setPages(Linkable $pages)
+    public function setQuery(\Closure $query)
     {
-        $this->_pages = $pages;
+        $this->_query = $query;
         return $this;
     }
 
     /**
-     * 获取分页
+     * 获取query
+     * @return \Closure
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function getPages()
+    public function getQuery()
     {
-        return $this->_pages;
+        return $this->_query;
+    }
+
+    /**
+     * 设置Query排序
+     * @param array|string $orderBy
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setOrderBy($orderBy)
+    {
+        $this->_orderBy = $orderBy;
+        return $this;
+    }
+
+    /**
+     * 获取Query排序
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getOrderBy()
+    {
+        return $this->_orderBy;
+    }
+
+    /**
+     * 设置是否分页
+     * @param boolean $page
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setPage($page = true)
+    {
+        $this->_page = $page;
+        return $this;
+    }
+
+    /**
+     * 获取是否分页
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getPage()
+    {
+        return $this->_page;
     }
 
     /**
@@ -275,11 +286,13 @@ class Builder extends BaseObject implements BuilderInterface
      */
     protected function renderAjax(Controller $context)
     {
+        $this->resolveQuery();
+
         return Json::encode([
-            'data' => $this->data,
-            'page' => LinkPager::widget([
-                'pagination' => $this->pages,
-            ]),
+            'data' => $this->_data,
+            'page' => $this->page ? LinkPager::widget([
+                'pagination' => $this->_pagination,
+            ]) : '',
         ]);
     }
 
@@ -293,15 +306,53 @@ class Builder extends BaseObject implements BuilderInterface
      */
     protected function renderHtml(Controller $context)
     {
-        // Sets table title
+        // Set table title
         $this->_view->title = $this->getTitle();
-
         // Register the table widget script js
         $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
 
         return $context->render($this->_viewPath, [
             'columns' => $this->columns,
         ]);
+    }
+
+    /**
+     * 解析Query
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function resolveQuery()
+    {
+        /* @var \yii\db\QueryInterface $query */
+        $query = call_user_func($this->query);
+        if ($this->page === true) {
+            @list($pages, $models) = resolve_pages($query, $this->orderBy);
+        } else {
+            $pages = null;
+            $models = $query->orderBy($this->orderBy)->all();
+        }
+
+        $this->_pagination = $pages;
+
+        foreach ($models as $item) {
+            $lines = [];
+            foreach ($this->columns as $field => $options) {
+                if (!empty($options['callback']) && is_callable($options['callback'])) {
+                    $value = call_user_func($options['callback'], $item);
+                } elseif (isset($item[$field])) {
+                    $value = html_escape($item[$field]);
+                } else {
+                    $value = '';
+                }
+
+                $lines[$field] = $value;
+            }
+
+            $this->_data[] = $lines;
+        }
+
+        return $this;
     }
 
     /**
@@ -320,6 +371,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册视图组件实例
+     * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */

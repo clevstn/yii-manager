@@ -234,11 +234,12 @@ if (!function_exists('resolve_pages')) {
     /**
      * 解析分页
      * @param \yii\db\QueryInterface $query
+     * @param array|string $orderBy
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    function resolve_pages(\yii\db\QueryInterface $query)
+    function resolve_pages(\yii\db\QueryInterface $query, $orderBy = ['id' => SORT_DESC])
     {
         $countQuery = clone $query;
         $pages = new \yii\data\Pagination([
@@ -247,6 +248,7 @@ if (!function_exists('resolve_pages')) {
         ]);
         $models = $query->offset($pages->offset)
             ->limit($pages->limit)
+            ->orderBy($orderBy)
             ->all();
 
         return [$pages, $models];

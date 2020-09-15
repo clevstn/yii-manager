@@ -51,13 +51,8 @@ class IndexController extends CommonController
      */
     public function actionIndex()
     {
-        $query = AdminUser::find();
-        @list($pages, $models) = resolve_pages($query);
-
         return ViewBuilder::table()
             ->setTitle('首页')
-            ->setData($models)
-            ->setPages($pages)
             ->setColumns([
                 'username' => table_column_helper('用户名'),
                 'email' => table_column_helper('邮箱'),
@@ -67,6 +62,12 @@ class IndexController extends CommonController
                 'created_at' => table_column_helper('注册时间'),
                 'updated_at' => table_column_helper('更新时间'),
             ])
+            ->setQuery(function () {
+                $query = AdminUser::find();
+                return $query;
+            })
+            ->setOrderBy('id DESC')
+            ->setPage()
             ->render($this);
     }
 }

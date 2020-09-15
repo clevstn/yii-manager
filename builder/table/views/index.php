@@ -79,4 +79,4 @@
         </tbody>
     </table>
 </div>
-<div class="panel-body overflow-x-nowrap border-top" angularajaxpage angularmethod="ymPage"></div>
+<div class="panel-body overflow-x-nowrap border-top" ng-show="ymPage" angularajaxpage angularmethod="ymPage"></div>
