@@ -504,6 +504,8 @@ class Builder extends BaseObject implements BuilderInterface
         $this->_pagination = $pages;
 
         foreach ($models as $item) {
+            /* @var \yii\db\ActiveRecord $item */
+            $item = $item->toArray();
             foreach ($this->columns as $field => $options) {
                 if (!empty($options['callback']) && is_callable($options['callback'])) {
                     $value = call_user_func($options['callback'], $item);

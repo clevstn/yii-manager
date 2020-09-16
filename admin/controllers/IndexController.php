@@ -56,7 +56,7 @@ class IndexController extends CommonController
             ->setColumns([
                 'username' => table_column_helper('用户名', ['style' => ['width' => '100px']]),
                 'email' => table_column_helper('邮箱'),
-                'mobile' => table_column_helper('电话', [], function ($item) {
+                'an_mobile' => table_column_helper('电话', [], function ($item) {
                     return '+' . $item['an'] . ' ' . $item['mobile'];
                 }),
                 'created_at' => table_column_helper('注册时间'),
