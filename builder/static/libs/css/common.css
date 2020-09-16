@@ -228,7 +228,6 @@ ul, ol, dl {
 
 .table {
     margin-bottom: 0;
-    will-change: transform;
 }
 
 .table > thead > tr > .row-handle,

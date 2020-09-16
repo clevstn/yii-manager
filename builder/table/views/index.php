@@ -102,7 +102,7 @@ use yii\helpers\Json;
                         <li role="separator" class="divider"></li>
                         <?php break; default: ?>
                         <li>
-                            <a href="#" ng-click='rowActions(value, <?= Json::encode($actionItem) ?>)'>
+                            <a href="#" ng-click="rowActions(value, '<?= html_escape(Json::encode($actionItem)) ?>')">
                                 <i class="<?= $actionItem['options']['icon'] ?>"></i>
                                 <?= html_escape($actionItem['options']['title']) ?>
                             </a>

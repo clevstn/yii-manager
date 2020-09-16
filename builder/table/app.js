@@ -101,9 +101,15 @@
             });
 
             // 行操作
-            $scope.rowActions = function (item, options) {
-                console.log(item)
-                console.log(options)
+            $scope.rowActions = function (item, config) {
+                config = $jq.parseJSON(config);
+                var type = config.type;
+                var options = config.options;
+                var method = options.method || 'get';
+                var params = options.params || [];
+                var route = options.route;
+                var title = options.title || '操作项';
+
             };
 
             // ----- 列表end
