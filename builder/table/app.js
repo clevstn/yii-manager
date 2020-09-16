@@ -139,6 +139,7 @@
                         $scope.openPage(title, params, route);
                         break;
                     case "modal":
+                        $scope.openModal(title, params, route);
                         break;
                     case "ajax":
                         $scope.ajaxRequest(method, params, route);
@@ -146,6 +147,12 @@
                     default:
                         $toastr.warning("行类型" + type + "暂不支持", "警告提示");
                 }
+            };
+
+            // 行操作 - 打开模态框
+            $scope.openModal = function (title, params, route) {
+                var modalId = "<?= $modalId ?>";
+                $jq("#" + modalId).modal({'show': true});
             };
 
             // 行操作 - 打开页面
