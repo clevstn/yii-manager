@@ -120,4 +120,44 @@ trait Http
     {
         return $this->request->hostInfo;
     }
+
+    /**
+     * Json成功响应
+     * @param array $data
+     * @param string $msg
+     * @return mixed
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function asSuccess($data = [], $msg = '执行成功')
+    {
+        $code = 200;
+        return $this->asJson(compact('code', 'data', 'msg'));
+    }
+
+    /**
+     * Json失败响应
+     * @param string $msg
+     * @return mixed
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function asFail($msg = '执行失败')
+    {
+        $code = 500;
+        return $this->asJson(compact('code', 'msg'));
+    }
+
+    /**
+     * Json无权限响应
+     * @param string $msg
+     * @return mixed
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function asUnauthorized($msg = '您没有权限访问')
+    {
+        $code = 401;
+        return $this->asJson(compact('code', 'msg'));
+    }
 }

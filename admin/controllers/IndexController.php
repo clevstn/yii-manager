@@ -97,7 +97,7 @@ class IndexController extends CommonController
 
     public function actionDisable()
     {
-        return $this->asJson(['code' => 0, 'msg' => '操作成功']);
+        return $this->asSuccess([], '执行成功恭喜您，原因：您的审核条件过于优越，因此平台决定给您授权！');
     }
 
     public function actionEdit()

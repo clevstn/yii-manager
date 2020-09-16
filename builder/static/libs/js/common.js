@@ -131,8 +131,8 @@
             /* Initial toastr options */
             global.toastr.options.closeButton = true;
             global.toastr.options.progressBar = true;
-            global.toastr.options.timeOut = 2500; // How long the toast will display without user interaction
-            global.toastr.options.extendedTimeOut = 1000; // How long the toast will display after a user hovers over it
+            global.toastr.options.timeOut = 5000; // How long the toast will display without user interaction
+            global.toastr.options.extendedTimeOut = 2000; // How long the toast will display after a user hovers over it
             global.toastr.options.showMethod = 'slideDown';
             global.toastr.options.hideMethod = 'fadeOut';
             global.toastr.options.closeMethod = 'fadeOut';

@@ -71,7 +71,7 @@
                     $scope.cancalCheckboxChecked();
                 }, function (error) {
                     $YmSpinner.hide(i);
-                    $toastr.error(error.data || "数据加载失败，请稍后重试", "错误");
+                    $toastr.error(error.data || "数据加载失败，请稍后重试", "错误提示");
                     console.error(error);
                 });
             };
@@ -143,7 +143,7 @@
                         $scope.ajaxRequest(method, params, route);
                         break;
                     default:
-                        $toastr.warning("行类型" + type + "暂不支持", "警告");
+                        $toastr.warning("行类型" + type + "暂不支持", "警告提示");
                 }
             };
 
@@ -171,16 +171,20 @@
                         instance.then(function (result) {
                             $YmSpinner.hide(flag);
                             var data = result.data;
-                            if (data.code === 0) {
-                                $toastr.success(data.msg, "成功");
+                            if (data.code === 200) {
+                                $toastr.success(data.msg, "成功提示");
                                 $scope.getList();
+                            } else if (data.code === 500) {
+                                $toastr.warning(data.msg, "失败提示");
+                            } else if (data.code === 401) {
+                                $toastr.error(data.msg, "权限不足提示");
                             } else {
-                                $toastr.warning(data.msg, "警告");
+                                $toastr.error(data.msg, "错误提示");
                             }
 
                         }, function (error) {
                             $YmSpinner.hide(flag);
-                            $toastr.error(error.data || "操作执行失败", "错误");
+                            $toastr.error(error.data || "操作执行失败", "错误提示");
                             console.error(error);
                         });
                         // For more information about handling dismissals please visit
