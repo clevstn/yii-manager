@@ -58,7 +58,7 @@ use yii\helpers\Json;
 
             <!--操作项渲染-->
             <?php if (!empty($rowActions)): ?>
-                <th>操作</th>
+                <th style="width:50px;">操作</th>
             <?php endif; ?>
 
             <!--渲染表头-->
@@ -83,7 +83,7 @@ use yii\helpers\Json;
 
             <!--操作项渲染-->
             <?php if (!empty($rowActions)): ?>
-                <td class="row-handle">
+                <td class="row-handle" style="width:50px;">
                     <div class="dropdown">
                         <a href="#" type="button" class="btn btn-sm btn-default dropdown-toggle"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

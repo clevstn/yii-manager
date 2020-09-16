@@ -32,6 +32,7 @@ class IndexController extends CommonController
      */
     public $guestActions = [
         'index',
+        'disable',
     ];
 
     /**
@@ -39,6 +40,7 @@ class IndexController extends CommonController
      */
     public $undetectedActions = [
         'index',
+        'disable',
     ];
 
     /**
