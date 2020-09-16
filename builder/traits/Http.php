@@ -101,13 +101,13 @@ trait Http
 
     /**
      * Detect ajax
-     *
+     * @param boolean $general 是否泛指
      * @return bool
      * @author cleverstone <yang_hui_lei@163.com>
      */
-    public function getIsAjax()
+    public function getIsAjax($general = true)
     {
-        return $this->request->getIsAjax();
+        return $general ? ($this->request->getIsAjax() || accept_json()) : $this->request->getIsAjax();
     }
 
     /**
