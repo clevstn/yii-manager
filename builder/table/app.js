@@ -164,6 +164,7 @@
                         if (method === "get") {
                             instance = $http.get(route + '?' + $jq.param(params));
                         } else if (method === "post") {
+                            params[$yii.getCsrfParam()] = $yii.getCsrfToken();
                             instance = $http.post(route, $jq.param(params));
                         }
 

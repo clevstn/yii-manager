@@ -95,9 +95,9 @@ class IndexController extends CommonController
             ->render($this);
     }
 
-    public function actionDisable($id, $action)
+    public function actionDisable()
     {
-        dd([$id, $action]);
+        return $this->asJson(['code' => 0, 'msg' => '操作成功']);
     }
 
     public function actionEdit()
