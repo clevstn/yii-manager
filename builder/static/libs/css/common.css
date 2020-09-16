@@ -355,8 +355,8 @@ ul, ol, dl {
 }
 
 .dropdown-menu {
-    top: initial;
-    left: initial;
+    top: auto;
+    left: auto;
 }
 
 .pagination {

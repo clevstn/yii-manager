@@ -100,7 +100,7 @@
                 $YmApp.initTableIcheck();
             });
 
-            // 行操作
+            // 行操作入口
             $scope.rowActions = function (item, config) {
                 config = $jq.parseJSON(config);
                 var type = config.type;
@@ -109,21 +109,31 @@
                 var params = options.params || [];
                 var route = options.route;
                 var title = options.title || '操作项';
-
+                // 解析参数
+                params = $scope.resolveParams(item, params);
                 switch (type) {
                     case "page":
                         break;
                     case "modal":
                         break;
                     case "ajax":
+                        $scope.ajaxRequest(method, params, route);
                         break;
                     default:
                         $toastr.warning("行类型" + type + "暂不支持", "警告");
                 }
             };
 
+            // 行操作 - 解析参数
+            $scope.resolveParams = function (data, params) {
+                var to = {};
+                for (var i in params) {
+                    console.log(i)
+                }
+            };
+
             // 行操作 - ajax
-            $scope.ajaxRequest = function () {
+            $scope.ajaxRequest = function (method, params, route) {
 
             };
 
