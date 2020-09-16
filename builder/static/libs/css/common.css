@@ -339,16 +339,6 @@ ul, ol, dl {
     -webkit-overflow-scrolling: touch;
 }
 
-.overflow-y-visible {
-    overflow-y: visible !important;
-}
-
-.overflow-x-nowrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    white-space: nowrap;
-}
-
 .dropup,
 .dropdown {
     position: static;

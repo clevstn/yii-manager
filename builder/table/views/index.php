@@ -56,17 +56,17 @@ use yii\helpers\Json;
             </th>
             <?php endif; ?>
 
+            <!--操作项渲染-->
+            <?php if (!empty($rowActions)): ?>
+                <th>操作</th>
+            <?php endif; ?>
+
             <!--渲染表头-->
             <?php foreach ($columns as $item): ?>
                 <th style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>>
                     <?= $item['title'] ?>
                 </th>
             <?php endforeach; ?>
-
-            <!--操作项渲染-->
-            <?php if (!empty($rowActions)): ?>
-            <th>操作</th>
-            <?php endif; ?>
 
         </tr>
         </thead>
@@ -81,38 +81,38 @@ use yii\helpers\Json;
             </td>
             <?php endif; ?>
 
+            <!--操作项渲染-->
+            <?php if (!empty($rowActions)): ?>
+                <td class="row-handle">
+                    <div class="dropdown">
+                        <a href="#" type="button" class="btn btn-sm btn-default dropdown-toggle"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            操作
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!--遍历设置操作项-->
+                            <?php foreach ($rowActions as $actionItem): ?>
+                                <?php switch ($actionItem['type']): case 'division': ?>
+                                    <li role="separator" class="divider"></li>
+                                    <?php break; default: ?>
+                                    <li>
+                                        <a href="#" ng-click="rowActions(value, '<?= html_escape(Json::encode($actionItem)) ?>')">
+                                            <i class="<?= $actionItem['options']['icon'] ?>"></i>
+                                            <?= html_escape($actionItem['options']['title']) ?>
+                                        </a>
+                                    </li>
+                                <?php endswitch; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </td>
+            <?php endif; ?>
+
             <!--渲染列表-->
             <?php foreach ($columns as $field => $item): ?>
             <td ng-bind="value['<?= $field ?>']" style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>></td>
             <?php endforeach; ?>
-
-            <!--操作项渲染-->
-            <?php if (!empty($rowActions)): ?>
-            <td class="row-handle">
-                <div class="dropdown">
-                    <a href="#" type="button" class="btn btn-sm btn-default dropdown-toggle"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        操作
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!--遍历设置操作项-->
-                        <?php foreach ($rowActions as $actionItem): ?>
-                        <?php switch ($actionItem['type']): case 'division': ?>
-                        <li role="separator" class="divider"></li>
-                        <?php break; default: ?>
-                        <li>
-                            <a href="#" ng-click="rowActions(value, '<?= html_escape(Json::encode($actionItem)) ?>')">
-                                <i class="<?= $actionItem['options']['icon'] ?>"></i>
-                                <?= html_escape($actionItem['options']['title']) ?>
-                            </a>
-                        </li>
-                        <?php endswitch; ?>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            </td>
-            <?php endif; ?>
 
         </tr>
         </tbody>
@@ -120,4 +120,4 @@ use yii\helpers\Json;
 </div>
 
 <!--分页-->
-<div class="panel-body overflow-x-nowrap border-top" ng-show="ymPage" angular-ajax-page page-model="ymPage"></div>
+<div class="panel-body border-top" ng-show="ymPage" angular-ajax-page page-model="ymPage"></div>
