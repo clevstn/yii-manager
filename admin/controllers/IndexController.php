@@ -66,8 +66,8 @@ class IndexController extends CommonController
                 $query = AdminUser::find();
                 return $query;
             })
-            ->setPrimaryKey('id')
             ->setOrderBy('id DESC')
+            ->setPrimaryKey('id')
             ->setPage()
             ->setHideCheckbox(false)
             ->setRowActions([
