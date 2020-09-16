@@ -63,7 +63,7 @@
                     $scope.cancalCheckboxChecked();
                 }, function (error) {
                     $YmSpinner.hide(i);
-                    $toastr.error('系统错误', '数据加载失败，请稍后重试');
+                    $toastr.error("数据加载失败，请稍后重试", "错误");
                     console.error(error);
                 });
             };
@@ -109,6 +109,21 @@
                 var params = options.params || [];
                 var route = options.route;
                 var title = options.title || '操作项';
+
+                switch (type) {
+                    case "page":
+                        break;
+                    case "modal":
+                        break;
+                    case "ajax":
+                        break;
+                    default:
+                        $toastr.warning("行类型" + type + "暂不支持", "警告");
+                }
+            };
+
+            // 行操作 - ajax
+            $scope.ajaxRequest = function () {
 
             };
 
