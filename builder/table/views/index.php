@@ -98,7 +98,7 @@ use yii\helpers\Json;
                                     <?php break; default: ?>
                                     <li>
                                         <a href="#" ng-click="rowActions(value, '<?= html_escape(Json::encode($actionItem)) ?>')">
-                                            <i class="<?= $actionItem['options']['icon'] ?>" style="margin-right:3px;"></i>
+                                            <i class="actions-icon <?= $actionItem['options']['icon'] ?>"></i>
                                             <?= html_escape($actionItem['options']['title']) ?>
                                         </a>
                                     </li>

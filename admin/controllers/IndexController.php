@@ -25,6 +25,9 @@ class IndexController extends CommonController
      */
     public $actionVerbs = [
         'index' => ['get'],
+        'add' => ['get', 'post'],
+        'edit' => ['get', 'post'],
+        'disable' => ['get', 'post'],
     ];
 
     /**
@@ -32,16 +35,15 @@ class IndexController extends CommonController
      */
     public $guestActions = [
         'index',
+        'add',
+        'edit',
         'disable',
     ];
 
     /**
      * {@inheritdoc}
      */
-    public $undetectedActions = [
-        'index',
-        'disable',
-    ];
+    public $undetectedActions = [];
 
     /**
      * Renders the index view for the module
@@ -79,7 +81,7 @@ class IndexController extends CommonController
             ->setRowActions([
                 table_action_helper('ajax', [
                     'title' => '禁用',
-//                    'icon' => 'fa fa-lock',
+                    'icon' => 'fa fa-lock',
                     'route' => 'admin/index/disable',
                     'params' => ['id', 'action' => 0],
                     'method' => 'post',
@@ -91,18 +93,46 @@ class IndexController extends CommonController
                     'route' => 'admin/index/edit',
                     'params' => ['id'],
                 ]),
+                table_action_helper('page', [
+                    'title' => '新增',
+                    'icon' => 'fa fa-plus',
+                    'route' => 'admin/index/add',
+                    'params' => ['id'],
+                ]),
             ])
             ->render($this);
     }
 
+    /**
+     * 新增
+     * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function actionAdd()
+    {
+        return '新增';
+    }
+
+    /**
+     * 编辑
+     * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function actionEdit()
+    {
+        return '编辑';
+    }
+
+    /**
+     * 禁用
+     * @return mixed
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
     public function actionDisable()
     {
         return $this->asSuccess([], '执行成功恭喜您，原因：您的审核条件过于优越，因此平台决定给您授权！');
-    }
-
-    public function actionEdit()
-    {
-        $bodyParams = $this->post;
-        dd($bodyParams);
     }
 }

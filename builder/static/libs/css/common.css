@@ -349,6 +349,11 @@ ul, ol, dl {
     left: auto;
 }
 
+.actions-icon {
+    display: inline-block;
+    width: 22px;
+}
+
 .pagination {
     margin: 0;
     user-select: none;

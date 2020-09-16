@@ -131,11 +131,12 @@
                 var method = options.method || 'get';
                 var params = options.params || [];
                 var route = options.route;
-                var title = options.title || '操作项';
+                var title = options.title || '默认标题';
                 // 解析参数
                 params = $scope.resolveParams(item, params);
                 switch (type) {
                     case "page":
+                        $scope.openPage(title, params, route);
                         break;
                     case "modal":
                         break;
@@ -145,6 +146,14 @@
                     default:
                         $toastr.warning("行类型" + type + "暂不支持", "警告提示");
                 }
+            };
+
+            // 行操作 - 打开页面
+            $scope.openPage = function (title, params, route) {
+                params['pageTitle'] = title;
+                params = $jq.param(params);
+
+                window.top.location.href = route + '?' + params;
             };
 
             // 行操作 - ajax
