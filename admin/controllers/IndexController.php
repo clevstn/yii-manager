@@ -54,7 +54,11 @@ class IndexController extends CommonController
         return ViewBuilder::table()
             ->setTitle('首页')
             ->setColumns([
-                'username' => table_column_helper('用户名', ['style' => ['width' => '100px']]),
+                'username' => table_column_helper('用户名', [
+                    'style' => [
+                        'width' => '100px',
+                    ],
+                ]),
                 'email' => table_column_helper('邮箱'),
                 'an_mobile' => table_column_helper('电话', [], function ($item) {
                     return '+' . $item['an'] . ' ' . $item['mobile'];
@@ -71,8 +75,33 @@ class IndexController extends CommonController
             ->setPage()
             ->setHideCheckbox(false)
             ->setRowActions([
-
+                table_action_helper('ajax', [
+                    'title' => '禁用',
+                    'icon' => 'fa fa-lock',
+                    'route' => 'admin/index/disable',
+                    'params' => ['id', 'action' => function ($item) {
+                        return 0;
+                    }],
+                    'method' => 'post',
+                ]),
+                table_action_helper('modal', [
+                    'title' => '编辑',
+                    'icon' => 'fa fa-pencil-square-o',
+                    'route' => 'admin/index/edit',
+                    'params' => ['id'],
+                ]),
             ])
             ->render($this);
+    }
+
+    public function actionDisable($id, $action)
+    {
+        dd([$id, $action]);
+    }
+
+    public function actionEdit()
+    {
+        $bodyParams = $this->post;
+        dd($bodyParams);
     }
 }

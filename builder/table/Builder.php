@@ -42,34 +42,49 @@ class Builder extends BaseObject implements BuilderInterface
      * @var string
      * @since 1.0
      * @see $title
+     * @see setTitle()
      */
     private $_title = '';
 
     /**
      * 表格列
      * @var array
+     * - title string 列名
+     * - options array
+     *   - style string 样式
+     *   - attribute string 属性
+     * - callback null|\Closure 自定义闭包，用于自定义字段值
      * @since 1.0
      * @see $columns
+     * @see table_column_helper()
+     * @see setColumns()
      */
     private $_columns = [];
 
     /**
-     * query
+     * 查询器实例
      * @var \Closure
      * @since 1.0
      * @see $query
+     * @see setQuery()
      */
     private $_query;
 
     /**
+     * 主键
      * @var string|array
      * @since 1.0
+     * @see $primaryKey
+     * @see setPrimaryKey()
      */
     private $_primaryKey = 'id';
 
     /**
+     * 定义Query排序
      * @var array
      * @since 1.0
+     * @see $orderBy
+     * @see setOrderBy()
      */
     private $_orderBy = ['id' => SORT_DESC];
 
@@ -77,6 +92,7 @@ class Builder extends BaseObject implements BuilderInterface
      * 是否分页
      * @since 1.0
      * @see $page
+     * @see setPage()
      */
     private $_page = true;
 
@@ -84,12 +100,19 @@ class Builder extends BaseObject implements BuilderInterface
      * 是否隐藏多选框
      * @var bool
      * @since 1.0
+     * @see $hideCheckbox
+     * @see setHideCheckbox()
      */
     private $_hideCheckbox = false;
 
     /**
+     * 定义多选选项
      * @var array
+     * - style string 样式
+     * - attribute string 属性
      * @since 1.0
+     * @see $checkboxOptions
+     * @see setCheckboxOptions()
      */
     private $_checkboxOptions = [
         'style' => 'width:50px;',
@@ -99,7 +122,12 @@ class Builder extends BaseObject implements BuilderInterface
     /**
      * 设置行操作项
      * @var array
+     * - type string 值有page、modal、ajax
+     * - options array 值有title、icon、route、params、method
      * @since 1.0
+     * @see $rowActions
+     * @see table_action_helper()
+     * @see setRowActions()
      */
     private $_rowActions = [];
 
@@ -107,6 +135,7 @@ class Builder extends BaseObject implements BuilderInterface
      * 表格数据
      * @var array
      * @since 1.0
+     * @see resolveQuery()
      */
     private $_data = [];
 
@@ -114,6 +143,7 @@ class Builder extends BaseObject implements BuilderInterface
      * 分页实例
      * @var Linkable|null
      * @since 1.0
+     * @see resolveQuery()
      */
     private $_pagination;
 
@@ -121,6 +151,7 @@ class Builder extends BaseObject implements BuilderInterface
      * 视图组件实例
      * @var View
      * @since 1.0
+     * @see registerView()
      */
     private $_view;
 

@@ -210,7 +210,7 @@ if (!function_exists('html_escape')) {
 
 if (!function_exists('table_column_helper')) {
     /**
-     * 快捷注册表格字段
+     * 快捷设置表格字段
      * @param string $title 字段标题，不设置则已该字段作为该表格列的标题
      * @param array $options 选项
      * - attribute html属性
@@ -230,11 +230,29 @@ if (!function_exists('table_column_helper')) {
     }
 }
 
-if (!function_exists('table_row_action_helper')) {
-
-    function table_row_action_helper($title, $icon)
+if (!function_exists('table_action_helper')) {
+    /**
+     * 快捷设置行操作项
+     * @param string $type 调用类型
+     * - page 页面调用
+     * - modal 模态框调用
+     * - ajax XMLHttpRequest调用
+     * @param array $options 选项
+     * - title 按钮标题和page、modal标题
+     * - icon  按钮图标
+     * - route 路由
+     * - params 路由参数
+     * - method 请求动作，当type为ajax时，该配置项有效
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function table_action_helper($type, $options)
     {
-
+        return [
+            'type' => $type,
+            'options' => $options,
+        ];
     }
 }
 
