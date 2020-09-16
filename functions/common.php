@@ -210,7 +210,7 @@ if (!function_exists('html_escape')) {
 
 if (!function_exists('table_column_helper')) {
     /**
-     * 快捷设置表格字段
+     * 快捷设置表格列
      * @param string $title 字段标题，不设置则已该字段作为该表格列的标题
      * @param array $options 选项
      * - attribute html属性
@@ -232,11 +232,12 @@ if (!function_exists('table_column_helper')) {
 
 if (!function_exists('table_action_helper')) {
     /**
-     * 快捷设置行操作项
+     * 快捷设置表格行操作项
      * @param string $type 调用类型
      * - page 页面调用
      * - modal 模态框调用
      * - ajax XMLHttpRequest调用
+     * - division 分割线
      * @param array $options 选项
      * - title 按钮标题和page、modal标题
      * - icon  按钮图标
@@ -249,7 +250,15 @@ if (!function_exists('table_action_helper')) {
      */
     function table_action_helper($type, $options)
     {
-        $options['route'] = \yii\helpers\Url::toRoute($options['route']);
+        if (!empty($options['route'])) {
+            $options['route'] = \yii\helpers\Url::toRoute($options['route']);
+        }
+
+        if (empty($options['method'])) {
+            $options['method'] = 'get';
+        }
+
+        $options['method'] = strtolower($options['method']);
         return [
             'type' => $type,
             'options' => $options,

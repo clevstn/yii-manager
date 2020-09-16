@@ -100,6 +100,12 @@
                 $YmApp.initTableIcheck();
             });
 
+            // 行操作
+            $scope.rowActions = function (item, options) {
+                console.log(item)
+                console.log(options)
+            };
+
             // ----- 列表end
 
             // ------ 工具栏 start

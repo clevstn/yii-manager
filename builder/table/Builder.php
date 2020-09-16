@@ -122,7 +122,7 @@ class Builder extends BaseObject implements BuilderInterface
     /**
      * 设置行操作项
      * @var array
-     * - type string 值有page、modal、ajax
+     * - type string 值有page、modal、ajax、division
      * - options array 值有title、icon、route、params、method
      * @since 1.0
      * @see $rowActions

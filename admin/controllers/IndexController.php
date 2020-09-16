@@ -82,6 +82,7 @@ class IndexController extends CommonController
                     'params' => ['id', 'action' => 0],
                     'method' => 'post',
                 ]),
+                table_action_helper('division', []),
                 table_action_helper('modal', [
                     'title' => '编辑',
                     'icon' => 'fa fa-pencil-square-o',

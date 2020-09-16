@@ -1,9 +1,11 @@
 <?php
 /* @var $this \yii\web\View */
 /* @var array $columns 数据列选项 */
-/* @var boolean $hideCheckbox 是否隐藏复选框 */
-/* @var array $checkboxOptions 复选框选项 */
-/* @var array $rowActions 行操作项 */
+/* @var boolean $hideCheckbox 是否隐藏第一列复选框 */
+/* @var array $checkboxOptions 第一列复选框选项 */
+/* @var array $rowActions 表格行操作项 */
+
+use yii\helpers\Json;
 ?>
 <!--页面标题-->
 <div class="panel-heading border-bottom">
@@ -94,11 +96,19 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">编辑</a></li>
-                        <li><a href="#">删除</a></li>
-                        <li><a href="#">详情</a></li>
+                        <!--遍历设置操作项-->
+                        <?php foreach ($rowActions as $actionItem): ?>
+                        <?php switch ($actionItem['type']): case 'division': ?>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">更多操作</a></li>
+                        <?php break; default: ?>
+                        <li>
+                            <a href="#" ng-click='rowActions(value, <?= Json::encode($actionItem) ?>)'>
+                                <i class="<?= $actionItem['options']['icon'] ?>"></i>
+                                <?= html_escape($actionItem['options']['title']) ?>
+                            </a>
+                        </li>
+                        <?php endswitch; ?>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </td>
