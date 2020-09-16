@@ -483,6 +483,7 @@ class Builder extends BaseObject implements BuilderInterface
     protected function renderAjax(Controller $context)
     {
         $this->resolveQuery();
+
         return Json::encode([
             'data' => $this->_data,
             'page' => $this->page ? LinkPager::widget([
@@ -502,7 +503,7 @@ class Builder extends BaseObject implements BuilderInterface
     protected function renderHtml(Controller $context)
     {
         // Set table title
-        $this->_view->title = $this->getTitle();
+        $this->_view->title = $this->title;
         // Register the table widget script js
         $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
 

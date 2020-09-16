@@ -249,6 +249,7 @@ if (!function_exists('table_action_helper')) {
      */
     function table_action_helper($type, $options)
     {
+        $options['route'] = \yii\helpers\Url::toRoute($options['route']);
         return [
             'type' => $type,
             'options' => $options,

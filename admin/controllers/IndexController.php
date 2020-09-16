@@ -79,9 +79,7 @@ class IndexController extends CommonController
                     'title' => '禁用',
                     'icon' => 'fa fa-lock',
                     'route' => 'admin/index/disable',
-                    'params' => ['id', 'action' => function ($item) {
-                        return 0;
-                    }],
+                    'params' => ['id', 'action' => 0],
                     'method' => 'post',
                 ]),
                 table_action_helper('modal', [
