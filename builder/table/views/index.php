@@ -5,6 +5,7 @@
 /* @var array $checkboxOptions 第一列复选框选项 */
 /* @var array $rowActions 表格行操作项 */
 /* @var string $modalId 模态框ID */
+/* @var string $frameId 模态框中Iframe ID */
 
 use yii\helpers\Json;
 ?>
@@ -127,10 +128,11 @@ use yii\helpers\Json;
 <?php
 \yii\bootstrap\Modal::begin([
     'id' => $modalId,
+    'closeButton' => false,
 ]);
 ?>
 
-<?php echo '测试一下的啦'; ?>
+<iframe scrolling="auto" frameborder="0" allowtransparency="true" id="<?= $frameId ?>" style="width:100%;height:100%;"></iframe>
 
 <?php
 \yii\bootstrap\Modal::end();
