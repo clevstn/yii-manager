@@ -127,8 +127,10 @@ use yii\helpers\Json;
 <!--Modal-->
 <?php
 \yii\bootstrap\Modal::begin([
-    'id' => $modalId,
-    'closeButton' => false,
+    'id'            => $modalId,
+    'closeButton'   => false,
+    'bodyOptions'   => ['class' => 'modal-body p-0'],
+    'size'          => \yii\bootstrap\Modal::SIZE_DEFAULT,
 ]);
 ?>
 
