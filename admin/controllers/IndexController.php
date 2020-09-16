@@ -79,12 +79,12 @@ class IndexController extends CommonController
             ->setRowActions([
                 table_action_helper('ajax', [
                     'title' => '禁用',
-                    'icon' => 'fa fa-lock',
+//                    'icon' => 'fa fa-lock',
                     'route' => 'admin/index/disable',
                     'params' => ['id', 'action' => 0],
                     'method' => 'post',
                 ]),
-                table_action_helper('division', []),
+                //table_action_helper('division', []),
                 table_action_helper('modal', [
                     'title' => '编辑',
                     'icon' => 'fa fa-pencil-square-o',

@@ -258,6 +258,14 @@ if (!function_exists('table_action_helper')) {
             $options['method'] = 'get';
         }
 
+        if (empty($options['title'])) {
+            $options['title'] = '默认项';
+        }
+
+        if (empty($options['icon'])) {
+            $options['icon'] = 'fa fa-paper-plane-o';
+        }
+
         $options['method'] = strtolower($options['method']);
         return [
             'type' => $type,
