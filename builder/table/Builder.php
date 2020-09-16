@@ -504,8 +504,6 @@ class Builder extends BaseObject implements BuilderInterface
         $this->_pagination = $pages;
 
         foreach ($models as $item) {
-            $lines = [];
-            // 根据表格列格式化数据
             foreach ($this->columns as $field => $options) {
                 if (!empty($options['callback']) && is_callable($options['callback'])) {
                     $value = call_user_func($options['callback'], $item);
@@ -515,31 +513,10 @@ class Builder extends BaseObject implements BuilderInterface
                     $value = '';
                 }
 
-                $lines[$field] = $value;
+                $item[$field] = $value;
             }
 
-            // 当前行添加主键
-            if (is_array($this->primaryKey)) {
-                // 联合主键
-                foreach ($this->primaryKey as $key) {
-                    if (is_string($key) && !isset($lines[$key])) {
-                        if (!isset($item[$key])) {
-                            throw new NotFoundAttributeException('Undefined properties ' . $key);
-                        }
-
-                        $lines[$key] = $item[$key];
-                    }
-                }
-            } elseif (is_string($this->primaryKey) && !isset($lines[$this->primaryKey])) {
-                // 主键
-                if (!isset($item[$this->primaryKey])) {
-                    throw new NotFoundAttributeException('Undefined properties ' . $this->primaryKey);
-                }
-
-                $lines[$this->primaryKey] = $item[$this->primaryKey];
-            }
-
-            $this->_data[] = $lines;
+            $this->_data[] = $item;
         }
 
         return $this;
