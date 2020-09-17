@@ -39,11 +39,6 @@ use app\builder\contract\NotFoundAttributeException;
  */
 class Builder extends BaseObject implements BuilderInterface
 {
-    // 定义表格行操作类型Modal的元素ID
-    const TABLE_ROW_ACTION_MODAL_ID = 'YmTableRowActionModal';
-    // 定义表格行操作类型Modal的元素中Iframe ID
-    const TABLE_ROW_ACTION_MODAL_IFRAME_ID = 'YmTableRowActionModalIframe';
-
     /**
      * 表格标题
      * @var string
@@ -568,8 +563,6 @@ class Builder extends BaseObject implements BuilderInterface
             'hideCheckbox' => $this->hideCheckbox,
             'checkboxOptions' => $this->checkboxOptions,
             'rowActions' => $this->rowActions,
-            'modalId' => self::TABLE_ROW_ACTION_MODAL_ID,
-            'frameId' => self::TABLE_ROW_ACTION_MODAL_IFRAME_ID,
         ]);
     }
 
@@ -625,8 +618,6 @@ class Builder extends BaseObject implements BuilderInterface
     {
         return $this->_view->renderPhpFile(__DIR__ . '/app.js', [
             'link' => Url::toRoute('/' . Yii::$app->controller->route),
-            'modalId' => self::TABLE_ROW_ACTION_MODAL_ID,
-            'frameId' => self::TABLE_ROW_ACTION_MODAL_IFRAME_ID,
         ]);
     }
 

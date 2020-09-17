@@ -4,8 +4,6 @@
 /* @var boolean $hideCheckbox 是否隐藏第一列复选框 */
 /* @var array $checkboxOptions 第一列复选框选项 */
 /* @var array $rowActions 表格行操作项 */
-/* @var string $modalId 模态框ID */
-/* @var string $frameId 模态框中Iframe ID */
 
 use yii\helpers\Json;
 ?>
@@ -123,19 +121,3 @@ use yii\helpers\Json;
 
 <!--分页-->
 <div class="panel-body border-top" ng-show="ymPage" angular-ajax-page page-model="ymPage"></div>
-
-<!--Modal-->
-<?php
-\yii\bootstrap\Modal::begin([
-    'id'            => $modalId,
-    'closeButton'   => false,
-    'bodyOptions'   => ['class' => 'modal-body p-0'],
-    'size'          => \yii\bootstrap\Modal::SIZE_LARGE,
-]);
-?>
-
-<iframe scrolling="auto" frameborder="0" allowtransparency="true" name="<?= $frameId ?>" id="<?= $frameId ?>" style="width:100%;height:800px;"></iframe>
-
-<?php
-\yii\bootstrap\Modal::end();
-?>

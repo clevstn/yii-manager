@@ -151,13 +151,7 @@
 
             // 行操作 - 打开模态框
             $scope.openModal = function (title, params, route) {
-                var modalId = "<?= $modalId ?>";
-                var iframeId = "<?= $frameId ?>";
-                params['pageTitle'] = title;
-                params = $jq.param(params);
 
-                $jq("#" + iframeId).attr("src", route + '?' + params);
-                $jq("#" + modalId).modal({'show': true});
             };
 
             // 行操作 - 打开页面
