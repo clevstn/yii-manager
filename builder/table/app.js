@@ -20,6 +20,7 @@
         "$YmSpinner",
         "$swal",
         "$laydate",
+        "$layer",
         function (
             $scope,
             $http,
@@ -32,7 +33,8 @@
             $yii,
             $YmSpinner,
             $swal,
-            $laydate
+            $laydate,
+            $layer
         ) {
             // ----- 列表start
 
@@ -132,6 +134,9 @@
                 var params = options.params || [];
                 var route = options.route;
                 var title = options.title || '默认标题';
+                var width = options.width || '800px';
+                var height = options.height || '520px';
+
                 // 解析参数
                 params = $scope.resolveParams(item, params);
                 switch (type) {
@@ -139,7 +144,7 @@
                         $scope.openPage(title, params, route);
                         break;
                     case "modal":
-                        $scope.openModal(title, params, route);
+                        $scope.openModal(title, params, route, width, height);
                         break;
                     case "ajax":
                         $scope.ajaxRequest(method, params, route);
@@ -150,8 +155,19 @@
             };
 
             // 行操作 - 打开模态框
-            $scope.openModal = function (title, params, route) {
-
+            $scope.openModal = function (title, params, route, width, height) {
+                params = $jq.param(params);
+                $layer.open({
+                    type: 2,
+                    shade: 0.3,
+                    anim: -1,
+                    title: title,
+                    maxmin: false,
+                    shadeClose: false,
+                    closeBtn: 2,
+                    area : [width, height],
+                    content: route + '?' + params,
+                });
             };
 
             // 行操作 - 打开页面
@@ -159,7 +175,7 @@
                 params['pageTitle'] = title;
                 params = $jq.param(params);
 
-                window.top.location.href = route + '?' + params;
+                window.location.href = route + '?' + params;
             };
 
             // 行操作 - ajax
@@ -188,7 +204,10 @@
                             var data = result.data;
                             if (data.code === 200) {
                                 $toastr.success(data.msg, "成功提示");
-                                $scope.getList();
+                                // reload list
+                                $timeout(function () {
+                                    $scope.getList();
+                                }, 150);
                             } else if (data.code === 500) {
                                 $toastr.warning(data.msg, "失败提示");
                             } else if (data.code === 401) {

@@ -471,6 +471,12 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function getRowActions()
     {
+        foreach ($this->_rowActions as &$item) {
+            if (empty($item['options']['params'])) {
+                $item['options']['params'] = (array)$this->primaryKey;
+            }
+        }
+
         return $this->_rowActions;
     }
 

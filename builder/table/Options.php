@@ -60,14 +60,14 @@ class Options extends BaseObject
      * @var string
      * @since 1.0
      */
-    public $width = '500px';
+    public $width = '800px';
 
     /**
      * 当前type为modal时有效，指定modal的高，默认500px
      * @var string
      * @since 1.0
      */
-    public $height = '500px';
+    public $height = '520px';
 
     /**
      * 配置初始化

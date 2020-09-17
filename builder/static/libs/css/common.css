@@ -466,6 +466,11 @@ ul, ol, dl {
     background-color: #337ab7;
 }
 
+.layui-layer {
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .3) !important;
+    -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, .3) !important;
+}
+
 .ym-footer {
     position: fixed;
     left: 0;

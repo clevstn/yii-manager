@@ -30,6 +30,9 @@
     }).service("$laydate", function () {
         // Laydate
         return global.laydate;
+    }).service("$layer", function () {
+        // Layer
+        return global.layer;
     });
 
     // 自定义过滤器
