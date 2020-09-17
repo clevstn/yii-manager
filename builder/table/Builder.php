@@ -232,6 +232,7 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function setColumns(array $columns)
     {
+        $defaultStyle = 'min-width:80px';
         foreach ($columns as $key => $item) {
             // single
             if (is_int($key)) {
@@ -239,7 +240,7 @@ class Builder extends BaseObject implements BuilderInterface
                     $this->_columns[$item] = [
                         'title' => $item,
                         'options' => [
-                            'style' => '',
+                            'style' => $defaultStyle,
                             'attribute' => '',
                         ],
                         'callback' => null,
@@ -255,7 +256,7 @@ class Builder extends BaseObject implements BuilderInterface
                             $item['options']['style'] = Html::cssStyleFromArray($item['options']['style']) ?: '';
                         }
                     } else {
-                        $item['options']['style'] = '';
+                        $item['options']['style'] = $defaultStyle;
                     }
 
                     if (!empty($item['options']['attribute'])) {
@@ -267,7 +268,7 @@ class Builder extends BaseObject implements BuilderInterface
                     }
 
                 } else {
-                    $item['options']['style'] = '';
+                    $item['options']['style'] = $defaultStyle;
                     $item['options']['attribute'] = '';
                 }
 

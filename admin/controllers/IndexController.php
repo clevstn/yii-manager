@@ -59,12 +59,12 @@ class IndexController extends CommonController
 
         $tableBuilder->title = '首页';
         $tableBuilder->columns = [
-            'username' => table_column_helper('用户名', ['style' => ['width' => '100px']]),
-            'email' => table_column_helper('邮箱'),
-            'an_mobile' => table_column_helper('电话', [], function ($item) {
+            'username' => table_column_helper('用户名', ['style' => ['min-width' => '100px']]),
+            'email' => table_column_helper('邮箱', ['style' => ['min-width' => '200px']]),
+            'an_mobile' => table_column_helper('电话', ['style' => ['min-width' => '100px']], function ($item) {
                 return '+' . $item['an'] . ' ' . $item['mobile'];
             }),
-            'status' => table_column_helper('状态', [], function ($item) {
+            'status' => table_column_helper('状态', ['style' => ['min-width' => '80px']], function ($item) {
                 switch ($item['status']){
                     case 0:
                         return '<span class="label label-danger">已封停</span>';
@@ -74,9 +74,9 @@ class IndexController extends CommonController
                         return '<span class="label label-default">未知</span>';
                 }
             }),
-            'identify_code' => table_column_helper('邀请码'),
-            'created_at' => table_column_helper('注册时间'),
-            'updated_at' => table_column_helper('更新时间'),
+            'identify_code' => table_column_helper('邀请码', ['style' => ['min-width' => '100px']]),
+            'created_at' => table_column_helper('注册时间', ['style' => ['min-width' => '180px']]),
+            'updated_at' => table_column_helper('更新时间', ['style' => ['min-width' => '180px']]),
         ];
         $tableBuilder->query = function () {
             $query = AdminUser::find();
