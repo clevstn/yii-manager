@@ -12,6 +12,7 @@ namespace app\builder\table;
 use Yii;
 use yii\web\View;
 use yii\helpers\Url;
+use yii\base\Widget;
 use yii\helpers\Json;
 use yii\helpers\Html;
 use yii\web\Linkable;
@@ -30,6 +31,7 @@ use app\builder\contract\NotFoundAttributeException;
  * @property \Closure $query
  * @property boolean $partial
  * @property array $rowActions
+ * @property string|Widget $widget
  * @property array|string $orderBy
  * @property boolean $hideCheckbox
  * @property array $checkboxOptions
@@ -39,6 +41,26 @@ use app\builder\contract\NotFoundAttributeException;
  */
 class Builder extends BaseObject implements BuilderInterface
 {
+    /**
+     * 表格工具栏顶部切点
+     */
+    const TABLE_TOOL_TOP = 1;
+
+    /**
+     * 表格工具栏底部切点
+     */
+    const TABLE_TOOL_BOTTOM = 2;
+
+    /**
+     * 表格分页顶部切点
+     */
+    const TABLE_PAGE_TOP = 3;
+
+    /**
+     * 表格分页底部切点
+     */
+    const TABLE_PAGE_BOTTOM = 4;
+
     /**
      * 表格标题
      * @var string
@@ -164,6 +186,13 @@ class Builder extends BaseObject implements BuilderInterface
      * @see $partial
      */
     private $_partial = false;
+
+    /**
+     * 自定义组件
+     * @var array
+     * @since 1.0
+     */
+    private $_widget = [];
 
     /**
      * 局部视图路径
@@ -503,6 +532,35 @@ class Builder extends BaseObject implements BuilderInterface
     public function getPartial()
     {
         return $this->_partial;
+    }
+
+    /**
+     * 设置组件
+     * @param string|Widget $widget
+     * @param int $pos
+     * - TABLE_TOOL_TOP
+     * - TABLE_TOOL_BOTTOM
+     * - TABLE_PAGE_TOP
+     * - TABLE_PAGE_BOTTOM
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setWidget($widget, $pos = self::TABLE_TOOL_TOP)
+    {
+        $this->_widget[$pos][] = $widget;
+        return $this;
+    }
+
+    /**
+     * 获取组件
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getWidget()
+    {
+        return $this->_widget;
     }
 
     /**

@@ -18,7 +18,7 @@ use yii\base\BaseObject;
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class Options extends BaseObject
+class ToolOptions extends BaseObject
 {
     /**
      * 按钮标题和page、modal标题

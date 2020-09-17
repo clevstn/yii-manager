@@ -253,7 +253,7 @@ if (!function_exists('table_action_helper')) {
      */
     function table_action_helper($type, $options)
     {
-        $optionsInstance = new \app\builder\table\Options($options);
+        $optionsInstance = new \app\builder\table\ToolOptions($options);
         return [
             'type' => $type,
             'options' => $optionsInstance->toArray(),

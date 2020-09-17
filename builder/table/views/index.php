@@ -11,6 +11,7 @@ use yii\helpers\Json;
 <div class="panel-heading border-bottom">
     <span class="f-13"><?= $this->title ?></span>
 </div>
+
 <!--头部工具栏-->
 <div class="panel-body border-bottom">
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">
@@ -42,8 +43,9 @@ use yii\helpers\Json;
         </div>
     </div>
 </div>
+
+<!--表格-->
 <div class="panel-body overflow-x">
-    <!--表格-->
     <table class="table table-bordered table-hover">
         <thead>
         <tr class="bg-light">
