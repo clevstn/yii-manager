@@ -27,6 +27,7 @@ use app\builder\contract\NotFoundAttributeException;
  * @property boolean $page
  * @property array $columns
  * @property \Closure $query
+ * @property boolean $partial
  * @property array $rowActions
  * @property array|string $orderBy
  * @property boolean $hideCheckbox
@@ -159,6 +160,23 @@ class Builder extends BaseObject implements BuilderInterface
      * @see registerView()
      */
     private $_view;
+
+    /**
+     * 是否为局部视图
+     * @var bool
+     * @since 1.0
+     * @see $partial
+     */
+    private $_partial = false;
+
+    /**
+     * 局部视图路径
+     * @var string
+     * @since 1.0
+     * @see $partial
+     * @see render()
+     */
+    public $layoutPartial = '@builder/layouts/partial.php';
 
     /**
      * 模板路径
@@ -461,6 +479,30 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
+     * 设置局部视图
+     * @param bool $partial
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setPartial($partial = true)
+    {
+        $this->_partial = $partial ?: false;
+        return $this;
+    }
+
+    /**
+     * 获取是否是局部视图
+     * @return bool
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getPartial()
+    {
+        return $this->_partial;
+    }
+
+    /**
      * 渲染表格
      * @param Controller $context
      * @return string
@@ -473,7 +515,15 @@ class Builder extends BaseObject implements BuilderInterface
         if (Yii::$app->request->isAjax || accept_json()) {
             return $this->renderAjax($context);
         } else {
-            return $this->renderHtml($context);
+            $oldLayout = $context->layout;
+            if ($this->partial === true) {
+                $context->layout = $this->layoutPartial;
+            }
+
+            $viewBody = $this->renderHtml($context);
+            $context->layout = $oldLayout;
+
+            return $viewBody;
         }
     }
 
@@ -513,12 +563,12 @@ class Builder extends BaseObject implements BuilderInterface
         $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
 
         return $context->render($this->_viewPath, [
-            'columns'           => $this->columns,
-            'hideCheckbox'      => $this->hideCheckbox,
-            'checkboxOptions'   => $this->checkboxOptions,
-            'rowActions'        => $this->rowActions,
-            'modalId'           => self::TABLE_ROW_ACTION_MODAL_ID,
-            'frameId'           => self::TABLE_ROW_ACTION_MODAL_IFRAME_ID,
+            'columns' => $this->columns,
+            'hideCheckbox' => $this->hideCheckbox,
+            'checkboxOptions' => $this->checkboxOptions,
+            'rowActions' => $this->rowActions,
+            'modalId' => self::TABLE_ROW_ACTION_MODAL_ID,
+            'frameId' => self::TABLE_ROW_ACTION_MODAL_IFRAME_ID,
         ]);
     }
 
@@ -573,9 +623,9 @@ class Builder extends BaseObject implements BuilderInterface
     protected function resolveJsScript()
     {
         return $this->_view->renderPhpFile(__DIR__ . '/app.js', [
-            'link'      => Yii::$app->request->url,
-            'modalId'   => self::TABLE_ROW_ACTION_MODAL_ID,
-            'frameId'   => self::TABLE_ROW_ACTION_MODAL_IFRAME_ID,
+            'link' => Yii::$app->request->url,
+            'modalId' => self::TABLE_ROW_ACTION_MODAL_ID,
+            'frameId' => self::TABLE_ROW_ACTION_MODAL_IFRAME_ID,
         ]);
     }
 
