@@ -156,6 +156,11 @@
 
             // 行操作 - 打开模态框
             $scope.openModal = function (title, params, route, width, height) {
+                var closeBtn = 2;
+                if (width === '100%') {
+                    closeBtn = 1;
+                }
+
                 params = $jq.param(params);
                 $layer.open({
                     type: 2,
@@ -164,7 +169,7 @@
                     title: title,
                     maxmin: false,
                     shadeClose: false,
-                    closeBtn: 2,
+                    closeBtn: closeBtn,
                     area : [width, height],
                     content: route + '?' + params,
                 });
