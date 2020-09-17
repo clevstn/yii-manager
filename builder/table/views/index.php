@@ -130,11 +130,11 @@ use yii\helpers\Json;
     'id'            => $modalId,
     'closeButton'   => false,
     'bodyOptions'   => ['class' => 'modal-body p-0'],
-    'size'          => \yii\bootstrap\Modal::SIZE_DEFAULT,
+    'size'          => \yii\bootstrap\Modal::SIZE_LARGE,
 ]);
 ?>
 
-<iframe scrolling="auto" frameborder="0" allowtransparency="true" id="<?= $frameId ?>" style="width:100%;height:100%;"></iframe>
+<iframe scrolling="auto" frameborder="0" allowtransparency="true" name="<?= $frameId ?>" id="<?= $frameId ?>" style="width:100%;height:800px;"></iframe>
 
 <?php
 \yii\bootstrap\Modal::end();

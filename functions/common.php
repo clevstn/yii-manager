@@ -251,7 +251,7 @@ if (!function_exists('table_action_helper')) {
     function table_action_helper($type, $options)
     {
         if (!empty($options['route'])) {
-            $options['route'] = \yii\helpers\Url::to($options['route'], true);
+            $options['route'] = \yii\helpers\Url::toRoute('/' . ltrim($options['route'], '/'));
         }
 
         if (empty($options['method'])) {

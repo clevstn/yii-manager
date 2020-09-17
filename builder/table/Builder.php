@@ -11,6 +11,7 @@ namespace app\builder\table;
 
 use Yii;
 use yii\web\View;
+use yii\helpers\Url;
 use yii\helpers\Json;
 use yii\helpers\Html;
 use yii\web\Linkable;
@@ -623,7 +624,7 @@ class Builder extends BaseObject implements BuilderInterface
     protected function resolveJsScript()
     {
         return $this->_view->renderPhpFile(__DIR__ . '/app.js', [
-            'link' => Yii::$app->request->url,
+            'link' => Url::toRoute('/' . Yii::$app->controller->route),
             'modalId' => self::TABLE_ROW_ACTION_MODAL_ID,
             'frameId' => self::TABLE_ROW_ACTION_MODAL_IFRAME_ID,
         ]);
