@@ -22,10 +22,10 @@ class SweetAlert2 extends BaseAsset
      */
     public $css = [
 //        'libs/sweetalert2/theme/sweetalert2-bootstrap4.min.css',
-        'libs/sweetalert2/theme/sweetalert2-default.min.css',
+//        'libs/sweetalert2/theme/sweetalert2-default.min.css',
 //        'libs/sweetalert2/theme/sweetalert2-borderless.min.css',
 //        'libs/sweetalert2/theme/sweetalert2-dark.min.css',
-//        'libs/sweetalert2/theme/sweetalert2-minimal.min.css',
+        'libs/sweetalert2/theme/sweetalert2-minimal.min.css',
 //        'libs/sweetalert2/theme/sweetalert2-material-ui.min.css',
 //        'libs/sweetalert2/theme/sweetalert2-wordpress-admin.min.css',
 //        'libs/sweetalert2/theme/sweetalert2-bulma.min.css',

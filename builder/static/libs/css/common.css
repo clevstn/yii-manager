@@ -455,7 +455,15 @@ ul, ol, dl {
 }
 
 .swal2-popup {
-    border-radius: 4px !important;
+    border-radius: 12px !important;
+}
+
+.swal2-title {
+    font-size: 1.3em;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: #337ab7;
 }
 
 .ym-footer {
