@@ -59,15 +59,22 @@ class IndexController extends CommonController
 
         $tableBuilder->title = '首页';
         $tableBuilder->columns = [
-            'username' => table_column_helper('用户名', [
-                'style' => [
-                    'width' => '100px',
-                ],
-            ]),
+            'username' => table_column_helper('用户名', ['style' => ['width' => '100px']]),
             'email' => table_column_helper('邮箱'),
             'an_mobile' => table_column_helper('电话', [], function ($item) {
                 return '+' . $item['an'] . ' ' . $item['mobile'];
             }),
+            'status' => table_column_helper('状态', [], function ($item) {
+                switch ($item['status']){
+                    case 0:
+                        return '<span class="label label-danger">已封停</span>';
+                    case 1:
+                        return '<span class="label label-success">正常</span>';
+                    default:
+                        return '<span class="label label-default">未知</span>';
+                }
+            }),
+            'identify_code' => table_column_helper('邀请码'),
             'created_at' => table_column_helper('注册时间'),
             'updated_at' => table_column_helper('更新时间'),
         ];
@@ -135,6 +142,13 @@ class IndexController extends CommonController
      */
     public function actionDisable()
     {
-        return $this->asSuccess([], '执行成功恭喜您，原因：您的审核条件过于优越，因此平台决定给您授权！');
+        $bodyParams = $this->post;
+        $id = $bodyParams['id'];
+        $action = $bodyParams['action'];
+        $model = AdminUser::findOne(['id' => $id]);
+        $model->status = $action;
+        $model->save();
+
+        return $this->asSuccess([], '禁用成功');
     }
 }

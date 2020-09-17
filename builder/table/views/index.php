@@ -111,7 +111,9 @@ use yii\helpers\Json;
 
             <!--渲染列表-->
             <?php foreach ($columns as $field => $item): ?>
-            <td ng-bind="value['<?= $field ?>']" style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>></td>
+            <td style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>>
+                <span ng-bind-html="value['<?= $field ?>'] | toHtml"></span>
+            </td>
             <?php endforeach; ?>
 
         </tr>
