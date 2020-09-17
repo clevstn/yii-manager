@@ -4,13 +4,18 @@
 /* @var boolean $hideCheckbox 是否隐藏第一列复选框 */
 /* @var array $checkboxOptions 第一列复选框选项 */
 /* @var array $rowActions 表格行操作项 */
+/* @var array $widgets 切点处要加入组件 */
 
 use yii\helpers\Json;
+use app\builder\table\Table;
 ?>
 <!--页面标题-->
 <div class="panel-heading border-bottom">
     <span class="f-13"><?= $this->title ?></span>
 </div>
+
+<!--工具栏开始-->
+<?php Table::beginTableTool($widgets); ?>
 
 <!--头部工具栏-->
 <div class="panel-body border-bottom">
@@ -43,6 +48,9 @@ use yii\helpers\Json;
         </div>
     </div>
 </div>
+
+<!--工具栏结束-->
+<?php Table::endTableTool($widgets); ?>
 
 <!--表格-->
 <div class="panel-body overflow-x">
@@ -123,5 +131,11 @@ use yii\helpers\Json;
     </table>
 </div>
 
+<!--分页开始-->
+<?php Table::beginTablePage($widgets); ?>
+
 <!--分页-->
 <div class="panel-body border-top" ng-show="ymPage" angular-ajax-page page-model="ymPage"></div>
+
+<!--分页结束-->
+<?php Table::endTablePage($widgets); ?>

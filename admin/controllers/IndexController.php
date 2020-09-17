@@ -11,6 +11,7 @@ namespace app\admin\controllers;
 
 use app\models\AdminUser;
 use app\builder\ViewBuilder;
+use app\builder\table\Table;
 use app\builder\common\CommonController;
 
 /**
@@ -58,6 +59,10 @@ class IndexController extends CommonController
         $tableBuilder = ViewBuilder::table();
 
         $tableBuilder->title = '首页';
+        $tableBuilder->setWidget('<p style="padding:10px;padding-bottom:0;">这里是工具栏头部</p>', Table::TABLE_TOOL_TOP);
+        $tableBuilder->setWidget('<p style="padding:10px;padding-bottom:0;">这里是工具栏底部</p>', Table::TABLE_TOOL_BOTTOM);
+        $tableBuilder->setWidget('<p style="padding:10px;padding-bottom:0;">这里是分页头部</p>', Table::TABLE_PAGE_TOP);
+        $tableBuilder->setWidget('<p style="padding:10px;padding-bottom:0;">这里是分页底部</p>', Table::TABLE_PAGE_BOTTOM);
         $tableBuilder->columns = [
             'username' => table_column_helper('用户名', ['style' => ['min-width' => '100px']]),
             'email' => table_column_helper('邮箱', ['style' => ['min-width' => '200px']]),

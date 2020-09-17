@@ -42,26 +42,6 @@ use app\builder\contract\NotFoundAttributeException;
 class Builder extends BaseObject implements BuilderInterface
 {
     /**
-     * 表格工具栏顶部切点
-     */
-    const TABLE_TOOL_TOP = 1;
-
-    /**
-     * 表格工具栏底部切点
-     */
-    const TABLE_TOOL_BOTTOM = 2;
-
-    /**
-     * 表格分页顶部切点
-     */
-    const TABLE_PAGE_TOP = 3;
-
-    /**
-     * 表格分页底部切点
-     */
-    const TABLE_PAGE_BOTTOM = 4;
-
-    /**
      * 表格标题
      * @var string
      * @since 1.0
@@ -546,7 +526,7 @@ class Builder extends BaseObject implements BuilderInterface
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function setWidget($widget, $pos = self::TABLE_TOOL_TOP)
+    public function setWidget($widget, $pos = Table::TABLE_TOOL_TOP)
     {
         $this->_widget[$pos][] = $widget;
         return $this;
@@ -624,10 +604,11 @@ class Builder extends BaseObject implements BuilderInterface
         $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
 
         return $context->render($this->_viewPath, [
-            'columns' => $this->columns,
-            'hideCheckbox' => $this->hideCheckbox,
-            'checkboxOptions' => $this->checkboxOptions,
-            'rowActions' => $this->rowActions,
+            'columns'           => $this->columns,
+            'hideCheckbox'      => $this->hideCheckbox,
+            'checkboxOptions'   => $this->checkboxOptions,
+            'rowActions'        => $this->rowActions,
+            'widgets'           => $this->widget,
         ]);
     }
 
