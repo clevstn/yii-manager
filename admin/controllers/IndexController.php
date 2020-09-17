@@ -64,7 +64,7 @@ class IndexController extends CommonController
             'an_mobile' => table_column_helper('电话', ['style' => ['min-width' => '100px']], function ($item) {
                 return '+' . $item['an'] . ' ' . $item['mobile'];
             }),
-            'status' => table_column_helper('状态', ['style' => ['min-width' => '80px']], function ($item) {
+            'status_label' => table_column_helper('状态', ['style' => ['min-width' => '80px']], function ($item) {
                 switch ($item['status']){
                     case 0:
                         return '<span class="label label-danger">已封停</span>';
@@ -88,10 +88,10 @@ class IndexController extends CommonController
         $tableBuilder->hideCheckbox = false;
         $tableBuilder->rowActions = [
             table_action_helper('ajax', [
-                'title' => '禁用',
+                'title' => '解封/封停',
                 'icon' => 'fa fa-lock',
                 'route' => 'admin/index/disable',
-                'params' => ['id', 'action' => 0],
+                'params' => ['id', 'status'],
                 'method' => 'post',
             ]),
             //table_action_helper('division', []),
@@ -144,11 +144,11 @@ class IndexController extends CommonController
     {
         $bodyParams = $this->post;
         $id = $bodyParams['id'];
-        $action = $bodyParams['action'];
+        $action = ($bodyParams['status'] == 0 ? 1 : 0);
         $model = AdminUser::findOne(['id' => $id]);
         $model->status = $action;
         $model->save();
 
-        return $this->asSuccess([], '禁用成功');
+        return $this->asSuccess([], '操作成功');
     }
 }
