@@ -9,6 +9,7 @@
 
 namespace app\admin\controllers;
 
+use app\builder\table\Options;
 use app\models\AdminUser;
 use app\builder\ViewBuilder;
 use app\builder\common\CommonController;
@@ -86,7 +87,7 @@ class IndexController extends CommonController
                     'params' => ['id', 'action' => 0],
                     'method' => 'post',
                 ]),
-                //table_action_helper('division', []),
+                table_action_helper('division', []),
                 table_action_helper('modal', [
                     'title' => '编辑',
                     'icon' => 'fa fa-pencil-square-o',
@@ -122,53 +123,7 @@ class IndexController extends CommonController
      */
     public function actionEdit()
     {
-        return ViewBuilder::table()
-            ->setTitle('首页')
-            ->setPartial()
-            ->setColumns([
-                'username' => table_column_helper('用户名', [
-                    'style' => [
-                        'width' => '100px',
-                    ],
-                ]),
-                'email' => table_column_helper('邮箱'),
-                'an_mobile' => table_column_helper('电话', [], function ($item) {
-                    return '+' . $item['an'] . ' ' . $item['mobile'];
-                }),
-                'created_at' => table_column_helper('注册时间'),
-                'updated_at' => table_column_helper('更新时间'),
-            ])
-            ->setQuery(function () {
-                $query = AdminUser::find();
-                return $query;
-            })
-            ->setOrderBy('id DESC')
-            ->setPrimaryKey('id')
-            ->setPage()
-            ->setHideCheckbox(false)
-            ->setRowActions([
-                table_action_helper('ajax', [
-                    'title' => '禁用',
-                    'icon' => 'fa fa-lock',
-                    'route' => 'admin/index/disable',
-                    'params' => ['id', 'action' => 0],
-                    'method' => 'post',
-                ]),
-                //table_action_helper('division', []),
-                table_action_helper('modal', [
-                    'title' => '编辑',
-                    'icon' => 'fa fa-pencil-square-o',
-                    'route' => 'admin/index/edit',
-                    'params' => ['id'],
-                ]),
-                table_action_helper('page', [
-                    'title' => '新增',
-                    'icon' => 'fa fa-plus',
-                    'route' => 'admin/index/add',
-                    'params' => ['id'],
-                ]),
-            ])
-            ->render($this);
+        return '编辑';
     }
 
     /**

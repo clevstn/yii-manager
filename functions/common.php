@@ -244,32 +244,19 @@ if (!function_exists('table_action_helper')) {
      * - route 路由
      * - params 路由参数
      * - method 请求动作，当type为ajax时，该配置项有效
+     * - width  当前type为modal时有效，指定modal的宽，默认500px
+     * - height 当前type为modal时有效，指定modal的高，默认500px
      * @return array
+     * @throws \ReflectionException
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
     function table_action_helper($type, $options)
     {
-        if (!empty($options['route'])) {
-            $options['route'] = \yii\helpers\Url::toRoute('/' . ltrim($options['route'], '/'));
-        }
-
-        if (empty($options['method'])) {
-            $options['method'] = 'get';
-        }
-
-        if (empty($options['title'])) {
-            $options['title'] = '默认项';
-        }
-
-        if (empty($options['icon'])) {
-            $options['icon'] = 'fa fa-paper-plane-o';
-        }
-
-        $options['method'] = strtolower($options['method']);
+        $optionsInstance = new \app\builder\table\Options($options);
         return [
             'type' => $type,
-            'options' => $options,
+            'options' => $optionsInstance->toArray(),
         ];
     }
 }
