@@ -131,9 +131,16 @@ class IndexController extends CommonController
             'icon' => '',
             'columns' => [
                 'keyword' => table_toolbar_filter_helper([
-                    'keyword'
+                    'control' => 'text',
                 ]),
-            ]
+                'status' => table_toolbar_filter_helper([
+                    'control' => 'select',
+                    'options' => [
+                        '1' => '正常',
+                        '2' => '停用',
+                    ]
+                ]),
+            ],
         ];
         $tableBuilder->toolbarCustom = [];
 

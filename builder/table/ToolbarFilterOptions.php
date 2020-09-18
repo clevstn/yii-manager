@@ -18,6 +18,17 @@ use yii\base\BaseObject;
  */
 class ToolbarFilterOptions extends BaseObject
 {
+    const CONTROL_TEXT = 'text';
+    const CONTROL_NUMBER = 'number';
+    const CONTROL_TEXTAREA = 'textarea';
+    const CONTROL_RANGE = 'range';
+    const CONTROL_CHECKBOX = 'checkbox';
+    const CONTROL_RADIO = 'radio';
+    const CONTROL_DATETIME = 'datetime';
+    const CONTROL_DATE = 'date';
+    const CONTROL_TIME = 'time';
+    const CONTROL_CUSTOM = 'custom';
+
     /**
      * 控件类型
      * - text
@@ -64,13 +75,20 @@ class ToolbarFilterOptions extends BaseObject
     public $options = [];
 
     /**
+     * 用于自定义组件
+     * @var CustomControl
+     * @since 1.0
+     */
+    public $widget;
+
+    /**
      * 初始化选项
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
     public function init()
     {
-
+        
     }
 
     /**

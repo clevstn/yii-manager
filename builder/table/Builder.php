@@ -222,7 +222,10 @@ class Builder extends BaseObject implements BuilderInterface
      *                      'style' => '',
      *                      'attribute' => '',
      *                  ],
-     *                  'order_num',
+     *                  //'order_num' => [
+     *                  //    'control' => 'custom',
+     *                  //    'widget'  => Object,
+     *                  //],
      *                  'status' => [
      *                      'control' => 'select',
      *                      'default' => 1,
