@@ -1,11 +1,11 @@
 <?php
-/* @var $this \yii\web\View */
-/* @var array $columns 数据列选项 */
-/* @var boolean $hideCheckbox 是否隐藏第一列复选框 */
-/* @var array $checkboxOptions 第一列复选框选项 */
-/* @var array $rowActions 表格行操作项 */
-/* @var array $widgets 切点处要加入组件 */
-/* @var array $toolbars 工具栏操作项 */
+/* @var $this \yii\web\View     当前视图实例 */
+/* @var array $columns          数据列选项 */
+/* @var boolean $hideCheckbox   是否隐藏第一列复选框 */
+/* @var array $checkboxOptions  第一列复选框选项 */
+/* @var array $rowActions       表格行操作项 */
+/* @var array $widgets          切点处要加入组件 */
+/* @var array $toolbars         工具栏操作项 */
 
 use yii\helpers\Json;
 use app\builder\table\Table;

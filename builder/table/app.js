@@ -240,17 +240,18 @@
             // ------ 工具栏 start
             // 筛选
             $scope.filterMethod = function () {
-
+                console.log('filter');
             };
 
             // 导出
             $scope.exportMethod = function () {
-
+                console.log('export');
             };
 
             // 自定义
             $scope.customMethod = function () {
                 var data = $YmApp.getTableCheckedData();
+                console.log('custom');
             };
 
             // ------ 工具栏 end
