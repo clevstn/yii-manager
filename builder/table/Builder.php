@@ -528,7 +528,14 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function setWidget($widget, $pos = Table::TABLE_TOOL_TOP)
     {
-        $this->_widget[$pos][] = $widget;
+        if (is_array($widget)) {
+            foreach ($widget as $i => $item) {
+                $this->_widget[$i][] = $item;
+            }
+        } else {
+            $this->_widget[$pos][] = $widget;
+        }
+
         return $this;
     }
 
@@ -604,11 +611,11 @@ class Builder extends BaseObject implements BuilderInterface
         $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
 
         return $context->render($this->_viewPath, [
-            'columns'           => $this->columns,
-            'hideCheckbox'      => $this->hideCheckbox,
-            'checkboxOptions'   => $this->checkboxOptions,
-            'rowActions'        => $this->rowActions,
-            'widgets'           => $this->widget,
+            'columns' => $this->columns,
+            'hideCheckbox' => $this->hideCheckbox,
+            'checkboxOptions' => $this->checkboxOptions,
+            'rowActions' => $this->rowActions,
+            'widgets' => $this->widget,
         ]);
     }
 
