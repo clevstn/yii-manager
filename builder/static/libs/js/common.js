@@ -144,7 +144,7 @@
 
     // Refresh page
     YmAppConstructor.prototype.refresh = function () {
-        jQuery(document).on('click', '.ym_script_refresh', function (e) {
+        jQuery(document).on('click', '#ym_script_refresh', function (e) {
             if (global === window) {
                 global.self.location.reload();
             } else if (typeof window !== 'undefined') {

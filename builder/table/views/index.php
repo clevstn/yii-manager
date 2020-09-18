@@ -46,19 +46,19 @@ use app\builder\table\Table;
             <?php foreach ($toolbars['right'] as $item): ?>
                 <?php switch ($item['type']): case 'refresh': ?>
                     <!--刷新-->
-                    <a href="#" type="button" class="ym_script_refresh btn btn-default">
+                    <a href="#" type="button" id="ym_script_refresh" class="btn btn-default">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-refresh' ?>" aria-hidden="true"></i>
                         <span><?= !empty($item['title']) ? $item['title'] : '刷新' ?></span>
                     </a>
                     <?php break; case 'filter': ?>
                     <!--筛选-->
-                    <a href="#" type="button" class="btn btn-default">
+                    <a href="#" type="button" class="btn btn-default" ng-click="filterMethod()">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-filter' ?>" aria-hidden="true"></i>
                         <span><?= !empty($item['title']) ? $item['title'] : '筛选' ?></span>
                     </a>
                     <?php break; case 'export': ?>
                     <!--导出-->
-                    <a href="#" type="button" class="btn btn-default">
+                    <a href="#" type="button" class="btn btn-default" ng-click="exportMethod()">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-export' ?>" aria-hidden="true"></i>
                         <span><?= !empty($item['title']) ? $item['title'] : '导出' ?></span>
                     </a>

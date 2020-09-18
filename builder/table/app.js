@@ -36,7 +36,7 @@
             $laydate,
             $layer
         ) {
-            // ----- 列表start
+            // ------ 列表start
 
             // 获取请求链接
             var link = '<?= $link ?>';
@@ -235,12 +235,25 @@
                 });
             };
 
-            // ----- 列表end
+            // ------ 列表 end
 
             // ------ 工具栏 start
+            // 筛选
+            $scope.filterMethod = function () {
+
+            };
+
+            // 导出
+            $scope.exportMethod = function () {
+
+            };
+
+            // 自定义
             $scope.customMethod = function () {
                 var data = $YmApp.getTableCheckedData();
             };
+
+            // ------ 工具栏 end
 
         }]);
 }(window, window.angular);
