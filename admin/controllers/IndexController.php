@@ -125,8 +125,8 @@ class IndexController extends CommonController
             ]),
         ];
         $tableBuilder->toolbarRefresh = [];
-        $tableBuilder->toolbarExport = [];
-        $tableBuilder->toolbarFilter = [];
+//        $tableBuilder->toolbarExport = [];
+//        $tableBuilder->toolbarFilter = [];
 
         return $tableBuilder->render($this);
     }

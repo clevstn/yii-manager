@@ -23,9 +23,10 @@ use app\builder\table\Table;
 <!--头部工具栏-->
 <?php if (!empty($toolbars)): ?>
 <div class="panel-body border-bottom">
+
     <!--工具栏左-->
-    <?php if (!empty($toolbars['left'])): ?>
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">
+        <?php if (!empty($toolbars['left'])): ?>
         <div class="btn-group btn-group-sm pull-left">
             <!--自定义-->
             <?php foreach ($toolbars['left'] as $item): ?>
@@ -35,12 +36,12 @@ use app\builder\table\Table;
             </a>
             <?php endforeach; ?>
         </div>
+        <?php endif; ?>
     </div>
-    <?php endif; ?>
 
     <!--工具栏右-->
-    <?php if (!empty($toolbars['right'])): ?>
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">
+        <?php if (!empty($toolbars['right'])): ?>
         <div class="btn-group btn-group-sm pull-right">
             <?php foreach ($toolbars['right'] as $item): ?>
                 <?php switch ($item['type']): case 'refresh': ?>
@@ -70,8 +71,8 @@ use app\builder\table\Table;
                 <?php endswitch; ?>
             <?php endforeach; ?>
         </div>
+        <?php endif; ?>
     </div>
-    <?php endif; ?>
 
 </div>
 <?php endif; ?>
