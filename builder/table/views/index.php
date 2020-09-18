@@ -11,9 +11,11 @@ use yii\helpers\Json;
 use app\builder\table\Table;
 ?>
 <!--页面标题-->
+<?php if(!empty($this->title)): ?>
 <div class="panel-heading border-bottom">
     <span class="f-13"><?= $this->title ?></span>
 </div>
+<?php endif; ?>
 
 <!--工具栏开始-->
 <?php Table::beginTableTool($widgets); ?>

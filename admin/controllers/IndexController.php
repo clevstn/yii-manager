@@ -58,12 +58,12 @@ class IndexController extends CommonController
     {
         $tableBuilder = ViewBuilder::table();
         $tableBuilder->title = '首页';
-        $tableBuilder->widget = [
+        /*$tableBuilder->widget = [
             Table::TABLE_TOOL_TOP => '<p style="padding:10px;padding-bottom:0;">这里是工具栏头部</p>',
             Table::TABLE_TOOL_BOTTOM => '<p style="padding:10px;padding-bottom:0;">这里是工具栏底部</p>',
             Table::TABLE_PAGE_TOP => '<p style="padding:10px;padding-bottom:0;">这里是分页头部</p>',
             Table::TABLE_PAGE_BOTTOM => '<p style="padding:10px;padding-bottom:0;">这里是分页底部</p>',
-        ];
+        ];*/
         $tableBuilder->columns = [
             'username' => table_column_helper('用户名', ['style' => ['min-width' => '100px']]),
             'email' => table_column_helper('邮箱', ['style' => ['min-width' => '200px']]),
@@ -148,7 +148,7 @@ class IndexController extends CommonController
     public function actionEdit()
     {
         $tableBuilder = ViewBuilder::table();
-        $tableBuilder->title = '首页';
+        //$tableBuilder->title = '首页';
         $tableBuilder->partial = true;
         $tableBuilder->columns = [
             'username' => table_column_helper('用户名', ['style' => ['min-width' => '100px']]),

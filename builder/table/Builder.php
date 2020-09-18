@@ -242,10 +242,7 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function setTitle($title = '')
     {
-        if (!empty($title)) {
-            $this->_title = $title;
-        }
-
+        $this->_title = $title;
         return $this;
     }
 
@@ -257,12 +254,7 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function getTitle()
     {
-        if (!empty($this->_title)) {
-            return $this->_title;
-        }
-
-        $title = '';
-        return $title;
+        return $this->_title;
     }
 
     /**
