@@ -29,10 +29,10 @@ use app\builder\contract\NotFoundAttributeException;
  * @property string $title
  * @property boolean $page
  * @property array $columns
- * @property array $toolbars
  * @property \Closure $query
  * @property boolean $partial
  * @property array $rowActions
+ * @property-read array $toolbars
  * @property string|Widget $widget
  * @property array|string $orderBy
  * @property boolean $hideCheckbox
@@ -41,6 +41,7 @@ use app\builder\contract\NotFoundAttributeException;
  * @property-write array $toolbarRefresh
  * @property-write array $toolbarFilter
  * @property-write array $toolbarExport
+ * @property-write array $toolbarCustom
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -217,11 +218,15 @@ class Builder extends BaseObject implements BuilderInterface
      * ```
      * @since 1.0
      * @see $toolbars
-     * @see setToolbars()
      * @see getToolbars()
+     * @see $toolbarRefresh
      * @see setToolbarRefresh()
+     * @see $toolbarFilter
      * @see setToolbarFilter()
+     * @see $toolbarExport
      * @see setToolbarExport()
+     * @see $toolbarCustom
+     * @see setToolbarCustom()
      */
     private $_toolbars = [];
 
@@ -639,15 +644,15 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
-     * 设置工具栏
-     * @param array $toolbars
+     * 设置工具栏自定义项
+     * @param array $options
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function setToolbars(array $toolbars)
+    public function setToolbarCustom(array $options)
     {
-        foreach ($toolbars as $item) {
+        foreach ($options as $item) {
             $pos = ArrayHelper::remove($item, 'pos', 'left');
             $this->_toolbars[$pos][] = $item;
         }

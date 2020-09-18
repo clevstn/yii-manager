@@ -18,8 +18,6 @@ use yii\base\BaseObject;
  */
 class ToolbarCustomOptions extends BaseObject
 {
-
-
     /**
      * 初始化选项
      * @author cleverstone <yang_hui_lei@163.com>
