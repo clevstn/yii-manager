@@ -133,10 +133,22 @@ class IndexController extends CommonController
             'columns' => [
                 'keyword' => table_toolbar_filter_helper([
                     'control'       => ToolbarFilterOptions::CONTROL_TEXT,
+                    'label'         => '关键词',
                     'placeholder'   => '请填写关键词',
+                ]),
+                'email' => table_toolbar_filter_helper([
+                    'control'       => ToolbarFilterOptions::CONTROL_TEXT,
+                    'label'         => '邮箱',
+                    'placeholder'   => '请填写邮箱',
+                ]),
+                'create_time' => table_toolbar_filter_helper([
+                    'control'       => ToolbarFilterOptions::CONTROL_TEXT,
+                    'label'         => '注册时间',
+                    'placeholder'   => '请选择注册时间',
                 ]),
                 'status' => table_toolbar_filter_helper([
                     'control' => ToolbarFilterOptions::CONTROL_SELECT,
+                    'label'         => '状态',
                     'placeholder'   => '请选择状态',
                     'options' => [
                         '1' => '正常',

@@ -253,6 +253,7 @@ class Builder extends BaseObject implements BuilderInterface
      *  $_filterColumns = [
      *              'keyword' => [
      *                  'control' => 'text',
+     *                  'label' => '关键词',
      *                  'placeholder' => '请填写关键词',
      *                  'default' => 1,
      *                  'style' => '',
@@ -264,6 +265,7 @@ class Builder extends BaseObject implements BuilderInterface
      *              //],
      *              'status' => [
      *                  'control' => 'select',
+     *                  'label' => '状态',
      *                  'placeholder' => '请选择状态',
      *                  'default' => 1,
      *                  'options' => [],

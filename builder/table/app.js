@@ -247,7 +247,16 @@
                     title: '筛选',
                     maxmin: false,
                     shadeClose: false,
-                    area: ['600px', '360px'],
+                    closeBtn: 2,
+                    area: ['750px'],
+                    btn: ['确定筛选', '清空'],
+                    yes: function(index, layero){
+                        // submit
+                    },
+                    btn2: function(index, layero){
+                        // clear
+                        return false;
+                    },
                     content: $jq("#YmFilterForm"),
                 });
             };

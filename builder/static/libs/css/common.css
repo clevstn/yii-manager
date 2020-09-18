@@ -444,6 +444,37 @@ ul, ol, dl {
     padding: 10px !important;
 }
 
+.px-24 {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+}
+
+.layui-layer-btn .layui-layer-btn0 {
+    border-color: #337ab7 !important;
+    background-color: #337ab7 !important;
+}
+
+.input-group-addon {
+    background-color: #FBFBFB !important;
+    border-color: #e6e6e6 !important;
+    color: #333 !important;
+}
+
+.form-control {
+    border-color: #e6e6e6 !important;
+}
+
+.layui-layer-btn a {
+    height: auto !important;
+    line-height: 30px !important;
+    font-size: 13px !important;
+}
+
+.w-130 {
+    display: inline-block !important;
+    width: 130px !important;
+}
+
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],

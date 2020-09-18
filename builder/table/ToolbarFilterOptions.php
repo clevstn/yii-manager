@@ -51,6 +51,13 @@ class ToolbarFilterOptions extends BaseObject
     public $control = 'text';
 
     /**
+     * 标签
+     * @var string
+     * @since 1.0
+     */
+    public $label = '';
+
+    /**
      * 提示
      * @var string
      * @since 1.0

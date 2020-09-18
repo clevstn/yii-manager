@@ -52,25 +52,19 @@ use app\builder\table\ToolbarFilterOptions;
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-refresh' ?>" aria-hidden="true"></i>
                         <span><?= !empty($item['title']) ? $item['title'] : '刷新' ?></span>
                     </a>
-
                     <?php break; case 'filter': // filter ?>
-
                     <!--筛选-->
                     <a href="#" type="button" class="btn btn-default" ng-click="filterMethod()">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-filter' ?>" aria-hidden="true"></i>
                         <span><?= !empty($item['title']) ? $item['title'] : '筛选' ?></span>
                     </a>
-
                     <?php break; case 'export': // export ?>
-
                     <!--导出-->
                     <a href="#" type="button" class="btn btn-default" ng-click="exportMethod()">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-export' ?>" aria-hidden="true"></i>
                         <span><?= !empty($item['title']) ? $item['title'] : '导出' ?></span>
                     </a>
-
                     <?php break; default: // custom ?>
-
                     <!--自定义-->
                     <a href="#" type="button" class="btn btn-default" ng-click="customMethod()">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : '' ?>" aria-hidden="true"></i>
@@ -178,86 +172,67 @@ use app\builder\table\ToolbarFilterOptions;
 
 <!--筛选表单-->
 <?php if (!empty($filterColumns) && is_array($filterColumns)): ?>
-<div class="panel-body" style="display:none;" id="YmFilterForm">
+<div class="panel-body px-24" style="display:none;" id="YmFilterForm">
     <form>
         <?php foreach ($filterColumns as $field => $options): ?>
             <?php switch ($options['control']): case ToolbarFilterOptions::CONTROL_TEXT: // text ?>
                 <div class="form-group">
-                    <input type="text" ng-model="YmFilter_<?= $field ?>" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="w-130"><?= $options['label'] ?></span>
+                        </div>
+                        <input type="text" ng-model="YmFilter_<?= $field ?>" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                    </div>
                 </div>
-
                 <?php break; case ToolbarFilterOptions::CONTROL_SELECT: // select ?>
-
                 <div class="form-group">
-                    <select class="form-control" ng-model="YmFilter_<?= $field ?>">
-                        <option value=""><?= $options['placeholder'] ?></option>
-                        <?php foreach ($options['options'] as $value => $label): ?>
-                        <option value="<?= $value ?>"><?= $label ?></option>
-                        <?php endforeach; ?>
-                    </select>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="w-130"><?= $options['label'] ?></span>
+                        </div>
+                        <select class="form-control" ng-model="YmFilter_<?= $field ?>">
+                            <option value=""><?= $options['placeholder'] ?></option>
+                            <?php foreach ($options['options'] as $value => $label): ?>
+                                <option value="<?= $value ?>"><?= $label ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                 </div>
-
                 <?php break; case ToolbarFilterOptions::CONTROL_NUMBER: // number ?>
-
                 <div class="form-group">
-                    <input type="number" ng-model="YmFilter_<?= $field ?>" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                    <div class="input-group">
+                        <div class="input-group-addon"><?= $options['label'] ?></div>
+                        <input type="number" ng-model="YmFilter_<?= $field ?>" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                    </div>
                 </div>
-
                 <?php break; case ToolbarFilterOptions::CONTROL_TEXTAREA: // textarea ?>
-
                 <div class="form-group">
                     <textarea cols="30" rows="10" ng-model="YmFilter_<?= $field ?>" class="form-control" placeholder="<?= $options['placeholder'] ?>"></textarea>
                 </div>
-
                 <?php break; case ToolbarFilterOptions::CONTROL_RANGE: // range ?>
-
                 <div class="form-group">
-                    <label for="exampleInputEmail1"><? $options[''] ?></label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
                 </div>
-
                 <?php break; case ToolbarFilterOptions::CONTROL_CHECKBOX: // checkbox ?>
-
                 <div class="form-group">
-                    
                 </div>
-
                 <?php break; case ToolbarFilterOptions::CONTROL_RADIO: // radio ?>
-
                 <div class="form-group">
-
                 </div>
-
                 <?php break; case ToolbarFilterOptions::CONTROL_DATETIME: // datetime ?>
-
                 <div class="form-group">
-
                 </div>
-
                 <?php break; case ToolbarFilterOptions::CONTROL_DATE: // date ?>
-
                 <div class="form-group">
-
                 </div>
-
                 <?php break; case ToolbarFilterOptions::CONTROL_TIME: // time ?>
-
                 <div class="form-group">
-
                 </div>
-
                 <?php break; case ToolbarFilterOptions::CONTROL_CUSTOM: // custom ?>
-
                 <div class="form-group">
-
                 </div>
-
                 <?php break; ?>
-
             <?php endswitch; ?>
         <?php endforeach; ?>
-
-        <button type="submit" class="btn btn-default">确定搜索</button>
     </form>
 </div>
 <?php endif; ?>
