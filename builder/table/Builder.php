@@ -18,6 +18,7 @@ use yii\helpers\Html;
 use yii\web\Linkable;
 use yii\base\BaseObject;
 use yii\base\Controller;
+use yii\helpers\ArrayHelper;
 use app\builder\widgets\LinkPager;
 use yii\base\NotSupportedException;
 use app\builder\contract\BuilderInterface;
@@ -28,6 +29,7 @@ use app\builder\contract\NotFoundAttributeException;
  * @property string $title
  * @property boolean $page
  * @property array $columns
+ * @property array $toolbars
  * @property \Closure $query
  * @property boolean $partial
  * @property array $rowActions
@@ -36,6 +38,9 @@ use app\builder\contract\NotFoundAttributeException;
  * @property boolean $hideCheckbox
  * @property array $checkboxOptions
  * @property array|string $primaryKey
+ * @property-write array $toolbarRefresh
+ * @property-write array $toolbarFilter
+ * @property-write array $toolbarExport
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -173,6 +178,35 @@ class Builder extends BaseObject implements BuilderInterface
      * @since 1.0
      */
     private $_widget = [];
+
+    /**
+     * 工具栏
+     * @var array
+     * ```php
+     * // 数据结构，支持的key有：`left`、`right`
+     * // 支持的type有：`custom`、`refresh`、`filter`、`export`
+     * $toolbars = [
+     *      'left' => [
+     *          ['type' => 'custom', ...]
+     *      ],
+     *      'right' => [
+     *          ['type' => 'refresh', ...],
+     *          ['type' => 'filter', ...],
+     *          ['type' => 'export', ...],
+     *          ['type' => 'custom', ...],
+     *      ],
+     * ]
+     *
+     * ```
+     * @since 1.0
+     * @see $toolbars
+     * @see setToolbars()
+     * @see getToolbars()
+     * @see setToolbarRefresh()
+     * @see setToolbarFilter()
+     * @see setToolbarExport()
+     */
+    private $_toolbars = [];
 
     /**
      * 局部视图路径
@@ -548,6 +582,79 @@ class Builder extends BaseObject implements BuilderInterface
     public function getWidget()
     {
         return $this->_widget;
+    }
+
+    /**
+     * 设置工具栏刷新
+     * @param array $options
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setToolbarRefresh(array $options)
+    {
+        $options['type'] = 'refresh';
+        $this->_toolbars['right'][] = $options;
+
+        return $this;
+    }
+
+    /**
+     * 设置工具栏筛选
+     * @param array $options
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setToolbarFilter(array $options)
+    {
+        $options['type'] = 'filter';
+        $this->_toolbars['right'][] = $options;
+
+        return $this;
+    }
+
+    /**
+     * 设置工具栏导出
+     * @param array $options
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setToolbarExport(array $options)
+    {
+        $options['type'] = 'export';
+        $this->_toolbars['right'][] = $options;
+
+        return $this;
+    }
+
+    /**
+     * 设置工具栏
+     * @param array $toolbars
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setToolbars(array $toolbars)
+    {
+        foreach ($toolbars as $item) {
+            $pos = ArrayHelper::remove($item, 'pos', 'left');
+            $this->_toolbars[$pos][] = $item;
+        }
+
+        return $this;
+    }
+
+    /**
+     * 获取工具栏
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getToolbars()
+    {
+        return $this->_toolbars;
     }
 
     /**

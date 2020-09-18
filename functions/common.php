@@ -211,7 +211,7 @@ if (!function_exists('html_escape')) {
 if (!function_exists('table_column_helper')) {
     /**
      * 快捷设置表格列
-     * @param string $title 字段标题，不设置则已该字段作为该表格列的标题
+     * @param string $title 字段标题，不设置则该字段名作为该表格列的标题
      * @param array $options 选项
      * - attribute html属性
      * - style     css样式
@@ -257,6 +257,30 @@ if (!function_exists('table_action_helper')) {
         return [
             'type' => $type,
             'options' => $optionsInstance->toArray(),
+        ];
+    }
+}
+
+if (!function_exists('table_toolbar_helper')) {
+    /**
+     * 快捷设置表格工具栏项
+     * @param string $pos
+     * - left 工具栏内左边
+     * - right 工具栏内右边
+     * @param array $options
+     * - title 按钮标题
+     * - icon  按钮图标
+     * @return array
+     * @throws ReflectionException
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function table_toolbar_helper($pos, $options = [])
+    {
+        $toolbarOptions = new \app\builder\table\ToolbarOptions($options);
+        return [
+            'pos' => $pos,
+            'options' => $toolbarOptions->toArray(),
         ];
     }
 }

@@ -31,6 +31,7 @@ use app\builder\table\Table;
             </a>
         </div>
     </div>
+
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">
         <div class="btn-group btn-group-sm pull-right">
             <a href="#" type="button" class="ym_script_refresh btn btn-default">

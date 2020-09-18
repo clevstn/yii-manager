@@ -85,7 +85,17 @@ class IndexController extends CommonController
             'updated_at' => table_column_helper('更新时间', ['style' => ['min-width' => '180px']]),
         ];
         $tableBuilder->query = function () {
-            $query = AdminUser::find();
+            $query = AdminUser::find()->select([
+                'id',
+                'username',
+                'email',
+                'an',
+                'mobile',
+                'status',
+                'identify_code',
+                'created_at',
+                'updated_at',
+            ]);
             return $query;
         };
         $tableBuilder->orderBy = 'id DESC';
@@ -138,7 +148,6 @@ class IndexController extends CommonController
     public function actionEdit()
     {
         $tableBuilder = ViewBuilder::table();
-
         $tableBuilder->title = '首页';
         $tableBuilder->partial = true;
         $tableBuilder->columns = [

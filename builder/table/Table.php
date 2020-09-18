@@ -12,7 +12,7 @@ namespace app\builder\table;
 use yii\base\Widget;
 
 /**
- * 表格工具类
+ * 表格助手
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
