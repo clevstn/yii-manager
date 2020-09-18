@@ -127,7 +127,13 @@ class IndexController extends CommonController
         $tableBuilder->toolbarRefresh = [];
         $tableBuilder->toolbarExport = [];
         $tableBuilder->toolbarFilter = [
-
+            'title' => '筛选',
+            'icon' => '',
+            'columns' => [
+                'keyword' => table_toolbar_filter_helper([
+                    'keyword'
+                ]),
+            ]
         ];
         $tableBuilder->toolbarCustom = [];
 

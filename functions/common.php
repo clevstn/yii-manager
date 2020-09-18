@@ -264,13 +264,16 @@ if (!function_exists('table_action_helper')) {
 if (!function_exists('table_toolbar_filter_helper')) {
     /**
      * 快捷设置表格工具栏筛选项
+     * @param array $options
      * @return array
+     * @throws ReflectionException
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    function table_toolbar_filter_helper()
+    function table_toolbar_filter_helper(array $options)
     {
-        return [];
+        $toolbarFilterOptions = new \app\builder\table\ToolbarFilterOptions($options);
+        return $toolbarFilterOptions->toArray();
     }
 }
 

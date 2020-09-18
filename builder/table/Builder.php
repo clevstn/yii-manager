@@ -208,11 +208,13 @@ class Builder extends BaseObject implements BuilderInterface
      *      ],
      *      'right' => [
      *          // 刷新
-     *          ['type' => 'refresh'],
+     *          ['type' => 'refresh', 'title' => '', 'icon' => ''],
      *          // 筛选
      *          [
      *              'type' => 'filter',
-     *              // control支持的类型有：text、number、texteara、range、checkbox、radio、datetime、date、time、custom
+     *              'title' => '',
+     *              'icon' => '',
+     *              // control支持的类型有：text、number、textarea、range、checkbox、radio、datetime、date、time、custom
      *              'columns' => [
      *                  'keyword' => [
      *                      'control' => 'text',
