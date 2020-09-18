@@ -30,8 +30,8 @@ use app\builder\table\Table;
             <!--自定义-->
             <?php foreach ($toolbars['left'] as $item): ?>
             <a href="#" type="button" class="btn btn-default" ng-click="customMethod()">
-                <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-                <span>删除</span>
+                <i class="<?= $item['icon'] ?>" aria-hidden="true"></i>
+                <span><?= $item['title'] ?></span>
             </a>
             <?php endforeach; ?>
         </div>
@@ -46,26 +46,26 @@ use app\builder\table\Table;
                 <?php switch ($item['type']): case 'refresh': ?>
                     <!--刷新-->
                     <a href="#" type="button" class="ym_script_refresh btn btn-default">
-                        <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i>
-                        <span>刷新</span>
+                        <i class="<?= $item['icon'] ?: 'glyphicon glyphicon-refresh' ?>" aria-hidden="true"></i>
+                        <span><?= $item['title'] ?: '刷新' ?></span>
                     </a>
                     <?php break; case 'filter': ?>
                     <!--筛选-->
                     <a href="#" type="button" class="btn btn-default">
-                        <i class="glyphicon glyphicon-filter" aria-hidden="true"></i>
-                        <span>筛选</span>
+                        <i class="<?= $item['icon'] ?: 'glyphicon glyphicon-filter' ?>" aria-hidden="true"></i>
+                        <span><?= $item['title'] ?: '筛选' ?></span>
                     </a>
                     <?php break; case 'export': ?>
                     <!--导出-->
                     <a href="#" type="button" class="btn btn-default">
-                        <i class="glyphicon glyphicon-export" aria-hidden="true"></i>
-                        <span>导出</span>
+                        <i class="<?= $item['icon'] ?: 'glyphicon glyphicon-export' ?>" aria-hidden="true"></i>
+                        <span><?= $item['title'] ?: '导出' ?></span>
                     </a>
                     <?php break; default: ?>
                     <!--自定义-->
                     <a href="#" type="button" class="btn btn-default">
-                        <i class="glyphicon glyphicon-cutlery" aria-hidden="true"></i>
-                        <span>自定义</span>
+                        <i class="<?= $item['icon'] ?>" aria-hidden="true"></i>
+                        <span><?= $item['title'] ?></span>
                     </a>
                 <?php endswitch; ?>
             <?php endforeach; ?>
