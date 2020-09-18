@@ -240,7 +240,16 @@
             // ------ 工具栏 start
             // 筛选
             $scope.filterMethod = function () {
-                console.log('filter');
+                $layer.open({
+                    type: 1,
+                    shade: 0.3,
+                    anim: -1,
+                    title: '筛选',
+                    maxmin: false,
+                    shadeClose: false,
+                    area: ['600px', '360px'],
+                    content: $jq("#YmFilterForm"),
+                });
             };
 
             // 导出

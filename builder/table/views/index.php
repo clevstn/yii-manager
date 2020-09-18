@@ -6,9 +6,11 @@
 /* @var array $rowActions       表格行操作项 */
 /* @var array $widgets          切点处要加入组件 */
 /* @var array $toolbars         工具栏操作项 */
+/* @var array $filterColumns    筛选表单选项 */
 
 use yii\helpers\Json;
 use app\builder\table\Table;
+use app\builder\table\ToolbarFilterOptions;
 ?>
 <!--页面标题-->
 <?php if(!empty($this->title)): ?>
@@ -26,7 +28,7 @@ use app\builder\table\Table;
 
     <!--工具栏左-->
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">
-        <?php if (!empty($toolbars['left'])): ?>
+        <?php if (!empty($toolbars['left']) && is_array($toolbars['left'])): ?>
         <div class="btn-group btn-group-sm pull-left">
             <!--自定义-->
             <?php foreach ($toolbars['left'] as $item): ?>
@@ -41,28 +43,34 @@ use app\builder\table\Table;
 
     <!--工具栏右-->
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">
-        <?php if (!empty($toolbars['right'])): ?>
+        <?php if (!empty($toolbars['right']) && is_array($toolbars['right'])): ?>
         <div class="btn-group btn-group-sm pull-right">
             <?php foreach ($toolbars['right'] as $item): ?>
-                <?php switch ($item['type']): case 'refresh': ?>
+                <?php switch ($item['type']): case 'refresh': // refresh ?>
                     <!--刷新-->
                     <a href="#" type="button" id="ym_script_refresh" class="btn btn-default">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-refresh' ?>" aria-hidden="true"></i>
                         <span><?= !empty($item['title']) ? $item['title'] : '刷新' ?></span>
                     </a>
-                    <?php break; case 'filter': ?>
+
+                    <?php break; case 'filter': // filter ?>
+
                     <!--筛选-->
                     <a href="#" type="button" class="btn btn-default" ng-click="filterMethod()">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-filter' ?>" aria-hidden="true"></i>
                         <span><?= !empty($item['title']) ? $item['title'] : '筛选' ?></span>
                     </a>
-                    <?php break; case 'export': ?>
+
+                    <?php break; case 'export': // export ?>
+
                     <!--导出-->
                     <a href="#" type="button" class="btn btn-default" ng-click="exportMethod()">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-export' ?>" aria-hidden="true"></i>
                         <span><?= !empty($item['title']) ? $item['title'] : '导出' ?></span>
                     </a>
-                    <?php break; default: ?>
+
+                    <?php break; default: // custom ?>
+
                     <!--自定义-->
                     <a href="#" type="button" class="btn btn-default" ng-click="customMethod()">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : '' ?>" aria-hidden="true"></i>
@@ -167,3 +175,89 @@ use app\builder\table\Table;
 
 <!--分页结束-->
 <?php Table::endTablePage($widgets); ?>
+
+<!--筛选表单-->
+<?php if (!empty($filterColumns) && is_array($filterColumns)): ?>
+<div class="panel-body" style="display:none;" id="YmFilterForm">
+    <form>
+        <?php foreach ($filterColumns as $field => $options): ?>
+            <?php switch ($options['control']): case ToolbarFilterOptions::CONTROL_TEXT: // text ?>
+                <div class="form-group">
+                    <input type="text" ng-model="YmFilter_<?= $field ?>" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                </div>
+
+                <?php break; case ToolbarFilterOptions::CONTROL_SELECT: // select ?>
+
+                <div class="form-group">
+                    <select class="form-control" ng-model="YmFilter_<?= $field ?>">
+                        <option value=""><?= $options['placeholder'] ?></option>
+                        <?php foreach ($options['options'] as $value => $label): ?>
+                        <option value="<?= $value ?>"><?= $label ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <?php break; case ToolbarFilterOptions::CONTROL_NUMBER: // number ?>
+
+                <div class="form-group">
+                    <input type="number" ng-model="YmFilter_<?= $field ?>" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                </div>
+
+                <?php break; case ToolbarFilterOptions::CONTROL_TEXTAREA: // textarea ?>
+
+                <div class="form-group">
+                    <textarea cols="30" rows="10" ng-model="YmFilter_<?= $field ?>" class="form-control" placeholder="<?= $options['placeholder'] ?>"></textarea>
+                </div>
+
+                <?php break; case ToolbarFilterOptions::CONTROL_RANGE: // range ?>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1"><? $options[''] ?></label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                </div>
+
+                <?php break; case ToolbarFilterOptions::CONTROL_CHECKBOX: // checkbox ?>
+
+                <div class="form-group">
+                    
+                </div>
+
+                <?php break; case ToolbarFilterOptions::CONTROL_RADIO: // radio ?>
+
+                <div class="form-group">
+
+                </div>
+
+                <?php break; case ToolbarFilterOptions::CONTROL_DATETIME: // datetime ?>
+
+                <div class="form-group">
+
+                </div>
+
+                <?php break; case ToolbarFilterOptions::CONTROL_DATE: // date ?>
+
+                <div class="form-group">
+
+                </div>
+
+                <?php break; case ToolbarFilterOptions::CONTROL_TIME: // time ?>
+
+                <div class="form-group">
+
+                </div>
+
+                <?php break; case ToolbarFilterOptions::CONTROL_CUSTOM: // custom ?>
+
+                <div class="form-group">
+
+                </div>
+
+                <?php break; ?>
+
+            <?php endswitch; ?>
+        <?php endforeach; ?>
+
+        <button type="submit" class="btn btn-default">确定搜索</button>
+    </form>
+</div>
+<?php endif; ?>

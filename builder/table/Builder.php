@@ -21,6 +21,7 @@ use yii\base\Controller;
 use yii\helpers\ArrayHelper;
 use app\builder\widgets\LinkPager;
 use yii\base\NotSupportedException;
+use yii\base\InvalidArgumentException;
 use app\builder\contract\BuilderInterface;
 use app\builder\contract\NotFoundAttributeException;
 
@@ -210,31 +211,7 @@ class Builder extends BaseObject implements BuilderInterface
      *          // 刷新
      *          ['type' => 'refresh', 'title' => '', 'icon' => ''],
      *          // 筛选
-     *          [
-     *              'type' => 'filter',
-     *              'title' => '',
-     *              'icon' => '',
-     *              // control支持的类型有：text、number、textarea、range、checkbox、radio、datetime、date、time、custom
-     *              'columns' => [
-     *                  'keyword' => [
-     *                      'control' => 'text',
-     *                      'default' => 1,
-     *                      'style' => '',
-     *                      'attribute' => '',
-     *                  ],
-     *                  //'order_num' => [
-     *                  //    'control' => 'custom',
-     *                  //    'widget'  => Object,
-     *                  //],
-     *                  'status' => [
-     *                      'control' => 'select',
-     *                      'default' => 1,
-     *                      'options' => [],
-     *                      'style' => '',
-     *                      'attribute' => '',
-     *                  ],
-     *              ],
-     *          ],
+     *          ['type' => 'filter', 'title' => '', 'icon' => ''],
      *          // 导出
      *          ['type' => 'export', ...],
      *          // 自定义
@@ -256,6 +233,48 @@ class Builder extends BaseObject implements BuilderInterface
      * @see setToolbarCustom()
      */
     private $_toolbars = [];
+
+    /**
+     * 筛选表单字段项
+     * @var array
+     *  control支持的类型有:
+     *  - text
+     *  - select
+     *  - number
+     *  - textarea
+     *  - range
+     *  - checkbox
+     *  - radio
+     *  - datetime
+     *  - date
+     *  - time
+     *  - custom
+     * ```php
+     *  $_filterColumns = [
+     *              'keyword' => [
+     *                  'control' => 'text',
+     *                  'placeholder' => '请填写关键词',
+     *                  'default' => 1,
+     *                  'style' => '',
+     *                  'attribute' => '',
+     *              ],
+     *              //'order_num' => [
+     *                  //    'control' => 'custom',
+     *                  //    'widget'  => Object,
+     *              //],
+     *              'status' => [
+     *                  'control' => 'select',
+     *                  'placeholder' => '请选择状态',
+     *                  'default' => 1,
+     *                  'options' => [],
+     *                  'style' => '',
+     *                  'attribute' => '',
+     *              ],
+     *         ],
+     * ```
+     * @since 1.0
+     */
+    private $_filterColumns = [];
 
     /**
      * 局部视图路径
@@ -649,6 +668,11 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function setToolbarFilter(array $options)
     {
+        if (empty($options['columns'])) {
+            throw new InvalidArgumentException('Option missing parameters `columns`. ');
+        }
+
+        $this->_filterColumns = ArrayHelper::remove($options, 'columns', []);
         $options['type'] = 'filter';
         $this->_toolbars['right'][] = $options;
 
@@ -765,6 +789,7 @@ class Builder extends BaseObject implements BuilderInterface
             'rowActions'        => $this->rowActions,
             'widgets'           => $this->widget,
             'toolbars'          => $this->toolbars,
+            'filterColumns'     => $this->_filterColumns,
         ]);
     }
 
@@ -819,7 +844,8 @@ class Builder extends BaseObject implements BuilderInterface
     protected function resolveJsScript()
     {
         return $this->_view->renderPhpFile(__DIR__ . '/app.js', [
-            'link' => Url::toRoute('/' . Yii::$app->controller->route),
+            'link'              => Url::toRoute('/' . Yii::$app->controller->route),
+            'filterColumns'     => $this->_filterColumns,
         ]);
     }
 

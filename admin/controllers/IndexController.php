@@ -9,6 +9,7 @@
 
 namespace app\admin\controllers;
 
+use app\builder\table\ToolbarFilterOptions;
 use app\models\AdminUser;
 use app\builder\ViewBuilder;
 use app\builder\table\Table;
@@ -131,14 +132,16 @@ class IndexController extends CommonController
             'icon' => '',
             'columns' => [
                 'keyword' => table_toolbar_filter_helper([
-                    'control' => 'text',
+                    'control'       => ToolbarFilterOptions::CONTROL_TEXT,
+                    'placeholder'   => '请填写关键词',
                 ]),
                 'status' => table_toolbar_filter_helper([
-                    'control' => 'select',
+                    'control' => ToolbarFilterOptions::CONTROL_SELECT,
+                    'placeholder'   => '请选择状态',
                     'options' => [
                         '1' => '正常',
                         '2' => '停用',
-                    ]
+                    ],
                 ]),
             ],
         ];

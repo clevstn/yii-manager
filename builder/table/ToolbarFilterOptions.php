@@ -9,7 +9,9 @@
 
 namespace app\builder\table;
 
+use yii\helpers\Html;
 use yii\base\BaseObject;
+use app\builder\contract\InvalidInstanceException;
 
 /**
  * 工具栏筛选字段选项
@@ -19,6 +21,7 @@ use yii\base\BaseObject;
 class ToolbarFilterOptions extends BaseObject
 {
     const CONTROL_TEXT = 'text';
+    const CONTROL_SELECT = 'select';
     const CONTROL_NUMBER = 'number';
     const CONTROL_TEXTAREA = 'textarea';
     const CONTROL_RANGE = 'range';
@@ -32,6 +35,7 @@ class ToolbarFilterOptions extends BaseObject
     /**
      * 控件类型
      * - text
+     * - select
      * - number
      * - textarea
      * - range
@@ -47,6 +51,13 @@ class ToolbarFilterOptions extends BaseObject
     public $control = 'text';
 
     /**
+     * 提示
+     * @var string
+     * @since 1.0
+     */
+    public $placeholder = '';
+
+    /**
      * 默认值
      * @var string
      * @since 1.0
@@ -55,14 +66,14 @@ class ToolbarFilterOptions extends BaseObject
 
     /**
      * 样式
-     * @var string
+     * @var string|array
      * @since 1.0
      */
     public $style = '';
 
     /**
      * 属性
-     * @var string
+     * @var string|array
      * @since 1.0
      */
     public $attribute = '';
@@ -88,7 +99,17 @@ class ToolbarFilterOptions extends BaseObject
      */
     public function init()
     {
-        
+        if (!empty($this->style) && is_array($this->style)) {
+            $this->style = Html::cssStyleFromArray($this->style) ?: '';
+        }
+
+        if (!empty($this->attribute) && is_array($this->attribute)) {
+            $this->attribute = Html::renderTagAttributes($this->attribute);
+        }
+
+        if (!empty($this->widget) && !($this->widget instanceof CustomControl)) {
+            throw new InvalidInstanceException('The widget not instance of interface `CustomControl`. ');
+        }
     }
 
     /**
