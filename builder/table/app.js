@@ -238,8 +238,7 @@
             // ----- 列表end
 
             // ------ 工具栏 start
-            // 选中删除
-            $scope.deleteSelected = function () {
+            $scope.customMethod = function () {
                 var data = $YmApp.getTableCheckedData();
             };
 

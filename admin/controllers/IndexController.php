@@ -177,7 +177,7 @@ class IndexController extends CommonController
         $tableBuilder->orderBy = 'id DESC';
         $tableBuilder->primaryKey = 'id';
         $tableBuilder->page = true;
-        $tableBuilder->hideCheckbox = false;
+        $tableBuilder->hideCheckbox = true;
         $tableBuilder->rowActions = [
             table_action_helper('ajax', [
                 'title' => '解封/封停',

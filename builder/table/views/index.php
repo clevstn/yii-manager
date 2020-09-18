@@ -23,35 +23,56 @@ use app\builder\table\Table;
 <!--头部工具栏-->
 <?php if (!empty($toolbars)): ?>
 <div class="panel-body border-bottom">
+    <!--工具栏左-->
+    <?php if (!empty($toolbars['left'])): ?>
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">
         <div class="btn-group btn-group-sm pull-left">
-            <a href="#" type="button" class="btn btn-default">
-                <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                <span>新增</span>
-            </a>
-            <a href="#" type="button" class="btn btn-default" ng-click="deleteSelected()">
+            <!--自定义-->
+            <?php foreach ($toolbars['left'] as $item): ?>
+            <a href="#" type="button" class="btn btn-default" ng-click="customMethod()">
                 <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                 <span>删除</span>
             </a>
+            <?php endforeach; ?>
         </div>
     </div>
+    <?php endif; ?>
 
+    <!--工具栏右-->
+    <?php if (!empty($toolbars['right'])): ?>
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">
         <div class="btn-group btn-group-sm pull-right">
-            <a href="#" type="button" class="ym_script_refresh btn btn-default">
-                <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i>
-                <span>刷新</span>
-            </a>
-            <a href="#" type="button" class="btn btn-default">
-                <i class="glyphicon glyphicon-filter" aria-hidden="true"></i>
-                <span>筛选</span>
-            </a>
-            <a href="#" type="button" class="btn btn-default">
-                <i class="glyphicon glyphicon-export" aria-hidden="true"></i>
-                <span>导出</span>
-            </a>
+            <?php foreach ($toolbars['left'] as $item): ?>
+                <?php switch ($item['type']): case 'refresh': ?>
+                    <!--刷新-->
+                    <a href="#" type="button" class="ym_script_refresh btn btn-default">
+                        <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i>
+                        <span>刷新</span>
+                    </a>
+                    <?php break; case 'filter': ?>
+                    <!--筛选-->
+                    <a href="#" type="button" class="btn btn-default">
+                        <i class="glyphicon glyphicon-filter" aria-hidden="true"></i>
+                        <span>筛选</span>
+                    </a>
+                    <?php break; case 'export': ?>
+                    <!--导出-->
+                    <a href="#" type="button" class="btn btn-default">
+                        <i class="glyphicon glyphicon-export" aria-hidden="true"></i>
+                        <span>导出</span>
+                    </a>
+                    <?php break; default: ?>
+                    <!--自定义-->
+                    <a href="#" type="button" class="btn btn-default">
+                        <i class="glyphicon glyphicon-cutlery" aria-hidden="true"></i>
+                        <span>自定义</span>
+                    </a>
+                <?php endswitch; ?>
+            <?php endforeach; ?>
         </div>
     </div>
+    <?php endif; ?>
+
 </div>
 <?php endif; ?>
 
