@@ -127,6 +127,12 @@ class IndexController extends CommonController
         $tableBuilder->toolbarRefresh = [];
         $tableBuilder->toolbarExport = [];
         $tableBuilder->toolbarFilter = [];
+        $tableBuilder->toolbars = [
+            table_toolbar_custom_helper('left', [
+
+            ]),
+
+        ];
 
         return $tableBuilder->render($this);
     }

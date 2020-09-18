@@ -253,7 +253,7 @@ if (!function_exists('table_action_helper')) {
      */
     function table_action_helper($type, $options)
     {
-        $optionsInstance = new \app\builder\table\ToolOptions($options);
+        $optionsInstance = new \app\builder\table\RowActionOptions($options);
         return [
             'type' => $type,
             'options' => $optionsInstance->toArray(),
@@ -261,9 +261,22 @@ if (!function_exists('table_action_helper')) {
     }
 }
 
-if (!function_exists('table_toolbar_helper')) {
+if (!function_exists('table_toolbar_filter_helper')) {
     /**
-     * 快捷设置表格工具栏项
+     * 快捷设置表格工具栏筛选项
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function table_toolbar_filter_helper()
+    {
+        return [];
+    }
+}
+
+if (!function_exists('table_toolbar_custom_helper')) {
+    /**
+     * 快捷设置表格工具栏自定义项
      * @param string $pos
      * - left 工具栏内左边
      * - right 工具栏内右边
@@ -275,12 +288,12 @@ if (!function_exists('table_toolbar_helper')) {
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    function table_toolbar_helper($pos, $options = [])
+    function table_toolbar_custom_helper($pos, $options = [])
     {
-        $toolbarOptions = new \app\builder\table\ToolbarOptions($options);
+        $toolbarCustomOptions = new \app\builder\table\ToolbarCustomOptions($options);
         return [
             'pos' => $pos,
-            'options' => $toolbarOptions->toArray(),
+            'options' => $toolbarCustomOptions->toArray(),
         ];
     }
 }

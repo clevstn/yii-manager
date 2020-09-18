@@ -190,8 +190,25 @@ class Builder extends BaseObject implements BuilderInterface
      *          ['type' => 'custom', ...]
      *      ],
      *      'right' => [
-     *          ['type' => 'refresh', ...],
-     *          ['type' => 'filter', ...],
+     *          ['type' => 'refresh'],
+     *          [
+     *              'type' => 'filter',
+     *              'columns' => [
+     *                  'keyword' => [
+     *                      'control' => 'text',
+     *                      'default' => 1,
+     *                      'options' => [
+     *                          'style' => '',
+     *                          'attribute' => '',
+     *                      ]
+     *                  ],
+     *                  'order_num',
+     *                  'status' => [
+     *                      'control' => 'select',
+     *                      'default' => 1,
+     *                  ],
+     *              ],
+     *          ],
      *          ['type' => 'export', ...],
      *          ['type' => 'custom', ...],
      *      ],

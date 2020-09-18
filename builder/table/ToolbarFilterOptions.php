@@ -12,14 +12,12 @@ namespace app\builder\table;
 use yii\base\BaseObject;
 
 /**
- * 工具栏选项
+ * 工具栏筛选选项
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class ToolbarOptions extends BaseObject
+class ToolbarFilterOptions extends BaseObject
 {
-
-
     /**
      * 初始化选项
      * @author cleverstone <yang_hui_lei@163.com>
