@@ -190,7 +190,7 @@ use app\builder\table\ToolbarFilterOptions;
                         <div class="input-group-addon">
                             <span class="w-130"><?= $options['label'] ?></span>
                         </div>
-                        <select class="form-control" ng-model="YmFilter_<?= $field ?>">
+                        <select class="form-control ym-filter-select" ng-model="YmFilter_<?= $field ?>">
                             <option value=""><?= $options['placeholder'] ?></option>
                             <?php foreach ($options['options'] as $value => $label): ?>
                                 <option value="<?= $value ?>"><?= $label ?></option>

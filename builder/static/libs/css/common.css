@@ -458,16 +458,21 @@ ul, ol, dl {
     background-color: #FBFBFB !important;
     border-color: #e6e6e6 !important;
     color: #333 !important;
+    font-size: 13px !important;
 }
 
 .form-control {
     border-color: #e6e6e6 !important;
+    font-size: 13px !important;
 }
 
 .layui-layer-btn a {
     height: auto !important;
     line-height: 30px !important;
-    font-size: 13px !important;
+}
+
+.select2-dropdown {
+    z-index: 20200815 !important;
 }
 
 .w-130 {

@@ -85,6 +85,9 @@
 
             // 初始化方法
             ($scope.init = function () {
+                $jq(".ym-filter-select").select2({
+                    width: "100%",
+                });
                 $scope.getList();
             }());
 
