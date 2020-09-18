@@ -5,6 +5,7 @@
 /* @var array $checkboxOptions 第一列复选框选项 */
 /* @var array $rowActions 表格行操作项 */
 /* @var array $widgets 切点处要加入组件 */
+/* @var array $toolbars 工具栏操作项 */
 
 use yii\helpers\Json;
 use app\builder\table\Table;
@@ -18,6 +19,7 @@ use app\builder\table\Table;
 <?php Table::beginTableTool($widgets); ?>
 
 <!--头部工具栏-->
+<?php if (!empty($toolbars)): ?>
 <div class="panel-body border-bottom">
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">
         <div class="btn-group btn-group-sm pull-left">
@@ -49,6 +51,7 @@ use app\builder\table\Table;
         </div>
     </div>
 </div>
+<?php endif; ?>
 
 <!--工具栏结束-->
 <?php Table::endTableTool($widgets); ?>
