@@ -26,6 +26,7 @@ use app\builder\contract\NotFoundAttributeException;
 
 /**
  * 表格构建器
+ *
  * @property string $title
  * @property boolean $page
  * @property array $columns
@@ -42,6 +43,7 @@ use app\builder\contract\NotFoundAttributeException;
  * @property-write array $toolbarFilter
  * @property-write array $toolbarExport
  * @property-write array $toolbarCustom
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -132,8 +134,20 @@ class Builder extends BaseObject implements BuilderInterface
     /**
      * 设置行操作项
      * @var array
-     * - type string 值有page、modal、ajax、division
-     * - options array 值有title、icon、route、params、method、options
+     * - type string 支持的值：`page`、`modal`、`ajax`、`division`
+     *      - page      页面打开
+     *      - modal     模态框打开
+     *      - ajax      XMLHttpRequest访问
+     *      - division  操作项分割线
+     *
+     * - options array 支持的选项：`title`、`icon`、`route`、`params`、`method`、`width`、`height`
+     *      - title     操作项、`page`、`modal`标题
+     *      - icon      操作项图标
+     *      - route     路由
+     *      - params    路由参数
+     *      - method    访问动作，ajax类型有效
+     *      - width     当前type为modal时有效，指定modal的宽，默认500px
+     *      - height    当前type为modal时有效，指定modal的高，默认500px
      * @since 1.0
      * @see $rowActions
      * @see table_action_helper()
@@ -184,33 +198,41 @@ class Builder extends BaseObject implements BuilderInterface
      * 工具栏
      * @var array
      * ```php
-     * // 数据结构，支持的key有：`left`、`right`
-     * // 支持的type有：`custom`、`refresh`、`filter`、`export`
+     * // 数据结构：
+     * // - 支持的key有：`left`、`right`
+     * // - 支持的type有：`custom`、`refresh`、`filter`、`export`
      * $toolbars = [
      *      'left' => [
+     *          // 自定义
      *          ['type' => 'custom', ...]
      *      ],
      *      'right' => [
+     *          // 刷新
      *          ['type' => 'refresh'],
+     *          // 筛选
      *          [
      *              'type' => 'filter',
+     *              // control支持的类型有：text、number、texteara、range、checkbox、radio、datetime、date、time、custom
      *              'columns' => [
      *                  'keyword' => [
      *                      'control' => 'text',
      *                      'default' => 1,
-     *                      'options' => [
-     *                          'style' => '',
-     *                          'attribute' => '',
-     *                      ]
+     *                      'style' => '',
+     *                      'attribute' => '',
      *                  ],
      *                  'order_num',
      *                  'status' => [
      *                      'control' => 'select',
      *                      'default' => 1,
+     *                      'options' => [],
+     *                      'style' => '',
+     *                      'attribute' => '',
      *                  ],
      *              ],
      *          ],
+     *          // 导出
      *          ['type' => 'export', ...],
+     *          // 自定义
      *          ['type' => 'custom', ...],
      *      ],
      * ]
