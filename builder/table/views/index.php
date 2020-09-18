@@ -30,8 +30,8 @@ use app\builder\table\Table;
             <!--自定义-->
             <?php foreach ($toolbars['left'] as $item): ?>
             <a href="#" type="button" class="btn btn-default" ng-click="customMethod()">
-                <i class="<?= $item['icon'] ?>" aria-hidden="true"></i>
-                <span><?= $item['title'] ?></span>
+                <i class="<?= !empty($item['icon']) ? $item['icon'] : '' ?>" aria-hidden="true"></i>
+                <span><?= !empty($item['title']) ? $item['title'] : '' ?></span>
             </a>
             <?php endforeach; ?>
         </div>
@@ -42,30 +42,30 @@ use app\builder\table\Table;
     <?php if (!empty($toolbars['right'])): ?>
     <div class="col-sm-12 col-md-6 px-0 py-3 clearfix">
         <div class="btn-group btn-group-sm pull-right">
-            <?php foreach ($toolbars['left'] as $item): ?>
+            <?php foreach ($toolbars['right'] as $item): ?>
                 <?php switch ($item['type']): case 'refresh': ?>
                     <!--刷新-->
                     <a href="#" type="button" class="ym_script_refresh btn btn-default">
-                        <i class="<?= $item['icon'] ?: 'glyphicon glyphicon-refresh' ?>" aria-hidden="true"></i>
-                        <span><?= $item['title'] ?: '刷新' ?></span>
+                        <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-refresh' ?>" aria-hidden="true"></i>
+                        <span><?= !empty($item['title']) ? $item['title'] : '刷新' ?></span>
                     </a>
                     <?php break; case 'filter': ?>
                     <!--筛选-->
                     <a href="#" type="button" class="btn btn-default">
-                        <i class="<?= $item['icon'] ?: 'glyphicon glyphicon-filter' ?>" aria-hidden="true"></i>
-                        <span><?= $item['title'] ?: '筛选' ?></span>
+                        <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-filter' ?>" aria-hidden="true"></i>
+                        <span><?= !empty($item['title']) ? $item['title'] : '筛选' ?></span>
                     </a>
                     <?php break; case 'export': ?>
                     <!--导出-->
                     <a href="#" type="button" class="btn btn-default">
-                        <i class="<?= $item['icon'] ?: 'glyphicon glyphicon-export' ?>" aria-hidden="true"></i>
-                        <span><?= $item['title'] ?: '导出' ?></span>
+                        <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-export' ?>" aria-hidden="true"></i>
+                        <span><?= !empty($item['title']) ? $item['title'] : '导出' ?></span>
                     </a>
                     <?php break; default: ?>
                     <!--自定义-->
-                    <a href="#" type="button" class="btn btn-default">
-                        <i class="<?= $item['icon'] ?>" aria-hidden="true"></i>
-                        <span><?= $item['title'] ?></span>
+                    <a href="#" type="button" class="btn btn-default" ng-click="customMethod()">
+                        <i class="<?= !empty($item['icon']) ? $item['icon'] : '' ?>" aria-hidden="true"></i>
+                        <span><?= !empty($item['title']) ? $item['title'] : '' ?></span>
                     </a>
                 <?php endswitch; ?>
             <?php endforeach; ?>

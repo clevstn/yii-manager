@@ -124,6 +124,9 @@ class IndexController extends CommonController
                 'route' => 'admin/index/add',
             ]),
         ];
+        $tableBuilder->toolbarRefresh = [];
+        $tableBuilder->toolbarExport = [];
+        $tableBuilder->toolbarFilter = [];
 
         return $tableBuilder->render($this);
     }
