@@ -248,7 +248,7 @@ class Builder extends BaseObject implements BuilderInterface
      *  - time
      *  - custom
      * ```php
-     *  $_filterColumns = [
+     *  $columns = [
      *              'keyword' => [
      *                  'control' => 'text',
      *                  'label' => '关键词',
@@ -275,6 +275,33 @@ class Builder extends BaseObject implements BuilderInterface
      * @since 1.0
      */
     private $_filterColumns = [];
+
+    /**
+     * 导出标识
+     * @var bool
+     * @since 1.0
+     */
+    private $_exportFlag = false;
+
+    /**
+     * 数据导出选项
+     * @var array
+     * - heads 自定义头部; 如果没定义则使用字段名作为头部名
+     *    ['ID', '用户名', '邮箱', '电话']
+     * - fields 自定义字段; 如果没定义则使用列表字段
+     *   ['id', 'username', 'email', 'an', 'mobile']
+     * - columns 自定义列; 如果没定义则导出全部字段
+     *  [
+     *      'id',
+     *      'username',
+     *      'email',
+     *      'mobile' => function ($item) {
+     *      return '+' . $item['an'] . ' ' . $item['mobile'];
+     *      },
+     *  ],
+     * @since 1.0
+     */
+    private $_exportOptions = [];
 
     /**
      * 局部视图路径
@@ -690,9 +717,16 @@ class Builder extends BaseObject implements BuilderInterface
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
+     * @see $_exportOptions
      */
     public function setToolbarExport(array $options)
     {
+        $this->_exportOptions['heads'] = ArrayHelper::remove($options, 'heads', []);
+        $this->_exportOptions['fields'] = ArrayHelper::remove($options, 'fields', []);
+        $this->_exportOptions['columns'] = ArrayHelper::remove($options, 'columns', []);
+
+        $this->_exportFlag = true;
+
         $options['type'] = 'export';
         $this->_toolbars['right'][] = $options;
 
@@ -738,7 +772,12 @@ class Builder extends BaseObject implements BuilderInterface
     public function render(Controller $context)
     {
         if (Yii::$app->request->isAjax || accept_json()) {
-            return $this->renderAjax($context);
+            /* @var int $exportFlag  Data export flag */
+            if (Yii::$app->request->getQueryParam('__export')) {
+                return $this->renderExport($context);
+            } else {
+                return $this->renderAjax($context);
+            }
         } else {
             $oldLayout = $context->layout;
             if ($this->partial === true) {
@@ -750,6 +789,20 @@ class Builder extends BaseObject implements BuilderInterface
 
             return $viewBody;
         }
+    }
+
+    /**
+     * 数据导出渲染
+     * @param Controller $context
+     * @return string
+     * @throws \Exception
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    protected function renderExport(Controller $context)
+    {
+        $exportGroup = $this->resolveExport();
+        return Json::encode($exportGroup);
     }
 
     /**
@@ -795,7 +848,34 @@ class Builder extends BaseObject implements BuilderInterface
             'widgets'           => $this->widget,
             'toolbars'          => $this->toolbars,
             'filterColumns'     => $this->_filterColumns,
+            'exportFlag'        => $this->_exportFlag,
         ]);
+    }
+
+    /**
+     * 解析数据导出
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function resolveExport()
+    {
+        /* 每页20条 */
+        $perRow = 20;
+        /* @var \yii\db\QueryInterface $query */
+        $query = call_user_func($this->query);
+        $count = $query->count();
+        $totalPage = ceil($count / $perRow);
+        $data = [];
+        for ($i = 0; $i < $totalPage; $i++) {
+            array_push($data, [
+                'offset' => ($i * $perRow),
+                'page'   => ($i + 1),
+                'limit'  => $perRow,
+            ]);
+        }
+
+        return $data;
     }
 
     /**

@@ -186,7 +186,7 @@ class IndexController extends CommonController
             'title' => '导出',
             'icon' => '',
             'heads' => ['ID', '用户名', '邮箱', '电话'],
-            'fields' => [],
+            'fields' => ['id', 'username', 'email', 'an', 'mobile'],
             'columns' => [
                 'id',
                 'username',

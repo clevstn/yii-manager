@@ -7,6 +7,7 @@
 /* @var array $widgets          切点处要加入组件 */
 /* @var array $toolbars         工具栏操作项 */
 /* @var array $filterColumns    筛选表单选项 */
+/* @var boolean $exportFlag     是否导出 */
 
 use yii\helpers\Json;
 use app\builder\table\Table;
@@ -226,5 +227,19 @@ use app\builder\table\ToolbarFilterOptions;
             <?php endswitch; ?>
         <?php endforeach; ?>
     </form>
+</div>
+<?php endif; ?>
+
+<?php if($exportFlag): ?>
+<div class="panel-body px-24 f-13" style="display:none;" id="YmExportForm">
+    <ul class="list-group">
+        <li class="list-group-item clearfix" ng-repeat="(key, value) in exportMap track by key">
+            <span class="pull-left"> 第{{value.page}}页</span>
+            <a class="pull-right" ng-href="{{value.url}}">
+                <i class="glyphicon glyphicon-export"></i>
+                <span>导出</span>
+            </a>
+        </li>
+    </ul>
 </div>
 <?php endif; ?>

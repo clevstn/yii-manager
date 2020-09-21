@@ -85,6 +85,9 @@
 
             // 初始化方法
             ($scope.init = function () {
+                // 初始化导出列表
+                $scope.exportMap = [];
+                // 初始化筛选表单中的日期控件
                 $jq(".YmFilterDate").each(function () {
                     var id = $jq(this).attr('id');
                     var range = $jq(this).attr('range');
@@ -106,7 +109,9 @@
 
                     $laydate.render(options);
                 });
+                // 初始化筛选属性
                 $scope.ymFilter = $jq.parseJSON('<?= $filterColumns ?>');
+                // 初始化列表
                 $scope.getList();
             }());
 
@@ -295,7 +300,46 @@
 
             // 导出
             $scope.exportMethod = function () {
-                console.log('export');
+                var query = $jq.extend({}, $scope.queryParams || {});
+                query['__export'] = 1;
+                var u = link + '?' + $jq.param(query);
+                // 节流
+                var i = $YmSpinner.show();
+                $http.get(u).then(function (result) {
+                    $YmSpinner.hide(i);
+                    var data = result.data;
+                    if (data.length) {
+                        var tempMap = [];
+                        data.forEach(function (value) {
+                            query['offset'] = value.offset;
+                            query['limit'] = value.limit;
+                            var u = link + '?' + $jq.param(query);
+                            tempMap.push({
+                                page: value.page,
+                                url: u,
+                            });
+                        });
+                        $scope.exportMap = tempMap;
+                        $layer.open({
+                            type: 1,
+                            shade: 0.3,
+                            anim: -1,
+                            title: '导出',
+                            maxmin: false,
+                            shadeClose: false,
+                            closeBtn: 2,
+                            area: ['400px', '700px'],
+                            content: $jq("#YmExportForm"),
+                        });
+                    } else {
+                        $toastr.info('数据列表为空,没有需要导出的数据!', "通知");
+                    }
+                }, function (error) {
+                    $YmSpinner.hide(i);
+                    $toastr.error(error.data || "数据导出列表加载失败，请稍后重试", "通知");
+                    console.error(error);
+                });
+
             };
 
             // 自定义
