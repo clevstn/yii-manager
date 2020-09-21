@@ -253,7 +253,7 @@
                     btn: ['确定筛选', '清空'],
                     yes: function(index, layero){
                         $scope.$apply(function () {
-                            $scope.getList(null, null, $scope.ymFilter);
+                            $scope.getList(1, null, $scope.ymFilter);
                         });
                         $layer.close(index);
                     },
@@ -265,8 +265,8 @@
                             }
 
                             $scope.ymFilter = tempObj;
+                            $scope.getList(1, 20, {});
                         });
-                        return false;
                     },
                     content: $jq("#YmFilterForm"),
                 });
