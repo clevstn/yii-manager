@@ -311,8 +311,9 @@
                     if (data.length) {
                         var tempMap = [];
                         data.forEach(function (value) {
-                            query['offset'] = value.offset;
-                            query['limit'] = value.limit;
+                            query['_offset']    = value.offset;
+                            query['_limit']     = value.limit;
+                            query['_filename']  = value.filename;
                             var u = link + '?' + $jq.param(query);
                             tempMap.push({
                                 page: value.page,
@@ -328,7 +329,7 @@
                             maxmin: false,
                             shadeClose: false,
                             closeBtn: 2,
-                            area: ['400px', '700px'],
+                            area: ['400px', '500px'],
                             content: $jq("#YmExportForm"),
                         });
                     } else {
@@ -340,6 +341,14 @@
                     console.error(error);
                 });
 
+            };
+
+            // 标记已导出
+            $scope.flagExport = function (e) {
+                var elem = e.currentTarget;
+                $timeout(function () {
+                    $jq(elem).text("重新导出");
+                });
             };
 
             // 自定义

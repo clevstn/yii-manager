@@ -235,7 +235,7 @@ use app\builder\table\ToolbarFilterOptions;
     <ul class="list-group">
         <li class="list-group-item clearfix" ng-repeat="(key, value) in exportMap track by key">
             <span class="pull-left"> 第{{value.page}}页</span>
-            <a class="pull-right" ng-href="{{value.url}}">
+            <a class="pull-right" ng-href="{{value.url}}" ng-click="flagExport($event)">
                 <i class="glyphicon glyphicon-export"></i>
                 <span>导出</span>
             </a>

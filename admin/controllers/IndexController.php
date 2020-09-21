@@ -185,6 +185,7 @@ class IndexController extends CommonController
         $tableBuilder->toolbarExport = [
             'title' => '导出',
             'icon' => '',
+            'name' => '会员列表',
             'heads' => ['ID', '用户名', '邮箱', '电话'],
             'fields' => ['id', 'username', 'email', 'an', 'mobile'],
             'columns' => [

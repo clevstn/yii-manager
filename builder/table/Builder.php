@@ -16,6 +16,7 @@ use yii\base\Widget;
 use yii\helpers\Json;
 use yii\helpers\Html;
 use yii\web\Linkable;
+use app\extend\Extend;
 use yii\base\BaseObject;
 use yii\base\Controller;
 use yii\helpers\ArrayHelper;
@@ -23,6 +24,7 @@ use app\builder\widgets\LinkPager;
 use yii\base\NotSupportedException;
 use yii\base\InvalidArgumentException;
 use app\builder\contract\BuilderInterface;
+use app\builder\contract\UndefinedOptionsException;
 use app\builder\contract\NotFoundAttributeException;
 
 /**
@@ -50,6 +52,8 @@ use app\builder\contract\NotFoundAttributeException;
  */
 class Builder extends BaseObject implements BuilderInterface
 {
+    const PER_ROW = 5000;
+
     /**
      * 表格标题
      * @var string
@@ -286,11 +290,11 @@ class Builder extends BaseObject implements BuilderInterface
     /**
      * 数据导出选项
      * @var array
-     * - heads 自定义头部; 如果没定义则使用字段名作为头部名
+     * - heads 自定义头部
      *    ['ID', '用户名', '邮箱', '电话']
      * - fields 自定义字段; 如果没定义则使用列表字段
      *   ['id', 'username', 'email', 'an', 'mobile']
-     * - columns 自定义列; 如果没定义则导出全部字段
+     * - columns 自定义列
      *  [
      *      'id',
      *      'username',
@@ -715,16 +719,21 @@ class Builder extends BaseObject implements BuilderInterface
      * 设置工具栏导出
      * @param array $options
      * @return $this
+     * @throws UndefinedOptionsException
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      * @see $_exportOptions
      */
     public function setToolbarExport(array $options)
     {
-        $this->_exportOptions['heads'] = ArrayHelper::remove($options, 'heads', []);
-        $this->_exportOptions['fields'] = ArrayHelper::remove($options, 'fields', []);
-        $this->_exportOptions['columns'] = ArrayHelper::remove($options, 'columns', []);
+        $this->_exportOptions['heads']      = ArrayHelper::remove($options, 'heads', []);
+        $this->_exportOptions['fields']     = ArrayHelper::remove($options, 'fields', []);
+        $this->_exportOptions['columns']    = ArrayHelper::remove($options, 'columns', []);
+        if (empty($this->_exportOptions['heads'])) {
+            throw new UndefinedOptionsException('Option missing parameters `heads`. ');
+        }
 
+        $this->_exportOptions['name']       = ArrayHelper::remove($options, 'name', 'export_default');
         $this->_exportFlag = true;
 
         $options['type'] = 'export';
@@ -774,21 +783,81 @@ class Builder extends BaseObject implements BuilderInterface
         if (Yii::$app->request->isAjax || accept_json()) {
             /* @var int $exportFlag  Data export flag */
             if (Yii::$app->request->getQueryParam('__export')) {
+                // ajax export
                 return $this->renderExport($context);
             } else {
+                // ajax list
                 return $this->renderAjax($context);
             }
         } else {
-            $oldLayout = $context->layout;
-            if ($this->partial === true) {
-                $context->layout = $this->layoutPartial;
+            if (Yii::$app->request->getQueryParam('__export')) {
+                // export data
+                return $this->exportData();
+            } else {
+                // render list
+                $oldLayout = $context->layout;
+                if ($this->partial === true) {
+                    $context->layout = $this->layoutPartial;
+                }
+
+                $viewBody = $this->renderHtml($context);
+                $context->layout = $oldLayout;
+
+                return $viewBody;
             }
-
-            $viewBody = $this->renderHtml($context);
-            $context->layout = $oldLayout;
-
-            return $viewBody;
         }
+    }
+
+    /**
+     * 数据导出
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    protected function exportData()
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '500M');
+
+        $queryParams = Yii::$app->request->get();
+        $filename = Yii::$app->request->getQueryParam('_filename', 'export_default_' . time());
+
+        /* @var \yii\db\Query $query */
+        $query = call_user_func($this->query);
+
+        /* Reset select */
+        if (!empty($this->_exportOptions['fields'])) {
+            $query->select($this->_exportOptions['fields']);
+        }
+
+        $columns = $this->_exportOptions['columns'];
+        $all = $query->offset(isset($queryParams['_offset']) ? $queryParams['_offset'] : 0)
+            ->limit(isset($queryParams['_limit']) ? $queryParams['_limit'] : self::PER_ROW)
+            ->all();
+        $dataMap = [];
+        foreach ($all as $item) {
+            if (empty($columns)) {
+                // empty
+                /* @var \yii\db\ActiveRecord $item */
+                array_push($dataMap, $item->toArray());
+            } else {
+                // not empty
+                $tempMap = [];
+                foreach ($columns as $i => $col) {
+                    if (is_int($i) && isset($item[$col])) {
+                        $tempMap[$col] = $item[$col];
+                    } elseif ($col instanceof \Closure) {
+                        $tempMap[$i] = call_user_func($col, $item);
+                    } else {
+                        $tempMap[] = $col;
+                    }
+                }
+
+                array_push($dataMap, $tempMap);
+            }
+        }
+
+        $titleMap = $this->_exportOptions['heads'];
+        Extend::spreadsheet()->export($titleMap, $dataMap, $filename);
     }
 
     /**
@@ -801,7 +870,7 @@ class Builder extends BaseObject implements BuilderInterface
      */
     protected function renderExport(Controller $context)
     {
-        $exportGroup = $this->resolveExport();
+        $exportGroup = $this->resolveExport($context);
         return Json::encode($exportGroup);
     }
 
@@ -854,24 +923,28 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 解析数据导出
+     * @param Controller $context
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function resolveExport()
+    public function resolveExport(Controller $context)
     {
-        /* 每页20条 */
-        $perRow = 20;
+        /* 每页5000条 */
+        $perRow = self::PER_ROW;
         /* @var \yii\db\QueryInterface $query */
         $query = call_user_func($this->query);
         $count = $query->count();
         $totalPage = ceil($count / $perRow);
         $data = [];
+
+        $filename = !empty($this->_exportOptions['name']) ? $this->_exportOptions['name'] : 'export_default';
         for ($i = 0; $i < $totalPage; $i++) {
             array_push($data, [
-                'offset' => ($i * $perRow),
-                'page'   => ($i + 1),
-                'limit'  => $perRow,
+                'offset'    => ($i * $perRow),
+                'page'      => ($i + 1),
+                'limit'     => $perRow,
+                'filename'  => $filename . '_page' . ($i + 1),
             ]);
         }
 
