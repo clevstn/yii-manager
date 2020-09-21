@@ -25,6 +25,8 @@ class ToolbarFilterOptions extends BaseObject
     const CONTROL_NUMBER = 'number';
     const CONTROL_DATETIME = 'datetime';
     const CONTROL_DATE = 'date';
+    const CONTROL_YEAR = 'year';
+    const CONTROL_MONTH = 'month';
     const CONTROL_TIME = 'time';
     const CONTROL_CUSTOM = 'custom';
 
@@ -35,6 +37,8 @@ class ToolbarFilterOptions extends BaseObject
      * - number
      * - datetime
      * - date
+     * - year
+     * - month
      * - time
      * - custom
      * @var array
@@ -48,6 +52,13 @@ class ToolbarFilterOptions extends BaseObject
      * @since 1.0
      */
     public $label = '';
+
+    /**
+     * 是否是区间,用于日期控件
+     * @var bool
+     * @since 1.0
+     */
+    public $range = 0;
 
     /**
      * 提示

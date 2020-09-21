@@ -143,7 +143,32 @@ class IndexController extends CommonController
                 'create_time' => table_toolbar_filter_helper([
                     'control'       => ToolbarFilterOptions::CONTROL_DATETIME,
                     'label'         => '注册时间',
+                    'range'         => 1,
                     'placeholder'   => '请选择注册时间',
+                ]),
+                'date' => table_toolbar_filter_helper([
+                    'control'       => ToolbarFilterOptions::CONTROL_DATE,
+                    'label'         => '日期',
+                    'range'         => 1,
+                    'placeholder'   => '请选择日期',
+                ]),
+                'year' => table_toolbar_filter_helper([
+                    'control'       => ToolbarFilterOptions::CONTROL_YEAR,
+                    'label'         => '年份',
+                    'range'         => 1,
+                    'placeholder'   => '请选择年份',
+                ]),
+                'month' => table_toolbar_filter_helper([
+                    'control'       => ToolbarFilterOptions::CONTROL_MONTH,
+                    'label'         => '月份',
+                    'range'         => 1,
+                    'placeholder'   => '请选择月份',
+                ]),
+                'time' => table_toolbar_filter_helper([
+                    'control'       => ToolbarFilterOptions::CONTROL_TIME,
+                    'label'         => '时间',
+                    'range'         => 1,
+                    'placeholder'   => '请选择时间',
                 ]),
                 'status' => table_toolbar_filter_helper([
                     'control' => ToolbarFilterOptions::CONTROL_SELECT,

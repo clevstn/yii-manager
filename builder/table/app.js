@@ -85,6 +85,27 @@
 
             // 初始化方法
             ($scope.init = function () {
+                $jq(".YmFilterDate").each(function () {
+                    var id = $jq(this).attr('id');
+                    var range = $jq(this).attr('range');
+                    var tag = $jq(this).attr('tag');
+
+                    var options = {
+                        elem: "#" + id,
+                        type: tag,
+                        calendar: true,
+                        done: function(value, date, endDate){
+                            /* 触发input事件 */
+                            $jq(this.elem).val(value).trigger("input");
+                        }
+                    };
+
+                    if (range === '1') {
+                        options.range = '/';
+                    }
+
+                    $laydate.render(options);
+                });
                 $scope.ymFilter = $jq.parseJSON('<?= $filterColumns ?>');
                 $scope.getList();
             }());

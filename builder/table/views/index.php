@@ -208,16 +208,21 @@ use app\builder\table\ToolbarFilterOptions;
                     </div>
                 </div>
                 <?php break; case ToolbarFilterOptions::CONTROL_DATETIME: // datetime ?>
+                <?php case ToolbarFilterOptions::CONTROL_DATE: // date ?>
+                <?php case ToolbarFilterOptions::CONTROL_YEAR: // year ?>
+                <?php case ToolbarFilterOptions::CONTROL_MONTH: // month ?>
+                <?php case ToolbarFilterOptions::CONTROL_TIME: // time ?>
                 <div class="form-group">
-                </div>
-                <?php break; case ToolbarFilterOptions::CONTROL_DATE: // date ?>
-                <div class="form-group">
-                </div>
-                <?php break; case ToolbarFilterOptions::CONTROL_TIME: // time ?>
-                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="w-130"><?= $options['label'] ?></span>
+                        </div>
+                        <input type="text" ng-model="ymFilter['<?= $field ?>']" tag="<?= $options['control'] ?>" range="<?= $options['range'] ?>" id="ymFilter_<?= $field ?>" class="YmFilterDate form-control" placeholder="<?= $options['placeholder'] ?>" readonly>
+                    </div>
                 </div>
                 <?php break; case ToolbarFilterOptions::CONTROL_CUSTOM: // custom ?>
                 <div class="form-group">
+
                 </div>
                 <?php break; ?>
             <?php endswitch; ?>

@@ -243,6 +243,8 @@ class Builder extends BaseObject implements BuilderInterface
      *  - number
      *  - datetime
      *  - date
+     *  - year
+     *  - month
      *  - time
      *  - custom
      * ```php
