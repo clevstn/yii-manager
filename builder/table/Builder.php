@@ -832,6 +832,7 @@ class Builder extends BaseObject implements BuilderInterface
         $columns = $this->_exportOptions['columns'];
         $all = $query->offset(isset($queryParams['_offset']) ? $queryParams['_offset'] : 0)
             ->limit(isset($queryParams['_limit']) ? $queryParams['_limit'] : self::PER_ROW)
+            ->orderBy($this->orderBy)
             ->all();
         $dataMap = [];
         foreach ($all as $item) {
