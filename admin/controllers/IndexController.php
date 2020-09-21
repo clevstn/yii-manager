@@ -150,6 +150,7 @@ class IndexController extends CommonController
                     'control' => ToolbarFilterOptions::CONTROL_SELECT,
                     'label'         => '状态',
                     'placeholder'   => '请选择状态',
+                    'default'       => '1',
                     'options' => [
                         '1' => '正常',
                         '2' => '停用',

@@ -845,9 +845,14 @@ class Builder extends BaseObject implements BuilderInterface
      */
     protected function resolveJsScript()
     {
+        $tempMap = [];
+        foreach ($this->_filterColumns as $field => $col) {
+            $tempMap[$field] = $col['default'];
+        }
+
         return $this->_view->renderPhpFile(__DIR__ . '/app.js', [
             'link'              => Url::toRoute('/' . Yii::$app->controller->route),
-            'filterColumns'     => $this->_filterColumns,
+            'filterColumns'     => Json::encode($tempMap),
         ]);
     }
 

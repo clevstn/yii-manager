@@ -6,7 +6,7 @@
 !function (global, angular) {
     "use strict";
 
-    var $YmApp = angular.module("$YmApp", []);
+    var $YmApp = angular.module("$YmApp", ["ui.select2"]);
 
     // 自定义服务
     $YmApp.service("$YmApp", function () {

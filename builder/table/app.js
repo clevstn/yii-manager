@@ -85,9 +85,7 @@
 
             // 初始化方法
             ($scope.init = function () {
-                $jq(".ym-filter-select").select2({
-                    width: "100%",
-                });
+                $scope.ymFilter = $jq.parseJSON('<?= $filterColumns ?>');
                 $scope.getList();
             }());
 
@@ -254,6 +252,7 @@
                     area: ['750px'],
                     btn: ['确定筛选', '清空'],
                     yes: function(index, layero){
+                        console.log($scope.ymFilter)
                         // submit
                     },
                     btn2: function(index, layero){

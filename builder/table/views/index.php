@@ -181,7 +181,7 @@ use app\builder\table\ToolbarFilterOptions;
                         <div class="input-group-addon">
                             <span class="w-130"><?= $options['label'] ?></span>
                         </div>
-                        <input type="text" ng-model="YmFilter_<?= $field ?>" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                        <input type="text" ng-model="ymFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
                     </div>
                 </div>
                 <?php break; case ToolbarFilterOptions::CONTROL_SELECT: // select ?>
@@ -190,10 +190,10 @@ use app\builder\table\ToolbarFilterOptions;
                         <div class="input-group-addon">
                             <span class="w-130"><?= $options['label'] ?></span>
                         </div>
-                        <select class="form-control ym-filter-select" ng-model="YmFilter_<?= $field ?>">
+                        <select ui-select2="{width:'100%'}" class="form-control" ng-model="ymFilter['<?= $field ?>']">
                             <option value=""><?= $options['placeholder'] ?></option>
                             <?php foreach ($options['options'] as $value => $label): ?>
-                                <option value="<?= $value ?>"><?= $label ?></option>
+                            <option value="<?= $value ?>"><?= $label ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -202,12 +202,12 @@ use app\builder\table\ToolbarFilterOptions;
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon"><?= $options['label'] ?></div>
-                        <input type="number" ng-model="YmFilter_<?= $field ?>" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                        <input type="number" ng-model="ymFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
                     </div>
                 </div>
                 <?php break; case ToolbarFilterOptions::CONTROL_TEXTAREA: // textarea ?>
                 <div class="form-group">
-                    <textarea cols="30" rows="10" ng-model="YmFilter_<?= $field ?>" class="form-control" placeholder="<?= $options['placeholder'] ?>"></textarea>
+                    <textarea cols="30" rows="10" ng-model="ymFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>"></textarea>
                 </div>
                 <?php break; case ToolbarFilterOptions::CONTROL_RANGE: // range ?>
                 <div class="form-group">

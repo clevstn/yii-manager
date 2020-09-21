@@ -36,5 +36,6 @@ class CommonAsset extends BaseAsset
         LaydateAsset::class,            // Laydate
         LayerAsset::class,              // Layer
         AngularAsset::class,            // Angular 1.7.5
+        AngularSelect2::class,          // Angular select2 archive
     ];
 }
