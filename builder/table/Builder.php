@@ -662,9 +662,14 @@ class Builder extends BaseObject implements BuilderInterface
     /**
      * 设置工具栏筛选
      * @param array $options
+     * - title
+     * - icon
+     * - columns
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
+     * @see $_filterColumns
+     * @see ToolbarFilterOptions
      */
     public function setToolbarFilter(array $options)
     {

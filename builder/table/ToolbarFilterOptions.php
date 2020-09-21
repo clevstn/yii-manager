@@ -54,7 +54,7 @@ class ToolbarFilterOptions extends BaseObject
     public $label = '';
 
     /**
-     * 是否是区间,用于日期控件
+     * 是否是区间, 用于日期控件
      * @var bool
      * @since 1.0
      */

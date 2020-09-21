@@ -182,7 +182,20 @@ class IndexController extends CommonController
                 ]),
             ],
         ];
-        $tableBuilder->toolbarExport = [];
+        $tableBuilder->toolbarExport = [
+            'title' => '导出',
+            'icon' => '',
+            'heads' => ['ID', '用户名', '邮箱', '电话'],
+            'fields' => [],
+            'columns' => [
+                'id',
+                'username',
+                'email',
+                'mobile' => function ($item) {
+                    return '+' . $item['an'] . ' ' . $item['mobile'];
+                },
+            ],
+        ];
         $tableBuilder->toolbarCustom = [];
 
         return $tableBuilder->render($this);
