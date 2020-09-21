@@ -136,12 +136,12 @@ class IndexController extends CommonController
                     'placeholder'   => '请填写关键词',
                 ]),
                 'email' => table_toolbar_filter_helper([
-                    'control'       => ToolbarFilterOptions::CONTROL_TEXT,
-                    'label'         => '邮箱',
-                    'placeholder'   => '请填写邮箱',
+                    'control'       => ToolbarFilterOptions::CONTROL_NUMBER,
+                    'label'         => '数字',
+                    'placeholder'   => '请填写数字',
                 ]),
                 'create_time' => table_toolbar_filter_helper([
-                    'control'       => ToolbarFilterOptions::CONTROL_TEXT,
+                    'control'       => ToolbarFilterOptions::CONTROL_DATETIME,
                     'label'         => '注册时间',
                     'placeholder'   => '请选择注册时间',
                 ]),

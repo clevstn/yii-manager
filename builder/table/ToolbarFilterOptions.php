@@ -23,10 +23,6 @@ class ToolbarFilterOptions extends BaseObject
     const CONTROL_TEXT = 'text';
     const CONTROL_SELECT = 'select';
     const CONTROL_NUMBER = 'number';
-    const CONTROL_TEXTAREA = 'textarea';
-    const CONTROL_RANGE = 'range';
-    const CONTROL_CHECKBOX = 'checkbox';
-    const CONTROL_RADIO = 'radio';
     const CONTROL_DATETIME = 'datetime';
     const CONTROL_DATE = 'date';
     const CONTROL_TIME = 'time';
@@ -37,10 +33,6 @@ class ToolbarFilterOptions extends BaseObject
      * - text
      * - select
      * - number
-     * - textarea
-     * - range
-     * - checkbox
-     * - radio
      * - datetime
      * - date
      * - time

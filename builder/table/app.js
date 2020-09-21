@@ -265,8 +265,8 @@
                             }
 
                             $scope.ymFilter = tempObj;
-                            $scope.getList(1, 20, {});
                         });
+                        return false;
                     },
                     content: $jq("#YmFilterForm"),
                 });

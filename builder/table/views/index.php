@@ -201,22 +201,11 @@ use app\builder\table\ToolbarFilterOptions;
                 <?php break; case ToolbarFilterOptions::CONTROL_NUMBER: // number ?>
                 <div class="form-group">
                     <div class="input-group">
-                        <div class="input-group-addon"><?= $options['label'] ?></div>
+                        <div class="input-group-addon">
+                            <span class="w-130"><?= $options['label'] ?></span>
+                        </div>
                         <input type="number" ng-model="ymFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
                     </div>
-                </div>
-                <?php break; case ToolbarFilterOptions::CONTROL_TEXTAREA: // textarea ?>
-                <div class="form-group">
-                    <textarea cols="30" rows="10" ng-model="ymFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>"></textarea>
-                </div>
-                <?php break; case ToolbarFilterOptions::CONTROL_RANGE: // range ?>
-                <div class="form-group">
-                </div>
-                <?php break; case ToolbarFilterOptions::CONTROL_CHECKBOX: // checkbox ?>
-                <div class="form-group">
-                </div>
-                <?php break; case ToolbarFilterOptions::CONTROL_RADIO: // radio ?>
-                <div class="form-group">
                 </div>
                 <?php break; case ToolbarFilterOptions::CONTROL_DATETIME: // datetime ?>
                 <div class="form-group">

@@ -241,10 +241,6 @@ class Builder extends BaseObject implements BuilderInterface
      *  - text
      *  - select
      *  - number
-     *  - textarea
-     *  - range
-     *  - checkbox
-     *  - radio
      *  - datetime
      *  - date
      *  - time
