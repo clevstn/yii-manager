@@ -50,7 +50,7 @@ use app\builder\table\ToolbarFilterOptions;
                     <!--刷新-->
                     <a href="#" type="button" id="ym_script_refresh" class="btn btn-default">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-refresh' ?>" aria-hidden="true"></i>
-                        <span><?= !empty($item['title']) ? $item['title'] : '刷新' ?></span>
+                        <span><?= !empty($item['title']) ? $item['title'] : '重置' ?></span>
                     </a>
                     <?php break; case 'filter': // filter ?>
                     <!--筛选-->
@@ -190,8 +190,8 @@ use app\builder\table\ToolbarFilterOptions;
                         <div class="input-group-addon">
                             <span class="w-130"><?= $options['label'] ?></span>
                         </div>
-                        <select ui-select2="{width:'100%'}" class="form-control" ng-model="ymFilter['<?= $field ?>']">
-                            <option value=""><?= $options['placeholder'] ?></option>
+                        <select ui-select2="{width:'100%'}" class="form-control" ng-model="ymFilter['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>">
+                            <option value=""></option>
                             <?php foreach ($options['options'] as $value => $label): ?>
                             <option value="<?= $value ?>"><?= $label ?></option>
                             <?php endforeach; ?>

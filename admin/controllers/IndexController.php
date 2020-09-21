@@ -126,7 +126,6 @@ class IndexController extends CommonController
             ]),
         ];
         $tableBuilder->toolbarRefresh = [];
-        $tableBuilder->toolbarExport = [];
         $tableBuilder->toolbarFilter = [
             'title' => '筛选',
             'icon' => '',
@@ -150,7 +149,7 @@ class IndexController extends CommonController
                     'control' => ToolbarFilterOptions::CONTROL_SELECT,
                     'label'         => '状态',
                     'placeholder'   => '请选择状态',
-                    'default'       => '1',
+                    'default'       => '',
                     'options' => [
                         '1' => '正常',
                         '2' => '停用',
@@ -158,6 +157,7 @@ class IndexController extends CommonController
                 ]),
             ],
         ];
+        $tableBuilder->toolbarExport = [];
         $tableBuilder->toolbarCustom = [];
 
         return $tableBuilder->render($this);

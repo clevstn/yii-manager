@@ -252,11 +252,20 @@
                     area: ['750px'],
                     btn: ['确定筛选', '清空'],
                     yes: function(index, layero){
-                        console.log($scope.ymFilter)
-                        // submit
+                        $scope.$apply(function () {
+                            $scope.getList(null, null, $scope.ymFilter);
+                        });
+                        $layer.close(index);
                     },
                     btn2: function(index, layero){
-                        // clear
+                        $scope.$apply(function () {
+                            var tempObj = {};
+                            for (var i in $scope.ymFilter) {
+                                tempObj[i] = "";
+                            }
+
+                            $scope.ymFilter = tempObj;
+                        });
                         return false;
                     },
                     content: $jq("#YmFilterForm"),
