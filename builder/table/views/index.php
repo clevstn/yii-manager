@@ -222,7 +222,7 @@ use app\builder\table\ToolbarFilterOptions;
                     </div>
                 </div>
                 <?php break; case ToolbarFilterOptions::CONTROL_CUSTOM: // custom ?>
-                <div class="form-group"></div>
+                <?= $options['widget']->render() ?>
                 <?php break; ?>
             <?php endswitch; ?>
         <?php endforeach; ?>

@@ -117,8 +117,14 @@ class ToolbarFilterOptions extends BaseObject
             $this->attribute = Html::renderTagAttributes($this->attribute);
         }
 
-        if (!empty($this->widget) && !($this->widget instanceof CustomControl)) {
-            throw new InvalidInstanceException('The widget not instance of interface `CustomControl`. ');
+        if (
+            $this->control == 'custom'
+            && (
+                empty($this->widget) ||
+                !($this->widget instanceof CustomControl)
+            )
+        ) {
+            throw new InvalidInstanceException('The widget option must be implements of `CustomControl`. ');
         }
     }
 

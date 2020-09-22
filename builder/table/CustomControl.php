@@ -11,5 +11,11 @@ namespace app\builder\table;
 
 interface CustomControl
 {
-
+    /**
+     * 渲染方法
+     * @return mixed
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function render();
 }
