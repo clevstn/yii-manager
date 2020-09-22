@@ -154,6 +154,42 @@
 
     };
 
+    /**
+     * type of
+     * @param obj
+     * @returns {*}
+     */
+    YmAppConstructor.prototype.typeOf = function (obj) {
+        var toString = Object.prototype.toString;
+        var map = {
+            '[object Boolean]': 'boolean',
+            '[object Number]': 'number',
+            '[object String]': 'string',
+            '[object Function]': 'function',
+            '[object Array]': 'array',
+            '[object Date]': 'date',
+            '[object RegExp]': 'regExp',
+            '[object Undefined]': 'undefined',
+            '[object Null]': 'null',
+            '[object Object]': 'object'
+        };
+        return map[toString.call(obj)];
+    };
+
+    /**
+     * 获取对象的keys
+     * @param obj
+     * @returns {[]}
+     */
+    YmAppConstructor.prototype.keys = function (obj) {
+        var keys = [];
+        for (var i in obj) {
+            keys.push(i);
+        }
+
+        return keys;
+    };
+
     // Run
     YmAppConstructor.prototype.run = function () {
         this.toggleSideBar();

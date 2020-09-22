@@ -33,7 +33,7 @@ use app\builder\table\ToolbarFilterOptions;
         <div class="btn-group btn-group-sm pull-left">
             <!--自定义-->
             <?php foreach ($toolbars['left'] as $item): ?>
-            <a href="#" type="button" class="btn btn-default" ng-click="customMethod()">
+            <a href="#" type="button" class="btn btn-default" ng-click="customMethod('<?= html_escape(Json::encode($item)) ?>')">
                 <i class="<?= !empty($item['icon']) ? $item['icon'] : '' ?>" aria-hidden="true"></i>
                 <span><?= !empty($item['title']) ? $item['title'] : '' ?></span>
             </a>
@@ -67,7 +67,7 @@ use app\builder\table\ToolbarFilterOptions;
                     </a>
                     <?php break; default: // custom ?>
                     <!--自定义-->
-                    <a href="#" type="button" class="btn btn-default" ng-click="customMethod()">
+                    <a href="#" type="button" class="btn btn-default" ng-click="customMethod('<?= html_escape(Json::encode($item)) ?>')">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : '' ?>" aria-hidden="true"></i>
                         <span><?= !empty($item['title']) ? $item['title'] : '' ?></span>
                     </a>

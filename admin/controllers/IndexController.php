@@ -202,6 +202,7 @@ class IndexController extends CommonController
                 'title'     => '禁用',
                 'icon'      => 'glyphicon glyphicon-remove',
                 'option'    => 'ajax',
+                'method'    => 'POST',
                 'route'     => 'admin/index/disable',
                 'params'    => ['id', 'status'],
             ]),

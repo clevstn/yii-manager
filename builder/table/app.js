@@ -138,7 +138,7 @@
             });
 
             // 行操作 - 解析参数
-            $scope.resolveParams = function (data, params) {
+            $scope.resolveActionParams = function (data, params) {
                 var to = {};
                 for (var i in params) {
                     if (i % 1 === 0) {
@@ -152,7 +152,7 @@
                 return to;
             };
 
-            // 行操作入口
+            // 行操作 - 入口
             $scope.rowActions = function (item, config) {
                 config = $jq.parseJSON(config);
                 var type = config.type;
@@ -165,16 +165,16 @@
                 var height = options.height || '520px';
 
                 // 解析参数
-                params = $scope.resolveParams(item, params);
+                params = $scope.resolveActionParams(item, params);
                 switch (type) {
                     case "page":
-                        $scope.openPage(title, params, route);
+                        $scope.openPageOnRow(title, params, route);
                         break;
                     case "modal":
-                        $scope.openModal(title, params, route, width, height);
+                        $scope.openModalOnRow(title, params, route, width, height);
                         break;
                     case "ajax":
-                        $scope.ajaxRequest(method, params, route);
+                        $scope.ajaxRequestOnRow(method, params, route);
                         break;
                     default:
                         $toastr.warning("行类型" + type + "暂不支持", "通知");
@@ -182,13 +182,13 @@
             };
 
             // 行操作 - 打开模态框
-            $scope.openModal = function (title, params, route, width, height) {
+            $scope.openModalOnRow = function (title, params, route, width, height) {
                 var closeBtn = 2;
                 if (width === '100%') {
                     closeBtn = 1;
                 }
 
-                params = $jq.param(params);
+                var u = $YmApp.keys(params).length ? (route + '?' + $jq.param(params)) : route;
                 $layer.open({
                     type: 2,
                     shade: 0.3,
@@ -198,20 +198,19 @@
                     shadeClose: false,
                     closeBtn: closeBtn,
                     area : [width, height],
-                    content: route + '?' + params,
+                    content: u,
                 });
             };
 
             // 行操作 - 打开页面
-            $scope.openPage = function (title, params, route) {
+            $scope.openPageOnRow = function (title, params, route) {
                 params['pageTitle'] = title;
-                params = $jq.param(params);
-
-                window.location.href = route + '?' + params;
+                var u = $YmApp.keys(params).length ? (route + '?' + $jq.param(params)) : route;
+                window.location.href = u;
             };
 
             // 行操作 - ajax
-            $scope.ajaxRequest = function (method, params, route) {
+            $scope.ajaxRequestOnRow = function (method, params, route) {
                 $swal.fire({
                     title: '确定要执行该操作么？',
                     text: '',
@@ -225,7 +224,8 @@
 
                         var instance;
                         if (method === "get") {
-                            instance = $http.get(route + '?' + $jq.param(params));
+                            var u = $YmApp.keys(params).length ? (route + '?' + $jq.param(params)) : route;
+                            instance = $http.get(u);
                         } else if (method === "post") {
                             params[$yii.getCsrfParam()] = $yii.getCsrfToken();
                             instance = $http.post(route, $jq.param(params));
@@ -351,12 +351,145 @@
                 });
             };
 
-            // 自定义
-            $scope.customMethod = function () {
-                var data = $YmApp.getTableCheckedData();
-                console.log('custom');
+            // 自定义 - 解析参数
+            $scope.resolveRequestParams = function (data, params) {
+                var to = {};
+                for (var i in params) {
+                    if (i % 1 === 0) {
+                        var tempMap = [];
+                        data.forEach(function (value) {
+                            // 从data中获取参数值
+                            var currentValue = value[params[i]] === void 0 ? '' : value[params[i]];
+                            tempMap.push(currentValue)
+                        });
+
+                        to[params[i]] = tempMap.join(',');
+                    } else {
+                        to[i] = params[i];
+                    }
+                }
+
+                return to;
             };
 
+            // 自定义 - 方法入口
+            $scope.customMethod = function (options) {
+                var data = $YmApp.getTableCheckedData() || [];
+                options = $jq.parseJSON(options) || {};
+
+                var type = options.option;
+                var method = options.method || 'get';
+                var params = options.params || [];
+                var route = options.route;
+                var title = options.title || '默认标题';
+                var width = options.width || '800px';
+                var height = options.height || '520px';
+
+                var plen = $YmApp.typeOf(params) === 'object' ? $YmApp.keys(params).length : params.length;
+                if (plen && !data.length) {
+                    layer.alert("请选择数据列", {
+                        title: "提示",
+                    });
+                    return true;
+                }
+
+                // 解析参数
+                params = $scope.resolveRequestParams(data, params);
+                switch (type) {
+                    case "page":
+                        $scope.openPageOnToolbar(title, params, route);
+                        break;
+                    case "modal":
+                        $scope.openModalOnToolbar(title, params, route, width, height);
+                        break;
+                    case "ajax":
+                        $scope.ajaxRequestOnToobar(method, params, route);
+                        break;
+                    default:
+                        $toastr.warning("工具栏操作类型" + type + "暂不支持", "通知");
+                }
+            };
+
+            // 自定义 - 打开模态框
+            $scope.openModalOnToolbar = function (title, params, route, width, height) {
+                var closeBtn = 2;
+                if (width === '100%') {
+                    closeBtn = 1;
+                }
+
+                var u = $YmApp.keys(params).length ? (route + '?' + $jq.param(params)) : route;
+                $layer.open({
+                    type: 2,
+                    shade: 0.3,
+                    anim: -1,
+                    title: title,
+                    maxmin: false,
+                    shadeClose: false,
+                    closeBtn: closeBtn,
+                    area : [width, height],
+                    content: u,
+                });
+            };
+
+            // 自定义 - 打开页面
+            $scope.openPageOnToolbar = function (title, params, route) {
+                params['pageTitle'] = title;
+                var u = $YmApp.keys(params).length ? (route + '?' + $jq.param(params)) : route;
+                window.location.href = u;
+            };
+
+            // 自定义 - ajax
+            $scope.ajaxRequestOnToobar = function (method, params, route) {
+                $swal.fire({
+                    title: '确定要执行该操作么？',
+                    text: '',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消'
+                }).then(function (result) {
+                    if (result.value) {
+                        var flag = $YmSpinner.show("操作执行中,请稍后...");
+
+                        var instance;
+                        if (method === "get") {
+                            var u = $YmApp.keys(params).length ? (route + '?' + $jq.param(params)) : route;
+                            instance = $http.get(u);
+                        } else if (method === "post") {
+                            params[$yii.getCsrfParam()] = $yii.getCsrfToken();
+                            instance = $http.post(route, $jq.param(params));
+                        }
+
+                        instance.then(function (result) {
+                            $YmSpinner.hide(flag);
+                            var data = result.data;
+                            if (data.code === 200) {
+                                $toastr.success(data.msg, "通知");
+                                // reload list
+                                $timeout(function () {
+                                    $scope.getList();
+                                }, 150);
+                            } else if (data.code === 500) {
+                                $toastr.warning(data.msg, "通知");
+                            } else if (data.code === 401) {
+                                $toastr.error(data.msg, "通知");
+                            } else {
+                                $toastr.error(data.msg, "通知");
+                            }
+
+                        }, function (error) {
+                            $YmSpinner.hide(flag);
+                            $toastr.error(error.data || "操作执行失败", "通知");
+                            console.error(error);
+                        });
+                        // For more information about handling dismissals please visit
+                        // https://sweetalert2.github.io/#handling-dismissals
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // cancel
+                        // ...
+                    }
+                });
+            };
             // ------ 工具栏 end
 
         }]);
