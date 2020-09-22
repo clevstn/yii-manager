@@ -116,8 +116,8 @@ class IndexController extends CommonController
                 'title' => '编辑',
                 'icon' => 'fa fa-pencil-square-o',
                 'route' => 'admin/index/edit',
-                'width' => '70%',
-                'height' => '80%',
+                'width' => '100%',
+                'height' => '100%',
             ]),
             table_action_helper('page', [
                 'title' => '新增',
@@ -210,6 +210,8 @@ class IndexController extends CommonController
                 'title'     => '新增',
                 'icon'      => 'glyphicon glyphicon-plus',
                 'option'    => 'modal',
+                'width'     => '100%',
+                'height'     => '100%',
                 'route'     => 'admin/index/edit',
             ]),
             table_toolbar_custom_helper('left', [
@@ -287,8 +289,8 @@ class IndexController extends CommonController
                 'title' => '编辑',
                 'icon' => 'fa fa-pencil-square-o',
                 'route' => 'admin/index/edit',
-                'width' => '1200px',
-                'height' => '800px',
+                'width' => '100%',
+                'height' => '100%',
             ]),
             table_action_helper('page', [
                 'title' => '新增',
