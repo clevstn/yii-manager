@@ -52,6 +52,7 @@ use app\builder\contract\NotFoundAttributeException;
  */
 class Builder extends BaseObject implements BuilderInterface
 {
+
     const PER_ROW = 5000;
 
     /**
@@ -151,8 +152,8 @@ class Builder extends BaseObject implements BuilderInterface
      *      - route     路由
      *      - params    路由参数
      *      - method    访问动作，ajax类型有效
-     *      - width     当前type为modal时有效，指定modal的宽，默认500px
-     *      - height    当前type为modal时有效，指定modal的高，默认500px
+     *      - width     当前type为modal时有效，指定modal的宽，默认800px
+     *      - height    当前type为modal时有效，指定modal的高，默认520px
      * @since 1.0
      * @see $rowActions
      * @see table_action_helper()
@@ -208,8 +209,8 @@ class Builder extends BaseObject implements BuilderInterface
      * // - 支持的type有：`custom`、`refresh`、`filter`、`export`
      * $toolbars = [
      *      'left' => [
-     *          // 自定义
-     *          ['type' => 'custom', ...]
+     *          // 自定义 @see ToolbarCustomOptions
+     *          ['type' => 'custom', 'title' => '', 'icon' => '', ...]
      *      ],
      *      'right' => [
      *          // 刷新
@@ -217,9 +218,10 @@ class Builder extends BaseObject implements BuilderInterface
      *          // 筛选
      *          ['type' => 'filter', 'title' => '', 'icon' => ''],
      *          // 导出
-     *          ['type' => 'export', ...],
-     *          // 自定义
-     *          ['type' => 'custom', ...],
+     *          ['type' => 'export', 'title' => '', 'icon' => ''],
+     *
+     *          // 自定义 @see ToolbarCustomOptions
+     *          ['type' => 'custom', 'title' => '', 'icon' => '', ...],
      *      ],
      * ]
      *
@@ -753,6 +755,7 @@ class Builder extends BaseObject implements BuilderInterface
     {
         foreach ($options as $item) {
             $pos = ArrayHelper::remove($item, 'pos', 'left');
+            $item['type'] = 'custom';
             $this->_toolbars[$pos][] = $item;
         }
 

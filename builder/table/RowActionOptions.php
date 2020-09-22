@@ -56,14 +56,14 @@ class RowActionOptions extends BaseObject
     public $method = 'get';
 
     /**
-     * 当前type为modal时有效，指定modal的宽，默认500px
+     * 当前type为modal时有效，指定modal的宽，默认800px
      * @var string
      * @since 1.0
      */
     public $width = '800px';
 
     /**
-     * 当前type为modal时有效，指定modal的高，默认500px
+     * 当前type为modal时有效，指定modal的高，默认520px
      * @var string
      * @since 1.0
      */

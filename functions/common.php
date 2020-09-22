@@ -293,11 +293,9 @@ if (!function_exists('table_toolbar_custom_helper')) {
      */
     function table_toolbar_custom_helper($pos, $options = [])
     {
+        $options['pos'] = $pos;
         $toolbarCustomOptions = new \app\builder\table\ToolbarCustomOptions($options);
-        return [
-            'pos' => $pos,
-            'options' => $toolbarCustomOptions->toArray(),
-        ];
+        return $toolbarCustomOptions->toArray();
     }
 }
 

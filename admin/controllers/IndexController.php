@@ -9,11 +9,11 @@
 
 namespace app\admin\controllers;
 
-use app\builder\table\ToolbarFilterOptions;
 use app\models\AdminUser;
 use app\builder\ViewBuilder;
 use app\builder\table\Table;
 use app\builder\common\CommonController;
+use app\builder\table\ToolbarFilterOptions;
 
 /**
  * 首页
@@ -197,7 +197,21 @@ class IndexController extends CommonController
                 },
             ],
         ];
-        $tableBuilder->toolbarCustom = [];
+        $tableBuilder->toolbarCustom = [
+            table_toolbar_custom_helper('left', [
+                'title'     => '禁用',
+                'icon'      => 'glyphicon glyphicon-remove',
+                'option'    => 'ajax',
+                'route'     => 'admin/index/disable',
+                'params'    => ['id', 'status'],
+            ]),
+            table_toolbar_custom_helper('left', [
+                'title'     => '新增',
+                'icon'      => 'glyphicon glyphicon-plus',
+                'option'    => 'modal',
+                'route'     => 'admin/index/edit',
+            ]),
+        ];
 
         return $tableBuilder->render($this);
     }
