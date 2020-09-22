@@ -51,19 +51,19 @@ use app\builder\table\ToolbarFilterOptions;
                     <!--刷新-->
                     <a href="#" type="button" id="ym_script_refresh" class="btn btn-default">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-refresh' ?>" aria-hidden="true"></i>
-                        <span><?= !empty($item['title']) ? $item['title'] : '重置' ?></span>
+                        <span><?= !empty($item['title']) ? $item['title'] : '' // 刷新 ?></span>
                     </a>
                     <?php break; case 'filter': // filter ?>
                     <!--筛选-->
                     <a href="#" type="button" class="btn btn-default" ng-click="filterMethod()">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-filter' ?>" aria-hidden="true"></i>
-                        <span><?= !empty($item['title']) ? $item['title'] : '筛选' ?></span>
+                        <span><?= !empty($item['title']) ? $item['title'] : '' // 筛选 ?></span>
                     </a>
                     <?php break; case 'export': // export ?>
                     <!--导出-->
                     <a href="#" type="button" class="btn btn-default" ng-click="exportMethod()">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-export' ?>" aria-hidden="true"></i>
-                        <span><?= !empty($item['title']) ? $item['title'] : '导出' ?></span>
+                        <span><?= !empty($item['title']) ? $item['title'] : '' // 导出 ?></span>
                     </a>
                     <?php break; default: // custom ?>
                     <!--自定义-->

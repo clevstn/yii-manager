@@ -127,7 +127,6 @@ class IndexController extends CommonController
         ];
         $tableBuilder->toolbarRefresh = [];
         $tableBuilder->toolbarFilter = [
-            'title' => '筛选',
             'icon' => '',
             'columns' => [
                 'keyword' => table_toolbar_filter_helper([
@@ -183,7 +182,6 @@ class IndexController extends CommonController
             ],
         ];
         $tableBuilder->toolbarExport = [
-            'title' => '导出',
             'icon' => '',
             'name' => '会员列表',
             'heads' => ['ID', '用户名', '邮箱', '电话'],
