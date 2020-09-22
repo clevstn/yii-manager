@@ -29,7 +29,6 @@ use app\builder\contract\NotFoundAttributeException;
 
 /**
  * 表格构建器
- *
  * @property string $title
  * @property boolean $page
  * @property array $columns
@@ -46,7 +45,6 @@ use app\builder\contract\NotFoundAttributeException;
  * @property-write array $toolbarFilter
  * @property-write array $toolbarExport
  * @property-write array $toolbarCustom
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

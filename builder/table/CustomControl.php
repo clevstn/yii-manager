@@ -9,6 +9,11 @@
 
 namespace app\builder\table;
 
+/**
+ * 自定义筛选控件接口
+ * @author cleverstone <yang_hui_lei@163.com>
+ * @since 1.0
+ */
 interface CustomControl
 {
     /**

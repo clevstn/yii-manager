@@ -14,7 +14,7 @@ use yii\base\BaseObject;
 use app\builder\contract\InvalidInstanceException;
 
 /**
- * 工具栏筛选字段选项
+ * 工具栏筛选选项
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

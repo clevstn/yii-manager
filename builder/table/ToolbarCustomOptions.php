@@ -14,7 +14,7 @@ use yii\helpers\Url;
 use yii\base\BaseObject;
 
 /**
- * 工具栏自定义选项
+ * 工具栏自定义项选项
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

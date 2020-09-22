@@ -14,7 +14,7 @@ use yii\helpers\Url;
 use yii\base\BaseObject;
 
 /**
- * 表格行操作选项
+ * 表格行操作项选项
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
