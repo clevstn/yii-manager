@@ -78,6 +78,7 @@ class Spreadsheet extends BaseObject
     private function setHeaders($filename, $ext = 'xlsx')
     {
         $contentType = self::$_contentTypes[$ext];
+        header('X-Powered-By: ym/1.0');
         // Redirect output to a client’s web browser (default: Xlsx)
         header("Content-Type: {$contentType}");
         header("Content-Disposition: attachment;filename=\"{$filename}.{$ext}\"");

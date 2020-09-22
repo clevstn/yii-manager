@@ -204,12 +204,19 @@ class IndexController extends CommonController
                 'option'    => 'ajax',
                 'method'    => 'POST',
                 'route'     => 'admin/index/disable',
-                'params'    => ['id', 'status'],
+                'params'    => ['action' => 'disable', 'id', 'status'],
             ]),
             table_toolbar_custom_helper('left', [
                 'title'     => '新增',
                 'icon'      => 'glyphicon glyphicon-plus',
                 'option'    => 'modal',
+                'route'     => 'admin/index/edit',
+            ]),
+            table_toolbar_custom_helper('left', [
+                'title'     => '页面',
+                'icon'      => 'glyphicon glyphicon-list-alt',
+                'option'    => 'page',
+                'params'    => ['action' => 'disable', 'id', 'status'],
                 'route'     => 'admin/index/edit',
             ]),
         ];
