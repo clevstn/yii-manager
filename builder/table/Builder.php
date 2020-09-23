@@ -1006,9 +1006,9 @@ class Builder extends BaseObject implements BuilderInterface
     {
         $tempCommonMap = [];
         $tempCustomMap = [
-            'initScript'    => '',
-            'clearScript'   => '',
-            'getScript'     => '',
+            'initScript'    => [],
+            'clearScript'   => [],
+            'getScript'     => [],
         ];
         foreach ($this->_filterColumns as $field => $col) {
             if ($col['control'] != 'custom') {
@@ -1016,9 +1016,9 @@ class Builder extends BaseObject implements BuilderInterface
             } else {
                 /* @var CustomControl $widget */
                 $widget = $col['widget'];
-                $tempCustomMap['initScript'] .= $widget->initJsValues() . "\n";
-                $tempCustomMap['clearScript'] .= $widget->clearJsValues() . "\n";
-                $tempCustomMap['getScript'] .= $widget->getJsValues() . "\n";
+                $tempCustomMap['initScript'][] = $widget->initValuesJsFunction();
+                $tempCustomMap['clearScript'][] = $widget->clearValuesJsFunction();
+                $tempCustomMap['getScript'][] = $widget->getValuesJsFunction();
             }
         }
 

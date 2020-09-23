@@ -87,8 +87,14 @@
 
                     $laydate.render(options);
                 });
+
                 // 初始化筛选
-                <?= $filterCustoms['initScript'] ?>
+                <?php foreach ($filterCustoms['initScript'] as $i => $jsFunction): ?>
+                // custom
+                var initScript<?= $i ?> = <?= $jsFunction ?>;
+                initScript<?= $i ?>();
+                <?php endforeach; ?>
+
                 $scope.ymFilter = <?= $filterColumns ?>;
                 // 初始化列表
                 $scope.getList();
@@ -258,9 +264,22 @@
                     area: ['750px'],
                     btn: ['确定筛选', '清空'],
                     yes: function (index, layero) {
+                        var param = $scope.ymFilter;
+
+                        // custom
+                        <?php foreach ($filterCustoms['getScript'] as $i => $jsFunction): ?>
+                        var getScript<?= $i ?> = <?= $jsFunction ?>;
+                        var value = getScript<?= $i ?>();
+                        if ($YmApp.typeOf(value) !== 'object') {
+                            value = {};
+                        }
+
+                        $jq.extend(param, value);
+                        <?php endforeach; ?>
+
                         // 提交筛选
                         $scope.$apply(function () {
-                            $scope.getList(1, null, $scope.ymFilter);
+                            $scope.getList(1, null, param);
                         });
                         $layer.close(index);
                     },
@@ -273,6 +292,13 @@
                             }
 
                             $scope.ymFilter = tempObj;
+
+                            // custom
+                            <?php foreach ($filterCustoms['clearScript'] as $i => $jsFunction): ?>
+                            var clearScript<?= $i ?> = <?= $jsFunction ?>;
+                            clearScript<?= $i ?>();
+                            <?php endforeach; ?>
+
                         });
                         return false;
                     },

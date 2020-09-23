@@ -17,7 +17,7 @@ namespace app\builder\table;
 interface CustomControl
 {
     /**
-     * 渲染方法
+     * 渲染Html字符串方法
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -25,26 +25,26 @@ interface CustomControl
     public function render();
 
     /**
-     * 返回用于获取值的Js脚本
+     * 返回用于获取筛选值的Js脚本
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function getJsValues();
+    public function getValuesJsFunction();
 
     /**
-     * 返回清空值的Js脚本
+     * 返回清空筛选值的Js脚本
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function clearJsValues();
+    public function clearValuesJsFunction();
 
     /**
-     * 返回用于初始化值的Js脚本
+     * 返回用于初始化筛选值的Js脚本
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function initJsValues();
+    public function initValuesJsFunction();
 }
