@@ -100,7 +100,7 @@
                         calendar: true,
                         done: function(value, date, endDate){
                             /* 触发input事件 */
-                            $jq(this.elem).val(value).trigger("input");
+                            $jq(this.elem).val(value).trigger("change");
                         }
                     };
 
