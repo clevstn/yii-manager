@@ -342,6 +342,24 @@ if (!function_exists('accept_json')) {
     }
 }
 
+if (!function_exists('preg_script')) {
+    /**
+     * 从script标签中提取js脚本
+     * @param string $scriptTag
+     * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function preg_script($scriptTag)
+    {
+        if (preg_match('~<script>([\s\S]*)</script>~i', trim($scriptTag), $matches)) {
+            return $matches[1];
+        }
+
+        return '';
+    }
+}
+
 // 包含用户自定义函数文件
 include __DIR__ . '/function.php';
 

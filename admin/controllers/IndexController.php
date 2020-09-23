@@ -127,6 +127,7 @@ class IndexController extends CommonController
         ];
         $tableBuilder->toolbarRefresh = [];
         $tableBuilder->toolbarFilter = [
+            'title' => '',
             'icon' => '',
             'columns' => [
                 'keyword' => table_toolbar_filter_helper([

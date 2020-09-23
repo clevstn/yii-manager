@@ -1016,17 +1016,18 @@ class Builder extends BaseObject implements BuilderInterface
             } else {
                 /* @var CustomControl $widget */
                 $widget = $col['widget'];
-                $tempCustomMap['initScript'] .= str_replace('"', '\"', $widget->initJsValues()) . "\n";
-                $tempCustomMap['clearScript'] .= str_replace('"', '\"', $widget->clearJsValues()) . "\n";
-                $tempCustomMap['getScript'] .= str_replace('"', '\"', $widget->getJsValues()) . "\n";
+                $tempCustomMap['initScript'] .= $widget->initJsValues() . "\n";
+                $tempCustomMap['clearScript'] .= $widget->clearJsValues() . "\n";
+                $tempCustomMap['getScript'] .= $widget->getJsValues() . "\n";
             }
         }
 
-        return $this->_view->renderPhpFile(__DIR__ . '/app.script', [
+        $scriptTag = $this->_view->renderPhpFile(__DIR__ . '/app.php', [
             'link'              => Url::toRoute('/' . Yii::$app->controller->route),
             'filterColumns'     => Json::encode($tempCommonMap),
             'filterCustoms'     => $tempCustomMap,
         ]);
+        return preg_script($scriptTag);
     }
 
     /**
