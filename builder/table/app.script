@@ -110,9 +110,9 @@
 
                     $laydate.render(options);
                 });
-                // 初始化筛选属性
-                eval("<?= $filterCustoms['initScript'] ?>")
-                $scope.ymFilter = $jq.parseJSON('<?= $filterColumns ?>');
+                // 初始化筛选
+                <?= $filterCustoms['initScript'] ?>
+                $scope.ymFilter = <?= $filterColumns ?>;
                 // 初始化列表
                 $scope.getList();
             }());
@@ -156,7 +156,7 @@
 
             // 行操作 - 入口
             $scope.rowActions = function (item, config) {
-                config = $jq.parseJSON(config);
+                config = config || {};
                 var type = config.type;
                 var options = config.options;
                 var method = options.method || 'get';
@@ -281,12 +281,14 @@
                     area: ['750px'],
                     btn: ['确定筛选', '清空'],
                     yes: function(index, layero){
+                        // 提交筛选
                         $scope.$apply(function () {
                             $scope.getList(1, null, $scope.ymFilter);
                         });
                         $layer.close(index);
                     },
                     btn2: function(index, layero){
+                        // 清空筛选
                         $scope.$apply(function () {
                             var tempObj = {};
                             for (var i in $scope.ymFilter) {
@@ -379,7 +381,7 @@
             // 自定义 - 方法入口
             $scope.customMethod = function (options) {
                 var data = $YmApp.getTableCheckedData() || [];
-                options = $jq.parseJSON(options) || {};
+                options = options || {};
 
                 var type = options.option;
                 var method = options.method || 'get';

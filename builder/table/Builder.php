@@ -1022,7 +1022,7 @@ class Builder extends BaseObject implements BuilderInterface
             }
         }
 
-        return $this->_view->renderPhpFile(__DIR__ . '/app.js', [
+        return $this->_view->renderPhpFile(__DIR__ . '/app.script', [
             'link'              => Url::toRoute('/' . Yii::$app->controller->route),
             'filterColumns'     => Json::encode($tempCommonMap),
             'filterCustoms'     => $tempCustomMap,

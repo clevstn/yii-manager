@@ -33,7 +33,7 @@ use app\builder\table\ToolbarFilterOptions;
         <div class="btn-group btn-group-sm pull-left">
             <!--自定义-->
             <?php foreach ($toolbars['left'] as $item): ?>
-            <a href="#" type="button" class="btn btn-default" ng-click="customMethod('<?= html_escape(Json::encode($item)) ?>')">
+            <a href="#" type="button" class="btn btn-default" ng-click="customMethod(<?= html_escape(Json::encode($item)) ?>)">
                 <i class="<?= !empty($item['icon']) ? $item['icon'] : '' ?>" aria-hidden="true"></i>
                 <span><?= !empty($item['title']) ? $item['title'] : '' ?></span>
             </a>
@@ -67,7 +67,7 @@ use app\builder\table\ToolbarFilterOptions;
                     </a>
                     <?php break; default: // custom ?>
                     <!--自定义-->
-                    <a href="#" type="button" class="btn btn-default" ng-click="customMethod('<?= html_escape(Json::encode($item)) ?>')">
+                    <a href="#" type="button" class="btn btn-default" ng-click="customMethod(<?= html_escape(Json::encode($item)) ?>)">
                         <i class="<?= !empty($item['icon']) ? $item['icon'] : '' ?>" aria-hidden="true"></i>
                         <span><?= !empty($item['title']) ? $item['title'] : '' ?></span>
                     </a>
@@ -138,7 +138,7 @@ use app\builder\table\ToolbarFilterOptions;
                                     <li role="separator" class="divider"></li>
                                     <?php break; default: ?>
                                     <li>
-                                        <a href="#" ng-click="rowActions(value, '<?= html_escape(Json::encode($actionItem)) ?>')">
+                                        <a href="#" ng-click="rowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
                                             <i class="actions-icon <?= $actionItem['options']['icon'] ?>"></i>
                                             <?= html_escape($actionItem['options']['title']) ?>
                                         </a>
