@@ -298,6 +298,10 @@ ul, ol, dl {
     border-top: 1px solid #eee !important;
 }
 
+.m-0 {
+    margin: 0px !important;
+}
+
 .p-0 {
     padding: 0px !important;
 }
@@ -335,6 +339,10 @@ ul, ol, dl {
 
 .bg-light {
     background-color: #f2f2f2;
+}
+
+.text-dark {
+    color: #626675 !important;
 }
 
 .overflow-x {

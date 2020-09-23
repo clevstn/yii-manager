@@ -940,13 +940,14 @@ class Builder extends BaseObject implements BuilderInterface
         $totalPage = ceil($count / $perRow);
         $data = [];
 
-        $filename = !empty($this->_exportOptions['name']) ? $this->_exportOptions['name'] : 'export_default';
+        $filename = !empty($this->_exportOptions['name']) ? $this->_exportOptions['name'] : 'default';
         for ($i = 0; $i < $totalPage; $i++) {
             array_push($data, [
                 'offset'    => ($i * $perRow),
-                'page'      => ($i + 1),
                 'limit'     => $perRow,
-                'filename'  => $filename . '_page' . ($i + 1),
+                'page'      => ($i + 1),
+                'rows'      => ($count - ($i * $perRow)) > $perRow ? $perRow : ($count - ($i * $perRow)),
+                'filename'  => $filename . '_chunk' . ($i + 1),
             ]);
         }
 

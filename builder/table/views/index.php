@@ -234,12 +234,19 @@ use app\builder\table\ToolbarFilterOptions;
 <?php if($exportFlag): ?>
 <div class="panel-body px-24 f-13" style="display:none;" id="YmExportForm">
     <ul class="list-group">
-        <li class="list-group-item clearfix" ng-repeat="(key, value) in exportMap track by key">
-            <span class="pull-left"> 第{{value.page}}页</span>
-            <a class="pull-right" ng-href="{{value.url}}" ng-click="flagExport($event)">
-                <i class="glyphicon glyphicon-export"></i>
-                <span>导出</span>
-            </a>
+        <li class="list-group-item" ng-repeat="(key, value) in exportMap track by key">
+            <div class="row text-dark">
+                <p class="col-sm-4 f-14 m-0 text-left">
+                    <span>第</span><span ng-bind="value.page"></span><span>块</span>
+                </p>
+                <p class="col-sm-4 f-14 m-0 text-center">
+                    <span>共</span><span ng-bind="value.rows"></span><span>条</span>
+                </p>
+                <a class="col-sm-4 f-14 text-right" ng-href="{{value.url}}" ng-click="flagExport($event)">
+                    <i class="glyphicon glyphicon-export"></i>
+                    <span>导出</span>
+                </a>
+            </div>
         </li>
     </ul>
 </div>

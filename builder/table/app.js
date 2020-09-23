@@ -317,6 +317,7 @@
                             var u = link + '?' + $jq.param(query);
                             tempMap.push({
                                 page: value.page,
+                                rows: value.rows,
                                 url: u,
                             });
                         });
@@ -329,7 +330,7 @@
                             maxmin: false,
                             shadeClose: false,
                             closeBtn: 2,
-                            area: ['400px', '500px'],
+                            area: ['500px', '550px'],
                             content: $jq("#YmExportForm"),
                         });
                     } else {
