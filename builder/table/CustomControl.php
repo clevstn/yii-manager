@@ -18,7 +18,7 @@ interface CustomControl
 {
     /**
      * 渲染方法
-     * @return mixed
+     * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -26,15 +26,23 @@ interface CustomControl
 
     /**
      * 返回用于获取值的Js脚本
-     * @return mixed
+     * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
     public function getJsValues();
 
     /**
+     * 返回清空值的Js脚本
+     * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function clearJsValues();
+
+    /**
      * 返回用于初始化值的Js脚本
-     * @return mixed
+     * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */

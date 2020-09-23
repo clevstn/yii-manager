@@ -1004,14 +1004,28 @@ class Builder extends BaseObject implements BuilderInterface
      */
     protected function resolveJsScript()
     {
-        $tempMap = [];
+        $tempCommonMap = [];
+        $tempCustomMap = [
+            'initScript'    => '',
+            'clearScript'   => '',
+            'getScript'     => '',
+        ];
         foreach ($this->_filterColumns as $field => $col) {
-            $tempMap[$field] = $col['default'];
+            if ($col['control'] != 'custom') {
+                $tempCommonMap[$field] = $col['default'];
+            } else {
+                /* @var CustomControl $widget */
+                $widget = $col['widget'];
+                $tempCustomMap['initScript'] .= str_replace('"', '\"', $widget->initJsValues()) . "\n";
+                $tempCustomMap['clearScript'] .= str_replace('"', '\"', $widget->clearJsValues()) . "\n";
+                $tempCustomMap['getScript'] .= str_replace('"', '\"', $widget->getJsValues()) . "\n";
+            }
         }
 
         return $this->_view->renderPhpFile(__DIR__ . '/app.js', [
             'link'              => Url::toRoute('/' . Yii::$app->controller->route),
-            'filterColumns'     => Json::encode($tempMap),
+            'filterColumns'     => Json::encode($tempCommonMap),
+            'filterCustoms'     => $tempCustomMap,
         ]);
     }
 

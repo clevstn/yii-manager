@@ -52,6 +52,7 @@
                 var param = {
                     page: page,
                     'per-page': perPage,
+                    _: $YmApp.getTime(),
                 };
 
                 /* 使用Jq的对象合并方案 */
@@ -110,6 +111,7 @@
                     $laydate.render(options);
                 });
                 // 初始化筛选属性
+                eval("<?= $filterCustoms['initScript'] ?>")
                 $scope.ymFilter = $jq.parseJSON('<?= $filterColumns ?>');
                 // 初始化列表
                 $scope.getList();
@@ -166,6 +168,7 @@
 
                 // 解析参数
                 params = $scope.resolveActionParams(item, params);
+                params["_"] = $YmApp.getTime();
                 switch (type) {
                     case "page":
                         $scope.openPageOnRow(title, params, route);
@@ -396,6 +399,7 @@
 
                 // 解析参数
                 params = $scope.resolveRequestParams(data, params);
+                params["_"] = $YmApp.getTime();
                 switch (type) {
                     case "page":
                         $scope.openPageOnToolbar(title, params, route);

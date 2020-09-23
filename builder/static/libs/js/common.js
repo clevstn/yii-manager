@@ -190,6 +190,15 @@
         return keys;
     };
 
+    /**
+     * 获取当前时间戳
+     * @returns {number}
+     */
+    YmAppConstructor.prototype.getTime = function () {
+        var DateObj = new Date();
+        return Math.floor(DateObj.getTime() / 1000);
+    };
+
     // Run
     YmAppConstructor.prototype.run = function () {
         this.toggleSideBar();
