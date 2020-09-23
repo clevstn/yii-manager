@@ -9,6 +9,7 @@
 
 namespace app\builder\table\widgets;
 
+use yii\helpers\Html;
 use yii\base\BaseObject;
 use app\builder\table\CustomControl;
 
@@ -25,7 +26,7 @@ class SelectConnection extends BaseObject implements CustomControl
      */
     public function render()
     {
-
+        return Html::input('text', 'custom', '', ['id' => 'custom_id']);
     }
 
     /**
@@ -33,7 +34,12 @@ class SelectConnection extends BaseObject implements CustomControl
      */
     public function clearValuesJsFunction()
     {
-
+        return <<<'JS'
+        function custom () {
+            $jq("#custom_id").val("");
+            return true;
+        }
+JS;
     }
 
     /**
@@ -41,7 +47,13 @@ class SelectConnection extends BaseObject implements CustomControl
      */
     public function getValuesJsFunction()
     {
-
+        return <<<'JS'
+        function custom () {
+            return {
+                custom: $jq("#custom_id").val(),
+            };
+        }
+JS;
     }
 
     /**
@@ -49,6 +61,10 @@ class SelectConnection extends BaseObject implements CustomControl
      */
     public function initValuesJsFunction()
     {
-
+        return <<<'JS'
+        function custom () {
+            return $jq("#custom_id").val("1");
+        }
+JS;
     }
 }

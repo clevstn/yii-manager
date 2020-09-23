@@ -14,6 +14,7 @@ use app\builder\ViewBuilder;
 use app\builder\table\Table;
 use app\builder\common\CommonController;
 use app\builder\table\ToolbarFilterOptions;
+use app\builder\table\widgets\SelectConnection;
 
 /**
  * 首页
@@ -179,6 +180,10 @@ class IndexController extends CommonController
                         '1' => '正常',
                         '2' => '停用',
                     ],
+                ]),
+                'custom' => table_toolbar_filter_helper([
+                    'control' => 'custom',
+                    'widget'  => new SelectConnection(),
                 ]),
             ],
         ];

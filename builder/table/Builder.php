@@ -1016,9 +1016,9 @@ class Builder extends BaseObject implements BuilderInterface
             } else {
                 /* @var CustomControl $widget */
                 $widget = $col['widget'];
-                $tempCustomMap['initScript'][] = $widget->initValuesJsFunction();
-                $tempCustomMap['clearScript'][] = $widget->clearValuesJsFunction();
-                $tempCustomMap['getScript'][] = $widget->getValuesJsFunction();
+                $tempCustomMap['initScript'][] = trim($widget->initValuesJsFunction());
+                $tempCustomMap['clearScript'][] = trim($widget->clearValuesJsFunction());
+                $tempCustomMap['getScript'][] = trim($widget->getValuesJsFunction());
             }
         }
 
