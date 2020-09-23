@@ -18,5 +18,11 @@ use yii\base\UserException;
  */
 class InvalidInstanceException extends UserException
 {
-
+    /**
+     * @return string the user-friendly name of this exception
+     */
+    public function getName()
+    {
+        return 'InvalidInstanceException';
+    }
 }
