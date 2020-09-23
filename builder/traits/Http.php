@@ -47,8 +47,10 @@ trait Http
     {
         $get = $this->request->get();
         if (!empty($get)) {
-            foreach ($get as $queryStr => &$value) {
-                $value = $value === '' && true === $this->emptyStrToNull ? null : $value;
+            if (true === $this->emptyStrToNull) {
+                foreach ($get as $queryStr => &$value) {
+                    $value = $value === ''  ? null : $value;
+                }
             }
 
             return $get;
@@ -67,8 +69,10 @@ trait Http
     {
         $post = $this->request->post();
         if (!empty($post)) {
-            foreach ($post as $bodyStr => &$value) {
-                $value = $value === '' && true === $this->emptyStrToNull ? null : $value;
+            if (true === $this->emptyStrToNull) {
+                foreach ($post as $bodyStr => &$value) {
+                    $value = $value === '' ? null : $value;
+                }
             }
 
             return $post;
