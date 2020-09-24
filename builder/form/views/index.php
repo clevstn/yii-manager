@@ -105,10 +105,11 @@ WangEditorAsset::register($this);
                 <div class="YmWangEditor"></div>
             </div>
         </div>
+
         <div class="form-group col-md-6">
             <div class="addon-fix"></div>
-            <button type="button" class="btn btn-sm btn-default">重置</button>
-            <button type="button" class="btn btn-sm btn-primary">立即提交</button>
+            <button type="button" class="btn btn-sm btn-default" ng-click="resetForm()">重置</button>
+            <button type="button" class="btn btn-sm btn-primary" ng-click="submitForm()">立即提交</button>
         </div>
     </form>
 </div>

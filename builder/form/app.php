@@ -43,6 +43,16 @@
                 }
             };
 
+            // 重置表单
+            $scope.resetForm = function () {
+
+            };
+
+            // 提交表单
+            $scope.submitForm = function () {
+
+            };
+
         }]);
     }(window, window.angular);
 </script>

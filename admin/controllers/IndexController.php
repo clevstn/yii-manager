@@ -271,7 +271,10 @@ class IndexController extends CommonController
      */
     public function actionEdit()
     {
-        return '编辑';
+        $formBuilder = ViewBuilder::form();
+        $formBuilder->partial = true;
+
+        return $formBuilder->render($this);
     }
 
     /**
