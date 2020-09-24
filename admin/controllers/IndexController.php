@@ -251,12 +251,16 @@ class IndexController extends CommonController
     /**
      * 新增
      * @return string
+     * @throws \Throwable
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
     public function actionAdd()
     {
-        return '新增';
+        $formBuilder = ViewBuilder::form();
+        $formBuilder->title = '新增';
+
+        return $formBuilder->render($this);
     }
 
     /**
