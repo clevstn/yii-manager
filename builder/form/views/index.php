@@ -89,6 +89,14 @@ WangEditorAsset::register($this);
                 <div class="YmWangEditor"></div>
             </div>
         </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <span class="addon-fix">富文本2</span>
+                </div>
+                <div class="YmWangEditor"></div>
+            </div>
+        </div>
         <button type="submit" class="btn btn-default">立即提交</button>
     </form>
 </div>

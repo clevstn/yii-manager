@@ -15,12 +15,14 @@
             // 初始化
             $scope.initForm = function () {
                 // 初始化WangEditor
-                $jq(function () {
-                    $jq(".YmWangEditor").each(function () {
-                        var editor = new $wangEditor(this);
-                        editor.create();
+                if (typeof $wangEditor !== "undefined") {
+                    $jq(function () {
+                        $jq(".YmWangEditor").each(function () {
+                            var editor = new $wangEditor(this);
+                            editor.create();
+                        });
                     });
-                });
+                }
 
 
             };
