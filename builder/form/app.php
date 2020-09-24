@@ -12,9 +12,16 @@
         "use strict";
         var $thisApp = angular.module("thisApp", ["$YmApp"]);
         $thisApp.controller('thisCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "$YmApp", "$toastr", "$jq", "$yii", "$YmSpinner", "$swal", "$laydate", "$wangEditor", function ($scope, $http, $timeout, $interval, $rootScope, $YmApp, $toastr, $jq, $yii, $YmSpinner, $swal, $laydate, $wangEditor) {
-            // 初始化
+            // 初始化[定义]
             $scope.initForm = function () {
-                // 初始化WangEditor
+                // 挂载WangEditor
+                $scope.mountedWangEditor();
+
+                //
+            };
+
+            // 挂载WangEditor
+            $scope.mountedWangEditor = function () {
                 if (typeof $wangEditor !== "undefined") {
                     $jq(function () {
                         $jq(".YmWangEditor").each(function () {
@@ -23,10 +30,7 @@
                         });
                     });
                 }
-
-
             };
-            $scope.initForm();
 
             // 返回上一页
             $scope.goBack = function () {
@@ -52,6 +56,9 @@
             $scope.submitForm = function () {
 
             };
+
+            // 初始化表单[调用]
+            $scope.initForm();
 
         }]);
     }(window, window.angular);
