@@ -180,7 +180,7 @@ use app\builder\table\ToolbarFilterOptions;
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
-                            <span class="w-130"><?= $options['label'] ?></span>
+                            <span class="addon-fix"><?= $options['label'] ?></span>
                         </div>
                         <input type="text"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="ymFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
                     </div>
@@ -189,7 +189,7 @@ use app\builder\table\ToolbarFilterOptions;
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
-                            <span class="w-130"><?= $options['label'] ?></span>
+                            <span class="addon-fix"><?= $options['label'] ?></span>
                         </div>
                         <select id="ymFilter_<?= $field ?>"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ui-select2="{width:'100%'}" ng-model="ymFilter['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>">
                             <option value=""><?= $options['placeholder'] ?></option>
@@ -203,7 +203,7 @@ use app\builder\table\ToolbarFilterOptions;
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
-                            <span class="w-130"><?= $options['label'] ?></span>
+                            <span class="addon-fix"><?= $options['label'] ?></span>
                         </div>
                         <input type="number"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="ymFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
                     </div>
@@ -216,7 +216,7 @@ use app\builder\table\ToolbarFilterOptions;
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
-                            <span class="w-130"><?= $options['label'] ?></span>
+                            <span class="addon-fix"><?= $options['label'] ?></span>
                         </div>
                         <input type="text"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="ymFilter['<?= $field ?>']" tag="<?= $options['control'] ?>" range="<?= $options['range'] ?>" id="ymFilter_<?= $field ?>" class="YmFilterDate form-control" placeholder="<?= $options['placeholder'] ?>" readonly>
                     </div>
