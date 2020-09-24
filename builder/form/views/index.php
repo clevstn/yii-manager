@@ -12,7 +12,7 @@ WangEditorAsset::register($this);
             <?= $this->title ?>
         </span>
         <div class="pull-right">
-            <a class="form-header-btn" type="button" href="#">
+            <a class="form-header-btn" type="button" href="#" ng-click="goBack()">
                 <i class="glyphicon glyphicon-arrow-left"></i>
                 <span>返回</span>
             </a>

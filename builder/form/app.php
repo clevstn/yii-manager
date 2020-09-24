@@ -28,6 +28,20 @@
             };
             $scope.initForm();
 
+            // 返回上一页
+            $scope.goBack = function () {
+                var referrer = window.document.referrer;
+                if (window.self !== window.top) {
+                    // 在iframe中
+                    window.self.history.back();
+                } else if (referrer) {
+                    // 不在iframe中,如果存在来源则返回来源并刷新页面
+                    window.self.location.href = referrer;
+                } else {
+                    // 不存在来源则使用history
+                    window.self.history.go(-1);
+                }
+            };
 
         }]);
     }(window, window.angular);
