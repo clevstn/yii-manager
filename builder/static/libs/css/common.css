@@ -497,6 +497,16 @@ input[type="checkbox"] {
     text-overflow: ellipsis;
 }
 
+.icheck-control {
+
+}
+
+.label-helper {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 4px;
+}
+
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],

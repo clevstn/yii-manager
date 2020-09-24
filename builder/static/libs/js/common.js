@@ -140,6 +140,13 @@
             // global.toastr.options.positionClass = 'toast-top-center';
         }
 
+        // Initial public icheck options
+        jQuery('.icheck-control').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue',
+            increaseArea: '20%' // optional
+        });
+
     };
 
     // Refresh page

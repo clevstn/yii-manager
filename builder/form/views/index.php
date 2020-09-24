@@ -50,10 +50,12 @@
                 </div>
                 <div class="form-control">
                     <label class="radio-inline">
-                        <input type="radio" name="sex" value="男">男
+                        <input type="radio" class="icheck-control" name="sex" value="1">
+                        <span class="label-helper">男</span>
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="sex" value="女" checked>女
+                        <input type="radio" class="icheck-control" value="2" name="sex" checked>
+                        <span class="label-helper">女</span>
                     </label>
                 </div>
             </div>
@@ -65,10 +67,12 @@
                 </div>
                 <div class="form-control">
                     <label class="checkbox-inline">
-                        <input type="checkbox" id="inlineCheckbox2" value="option2">中国
+                        <input type="checkbox" class="icheck-control" value="1">
+                        <span class="label-helper">中国</span>
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" id="inlineCheckbox3" value="option3">美国
+                        <input type="checkbox" class="icheck-control" value="2">
+                        <span class="label-helper">美国</span>
                     </label>
                 </div>
             </div>
