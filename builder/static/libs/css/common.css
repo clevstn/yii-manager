@@ -486,6 +486,9 @@ ul, ol, dl {
 .w-130 {
     display: inline-block !important;
     width: 130px !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 [ng\:cloak],
