@@ -12,7 +12,7 @@ namespace app\commands\queuejobs;
 use yii\console\Controller;
 
 /**
- * 队列继承类
+ * 队列进程
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

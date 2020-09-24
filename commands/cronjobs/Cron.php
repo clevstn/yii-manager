@@ -12,7 +12,7 @@ namespace app\commands\cronjobs;
 use yii\console\Controller;
 
 /**
- * 计划任务继承类
+ * 计划任务
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

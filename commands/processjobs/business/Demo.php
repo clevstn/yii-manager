@@ -2,27 +2,27 @@
 // +----------------------------------------------------------------------
 // | yii-manager version 1.0.0
 // +----------------------------------------------------------------------
-// | 日期：2020/8/5
+// | 日期：2020/8/21
 // +----------------------------------------------------------------------
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 
-namespace app\builder\form;
-
-use yii\base\Controller;
-use yii\base\BaseObject;
-use app\builder\contract\BuilderInterface;
+namespace app\commands\processjobs\business;
 
 /**
- * 表单构建器
+ * 守护进程业务代码演示
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class Builder extends BaseObject implements BuilderInterface
+class Demo
 {
-
-    public function render(Controller $context)
+    /**
+     * @return string
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public static function getResult()
     {
-
+        return 'This is process jobs demo. ';
     }
 }

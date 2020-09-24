@@ -195,8 +195,8 @@ class IndexController extends CommonController
                     'placeholder'   => '请选择状态',
                     'default'       => '',
                     'options' => [
+                        '0' => '封停',
                         '1' => '正常',
-                        '2' => '停用',
                     ],
                 ]),
                 /*'custom' => table_toolbar_filter_helper([

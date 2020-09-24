@@ -8,7 +8,7 @@ $config = [
     'id' => 'yii-manager-basic-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'controllerNamespace' => 'app\commands',
+    'controllerNamespace' => 'app\commands\cliscript',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -23,6 +23,10 @@ $config = [
         // 队列任务模块
         'queue' => [
             'class' => \app\commands\queuejobs\Module::class,
+        ],
+        // 守护进程模块
+        'process' => [
+            'class' => \app\commands\processjobs\Module::class,
         ],
     ],
     'components' => [
