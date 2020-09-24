@@ -1,5 +1,9 @@
 <?php
 /* @var $this \yii\web\View     当前视图实例 */
+
+use app\builder\assets\WangEditorAsset;
+
+WangEditorAsset::register($this);
 ?>
 <!--页面标题-->
 <?php if(!empty($this->title)): ?>
@@ -75,6 +79,14 @@
                         <span class="label-helper">美国</span>
                     </label>
                 </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <span class="addon-fix">富文本1</span>
+                </div>
+                <div class="YmWangEditor"></div>
             </div>
         </div>
         <button type="submit" class="btn btn-default">立即提交</button>

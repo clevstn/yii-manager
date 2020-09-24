@@ -33,6 +33,9 @@
     }).service("$layer", function () {
         // Layer
         return global.layer;
+    }).service("$wangEditor", function () {
+        // wangEditor
+        return global.wangEditor;
     });
 
     // 自定义过滤器

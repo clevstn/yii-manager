@@ -497,15 +497,17 @@ input[type="checkbox"] {
     text-overflow: ellipsis;
 }
 
-.icheck-control {
-
-}
+.icheck-control {}
 
 .label-helper {
     display: inline-block;
     vertical-align: middle;
     margin-left: 4px;
+    user-select: none;
+    -webkit-user-select: none;
 }
+
+.YmWangEditor {}
 
 [ng\:cloak],
 [ng-cloak],
