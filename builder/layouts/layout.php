@@ -34,7 +34,7 @@ MainAsset::register($this);
     <title><?= Yii::$app->params['admin_title'] . ($this->title ? ' | ' . Html::encode($this->title) : '') ?></title>
     <?php $this->head() ?>
 </head>
-<body ng-app="thisApp" ng-controller="thisCtrl">
+<body ng-app="thisApp">
 <?php $this->beginBody() ?>
 <div class="ym-app">
     <!--Brand-->
@@ -90,7 +90,7 @@ MainAsset::register($this);
         <?= MenuHelper::render() ?>
     </aside>
 
-    <main class="ym-content" ng-cloak>
+    <main class="ym-content" ng-controller="thisCtrl" ng-cloak>
         <!--content-->
         <div class="container-fluid ym-content-fluid">
             <div class="panel panel-default">
