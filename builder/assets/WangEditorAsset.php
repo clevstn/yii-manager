@@ -21,7 +21,7 @@ class WangEditorAsset extends BaseAsset
      * @since 1.0
      */
     public $css = [
-        'libs/wang-editor/wangEditor.min.css',
+        //'libs/wang-editor/wangEditor.min.css',
     ];
 
     /**
