@@ -114,7 +114,7 @@ use app\builder\table\ToolbarFilterOptions;
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="(key, value) in list track by key" on-finish-render="ev-repeat-finished">
+            <tr ng-repeat="(key, value) in ymTablelist track by key" on-finish-render="ev-repeat-finished">
 
                 <!--隐藏多选框-->
                 <?php if(!$hideCheckbox): ?>
@@ -168,14 +168,14 @@ use app\builder\table\ToolbarFilterOptions;
     <?php Table::beginTablePage($widgets); ?>
 
     <!--分页-->
-    <div class="panel-body border-top" ng-show="ymPage" angular-ajax-page page-model="ymPage"></div>
+    <div class="panel-body border-top" ng-show="ymTablePage" angular-ajax-page page-model="ymTablePage"></div>
 
     <!--分页结束-->
     <?php Table::endTablePage($widgets); ?>
 
     <!--筛选表单-->
     <?php if (!empty($filterColumns) && is_array($filterColumns)): ?>
-        <div class="panel-body px-24" style="display:none;" id="YmFilterForm">
+        <div class="panel-body px-24" style="display:none;" id="YmTableFilterForm">
             <form>
                 <?php foreach ($filterColumns as $field => $options): ?>
                     <?php switch ($options['control']): case ToolbarFilterOptions::CONTROL_TEXT: // text ?>
@@ -184,7 +184,7 @@ use app\builder\table\ToolbarFilterOptions;
                                 <div class="input-group-addon">
                                     <span class="addon-fix"><?= $options['label'] ?></span>
                                 </div>
-                                <input type="text"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="ymFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                                <input type="text"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="ymTableFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
                             </div>
                         </div>
                         <?php break; case ToolbarFilterOptions::CONTROL_SELECT: // select ?>
@@ -193,7 +193,7 @@ use app\builder\table\ToolbarFilterOptions;
                                 <div class="input-group-addon">
                                     <span class="addon-fix"><?= $options['label'] ?></span>
                                 </div>
-                                <select id="ymFilter_<?= $field ?>"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ui-select2="{width:'100%'}" ng-model="ymFilter['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>">
+                                <select id="ymTableFilter_<?= $field ?>"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ui-select2="{width:'100%'}" ng-model="ymTableFilter['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>">
                                     <option value=""><?= $options['placeholder'] ?></option>
                                     <?php foreach ($options['options'] as $value => $label): ?>
                                         <option value="<?= $value ?>"><?= $label ?></option>
@@ -207,7 +207,7 @@ use app\builder\table\ToolbarFilterOptions;
                                 <div class="input-group-addon">
                                     <span class="addon-fix"><?= $options['label'] ?></span>
                                 </div>
-                                <input type="number"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="ymFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                                <input type="number"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="ymTableFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
                             </div>
                         </div>
                         <?php break; case ToolbarFilterOptions::CONTROL_DATETIME: // datetime ?>
@@ -220,7 +220,7 @@ use app\builder\table\ToolbarFilterOptions;
                                 <div class="input-group-addon">
                                     <span class="addon-fix"><?= $options['label'] ?></span>
                                 </div>
-                                <input type="text"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="ymFilter['<?= $field ?>']" tag="<?= $options['control'] ?>" range="<?= $options['range'] ?>" id="ymFilter_<?= $field ?>" class="YmFilterDate form-control" placeholder="<?= $options['placeholder'] ?>" readonly>
+                                <input type="text"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="ymTableFilter['<?= $field ?>']" tag="<?= $options['control'] ?>" range="<?= $options['range'] ?>" id="ymTableFilter_<?= $field ?>" class="YmTableFilterDate form-control" placeholder="<?= $options['placeholder'] ?>" readonly>
                             </div>
                         </div>
                         <?php break; case ToolbarFilterOptions::CONTROL_CUSTOM: // custom ?>
@@ -236,7 +236,7 @@ use app\builder\table\ToolbarFilterOptions;
     <?php if($exportFlag): ?>
         <div class="panel-body px-24 f-13" style="display:none;" id="YmExportForm">
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="(key, value) in exportMap track by key">
+                <li class="list-group-item" ng-repeat="(key, value) in ymTableExportMap track by key">
                     <div class="row text-dark">
                         <p class="col-sm-4 f-14 m-0 text-left">
                             <span>第</span><span ng-bind="value.page"></span><span>块</span>

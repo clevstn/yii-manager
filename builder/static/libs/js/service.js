@@ -50,7 +50,7 @@
     });
 
     // 自定义指令
-    _YmAppModule.directive('angularAjaxPage', function ($compile) {
+    _YmAppModule.directive('angularAjaxPage', ["$compile", function ($compile) {
         // 分页指令
         return {
             restrict: 'A',
@@ -68,7 +68,7 @@
                 );
             }
         };
-    }).directive('onFinishRender', function ($timeout) {
+    }]).directive('onFinishRender', ["$timeout", function ($timeout) {
         // 监听ng-repeat执行完成指令
         return {
             restrict: 'A',
@@ -81,7 +81,7 @@
                 }
             }
         };
-    });
+    }]);
 
     // 服务驱动配置
     _YmAppModule.factory("httpInterceptor", ["$q", function ($q) {

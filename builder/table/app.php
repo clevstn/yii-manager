@@ -17,14 +17,18 @@
             // ------ 列表start
             // 获取请求链接
             var link = '<?= $link ?>';
-            $scope.getUrl = function (page, perPage, query) {
-                page = page || $scope.pageNumber || 1;
-                perPage = perPage || $scope.perPageNumber || 20;
-                query = query || $scope.queryParams || {};
+            var pageNumber;
+            var perPageNumber;
+            var queryParams;
 
-                $scope.pageNumber = page;
-                $scope.perPageNumber = perPage;
-                $scope.queryParams = query;
+            var getUrl = function (page, perPage, query) {
+                page = page || pageNumber || 1;
+                perPage = perPage || perPageNumber || 20;
+                query = query || queryParams || {};
+
+                pageNumber = page;
+                perPageNumber = perPage;
+                queryParams = query;
 
                 var param = {
                     page: page,
@@ -41,14 +45,15 @@
             $scope.getList = function (page, perPage, param) {
                 // 节流
                 var i = YmSpinner.show();
-                $http.get($scope.getUrl(page, perPage, param)).then(function (result) {
+                $http.get(getUrl(page, perPage, param)).then(function (result) {
                     YmSpinner.hide(i);
 
                     var data = result.data;
-                    $scope.ymPage = data.page;
-                    $scope.list = data.data;
+                    $scope.ymTablePage = data.page;
+                    $scope.ymTablelist = data.data;
 
-                    $scope.cancalCheckboxChecked();
+                    // 列表刷新时，取消多选框的选中状态
+                    YmApp.uncheckTableIcheck();
                 }, function (error) {
                     YmSpinner.hide(i);
                     toastr.error(error.data || "数据加载失败，请稍后重试", "通知");
@@ -56,17 +61,12 @@
                 });
             };
 
-            // 列表刷新时，取消多选框的选中状态
-            $scope.cancalCheckboxChecked = function () {
-                YmApp.uncheckTableIcheck();
-            };
-
             // 初始化方法
             ($scope.init = function () {
                 // 初始化导出列表
-                $scope.exportMap = [];
+                $scope.ymTableExportMap = [];
                 // 初始化筛选表单中的日期控件
-                jQuery(".YmFilterDate").each(function () {
+                jQuery(".YmTableFilterDate").each(function () {
                     var id = jQuery(this).attr('id');
                     var range = jQuery(this).attr('range');
                     var tag = jQuery(this).attr('tag');
@@ -95,7 +95,7 @@
                 initScript<?= $i ?>();
                 <?php endforeach; ?>
 
-                $scope.ymFilter = <?= $filterColumns ?>;
+                $scope.ymTableFilter = <?= $filterColumns ?>;
                 // 初始化列表
                 $scope.getList();
             }());
@@ -264,7 +264,7 @@
                     area: ['750px'],
                     btn: ['确定筛选', '清空'],
                     yes: function (index, layero) {
-                        var param = $scope.ymFilter;
+                        var param = $scope.ymTableFilter;
 
                         // custom
                         <?php foreach ($filterCustoms['getScript'] as $i => $jsFunction): ?>
@@ -287,11 +287,11 @@
                         // 清空筛选
                         $scope.$apply(function () {
                             var tempObj = {};
-                            for (var i in $scope.ymFilter) {
+                            for (var i in $scope.ymTableFilter) {
                                 tempObj[i] = "";
                             }
 
-                            $scope.ymFilter = tempObj;
+                            $scope.ymTableFilter = tempObj;
 
                             // custom
                             <?php foreach ($filterCustoms['clearScript'] as $i => $jsFunction): ?>
@@ -302,13 +302,13 @@
                         });
                         return false;
                     },
-                    content: jQuery("#YmFilterForm"),
+                    content: jQuery("#YmTableFilterForm"),
                 });
             };
 
             // 导出
             $scope.exportMethod = function () {
-                var query = jQuery.extend({}, $scope.queryParams || {});
+                var query = jQuery.extend({}, queryParams || {});
                 query['__export'] = 1;
                 var u = link + '?' + jQuery.param(query);
                 // 节流
@@ -329,7 +329,7 @@
                                 url: u,
                             });
                         });
-                        $scope.exportMap = tempMap;
+                        $scope.ymTableExportMap = tempMap;
                         layer.open({
                             type: 1,
                             shade: 0.3,
@@ -413,7 +413,7 @@
                         $scope.openModalOnToolbar(title, params, route, width, height);
                         break;
                     case "ajax":
-                        $scope.ajaxRequestOnToobar(method, params, route);
+                        $scope.ajaxRequestOnToolbar(method, params, route);
                         break;
                     default:
                         toastr.warning("工具栏操作类型" + type + "暂不支持", "通知");
@@ -449,7 +449,7 @@
             };
 
             // 自定义 - ajax
-            $scope.ajaxRequestOnToobar = function (method, params, route) {
+            $scope.ajaxRequestOnToolbar = function (method, params, route) {
                 Swal.fire({
                     title: '确定要执行该操作么？',
                     text: '',
