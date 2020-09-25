@@ -36,7 +36,7 @@ class SelectConnection extends BaseObject implements CustomControl
     {
         return <<<'JS'
         function custom () {
-            $jq("#custom_id").val("");
+            jQuery("#custom_id").val("");
             return true;
         }
 JS;
@@ -50,7 +50,7 @@ JS;
         return <<<'JS'
         function custom () {
             return {
-                custom: $jq("#custom_id").val(),
+                custom: jQuery("#custom_id").val(),
             };
         }
 JS;
@@ -63,7 +63,7 @@ JS;
     {
         return <<<'JS'
         function custom () {
-            return $jq("#custom_id").val("1");
+            return jQuery("#custom_id").val("1");
         }
 JS;
     }

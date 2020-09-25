@@ -29,7 +29,7 @@ MainAsset::register($this);
         <title><?= Yii::$app->params['admin_title'] . ($this->title ? ' | ' . Html::encode($this->title) : '') ?></title>
         <?php $this->head() ?>
     </head>
-    <body ng-app="thisApp">
+    <body ng-app="EasyApp">
     <?php $this->beginBody() ?>
     <div class="ym-app">
         <!--Brand-->
@@ -56,10 +56,8 @@ MainAsset::register($this);
         </script>
 
         <!--content-->
-        <main class="container-fluid ym-content-fluid" ng-controller="thisCtrl" ng-cloak>
-            <div class="panel panel-default">
-                <?= $content ?>
-            </div>
+        <main class="container-fluid ym-content-fluid" ng-cloak>
+            <?= $content ?>
         </main>
 
     </div>

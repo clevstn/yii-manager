@@ -10,8 +10,8 @@
      */
     !function (window, angular) {
         "use strict";
-        var $thisApp = angular.module("thisApp", ["$YmApp"]);
-        $thisApp.controller('thisCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "$YmApp", "$toastr", "$jq", "$yii", "$YmSpinner", "$swal", "$laydate", "$wangEditor", function ($scope, $http, $timeout, $interval, $rootScope, $YmApp, $toastr, $jq, $yii, $YmSpinner, $swal, $laydate, $wangEditor) {
+        var _easyApp = angular.module("EasyApp", ["YmAppModule"]);
+        _easyApp.controller('formCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "wangEditor", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, wangEditor) {
             // 初始化[定义]
             $scope.initForm = function () {
                 // 挂载WangEditor
@@ -22,10 +22,10 @@
 
             // 挂载WangEditor
             $scope.mountedWangEditor = function () {
-                if (typeof $wangEditor !== "undefined") {
-                    $jq(function () {
-                        $jq(".YmWangEditor").each(function () {
-                            var editor = new $wangEditor(this);
+                if (typeof wangEditor !== "undefined") {
+                    jQuery(function () {
+                        jQuery(".YmWangEditor").each(function () {
+                            var editor = new wangEditor(this);
                             editor.create();
                         });
                     });

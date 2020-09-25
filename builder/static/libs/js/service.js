@@ -6,40 +6,40 @@
 !function (global, angular) {
     "use strict";
 
-    var $YmApp = angular.module("$YmApp", ["ui.select2"]);
+    var _YmAppModule = angular.module("YmAppModule", ["ui.select2"]);
 
     // 自定义服务
-    $YmApp.service("$YmApp", function () {
+    _YmAppModule.factory("YmApp", function () {
         // YmApp
         return global.YmApp;
-    }).service("$toastr", function () {
+    }).factory("toastr", function () {
         // Toastr
         return global.toastr;
-    }).service("$jq", function () {
+    }).factory("jQuery", function () {
         // jQuery 3
         return global.jQuery;
-    }).service("$yii", function () {
+    }).factory("yii", function () {
         // Yii 2.0
         return global.yii;
-    }).service("$YmSpinner", function () {
+    }).factory("YmSpinner", function () {
         // Spinner
         return global.YmSpinner;
-    }).service("$swal", function () {
+    }).factory("Swal", function () {
         // Sweetalert
         return global.Swal;
-    }).service("$laydate", function () {
+    }).factory("laydate", function () {
         // Laydate
         return global.laydate;
-    }).service("$layer", function () {
+    }).factory("layer", function () {
         // Layer
         return global.layer;
-    }).service("$wangEditor", function () {
+    }).factory("wangEditor", function () {
         // wangEditor
         return global.wangEditor;
     });
 
     // 自定义过滤器
-    $YmApp.filter("toHtml", ['$sce', function ($sce) {
+    _YmAppModule.filter("toHtml", ['$sce', function ($sce) {
         return function (value) { // 过滤html
             return $sce.trustAsHtml(value);
         };
@@ -50,7 +50,7 @@
     });
 
     // 自定义指令
-    $YmApp.directive('angularAjaxPage', function ($compile) {
+    _YmAppModule.directive('angularAjaxPage', function ($compile) {
         // 分页指令
         return {
             restrict: 'A',
@@ -84,7 +84,7 @@
     });
 
     // 服务驱动配置
-    $YmApp.factory("httpInterceptor", ["$q", function ($q) {
+    _YmAppModule.factory("httpInterceptor", ["$q", function ($q) {
         // http拦截器
         return {
             'responseError': function (response) { // 错误拦截
