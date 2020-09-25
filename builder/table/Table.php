@@ -54,16 +54,6 @@ class Table
     const JS_SCRIPT_INNER = 'script-inner';
 
     /**
-     * 位于head标签内上部
-     */
-    const CSS_HEAD_TOP = 'head-top';
-
-    /**
-     * 位于head标签内下部
-     */
-    const CSS_HEAD_BOTTOM = 'head-bottom';
-
-    /**
      * 表格工具栏开始
      * @param array $widgets
      * @return void

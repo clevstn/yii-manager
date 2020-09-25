@@ -727,16 +727,15 @@ class Builder extends BaseObject implements BuilderInterface
     /**
      * 注册额外的Css代码
      * @param array|string $css
-     * @param string $pos
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function setCss($css, $pos = Table::CSS_HEAD_TOP)
+    public function setCss($css)
     {
         $css = (array)$css;
         foreach ($css as $in) {
-            $this->_css[$pos][] = $in . "\n";
+            $this->_css[] = $in . "\n";
         }
 
         return $this;
@@ -987,7 +986,7 @@ class Builder extends BaseObject implements BuilderInterface
         // 设置标题
         $this->_view->title = $this->title;
 
-        // 注册表格脚本上部Js
+        // 注册Js,位于表格脚本上方
         if (!empty($this->_js[Table::JS_SCRIPT_TOP])) {
             $scriptTopJs = $this->_js[Table::JS_SCRIPT_TOP];
             foreach ($scriptTopJs as $topJs) {
@@ -995,14 +994,21 @@ class Builder extends BaseObject implements BuilderInterface
             }
         }
 
-        // 注册表格脚本
+        // 注册表格Js脚本
         $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
 
-        // 注册表格脚本下部Js
+        // 注册Js,位于表格脚本下方
         if (!empty($this->_js[Table::JS_SCRIPT_BOTTOM])) {
             $scriptBottomJs = $this->_js[Table::JS_SCRIPT_BOTTOM];
             foreach ($scriptBottomJs as $bottomJs) {
                 $this->_view->registerJs($bottomJs, View::POS_END);
+            }
+        }
+
+        // 注册Css脚本
+        if (!empty($this->_css)) {
+            foreach ($this->_css as $css) {
+                $this->_view->registerCss($css);
             }
         }
 
