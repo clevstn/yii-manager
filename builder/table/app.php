@@ -12,6 +12,7 @@
      */
     !function (window, angular) {
         "use strict";
+
         var _easyApp = angular.module("EasyApp", ["YmAppModule"]);
         _easyApp.controller('tableCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
             // ------ 列表start
@@ -45,6 +46,7 @@
             $scope.getList = function (page, perPage, param) {
                 // 节流
                 var i = YmSpinner.show();
+
                 $http.get(getUrl(page, perPage, param)).then(function (result) {
                     YmSpinner.hide(i);
 
@@ -65,8 +67,10 @@
             ($scope.init = function () {
                 // 初始化导出列表
                 $scope.ymTableExportMap = [];
+
                 // 初始化筛选表单中的日期控件
                 jQuery(".YmTableFilterDate").each(function () {
+
                     var id = jQuery(this).attr('id');
                     var range = jQuery(this).attr('range');
                     var tag = jQuery(this).attr('tag');
@@ -96,6 +100,7 @@
                 <?php endforeach; ?>
 
                 $scope.ymTableFilter = <?= $filterColumns ?>;
+
                 // 初始化列表
                 $scope.getList();
             }());
@@ -311,10 +316,14 @@
                 var query = jQuery.extend({}, queryParams || {});
                 query['__export'] = 1;
                 var u = link + '?' + jQuery.param(query);
+
                 // 节流
                 var i = YmSpinner.show();
+
                 $http.get(u).then(function (result) {
+
                     YmSpinner.hide(i);
+
                     var data = result.data;
                     if (data.length) {
                         var tempMap = [];
@@ -329,7 +338,9 @@
                                 url: u,
                             });
                         });
+
                         $scope.ymTableExportMap = tempMap;
+
                         layer.open({
                             type: 1,
                             shade: 0.3,
