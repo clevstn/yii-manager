@@ -26,7 +26,6 @@ use yii\base\InvalidArgumentException;
 use app\builder\contract\BuilderInterface;
 use app\builder\contract\UndefinedOptionsException;
 use app\builder\contract\NotFoundAttributeException;
-use function Webmozart\Assert\Tests\StaticAnalysis\email;
 
 /**
  * 表格构建器
