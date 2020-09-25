@@ -26,6 +26,7 @@ use yii\base\InvalidArgumentException;
 use app\builder\contract\BuilderInterface;
 use app\builder\contract\UndefinedOptionsException;
 use app\builder\contract\NotFoundAttributeException;
+use function Webmozart\Assert\Tests\StaticAnalysis\email;
 
 /**
  * 表格构建器
@@ -33,6 +34,8 @@ use app\builder\contract\NotFoundAttributeException;
  * @property boolean $page
  * @property array $columns
  * @property \Closure $query
+ * @property-write array $js
+ * @property-write array $css
  * @property boolean $partial
  * @property array $rowActions
  * @property-read array $toolbars
@@ -40,6 +43,7 @@ use app\builder\contract\NotFoundAttributeException;
  * @property array|string $orderBy
  * @property boolean $hideCheckbox
  * @property array $checkboxOptions
+ * @property-write array $assetBundle
  * @property array|string $primaryKey
  * @property-write array $toolbarRefresh
  * @property-write array $toolbarFilter
@@ -192,13 +196,6 @@ class Builder extends BaseObject implements BuilderInterface
     private $_partial = false;
 
     /**
-     * 自定义组件
-     * @var array
-     * @since 1.0
-     */
-    private $_widget = [];
-
-    /**
      * 工具栏
      * @var array
      * ```php
@@ -322,6 +319,34 @@ class Builder extends BaseObject implements BuilderInterface
      * @since 1.0
      */
     private $_viewPath = '@builder/table/views/index.php';
+
+    /**
+     * 自定义组件
+     * @var array
+     * @since 1.0
+     */
+    private $_widget = [];
+
+    /**
+     * Asset包定义
+     * @var array
+     * @since 1.0
+     */
+    private $_assetBundle = [];
+
+    /**
+     * 额外的Js代码
+     * @var array
+     * @since 1.0
+     */
+    private $_js = [];
+
+    /**
+     * 额外的css代码
+     * @var array
+     * @since 1.0
+     */
+    private $_css = [];
 
     /**
      * @author cleverstone <yang_hui_lei@163.com>
@@ -665,6 +690,59 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
+     * 注册额外的assetBundle
+     * @param array|string $assetBundle
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setAssetBundle($assetBundle)
+    {
+        $assetBundle = (array)$assetBundle;
+        foreach ($assetBundle as $in) {
+            $this->_assetBundle[] = $in;
+        }
+
+        return $this;
+    }
+
+    /**
+     * 注册额外的Js代码
+     * @param array|string $js
+     * @param string $pos
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setJs($js, $pos = Table::JS_SCRIPT_INNER)
+    {
+        $js = (array)$js;
+        foreach ($js as $in) {
+            $this->_js[$pos][] = $in . "\n";
+        }
+
+        return $this;
+    }
+
+    /**
+     * 注册额外的Css代码
+     * @param array|string $css
+     * @param string $pos
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setCss($css, $pos = Table::CSS_HEAD_TOP)
+    {
+        $css = (array)$css;
+        foreach ($css as $in) {
+            $this->_css[$pos][] = $in . "\n";
+        }
+
+        return $this;
+    }
+
+    /**
      * 获取组件
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
@@ -906,10 +984,27 @@ class Builder extends BaseObject implements BuilderInterface
      */
     protected function renderHtml(Controller $context)
     {
-        // Set table title
+        // 设置标题
         $this->_view->title = $this->title;
-        // Register the table widget script js
+
+        // 注册表格脚本上部Js
+        if (!empty($this->_js[Table::JS_SCRIPT_TOP])) {
+            $scriptTopJs = $this->_js[Table::JS_SCRIPT_TOP];
+            foreach ($scriptTopJs as $topJs) {
+                $this->_view->registerJs($topJs, View::POS_END);
+            }
+        }
+
+        // 注册表格脚本
         $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
+
+        // 注册表格脚本下部Js
+        if (!empty($this->_js[Table::JS_SCRIPT_BOTTOM])) {
+            $scriptBottomJs = $this->_js[Table::JS_SCRIPT_BOTTOM];
+            foreach ($scriptBottomJs as $bottomJs) {
+                $this->_view->registerJs($bottomJs, View::POS_END);
+            }
+        }
 
         return $context->render($this->_viewPath, [
             'columns'           => $this->columns,
@@ -1010,6 +1105,7 @@ class Builder extends BaseObject implements BuilderInterface
             'clearScript'   => [],
             'getScript'     => [],
         ];
+
         foreach ($this->_filterColumns as $field => $col) {
             if ($col['control'] != 'custom') {
                 $tempCommonMap[$field] = $col['default'];
@@ -1026,6 +1122,7 @@ class Builder extends BaseObject implements BuilderInterface
             'link'              => Url::toRoute('/' . Yii::$app->controller->route),
             'filterColumns'     => Json::encode($tempCommonMap),
             'filterCustoms'     => $tempCustomMap,
+            'innerScript'       => !empty($this->_js[Table::JS_SCRIPT_INNER]) ? $this->_js[Table::JS_SCRIPT_INNER] : [],
         ]);
         return preg_script($scriptTag);
     }

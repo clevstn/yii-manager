@@ -39,6 +39,31 @@ class Table
     const TABLE_PAGE_BOTTOM = 4;
 
     /**
+     * 位于表格脚本上面
+     */
+    const JS_SCRIPT_TOP = 'script-top';
+
+    /**
+     * 位于表格脚本下面
+     */
+    const JS_SCRIPT_BOTTOM = 'script-bottom';
+
+    /**
+     * 位于表格脚本内部
+     */
+    const JS_SCRIPT_INNER = 'script-inner';
+
+    /**
+     * 位于head标签内上部
+     */
+    const CSS_HEAD_TOP = 'head-top';
+
+    /**
+     * 位于head标签内下部
+     */
+    const CSS_HEAD_BOTTOM = 'head-bottom';
+
+    /**
      * 表格工具栏开始
      * @param array $widgets
      * @return void

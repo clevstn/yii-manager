@@ -2,6 +2,8 @@
 /* @var string $link 列表链接 */
 /* @var array $filterCustoms 筛选自定义控件选项 */
 /* @var array $filterColumns 筛选表单选项 */
+/* @var array $innerScript 额外Js脚本 */
+
 // 注意这里必须是<script>...</script>的形式
 ?>
 <script>
@@ -12,16 +14,14 @@
      */
     !function (window, angular) {
         "use strict";
-
         var _easyApp = angular.module("EasyApp", ["YmAppModule"]);
         _easyApp.controller('tableCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
-            // ------ 列表start
-            // 获取请求链接
+            // ------ 列表 start ------
             var link = '<?= $link ?>';
             var pageNumber;
             var perPageNumber;
             var queryParams;
-
+            // 获取当前构建器操作链接
             var getUrl = function (page, perPage, query) {
                 page = page || pageNumber || 1;
                 perPage = perPage || perPageNumber || 20;
@@ -41,9 +41,8 @@
                 jQuery.extend(param, query);
                 return link + '?' + jQuery.param(param);
             };
-
-            // 获取数据列表
-            $scope.getList = function (page, perPage, param) {
+            // 获取表格列表
+            var ymGetTableList = function (page, perPage, param) {
                 // 节流
                 var i = YmSpinner.show();
 
@@ -62,9 +61,8 @@
                     console.error(error);
                 });
             };
-
-            // 初始化方法
-            ($scope.init = function () {
+            // 初始化表格
+            var ymInitTable = function () {
                 // 初始化导出列表
                 $scope.ymTableExportMap = [];
 
@@ -102,33 +100,28 @@
                 $scope.ymTableFilter = <?= $filterColumns ?>;
 
                 // 初始化列表
-                $scope.getList();
-            }());
-
-            // 分页
-            $scope.getPage = function (page, perPage) {
-                $scope.getList(page, perPage);
+                ymGetTableList();
             };
-
+            // 分页跳转
+            $scope.ymTableDumpPage = function (page, perPage) {
+                ymGetTableList(page, perPage);
+            };
             // 跳转到指定页
-            $scope.dumpSpecialPage = function (perPage) {
-                var page = $scope.currentPage;
-                $scope.getList(page, perPage);
+            $scope.ymTableDumpSpecialPage = function (perPage) {
+                var page = $scope.ymTableCurrentPage;
+                ymGetTableList(page, perPage);
             };
-
             // 设置数据条数
-            jQuery('body').on('change', '#pageSelect', function () {
-                $scope.getList(1, jQuery(this).val());
+            jQuery('body').on('change', '#YmTablePageSelect', function () {
+                ymGetTableList(1, jQuery(this).val());
             });
-
-            // 监听angular列表渲染完成
+            // 监听表格列表渲染完成
             $scope.$on('ev-repeat-finished', function () {
                 // 初始化Icheck
                 YmApp.initTableIcheck();
             });
-
-            // 行操作 - 解析参数
-            $scope.resolveActionParams = function (data, params) {
+            // 表格行操作-解析参数
+            var resolveActionParams = function (data, params) {
                 var to = {};
                 for (var i in params) {
                     if (i % 1 === 0) {
@@ -141,39 +134,8 @@
 
                 return to;
             };
-
-            // 行操作 - 入口
-            $scope.rowActions = function (item, config) {
-                config = config || {};
-                var type = config.type;
-                var options = config.options;
-                var method = options.method || 'get';
-                var params = options.params || [];
-                var route = options.route;
-                var title = options.title || '默认标题';
-                var width = options.width || '800px';
-                var height = options.height || '520px';
-
-                // 解析参数
-                params = $scope.resolveActionParams(item, params);
-                params["_"] = YmApp.getTime();
-                switch (type) {
-                    case "page":
-                        $scope.openPageOnRow(title, params, route);
-                        break;
-                    case "modal":
-                        $scope.openModalOnRow(title, params, route, width, height);
-                        break;
-                    case "ajax":
-                        $scope.ajaxRequestOnRow(method, params, route);
-                        break;
-                    default:
-                        toastr.warning("行类型" + type + "暂不支持", "通知");
-                }
-            };
-
-            // 行操作 - 打开模态框
-            $scope.openModalOnRow = function (title, params, route, width, height) {
+            // 表格行操作-打开模态框
+            var openModalOnRow = function (title, params, route, width, height) {
                 var closeBtn = 2;
                 if (width === '100%') {
                     closeBtn = 1;
@@ -192,16 +154,14 @@
                     content: u,
                 });
             };
-
-            // 行操作 - 打开页面
-            $scope.openPageOnRow = function (title, params, route) {
+            // 表格行操作-打开页面
+            var openPageOnRow = function (title, params, route) {
                 params['pageTitle'] = title;
                 var u = YmApp.keys(params).length ? (route + '?' + jQuery.param(params)) : route;
                 window.location.href = u;
             };
-
-            // 行操作 - ajax
-            $scope.ajaxRequestOnRow = function (method, params, route) {
+            // 表格行操作-ajax请求
+            var ajaxRequestOnRow = function (method, params, route) {
                 Swal.fire({
                     title: '确定要执行该操作么？',
                     text: '',
@@ -229,7 +189,7 @@
                                 toastr.success(data.msg, "通知");
                                 // reload list
                                 $timeout(function () {
-                                    $scope.getList();
+                                    ymGetTableList();
                                 }, 150);
                             } else if (data.code === 500) {
                                 toastr.warning(data.msg, "通知");
@@ -252,12 +212,40 @@
                     }
                 });
             };
+            // 表格行操作-入口
+            $scope.ymTableRowActions = function (item, config) {
+                config = config || {};
+                var type = config.type;
+                var options = config.options;
+                var method = options.method || 'get';
+                var params = options.params || [];
+                var route = options.route;
+                var title = options.title || '默认标题';
+                var width = options.width || '800px';
+                var height = options.height || '520px';
 
-            // ------ 列表 end
+                // 解析参数
+                params = resolveActionParams(item, params);
+                params["_"] = YmApp.getTime();
+                switch (type) {
+                    case "page":
+                        openPageOnRow(title, params, route);
+                        break;
+                    case "modal":
+                        openModalOnRow(title, params, route, width, height);
+                        break;
+                    case "ajax":
+                        ajaxRequestOnRow(method, params, route);
+                        break;
+                    default:
+                        toastr.warning("行类型" + type + "暂不支持", "通知");
+                }
+            };
+            // ------ 列表 end ------
 
-            // ------ 工具栏 start
-            // 筛选
-            $scope.filterMethod = function () {
+            // ------ 工具栏 start ------
+            // 表格筛选
+            $scope.ymTableFilterMethod = function () {
                 layer.open({
                     type: 1,
                     shade: 0.3,
@@ -284,7 +272,7 @@
 
                         // 提交筛选
                         $scope.$apply(function () {
-                            $scope.getList(1, null, param);
+                            ymGetTableList(1, null, param);
                         });
                         layer.close(index);
                     },
@@ -310,9 +298,8 @@
                     content: jQuery("#YmTableFilterForm"),
                 });
             };
-
-            // 导出
-            $scope.exportMethod = function () {
+            // 表格列表导出
+            $scope.ymTableExportMethod = function () {
                 var query = jQuery.extend({}, queryParams || {});
                 query['__export'] = 1;
                 var u = link + '?' + jQuery.param(query);
@@ -362,17 +349,15 @@
                 });
 
             };
-
             // 标记已导出
-            $scope.flagExport = function (e) {
+            $scope.ymTableFlagExport = function (e) {
                 var elem = e.currentTarget;
                 $timeout(function () {
                     jQuery(elem).text("重新导出");
                 });
             };
-
-            // 自定义 - 解析参数
-            $scope.resolveRequestParams = function (data, params) {
+            // 自定义操作项-解析参数
+            var resolveRequestParams = function (data, params) {
                 var to = {};
                 for (var i in params) {
                     if (i % 1 === 0) {
@@ -391,48 +376,8 @@
 
                 return to;
             };
-
-            // 自定义 - 方法入口
-            $scope.customMethod = function (options) {
-                var data = YmApp.getTableCheckedData() || [];
-                options = options || {};
-
-                var type = options.option;
-                var method = options.method || 'get';
-                var params = options.params || [];
-                var route = options.route;
-                var title = options.title || '默认标题';
-                var width = options.width || '800px';
-                var height = options.height || '520px';
-
-                var plen = YmApp.typeOf(params) === 'object' ? YmApp.keys(params).length : params.length;
-                if (plen && !data.length) {
-                    layer.alert("请选择数据列", {
-                        title: "提示",
-                    });
-                    return true;
-                }
-
-                // 解析参数
-                params = $scope.resolveRequestParams(data, params);
-                params["_"] = YmApp.getTime();
-                switch (type) {
-                    case "page":
-                        $scope.openPageOnToolbar(title, params, route);
-                        break;
-                    case "modal":
-                        $scope.openModalOnToolbar(title, params, route, width, height);
-                        break;
-                    case "ajax":
-                        $scope.ajaxRequestOnToolbar(method, params, route);
-                        break;
-                    default:
-                        toastr.warning("工具栏操作类型" + type + "暂不支持", "通知");
-                }
-            };
-
-            // 自定义 - 打开模态框
-            $scope.openModalOnToolbar = function (title, params, route, width, height) {
+            // 自定义操作项-打开模态框
+            var openModalOnToolbar = function (title, params, route, width, height) {
                 var closeBtn = 2;
                 if (width === '100%') {
                     closeBtn = 1;
@@ -451,16 +396,14 @@
                     content: u,
                 });
             };
-
-            // 自定义 - 打开页面
-            $scope.openPageOnToolbar = function (title, params, route) {
+            // 自定义操作项-打开页面
+            var openPageOnToolbar = function (title, params, route) {
                 params['pageTitle'] = title;
                 var u = YmApp.keys(params).length ? (route + '?' + jQuery.param(params)) : route;
                 window.location.href = u;
             };
-
-            // 自定义 - ajax
-            $scope.ajaxRequestOnToolbar = function (method, params, route) {
+            // 自定义操作项-ajax请求
+            var ajaxRequestOnToolbar = function (method, params, route) {
                 Swal.fire({
                     title: '确定要执行该操作么？',
                     text: '',
@@ -488,7 +431,7 @@
                                 toastr.success(data.msg, "通知");
                                 // reload list
                                 $timeout(function () {
-                                    $scope.getList();
+                                    ymGetTableList();
                                 }, 150);
                             } else if (data.code === 500) {
                                 toastr.warning(data.msg, "通知");
@@ -511,7 +454,52 @@
                     }
                 });
             };
-            // ------ 工具栏 end
+            // 自定义操作项-入口
+            $scope.ymTableCustomMethod = function (options) {
+                var data = YmApp.getTableCheckedData() || [];
+                options = options || {};
+
+                var type = options.option;
+                var method = options.method || 'get';
+                var params = options.params || [];
+                var route = options.route;
+                var title = options.title || '默认标题';
+                var width = options.width || '800px';
+                var height = options.height || '520px';
+
+                var plen = YmApp.typeOf(params) === 'object' ? YmApp.keys(params).length : params.length;
+                if (plen && !data.length) {
+                    layer.alert("请选择数据列", {
+                        title: "提示",
+                    });
+                    return true;
+                }
+
+                // 解析参数
+                params = resolveRequestParams(data, params);
+                params["_"] = YmApp.getTime();
+                switch (type) {
+                    case "page":
+                        openPageOnToolbar(title, params, route);
+                        break;
+                    case "modal":
+                        openModalOnToolbar(title, params, route, width, height);
+                        break;
+                    case "ajax":
+                        ajaxRequestOnToolbar(method, params, route);
+                        break;
+                    default:
+                        toastr.warning("工具栏操作类型" + type + "暂不支持", "通知");
+                }
+            };
+            // ------ 工具栏 end ------
+
+            // 初始化表格
+            ymInitTable();
+
+            <?php foreach ($innerScript as $js): ?>
+            <?= $js ?>
+            <?php endforeach; ?>
 
         }]);
     }(window, window.angular);

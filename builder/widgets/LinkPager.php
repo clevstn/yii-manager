@@ -77,14 +77,14 @@ class LinkPager extends \yii\widgets\LinkPager
                     $currentPage,
                     [
                         'min' => 1,
-                        'ng-model' => 'currentPage',
-                        'ng-init' => 'currentPage=' . $currentPage,
+                        'ng-model' => 'ymTableCurrentPage',
+                        'ng-init' => 'ymTableCurrentPage=' . $currentPage,
                     ]
                 ),
                 ['class' => 'page-dump-control']
             ) . "\n<span>页</span>\n" . Html::a('确定', '#', [
                 'class' => 'btn btn-sm btn-default',
-                'ng-click' => 'dumpSpecialPage(' . $this->pagination->limit . ')',
+                'ng-click' => 'ymTableDumpSpecialPage(' . $this->pagination->limit . ')',
             ])
         );
 
@@ -94,7 +94,7 @@ class LinkPager extends \yii\widgets\LinkPager
             Html::tag(
                 'span',
                 Html::tag('select', Html::renderSelectOptions($this->pagination->limit, $this->pageRowsMap), [
-                    'id' => 'pageSelect',
+                    'id' => 'YmTablePageSelect',
                 ]),
                 ['class' => 'page-select-control']
             )
@@ -132,7 +132,7 @@ class LinkPager extends \yii\widgets\LinkPager
         }
 
         $linkOptions = $this->linkOptions;
-        $linkOptions['ng-click'] = 'getPage(' . ($page + 1) . ', ' . $this->pagination->limit . ')';
+        $linkOptions['ng-click'] = 'ymTableDumpPage(' . ($page + 1) . ', ' . $this->pagination->limit . ')';
 
         return Html::tag($linkWrapTag, Html::a($label, '#', $linkOptions), $options);
     }

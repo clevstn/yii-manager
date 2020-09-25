@@ -35,7 +35,7 @@ use app\builder\table\ToolbarFilterOptions;
                     <div class="btn-group btn-group-sm pull-left">
                         <!--自定义-->
                         <?php foreach ($toolbars['left'] as $item): ?>
-                            <a href="#" type="button" class="btn btn-default" ng-click="customMethod(<?= html_escape(Json::encode($item)) ?>)">
+                            <a href="#" type="button" class="btn btn-default" ng-click="ymTableCustomMethod(<?= html_escape(Json::encode($item)) ?>)">
                                 <i class="<?= !empty($item['icon']) ? $item['icon'] : '' ?>" aria-hidden="true"></i>
                                 <span><?= !empty($item['title']) ? $item['title'] : '' ?></span>
                             </a>
@@ -57,19 +57,19 @@ use app\builder\table\ToolbarFilterOptions;
                                 </a>
                                 <?php break; case 'filter': // filter ?>
                                 <!--筛选-->
-                                <a href="#" type="button" class="btn btn-default" ng-click="filterMethod()">
+                                <a href="#" type="button" class="btn btn-default" ng-click="ymTableFilterMethod()">
                                     <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-filter' ?>" aria-hidden="true"></i>
                                     <span><?= !empty($item['title']) ? $item['title'] : '' // 筛选 ?></span>
                                 </a>
                                 <?php break; case 'export': // export ?>
                                 <!--导出-->
-                                <a href="#" type="button" class="btn btn-default" ng-click="exportMethod()">
+                                <a href="#" type="button" class="btn btn-default" ng-click="ymTableExportMethod()">
                                     <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-export' ?>" aria-hidden="true"></i>
                                     <span><?= !empty($item['title']) ? $item['title'] : '' // 导出 ?></span>
                                 </a>
                                 <?php break; default: // custom ?>
                                 <!--自定义-->
-                                <a href="#" type="button" class="btn btn-default" ng-click="customMethod(<?= html_escape(Json::encode($item)) ?>)">
+                                <a href="#" type="button" class="btn btn-default" ng-click="ymTableCustomMethod(<?= html_escape(Json::encode($item)) ?>)">
                                     <i class="<?= !empty($item['icon']) ? $item['icon'] : '' ?>" aria-hidden="true"></i>
                                     <span><?= !empty($item['title']) ? $item['title'] : '' ?></span>
                                 </a>
@@ -140,7 +140,7 @@ use app\builder\table\ToolbarFilterOptions;
                                         <li role="separator" class="divider"></li>
                                         <?php break; default: ?>
                                         <li>
-                                            <a href="#" ng-click="rowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
+                                            <a href="#" ng-click="ymTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
                                                 <i class="actions-icon <?= $actionItem['options']['icon'] ?>"></i>
                                                 <?= html_escape($actionItem['options']['title']) ?>
                                             </a>
@@ -244,7 +244,7 @@ use app\builder\table\ToolbarFilterOptions;
                         <p class="col-sm-4 f-14 m-0 text-center">
                             <span>共</span><span ng-bind="value.rows"></span><span>条</span>
                         </p>
-                        <a class="col-sm-4 f-14 text-right" ng-href="{{value.url}}" ng-click="flagExport($event)">
+                        <a class="col-sm-4 f-14 text-right" ng-href="{{value.url}}" ng-click="ymTableFlagExport($event)">
                             <i class="glyphicon glyphicon-export"></i>
                             <span>导出</span>
                         </a>
