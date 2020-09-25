@@ -1012,6 +1012,15 @@ class Builder extends BaseObject implements BuilderInterface
             }
         }
 
+        // 注册AssetBundle
+        if (!empty($this->_assetBundle)) {
+            foreach ($this->_assetBundle as $assetBundle) {
+                if (class_exists($assetBundle)) {
+                    $this->_view->registerAssetBundle($assetBundle);
+                }
+            }
+        }
+
         return $context->render($this->_viewPath, [
             'columns'           => $this->columns,
             'hideCheckbox'      => $this->hideCheckbox,
