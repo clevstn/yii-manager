@@ -2,8 +2,10 @@
 /* @var $this \yii\web\View     当前视图实例 */
 
 use app\builder\assets\WangEditorAsset;
+use app\builder\assets\NgUpload;
 
 WangEditorAsset::register($this);
+NgUpload::register($this);
 ?>
 
 <div class="panel panel-default" ng-controller="formCtrl">
@@ -14,7 +16,7 @@ WangEditorAsset::register($this);
             <?= $this->title ?>
         </span>
             <div class="pull-right">
-                <a class="form-header-btn" type="button" href="#" ng-click="goBack()">
+                <a class="form-header-btn" type="button" href="#" ng-click="ymFormGoBack()">
                     <i class="glyphicon glyphicon-arrow-left"></i>
                     <span>返回</span>
                 </a>
@@ -25,6 +27,7 @@ WangEditorAsset::register($this);
     <!--表单内容-->
     <div class="panel-body border-bottom">
         <form class="row">
+
             <div class="form-group col-md-6">
                 <div class="input-group">
                     <div class="input-group-addon">
@@ -33,6 +36,7 @@ WangEditorAsset::register($this);
                     <input type="email" class="form-control" id="exampleInputEmail1" placeholder="请输入邮箱">
                 </div>
             </div>
+
             <div class="form-group col-md-6">
                 <div class="input-group">
                     <div class="input-group-addon">
@@ -41,14 +45,18 @@ WangEditorAsset::register($this);
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="请输入密码">
                 </div>
             </div>
+
             <div class="form-group col-md-6">
                 <div class="input-group">
                     <div class="input-group-addon text-left">
                         <span class="addon-fix text-center">文件上传</span>
                     </div>
-                    <input type="file" class="form-control" id="exampleInputFile">
+                    <div class="form-control" ngf-select="YmFormUploadImage($file)" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB">
+                        Select
+                    </div>
                 </div>
             </div>
+
             <div class="form-group col-md-6">
                 <div class="input-group">
                     <div class="input-group-addon">
@@ -57,6 +65,7 @@ WangEditorAsset::register($this);
                     <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="请输入文本"></textarea>
                 </div>
             </div>
+
             <div class="form-group col-md-6">
                 <div class="input-group">
                     <div class="input-group-addon">
@@ -74,6 +83,7 @@ WangEditorAsset::register($this);
                     </div>
                 </div>
             </div>
+
             <div class="form-group col-md-6">
                 <div class="input-group">
                     <div class="input-group-addon">
@@ -91,6 +101,7 @@ WangEditorAsset::register($this);
                     </div>
                 </div>
             </div>
+
             <div class="form-group col-md-6">
                 <div class="input-group">
                     <div class="input-group-addon">
@@ -99,6 +110,7 @@ WangEditorAsset::register($this);
                     <div class="YmWangEditor"></div>
                 </div>
             </div>
+
             <div class="form-group col-md-6">
                 <div class="input-group">
                     <div class="input-group-addon">
@@ -110,9 +122,10 @@ WangEditorAsset::register($this);
 
             <div class="form-group col-md-6">
                 <div class="addon-fix"></div>
-                <button type="button" class="btn btn-sm btn-default" ng-click="resetForm()">重置</button>
-                <button type="button" class="btn btn-sm btn-primary" ng-click="submitForm()">立即提交</button>
+                <button type="button" class="btn btn-sm btn-default" ng-click="ymFormResetForm()">重置</button>
+                <button type="button" class="btn btn-sm btn-primary" ng-click="ymFormSubmitForm()">立即提交</button>
             </div>
+
         </form>
     </div>
 </div>

@@ -10,18 +10,10 @@
      */
     !function (window, angular) {
         "use strict";
-        var _easyApp = angular.module("EasyApp", ["YmAppModule"]);
+        var _easyApp = angular.module("EasyApp", ["YmAppModule", "ngFileUpload"]);
         _easyApp.controller('formCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "wangEditor", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, wangEditor) {
-            // 初始化[定义]
-            $scope.initForm = function () {
-                // 挂载WangEditor
-                $scope.mountedWangEditor();
-
-                //
-            };
-
             // 挂载WangEditor
-            $scope.mountedWangEditor = function () {
+            var mountedWangEditor = function () {
                 if (typeof wangEditor !== "undefined") {
                     jQuery(function () {
                         jQuery(".YmWangEditor").each(function () {
@@ -31,9 +23,15 @@
                     });
                 }
             };
+            // 初始化表单
+            var ymInitForm = function () {
+                // 挂载WangEditor
+                mountedWangEditor();
 
+                //
+            };
             // 返回上一页
-            $scope.goBack = function () {
+            $scope.ymFormGoBack = function () {
                 var referrer = window.document.referrer;
                 if (window.self !== window.top) {
                     // 在iframe中
@@ -46,19 +44,21 @@
                     window.self.history.go(-1);
                 }
             };
-
+            // 上传图片
+            $scope.YmFormUploadImage = function (file) {
+                console.log(file)
+            };
             // 重置表单
-            $scope.resetForm = function () {
+            $scope.ymFormResetForm = function () {
 
             };
-
             // 提交表单
-            $scope.submitForm = function () {
+            $scope.ymFormSubmitForm = function () {
 
             };
 
             // 初始化表单[调用]
-            $scope.initForm();
+            ymInitForm();
 
         }]);
     }(window, window.angular);
