@@ -48,6 +48,7 @@ class Builder extends BaseObject implements BuilderInterface
      * @see $partial
      */
     private $_partial = false;
+
     /**
      * 局部视图路径
      * @var string
@@ -133,14 +134,13 @@ class Builder extends BaseObject implements BuilderInterface
     public function render(Controller $context)
     {
         $oldLayout = $context->layout;
-
         if ($this->partial === true) {
             $context->layout = $this->layoutPartial;
         }
 
         $viewBody = $this->renderHtml($context);
-
         $context->layout = $oldLayout;
+        
         return $viewBody;
     }
 
