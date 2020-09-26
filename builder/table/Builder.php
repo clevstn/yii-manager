@@ -313,6 +313,13 @@ class Builder extends BaseObject implements BuilderInterface
     public $layoutPartial = '@builder/layouts/partial.php';
 
     /**
+     * Yii-manager layouts.
+     *
+     * @var string
+     */
+    public $layoutPath = '@builder/layouts/layout.php';
+
+    /**
      * 模板路径
      * @var string
      * @since 1.0
@@ -876,7 +883,11 @@ class Builder extends BaseObject implements BuilderInterface
                 // render list
                 $oldLayout = $context->layout;
                 if ($this->partial === true) {
+                    // 独立布局
                     $context->layout = $this->layoutPartial;
+                } else {
+                    // 默认布局
+                    $context->layout = $this->layoutPath;
                 }
 
                 $viewBody = $this->renderHtml($context);
