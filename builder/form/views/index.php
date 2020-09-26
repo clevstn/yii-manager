@@ -51,20 +51,35 @@ NgUpload::register($this);
                     <div class="input-group-addon text-left">
                         <span class="addon-fix text-center">文件上传</span>
                     </div>
-                    <div class="form-control" ngf-select="YmFormUploadImage($file)" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB">
-                        Select
+                    <div class="form-upload-group">
+                        <div class="inline-block">
+                            <div class="form-upload-control" ngf-select="ymFormUploadImage($file, 'file1')">
+                                <div class="form-upload-item">
+                                    <i ng-hide="file1" class="fa fa-file-image-o f-32 text-dark"></i>
+                                    <img ng-show="file1" class="form-upload-img" ng-src="{{file1}}" alt>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline-block">
+                            <div class="form-upload-control" ngf-select="ymFormUploadImage($file, 'file2')">
+                                <div class="form-upload-item">
+                                    <i ng-hide="file2" class="fa fa-file-image-o f-32 text-dark"></i>
+                                    <img ng-show="file2" class="form-upload-img" ng-src="{{file2}}" alt>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!--<div class="form-group col-md-12">
+            <div class="form-group col-md-12">
                 <div class="input-group">
                     <div class="input-group-addon">
                         <span class="addon-fix">文本域</span>
                     </div>
                     <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="请输入文本"></textarea>
                 </div>
-            </div>-->
+            </div>
 
             <div class="form-group col-md-12">
                 <div class="input-group">

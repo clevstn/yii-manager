@@ -11,7 +11,7 @@
     !function (window, angular) {
         "use strict";
         var _easyApp = angular.module("EasyApp", ["YmAppModule", "ngFileUpload"]);
-        _easyApp.controller('formCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "wangEditor", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, wangEditor) {
+        _easyApp.controller('formCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "wangEditor", "Upload", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, wangEditor, Upload) {
             // 挂载WangEditor
             var mountedWangEditor = function () {
                 if (typeof wangEditor !== "undefined") {
@@ -45,8 +45,10 @@
                 }
             };
             // 上传图片
-            $scope.YmFormUploadImage = function (file) {
-                console.log(file)
+            $scope.ymFormUploadImage = function (files, src) {
+                Upload.base64DataUrl(files).then(function(urls){
+                    $scope[src] = urls;
+                });
             };
             // 重置表单
             $scope.ymFormResetForm = function () {
