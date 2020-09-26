@@ -284,8 +284,18 @@ if (!function_exists('table_toolbar_custom_helper')) {
      * - left 工具栏内左边
      * - right 工具栏内右边
      * @param array $options
-     * - title 按钮标题
-     * - icon  按钮图标
+     * - title string 按钮标题
+     * - icon string  按钮图标
+     * - option string 选项
+     *      - page  页面
+     *      - modal 模态框
+     *      - ajax  XMLHttpRequest
+     * - route string 路由
+     * - params array 参数
+     * - method string 访问动作, ajax有效 只支持`get`、`post`
+     * - width string 当前type为modal时有效，指定modal的宽，默认800px
+     * - height string 当前type为modal时有效，指定modal的高，默认520px
+     *
      * @return array
      * @throws ReflectionException
      * @author cleverstone <yang_hui_lei@163.com>

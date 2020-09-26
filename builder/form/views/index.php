@@ -28,7 +28,7 @@ NgUpload::register($this);
     <div class="panel-body border-bottom">
         <form class="row">
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
                 <div class="input-group">
                     <div class="input-group-addon">
                         <span class="addon-fix">邮箱</span>
@@ -37,7 +37,7 @@ NgUpload::register($this);
                 </div>
             </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
                 <div class="input-group">
                     <div class="input-group-addon">
                         <span class="addon-fix">密码</span>
@@ -46,7 +46,7 @@ NgUpload::register($this);
                 </div>
             </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
                 <div class="input-group">
                     <div class="input-group-addon text-left">
                         <span class="addon-fix text-center">文件上传</span>
@@ -57,16 +57,16 @@ NgUpload::register($this);
                 </div>
             </div>
 
-            <div class="form-group col-md-6">
+            <!--<div class="form-group col-md-12">
                 <div class="input-group">
                     <div class="input-group-addon">
                         <span class="addon-fix">文本域</span>
                     </div>
                     <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="请输入文本"></textarea>
                 </div>
-            </div>
+            </div>-->
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
                 <div class="input-group">
                     <div class="input-group-addon">
                         <span class="addon-fix">单选选择控件</span>
@@ -84,7 +84,7 @@ NgUpload::register($this);
                 </div>
             </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
                 <div class="input-group">
                     <div class="input-group-addon">
                         <span class="addon-fix">多选选择控件</span>
@@ -102,7 +102,7 @@ NgUpload::register($this);
                 </div>
             </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
                 <div class="input-group">
                     <div class="input-group-addon">
                         <span class="addon-fix">富文本1</span>
@@ -111,16 +111,7 @@ NgUpload::register($this);
                 </div>
             </div>
 
-            <div class="form-group col-md-6">
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <span class="addon-fix">富文本2</span>
-                    </div>
-                    <div class="YmWangEditor"></div>
-                </div>
-            </div>
-
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
                 <div class="addon-fix"></div>
                 <button type="button" class="btn btn-sm btn-default" ng-click="ymFormResetForm()">重置</button>
                 <button type="button" class="btn btn-sm btn-primary" ng-click="ymFormSubmitForm()">立即提交</button>

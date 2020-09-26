@@ -62,7 +62,7 @@ class ToolbarCustomOptions extends BaseObject
 
     /**
      * 参数
-     * @var string
+     * @var array
      * @since 1.0
      */
     public $params = [];

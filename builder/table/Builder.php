@@ -403,6 +403,8 @@ class Builder extends BaseObject implements BuilderInterface
                         ],
                         'callback' => null,
                     ];
+
+                    continue;
                 }
 
                 throw new NotSupportedException('The columns item is not supported. ');
@@ -665,7 +667,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置组件
-     * @param string|Widget $widget
+     * @param string|array|Widget $widget
      * @param int $pos
      * - TABLE_TOOL_TOP
      * - TABLE_TOOL_BOTTOM
@@ -758,7 +760,7 @@ class Builder extends BaseObject implements BuilderInterface
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function setToolbarRefresh(array $options)
+    public function setToolbarRefresh(array $options = [])
     {
         $options['type'] = 'refresh';
         $this->_toolbars['right'][] = $options;
