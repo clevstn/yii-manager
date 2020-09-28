@@ -14,7 +14,6 @@ use yii\base\NotSupportedException;
 
 /**
  * 视图构建器
- *
  * @method \app\builder\table\Builder table(array $config = []) static 表格构建器方法
  * @method \app\builder\form\Builder form(array $config = []) static 表单构建器方法
  * @author cleverstone <yang_hui_lei@163.com>
@@ -36,8 +35,8 @@ class ViewBuilder extends Component
      * @since 1.0
      */
     public static $builderMap = [
-        'table' => \app\builder\table\Builder::class,   // table
-        'form' => \app\builder\form\Builder::class,     // form
+        'table'     => \app\builder\table\Builder::class,    // table
+        'form'      => \app\builder\form\Builder::class,     // form
     ];
 
     /**
