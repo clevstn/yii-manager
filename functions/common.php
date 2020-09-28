@@ -362,7 +362,7 @@ if (!function_exists('preg_script')) {
      */
     function preg_script($scriptTag)
     {
-        if (preg_match('~<script>([\s\S]*)</script>~i', trim($scriptTag), $matches)) {
+        if (preg_match('~<script[^>]*>(.*)</script>~si', trim($scriptTag), $matches)) {
             return $matches[1];
         }
 
