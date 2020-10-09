@@ -17,8 +17,9 @@ use app\builder\contract\BuilderInterface;
 
 /**
  * 表单构建器
- * @property string $title
- * @property boolean $partial
+ * @property string $title      表单标题
+ * @property boolean $partial   是否独立布局
+ * @property array $fields      表单字段
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -32,6 +33,12 @@ class Builder extends BaseObject implements BuilderInterface
      * @see setTitle()
      */
     private $_title = '';
+
+    /**
+     * 表单字段
+     * @var array
+     */
+    private $_fields = [];
 
     /**
      * 视图组件实例
@@ -131,6 +138,30 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
+     * 设置表单字段
+     * @param array $options
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setFields(array $options)
+    {
+        $this->_fields = $options;
+        return $this;
+    }
+
+    /**
+     * 获取表单字段
+     * @return array
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function getFields()
+    {
+        return $this->_fields;
+    }
+
+    /**
      * 渲染入口
      * @param Controller $context
      * @return string
@@ -170,7 +201,9 @@ class Builder extends BaseObject implements BuilderInterface
         // Register the table widget script js
         $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
 
-        return $context->render($this->_viewPath, []);
+        return $context->render($this->_viewPath, [
+            '_fields' => $this->fields,             // 表单字段
+        ]);
     }
 
     /**

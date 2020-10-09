@@ -8,6 +8,7 @@
 // +----------------------------------------------------------------------
 namespace app\builder\form;
 
+use yii\helpers\Html;
 use app\builder\common\BaseOptions;
 
 /**
@@ -57,12 +58,60 @@ class FieldsOptions extends BaseOptions
     public $control = self::CONTROL_TEXT;
 
     /**
+     * 标签名
+     * @var string
+     */
+    public $label = '';
+
+    /**
+     * 提示语
+     * @var string
+     */
+    public $placeholder = '';
+
+    /**
+     * 默认值
+     * @var string
+     */
+    public $default = '';
+
+    /**
+     * 选项，用于`radio`、`checkbox`、`select`控件
+     * @var array
+     */
+    public $options;
+
+    /**
+     * bootstrap布局，默认`12`
+     * @var string
+     */
+    public $layouts = '12';
+
+    /**
+     * 控件样式
+     * @var string|array
+     */
+    public $style = '';
+
+    /**
+     * 控件属性
+     * @var string|array
+     */
+    public $attribute = '';
+
+    /**
      * 初始化
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
     public function init()
     {
+        if (!empty($this->style) && is_array($this->style)) {
+            $this->style = Html::cssStyleFromArray($this->style) ?: '';
+        }
 
+        if (!empty($this->attribute) && is_array($this->attribute)) {
+            $this->attribute = Html::renderTagAttributes($this->attribute);
+        }
     }
 }

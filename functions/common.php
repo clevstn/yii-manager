@@ -314,15 +314,33 @@ if (!function_exists('table_toolbar_custom_helper')) {
     {
         $options['pos'] = $pos;
         $toolbarCustomOptions = new \app\builder\table\ToolbarCustomOptions($options);
+
         return $toolbarCustomOptions->toArray();
     }
 }
 
 if (!function_exists('form_fields_helper')) {
-
-    function form_fields_helper($control)
+    /**
+     * 快捷注册表单字段项
+     * @param string $control 控件类型
+     * @see \app\builder\form\FieldsOptions
+     * @param array $options
+     * - label 标签名
+     * - placeholder 提示语
+     * - default 默认值
+     * - options 选项，用于`radio`、`checkbox`、`select`控件
+     * - layouts bootstrap布局，默认`12`
+     * - style 控件样式
+     * - attribute 控件属性
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    function form_fields_helper($control, array $options)
     {
+        $options['control'] = $control;
+        $fieldsOptions = new \app\builder\form\FieldsOptions($options);
 
+        return $fieldsOptions->toArray();
     }
 }
 

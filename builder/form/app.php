@@ -29,7 +29,6 @@
                 // 挂载WangEditor
                 mountedWangEditor();
 
-                //
             };
             // 返回上一页
             $scope.ymFormGoBack = function () {
