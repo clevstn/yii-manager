@@ -265,6 +265,15 @@ if (!function_exists('table_toolbar_filter_helper')) {
     /**
      * 快捷设置表格工具栏筛选项
      * @param array $options
+     * - control 控件类型 `text`、`select`、`number`、`datetime`、`date`、`year`、`month`、`time`、`custom`
+     * - label   标签名
+     * - range   是否是区间, 用于日期控件
+     * - placeholder 提示
+     * - default 默认值(项)
+     * - style 样式，值可以是数组也可以是字符串
+     * - attribute 属性，值可以是数组也可以是字符串
+     * - options 选项，用于select控件
+     * - widget 自定义组件，值必须是\app\builder\table\CustomControl的实现
      * @return array
      * @throws ReflectionException
      * @author cleverstone <yang_hui_lei@163.com>
@@ -306,6 +315,14 @@ if (!function_exists('table_toolbar_custom_helper')) {
         $options['pos'] = $pos;
         $toolbarCustomOptions = new \app\builder\table\ToolbarCustomOptions($options);
         return $toolbarCustomOptions->toArray();
+    }
+}
+
+if (!function_exists('form_fields_helper')) {
+
+    function form_fields_helper($control)
+    {
+
     }
 }
 

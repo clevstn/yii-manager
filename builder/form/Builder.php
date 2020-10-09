@@ -182,12 +182,14 @@ class Builder extends BaseObject implements BuilderInterface
      */
     protected function resolveJsScript()
     {
-        $scriptTag = $this->_view->renderPhpFile(__DIR__ . '/app.php', []);
+        $scriptTag = $this->_view->renderPhpFile(__DIR__ . '/app.php', [
+
+        ]);
         return preg_script($scriptTag);
     }
 
     /**
-     * 注册视图组件实例
+     * 注册视图组件实例到当前构建器
      * @return \app\builder\form\Builder
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0

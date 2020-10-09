@@ -11,17 +11,17 @@ namespace app\builder\table;
 
 use Yii;
 use yii\helpers\Url;
-use yii\base\BaseObject;
+use app\builder\common\BaseOptions;
 
 /**
  * 表格行操作项选项
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class RowActionOptions extends BaseObject
+class RowActionOptions extends BaseOptions
 {
     /**
-     * 按钮标题和page、modal标题
+     * 按钮标题和`page`、`modal`标题
      * @var string
      * @since 1.0
      */
@@ -83,26 +83,5 @@ class RowActionOptions extends BaseObject
         }
 
         $this->method = strtolower($this->method);
-    }
-
-    /**
-     * 输出数组
-     * @return array
-     * @throws \ReflectionException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
-     */
-    public function toArray()
-    {
-        $class = new \ReflectionClass($this);
-
-        $attributes = [];
-        foreach ($class->getProperties(\ReflectionProperty::IS_PUBLIC) as $property) {
-            if (!$property->isStatic()) {
-                $attributes[$property->getName()] = $property->getValue($this);
-            }
-        }
-
-        return $attributes;
     }
 }

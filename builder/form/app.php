@@ -1,4 +1,5 @@
 <?php
+/* @var \yii\web\View $this 当前视图组件实例 */
 
 // 注意这里必须是<script>...</script>的形式
 ?>
