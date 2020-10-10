@@ -9,6 +9,8 @@
 
 namespace app\builder\assets;
 
+use yii\web\JqueryAsset;
+
 /**
  * Angular
  * @author cleverstone <yang_hui_lei@163.com>
@@ -22,5 +24,13 @@ class AngularAsset extends BaseAsset
      */
     public $js = [
         'libs/angular-1.7.5/angular.min.js',
+    ];
+
+    /**
+     * @var array 依赖
+     * @since 1.0
+     */
+    public $depends = [
+        JqueryAsset::class,
     ];
 }

@@ -94,6 +94,12 @@ class FieldsOptions extends BaseOptions
     public $rows = '5';
 
     /**
+     * 文件数量，用于文件上传
+     * @var int
+     */
+    public $number = 1;
+
+    /**
      * bootstrap布局，默认`12`
      * @var string
      */

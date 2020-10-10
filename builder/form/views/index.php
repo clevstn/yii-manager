@@ -99,7 +99,7 @@ NgUpload::register($this);
                     <div class="input-group-addon">
                         <span class="addon-fix"><?= $options['label'] ?></span>
                     </div>
-                    <input type="text" data-type="<?= FieldsOptions::CONTROL_DATETIME ?>" data-range="<?= $options['range'] ?>" class="ymFormDates" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>" readonly>
+                    <input id="ymFormDate_<?= $field ?>" class="ymFormDates form-control" type="text" data-type="<?= $options['control'] ?>" data-range="<?= $options['range'] ?>" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> placeholder="<?= $options['placeholder'] ?>" readonly>
                 </div>
             </div>
             <?php break;case FieldsOptions::CONTROL_SELECT: // 下拉选择 ?>
@@ -137,28 +137,22 @@ NgUpload::register($this);
                 </div>
             </div>
             <?php break;case FieldsOptions::CONTROL_FILE: // 文件 ?>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon text-left">
-                        <span class="addon-fix text-center">文件上传</span>
+                        <span class="addon-fix text-center"><?= $options['label'] ?></span>
                     </div>
                     <div class="form-upload-group">
+                        <?php for ($i = 0; $i < $options['number']; $i++): ?>
                         <div class="inline-block">
-                            <div class="form-upload-control" ngf-select="ymFormUploadImage($file, 'file1')">
+                            <div class="form-upload-control" ngf-select="ymFormUploadImage($file, 'ymFormFileLink<?= $field . $i ?>')">
                                 <div class="form-upload-item">
-                                    <i ng-hide="file1" class="fa fa-file-image-o f-32 text-dark"></i>
-                                    <img ng-show="file1" class="form-upload-img" ng-src="{{file1}}" alt>
+                                    <i ng-hide="ymFormFileLink<?= $field . $i ?>" class="fa fa-file-image-o f-32 text-dark"></i>
+                                    <img ng-show="ymFormFileLink<?= $field . $i ?>" class="form-upload-img" ng-src="{{ymFormFileLink<?= $field . $i ?>}}" alt>
                                 </div>
                             </div>
                         </div>
-                        <div class="inline-block">
-                            <div class="form-upload-control" ngf-select="ymFormUploadImage($file, 'file2')">
-                                <div class="form-upload-item">
-                                    <i ng-hide="file2" class="fa fa-file-image-o f-32 text-dark"></i>
-                                    <img ng-show="file2" class="form-upload-img" ng-src="{{file2}}" alt>
-                                </div>
-                            </div>
-                        </div>
+                        <?php endfor; ?>
                     </div>
                 </div>
             </div>

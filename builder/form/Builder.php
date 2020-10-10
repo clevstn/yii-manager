@@ -216,7 +216,7 @@ class Builder extends BaseObject implements BuilderInterface
     protected function resolveJsScript()
     {
         $scriptTag = $this->_view->renderPhpFile(__DIR__ . '/app.php', [
-
+            '_fields' => $this->fields,              // 表单字段
         ]);
         return preg_script($scriptTag);
     }

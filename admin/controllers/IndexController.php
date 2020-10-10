@@ -137,8 +137,8 @@ class IndexController extends CommonController
                 'title' => '编辑',
                 'icon' => 'fa fa-pencil-square-o',
                 'route' => 'admin/index/edit',
-                'width' => '60%',
-                'height' => '80%',
+                'width' => '100%',
+                'height' => '100%',
             ]),
             table_action_helper('page', [
                 'title' => '新增',
@@ -201,10 +201,10 @@ class IndexController extends CommonController
                         '1' => '正常',
                     ],
                 ]),
-                'custom' => table_toolbar_filter_helper([
+                /*'custom' => table_toolbar_filter_helper([
                     'control' => 'custom',
                     'widget'  => new SelectConnection(),
-                ]),
+                ]),*/
             ],
         ];
         $tableBuilder->toolbarExport = [
@@ -234,8 +234,8 @@ class IndexController extends CommonController
                 'title'     => '新增',
                 'icon'      => 'glyphicon glyphicon-plus',
                 'option'    => 'modal',
-                'width'     => '60%',
-                'height'     => '80%',
+                'width'     => '100%',
+                'height'     => '100%',
                 'route'     => 'admin/index/edit',
             ]),
             table_toolbar_custom_helper('left', [
@@ -291,6 +291,38 @@ class IndexController extends CommonController
                     '意大利' => 4,
                     '德国' => 5,
                 ]
+            ]),
+            'sex' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
+                'label' => '性别',
+                'options' => [
+                    '男' => 0,
+                    '女' => 1,
+                    '未知' => 2,
+                ],
+            ]),
+            'status' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
+                'label' => '状态',
+                'placeholder' => '请选择状态',
+                'options' => [
+                    '禁用' => 0,
+                    '启用' => 2,
+                ],
+            ]),
+            'create_at' => form_fields_helper(FieldsOptions::CONTROL_TIME, [
+                'label' => '创建时间',
+                'placeholder' => '请选择创建时间',
+                'range' => 1,
+            ]),
+            'photo' => form_fields_helper(FieldsOptions::CONTROL_FILE, [
+                'label' => '头像上传',
+                'number' => 5,
+            ]),
+            'id' => form_fields_helper(FieldsOptions::CONTROL_HIDDEN, [
+                'default' => 1,
+            ]),
+            'notice' => form_fields_helper(FieldsOptions::CONTROL_RICHTEXT, [
+                'label' => '公告',
+                'default' => '请填写公告内容',
             ])
         ];
 
@@ -337,6 +369,33 @@ class IndexController extends CommonController
                     '意大利' => 4,
                     '德国' => 5,
                 ]
+            ]),
+            'sex' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
+                'label' => '性别',
+                'options' => [
+                    '男' => 0,
+                    '女' => 1,
+                    '未知' => 2,
+                ],
+            ]),
+            'status' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
+                'label' => '状态',
+                'placeholder' => '请选择状态',
+                'options' => [
+                    '禁用' => 0,
+                    '启用' => 2,
+                ],
+            ]),
+            'photo' => form_fields_helper(FieldsOptions::CONTROL_FILE, [
+                'label' => '头像上传',
+                'number' => 5,
+            ]),
+            'id' => form_fields_helper(FieldsOptions::CONTROL_HIDDEN, [
+                'default' => 1,
+            ]),
+            'notice' => form_fields_helper(FieldsOptions::CONTROL_RICHTEXT, [
+                'label' => '公告',
+                'default' => '请填写公告内容',
             ])
         ];
 

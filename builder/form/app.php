@@ -1,5 +1,6 @@
 <?php
 /* @var \yii\web\View $this 当前视图组件实例 */
+/* @var array $_fields          表单字段集合 */
 
 // 注意这里必须是<script>...</script>的形式
 ?>
@@ -24,10 +25,36 @@
                     });
                 }
             };
+            // 挂载日期插件
+            var mountedLaydate = function () {
+                jQuery(".ymFormDates").each(function () {
+                    var id = jQuery(this).attr('id');
+                    var range = jQuery(this).data('range');
+                    var tag = jQuery(this).data('type');
+                    var options = {
+                        elem: "#" + id,
+                        type: tag,
+                        calendar: true,
+                        done: function (value, date, endDate) {
+                            /* 触发input事件 */
+                            jQuery(this.elem).val(value).trigger("change");
+                        }
+                    };
+
+                    if (range == 1) {
+                        options.range = '/';
+                    }
+
+                    laydate.render(options);
+                });
+            };
             // 初始化表单
             var ymInitForm = function () {
                 // 挂载WangEditor
                 mountedWangEditor();
+                // 挂载Laydate
+                mountedLaydate();
+                // 初始化表单默认值
 
             };
             // 返回上一页
