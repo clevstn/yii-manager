@@ -328,7 +328,9 @@ if (!function_exists('form_fields_helper')) {
      * - label 标签名
      * - placeholder 提示语
      * - default 默认值
+     * - range 是否是区间，用于日期控件
      * - options 选项，用于`radio`、`checkbox`、`select`控件
+     * - rows 行数，用于文本域
      * - layouts bootstrap布局，默认`12`
      * - style 控件样式
      * - attribute 控件属性

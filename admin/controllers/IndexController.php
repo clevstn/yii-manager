@@ -266,9 +266,31 @@ class IndexController extends CommonController
                 'label' => '用户名',
                 'placeholder' => '请输入用户名',
             ]),
+            'number' => form_fields_helper(FieldsOptions::CONTROL_NUMBER, [
+                'label' => '编号',
+                'placeholder' => '请输入编号',
+                'attribute' => [
+                    'max' => 1000,
+                    'min' => 1,
+                ]
+            ]),
             'password' => form_fields_helper(FieldsOptions::CONTROL_PASSWORD, [
                 'label' => '密码',
                 'placeholder' => '请输入密码',
+            ]),
+            'mark' => form_fields_helper(FieldsOptions::CONTROL_TEXTAREA, [
+                'label' => '备注',
+                'placeholder' => '请填写备注，字数范围5-250',
+            ]),
+            'country' => form_fields_helper(FieldsOptions::CONTROL_CHECKBOX, [
+                'label' => '国家',
+                'options' => [
+                    '中国' => 1,
+                    '美国' => 2,
+                    '日本' => 3,
+                    '意大利' => 4,
+                    '德国' => 5,
+                ]
             ])
         ];
 

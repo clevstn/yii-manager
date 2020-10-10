@@ -58,67 +58,85 @@ NgUpload::register($this);
                 </div>
             </div>
             <?php break;case FieldsOptions::CONTROL_CHECKBOX: // 多选框 ?>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <span class="addon-fix">文本域</span>
+                        <span class="addon-fix"><?= $options['label'] ?></span>
                     </div>
-                    <textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="请输入文本"></textarea>
+                    <div class="form-control">
+                        <?php foreach ($options['options'] as $title => $value): ?>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="icheck-control" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> value="<?= $value ?>">
+                            <span class="label-helper"><?= $title ?></span>
+                        </label>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             </div>
             <?php break;case FieldsOptions::CONTROL_RADIO: // 单选 ?>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <span class="addon-fix">单选选择控件</span>
+                        <span class="addon-fix"><?= $options['label'] ?></span>
                     </div>
                     <div class="form-control">
+                        <?php foreach ($options['options'] as $title => $value): ?>
                         <label class="radio-inline">
-                            <input type="radio" class="icheck-control" name="sex" value="1">
-                            <span class="label-helper">男</span>
+                            <input type="radio" class="icheck-control" name="ymFormFields<?= $field ?>" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> value="<?= $value ?>">
+                            <span class="label-helper"><?= $title ?></span>
                         </label>
-                        <label class="radio-inline">
-                            <input type="radio" class="icheck-control" value="2" name="sex" checked>
-                            <span class="label-helper">女</span>
-                        </label>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
             <?php break;case FieldsOptions::CONTROL_DATETIME: // 日期，格式：Y-m-d H:i:s ?>
-            <div class="form-group col-md-12">
+            <?php case FieldsOptions::CONTROL_DATE: // 日期，格式：Y-m-d ?>
+            <?php case FieldsOptions::CONTROL_YEAR: // 年，格式：Y ?>
+            <?php case FieldsOptions::CONTROL_MONTH: // 月，格式：m ?>
+            <?php case FieldsOptions::CONTROL_TIME: // 时，格式：H:i:s ?>
+            <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <span class="addon-fix">多选选择控件</span>
+                        <span class="addon-fix"><?= $options['label'] ?></span>
                     </div>
-                    <div class="form-control">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" class="icheck-control" value="1">
-                            <span class="label-helper">中国</span>
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" class="icheck-control" value="2">
-                            <span class="label-helper">美国</span>
-                        </label>
-                    </div>
+                    <input type="text" data-type="<?= FieldsOptions::CONTROL_DATETIME ?>" data-range="<?= $options['range'] ?>" class="ymFormDates" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>" readonly>
                 </div>
             </div>
-            <?php break;case FieldsOptions::CONTROL_DATE: // 日期，格式：Y-m-d ?>
-            <div class="form-group col-md-12">
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <span class="addon-fix">富文本1</span>
-                    </div>
-                    <div class="YmWangEditor"></div>
-                </div>
-            </div>
-            <?php break;case FieldsOptions::CONTROL_YEAR: // 年，格式：Y ?>
-            <?php break;case FieldsOptions::CONTROL_MONTH: // 月，格式：m ?>
-            <?php break;case FieldsOptions::CONTROL_TIME: // 时，格式：H:i:s ?>
             <?php break;case FieldsOptions::CONTROL_SELECT: // 下拉选择 ?>
+            <div class="form-group col-md-<?= $options['layouts'] ?>">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class="addon-fix"><?= $options['label'] ?></span>
+                    </div>
+                    <select id="ymFormSelect2_<?= $field ?>"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ui-select2="{width:'100%'}" ng-model="ymFormFields['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>">
+                        <option value=""><?= $options['placeholder'] ?></option>
+                        <?php foreach ($options['options'] as $title => $value): ?>
+                            <option value="<?= $value ?>"><?= $title ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
             <?php break;case FieldsOptions::CONTROL_HIDDEN: // 隐藏 ?>
-            <?php break;case FieldsOptions::CONTROL_FILE: // 文件 ?>
+            <input type="hidden" ng-model="ymFormFields['<?= $field ?>']">
             <?php break;case FieldsOptions::CONTROL_TEXTAREA: // 文本域 ?>
+            <div class="form-group col-md-<?= $options['layouts'] ?>">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class="addon-fix"><?= $options['label'] ?></span>
+                    </div>
+                    <textarea ng-model="ymFormFields['<?= $field ?>']" rows="<?= $options['rows'] ?>" class="form-control" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> placeholder="<?= $options['placeholder'] ?>"></textarea>
+                </div>
+            </div>
             <?php break;case FieldsOptions::CONTROL_RICHTEXT: // 富文本 ?>
+            <div class="form-group col-md-<?= $options['layouts'] ?>">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class="addon-fix"><?= $options['label'] ?></span>
+                    </div>
+                    <div class="YmWangEditor" id="ymFormRichtext_<?= $field ?>"></div>
+                </div>
+            </div>
+            <?php break;case FieldsOptions::CONTROL_FILE: // 文件 ?>
             <div class="form-group col-md-12">
                 <div class="input-group">
                     <div class="input-group-addon text-left">

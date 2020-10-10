@@ -76,10 +76,22 @@ class FieldsOptions extends BaseOptions
     public $default = '';
 
     /**
+     * 是否是区间，用于日期控件
+     * @var int
+     */
+    public $range = 0;
+
+    /**
      * 选项，用于`radio`、`checkbox`、`select`控件
      * @var array
      */
     public $options;
+
+    /**
+     * 行数，用于文本域
+     * @var string
+     */
+    public $rows = '5';
 
     /**
      * bootstrap布局，默认`12`
