@@ -70,7 +70,7 @@ class FieldsOptions extends BaseOptions
     public $placeholder = '';
 
     /**
-     * 默认值
+     * 默认值，多个值用`逗号`隔开
      * @var string
      */
     public $default = '';

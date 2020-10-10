@@ -55,7 +55,7 @@ NgUpload::register($this);
                             <?= $options['label'] ?>
                         </span>
                     </div>
-                    <input type="number" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                    <input type="number" autocomplete="off" string-to-number ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
             </div>
             <?php break;case FieldsOptions::CONTROL_PASSWORD: // 密码 ?>
@@ -86,7 +86,7 @@ NgUpload::register($this);
                     <div class="form-control">
                         <?php foreach ($options['options'] as $title => $value): ?>
                         <label class="checkbox-inline">
-                            <input type="checkbox" class="icheck-control" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> value="<?= $value ?>">
+                            <input type="checkbox" class="ymFormCheckbox_<?= $field ?> icheck-control" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> value="<?= $value ?>">
                             <span class="label-helper"><?= $title ?></span>
                         </label>
                         <?php endforeach; ?>
@@ -107,7 +107,7 @@ NgUpload::register($this);
                     <div class="form-control">
                         <?php foreach ($options['options'] as $title => $value): ?>
                         <label class="radio-inline">
-                            <input type="radio" class="icheck-control" name="ymFormFields<?= $field ?>" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> value="<?= $value ?>">
+                            <input type="radio" class="ymFormRadio_<?= $field ?> icheck-control" name="ymFormFields<?= $field ?>" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> value="<?= $value ?>">
                             <span class="label-helper"><?= $title ?></span>
                         </label>
                         <?php endforeach; ?>
@@ -178,7 +178,7 @@ NgUpload::register($this);
                             <?= $options['label'] ?>
                         </span>
                     </div>
-                    <div class="YmWangEditor" id="ymFormRichtext_<?= $field ?>"></div>
+                    <div class="YmFormWangEditor" id="ymFormRichtext_<?= $field ?>"></div>
                 </div>
             </div>
             <?php break;case FieldsOptions::CONTROL_FILE: // 文件 ?>
@@ -195,7 +195,7 @@ NgUpload::register($this);
                     <div class="form-upload-group">
                         <?php for ($i = 0; $i < $options['number']; $i++): ?>
                         <div class="inline-block">
-                            <div class="form-upload-control" ngf-select="ymFormUploadImage($file, 'ymFormFileLink<?= $field . $i ?>')">
+                            <div class="form-upload-control" ngf-select="ymFormUploadImage($file, 'ymFormFileLink<?= $field . $i ?>', '<?= $field ?>', <?= $i ?>)">
                                 <div class="form-upload-item">
                                     <i ng-hide="ymFormFileLink<?= $field . $i ?>" class="fa fa-file-image-o f-32 text-dark"></i>
                                     <img ng-show="ymFormFileLink<?= $field . $i ?>" class="form-upload-img" ng-src="{{ymFormFileLink<?= $field . $i ?>}}" alt>
@@ -203,6 +203,7 @@ NgUpload::register($this);
                             </div>
                         </div>
                         <?php endfor; ?>
+                        <input type="hidden" ng-model="ymFormFields['<?= $field ?>']">
                     </div>
                 </div>
             </div>

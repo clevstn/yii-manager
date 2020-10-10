@@ -81,7 +81,20 @@
                 }
             }
         };
-    }]);
+    }]).directive('stringToNumber', function() {
+        // 当前input控件是number时，自动转换ngModel的数据类型。
+        return {
+            require: 'ngModel',
+            link: function(scope, element, attrs, ngModel) {
+                ngModel.$parsers.push(function(value) {
+                    return '' + value;
+                });
+                ngModel.$formatters.push(function(value) {
+                    return parseFloat(value);
+                });
+            }
+        };
+    });
 
     // 服务驱动配置
     _YmAppModule.factory("httpInterceptor", ["$q", function ($q) {

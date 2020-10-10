@@ -327,7 +327,7 @@ if (!function_exists('form_fields_helper')) {
      * @param array $options
      * - label 标签名
      * - placeholder 提示语
-     * - default 默认值
+     * - default 默认值，多个值用`逗号`隔开
      * - required 是否必填项
      * - range 是否是区间，用于日期控件
      * - options 选项，用于`radio`、`checkbox`、`select`控件

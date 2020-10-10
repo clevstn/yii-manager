@@ -207,7 +207,7 @@ use app\builder\table\ToolbarFilterOptions;
                                 <div class="input-group-addon">
                                     <span class="addon-fix"><?= $options['label'] ?></span>
                                 </div>
-                                <input type="number"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="ymTableFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                                <input type="number"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" string-to-number ng-model="ymTableFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
                             </div>
                         </div>
                         <?php break; case ToolbarFilterOptions::CONTROL_DATETIME: // datetime ?>

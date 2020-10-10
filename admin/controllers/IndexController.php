@@ -265,10 +265,12 @@ class IndexController extends CommonController
             'username' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
                 'label' => '用户名',
                 'placeholder' => '请输入用户名',
+                'default' => 'cleverstone',
             ]),
             'number' => form_fields_helper(FieldsOptions::CONTROL_NUMBER, [
                 'label' => '编号',
                 'placeholder' => '请输入编号',
+                'default' => '1005452',
                 'attribute' => [
                     'max' => 1000,
                     'min' => 1,
@@ -276,24 +278,38 @@ class IndexController extends CommonController
             ]),
             'password' => form_fields_helper(FieldsOptions::CONTROL_PASSWORD, [
                 'label' => '密码',
+                'default' => '123456',
                 'placeholder' => '请输入密码',
             ]),
             'mark' => form_fields_helper(FieldsOptions::CONTROL_TEXTAREA, [
                 'label' => '备注',
+                'default' => '这是默认值',
                 'placeholder' => '请填写备注，字数范围5-250',
             ]),
             'country' => form_fields_helper(FieldsOptions::CONTROL_CHECKBOX, [
                 'label' => '国家',
+                'default' => '2,3,4',
                 'options' => [
                     '中国' => 1,
                     '美国' => 2,
                     '日本' => 3,
                     '意大利' => 4,
                     '德国' => 5,
+                    '英国' => 6,
+                    '俄罗斯' => 7,
+                    '乌克兰' => 8,
+                    '新加坡' => 9,
+                    '马来西亚' => 10,
+                    '老挝' => 11,
+                    '缅甸' => 12,
+                    '新疆' => 13,
+                    '韩国' => 14,
+                    '伊拉克' => 15,
                 ]
             ]),
             'sex' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
                 'label' => '性别',
+                'default' => 2,
                 'options' => [
                     '男' => 0,
                     '女' => 1,
@@ -303,6 +319,7 @@ class IndexController extends CommonController
             'status' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
                 'label' => '状态',
                 'placeholder' => '请选择状态',
+                'default' => 2,
                 'options' => [
                     '禁用' => 0,
                     '启用' => 2,
@@ -310,11 +327,13 @@ class IndexController extends CommonController
             ]),
             'create_at' => form_fields_helper(FieldsOptions::CONTROL_TIME, [
                 'label' => '创建时间',
+                'default' => '02:00:00 / 03:00:00',
                 'placeholder' => '请选择创建时间',
                 'range' => 1,
             ]),
             'photo' => form_fields_helper(FieldsOptions::CONTROL_FILE, [
                 'label' => '头像上传',
+                'default' => '1,2,3,4,5',
                 'number' => 5,
             ]),
             'id' => form_fields_helper(FieldsOptions::CONTROL_HIDDEN, [
