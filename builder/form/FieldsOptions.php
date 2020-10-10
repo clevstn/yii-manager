@@ -76,6 +76,12 @@ class FieldsOptions extends BaseOptions
     public $default = '';
 
     /**
+     * 是否必填项
+     * @var bool
+     */
+    public $required = true;
+
+    /**
      * 是否是区间，用于日期控件
      * @var int
      */

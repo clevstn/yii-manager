@@ -34,7 +34,12 @@ NgUpload::register($this);
             <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <span class="addon-fix"><?= $options['label'] ?></span>
+                        <span class="addon-fix">
+                            <?php if ($options['required']): ?>
+                            <sup class="sup text-red">*</sup>
+                            <?php endif; ?>
+                            <?= $options['label'] ?>
+                        </span>
                     </div>
                     <input type="text" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
@@ -43,7 +48,12 @@ NgUpload::register($this);
             <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <span class="addon-fix"><?= $options['label'] ?></span>
+                        <span class="addon-fix">
+                            <?php if ($options['required']): ?>
+                                <sup class="sup text-red">*</sup>
+                            <?php endif; ?>
+                            <?= $options['label'] ?>
+                        </span>
                     </div>
                     <input type="number" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
@@ -52,7 +62,12 @@ NgUpload::register($this);
             <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <span class="addon-fix"><?= $options['label'] ?></span>
+                        <span class="addon-fix">
+                            <?php if ($options['required']): ?>
+                                <sup class="sup text-red">*</sup>
+                            <?php endif; ?>
+                            <?= $options['label'] ?>
+                        </span>
                     </div>
                     <input type="password" autocomplete="new-password" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
@@ -61,7 +76,12 @@ NgUpload::register($this);
             <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <span class="addon-fix"><?= $options['label'] ?></span>
+                        <span class="addon-fix">
+                            <?php if ($options['required']): ?>
+                                <sup class="sup text-red">*</sup>
+                            <?php endif; ?>
+                            <?= $options['label'] ?>
+                        </span>
                     </div>
                     <div class="form-control">
                         <?php foreach ($options['options'] as $title => $value): ?>
@@ -77,7 +97,12 @@ NgUpload::register($this);
             <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <span class="addon-fix"><?= $options['label'] ?></span>
+                        <span class="addon-fix">
+                            <?php if ($options['required']): ?>
+                                <sup class="sup text-red">*</sup>
+                            <?php endif; ?>
+                            <?= $options['label'] ?>
+                        </span>
                     </div>
                     <div class="form-control">
                         <?php foreach ($options['options'] as $title => $value): ?>
@@ -97,7 +122,12 @@ NgUpload::register($this);
             <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <span class="addon-fix"><?= $options['label'] ?></span>
+                        <span class="addon-fix">
+                            <?php if ($options['required']): ?>
+                                <sup class="sup text-red">*</sup>
+                            <?php endif; ?>
+                            <?= $options['label'] ?>
+                        </span>
                     </div>
                     <input id="ymFormDate_<?= $field ?>" class="ymFormDates form-control" type="text" data-type="<?= $options['control'] ?>" data-range="<?= $options['range'] ?>" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> placeholder="<?= $options['placeholder'] ?>" readonly>
                 </div>
@@ -106,7 +136,12 @@ NgUpload::register($this);
             <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <span class="addon-fix"><?= $options['label'] ?></span>
+                        <span class="addon-fix">
+                            <?php if ($options['required']): ?>
+                                <sup class="sup text-red">*</sup>
+                            <?php endif; ?>
+                            <?= $options['label'] ?>
+                        </span>
                     </div>
                     <select id="ymFormSelect2_<?= $field ?>"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ui-select2="{width:'100%'}" ng-model="ymFormFields['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>">
                         <option value=""><?= $options['placeholder'] ?></option>
@@ -122,7 +157,12 @@ NgUpload::register($this);
             <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <span class="addon-fix"><?= $options['label'] ?></span>
+                        <span class="addon-fix">
+                            <?php if ($options['required']): ?>
+                                <sup class="sup text-red">*</sup>
+                            <?php endif; ?>
+                            <?= $options['label'] ?>
+                        </span>
                     </div>
                     <textarea ng-model="ymFormFields['<?= $field ?>']" rows="<?= $options['rows'] ?>" class="form-control" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> placeholder="<?= $options['placeholder'] ?>"></textarea>
                 </div>
@@ -131,7 +171,12 @@ NgUpload::register($this);
             <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <span class="addon-fix"><?= $options['label'] ?></span>
+                        <span class="addon-fix">
+                            <?php if ($options['required']): ?>
+                                <sup class="sup text-red">*</sup>
+                            <?php endif; ?>
+                            <?= $options['label'] ?>
+                        </span>
                     </div>
                     <div class="YmWangEditor" id="ymFormRichtext_<?= $field ?>"></div>
                 </div>
@@ -140,7 +185,12 @@ NgUpload::register($this);
             <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
                     <div class="input-group-addon text-left">
-                        <span class="addon-fix text-center"><?= $options['label'] ?></span>
+                        <span class="addon-fix text-center">
+                            <?php if ($options['required']): ?>
+                                <sup class="sup text-red">*</sup>
+                            <?php endif; ?>
+                            <?= $options['label'] ?>
+                        </span>
                     </div>
                     <div class="form-upload-group">
                         <?php for ($i = 0; $i < $options['number']; $i++): ?>
