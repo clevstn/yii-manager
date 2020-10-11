@@ -15,7 +15,7 @@ use app\builder\form\FieldsOptions;
         "use strict";
         var _easyApp = angular.module("EasyApp", ["YmAppModule", "ngFileUpload"]);
         _easyApp.controller('formCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "wangEditor", "Upload", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, wangEditor, Upload) {
-            // 挂载WangEditor
+            // 挂载富文本插件
             var wangEditorMap = {};
             var mountedWangEditor = function () {
                 if (typeof wangEditor !== "undefined") {
@@ -50,7 +50,7 @@ use app\builder\form\FieldsOptions;
                     laydate.render(options);
                 });
             };
-            // 初始化表单默认值
+            // 初始化表单
             var initFormValues = function () {
                 var scopeFields = {};
                 var fileDefaults;
@@ -120,6 +120,58 @@ use app\builder\form\FieldsOptions;
 
                 $scope.ymFormFields = scopeFields;
             };
+            // 清空表单
+            var clearFormValus = function () {
+                var scopeFields = {};
+                var fileDefaults;
+                var fileNumbers;
+                var thisRichtxtId;
+                var thisEditor;
+                var customClearFunc;
+                <?php foreach ($_fields as $field => $options): ?>
+                <?php switch ($options['control']): case FieldsOptions::CONTROL_TEXT: //文本 ?>
+                <?php case FieldsOptions::CONTROL_NUMBER: // 数字 ?>
+                <?php case FieldsOptions::CONTROL_PASSWORD: // 密码 ?>
+                <?php case FieldsOptions::CONTROL_DATETIME: // 日期，格式：Y-m-d H:i:s ?>
+                <?php case FieldsOptions::CONTROL_DATE: // 日期，格式：Y-m-d ?>
+                <?php case FieldsOptions::CONTROL_YEAR: // 年，格式：Y ?>
+                <?php case FieldsOptions::CONTROL_MONTH: // 月，格式：m ?>
+                <?php case FieldsOptions::CONTROL_TIME: // 时，格式：H:i:s ?>
+                <?php case FieldsOptions::CONTROL_SELECT: // 下拉选择 ?>
+                <?php case FieldsOptions::CONTROL_TEXTAREA: // 文本域 ?>
+                scopeFields['<?= $field ?>'] = "";
+                <?php break; case FieldsOptions::CONTROL_FILE: // 文件 ?>
+                fileDefaults = [];
+                fileNumbers = <?= $options['number'] ?>;
+                for (var i = 0; i < fileNumbers; i++) {
+                    fileDefaults[i] = "0";
+                    // 初始化预览图
+                    $scope['ymFormFileLink<?= $field ?>' + i] = "";
+                }
+                scopeFields['<?= $field ?>'] = fileDefaults.join(',');
+                <?php break; case FieldsOptions::CONTROL_CHECKBOX: // 多选 ?>
+                jQuery(".ymFormCheckbox_<?= $field ?>").each(function () {
+                    jQuery(this).iCheck("uncheck");
+                });
+                <?php break; case FieldsOptions::CONTROL_RADIO: // 单选 ?>
+                jQuery(".ymFormRadio_<?= $field ?>").each(function () {
+                    jQuery(this).iCheck("uncheck");
+                });
+                <?php break; case FieldsOptions::CONTROL_RICHTEXT: // 富文本 ?>
+                thisRichtxtId = "ymFormRichtext_<?= $field ?>";
+                thisEditor = wangEditorMap[thisRichtxtId];
+                if (thisEditor) {
+                    thisEditor.txt.html("");
+                }
+                <?php break; case FieldsOptions::CONTROL_CUSTOM: // 自定义 ?>
+                customClearFunc = <?= $options['widget']->clearValuesJsFunction() ?>;
+                customClearFunc();
+                <?php break; ?>
+                <?php endswitch; ?>
+                <?php endforeach; ?>
+
+                $scope.ymFormFields = scopeFields;
+            };
             // 上传图片
             $scope.ymFormUploadImage = function (files, src, field, index) {
                 if (files) {
@@ -168,7 +220,7 @@ use app\builder\form\FieldsOptions;
             };
             // 清空表单
             $scope.ymFormClearForm = function () {
-
+                clearFormValus();
             };
             // 重置表单
             $scope.ymFormResetForm = function () {
