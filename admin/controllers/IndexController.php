@@ -273,10 +273,7 @@ class IndexController extends CommonController
                 'placeholder' => '请输入编号',
                 'default' => '1005452',
                 'comment' => '编号必须是登记时的有效编号。',
-                'attribute' => [
-                    'max' => 1000,
-                    'min' => 1,
-                ]
+                'attribute' => "",
             ]),
             'password' => form_fields_helper(FieldsOptions::CONTROL_PASSWORD, [
                 'label' => '密码',
@@ -345,7 +342,7 @@ class IndexController extends CommonController
             ]),
             'notice' => form_fields_helper(FieldsOptions::CONTROL_RICHTEXT, [
                 'label' => '公告',
-                'default' => '请填写公告内容',
+                'default' => '<p>请填写公告内容</p>',
             ])
         ];
 

@@ -163,7 +163,7 @@ use app\builder\form\FieldsOptions;
                 thisRichtxtId = "ymFormRichtext_<?= $field ?>";
                 thisEditor = wangEditorMap[thisRichtxtId];
                 if (thisEditor) {
-                    thisEditor.txt.html("");
+                    thisEditor.txt.clear();
                 }
                 <?php break; case FieldsOptions::CONTROL_CUSTOM: // 自定义 ?>
                 customClearFunc = <?= $options['widget']->clearValuesJsFunction() ?>;
@@ -180,6 +180,7 @@ use app\builder\form\FieldsOptions;
                 var checkboxTempMap;
                 var thisRichtxtId;
                 var thisEditor;
+                var richtxtBody;
                 var customGetValFunc;
                 var customTempMap;
                 <?php foreach ($_fields as $field => $options): ?>
@@ -216,7 +217,8 @@ use app\builder\form\FieldsOptions;
                 thisRichtxtId = "ymFormRichtext_<?= $field ?>";
                 thisEditor = wangEditorMap[thisRichtxtId];
                 if (thisEditor) {
-                    formData['<?= $field ?>'] = thisEditor.txt.html();
+                    richtxtBody = thisEditor.txt.html()
+                    formData['<?= $field ?>'] = /^(<p><br><\/p>)+$/i.test(richtxtBody) ? "" : richtxtBody;
                 }
                 <?php break; case FieldsOptions::CONTROL_CUSTOM: // 自定义 ?>
                 <?php default: // 自定义 ?>
