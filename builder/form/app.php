@@ -2,6 +2,7 @@
 /* @var \yii\web\View $this 当前视图组件实例 */
 /* @var array $_fields      表单字段集合 */
 
+use yii\helpers\Url;
 use app\builder\form\FieldsOptions;
 // 注意这里必须是<script>...</script>的形式
 ?>
@@ -287,8 +288,18 @@ use app\builder\form\FieldsOptions;
             // 提交表单
             $scope.ymFormSubmitForm = function () {
                 var formData = getFormValus();
+                var currentUrl = '<?= Url::current() ?>';
 
-                console.log(formData);
+                // 节流
+                var i = YmSpinner.show();
+                $http.post(currentUrl, jQuery.param(formData)).then(function (data) {
+                    YmSpinner.hide(i);
+                    toastr.success("提交成功", "通知");
+                }, function (errors) {
+                    YmSpinner.hide(i);
+                    console.error(errors);
+                    toastr.error(errors.data || "系统错误，请稍后重试!", "通知");
+                });
             };
 
             // 初始化表单[调用]
