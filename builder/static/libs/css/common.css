@@ -576,6 +576,13 @@ input[type="checkbox"] {
     display: inline-block;
 }
 
+.form-comment {
+    padding-left: 136px !important;
+    padding-top: 3px !important;
+    font-size: 12px !important;
+    color: #9d9d9d;
+}
+
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],

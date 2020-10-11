@@ -43,6 +43,9 @@ NgUpload::register($this);
                     </div>
                     <input type="text" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
+                <?php if (!empty($options['comment'])): ?>
+                <div class="form-comment">注：<?= $options['comment'] ?></div>
+                <?php endif; ?>
             </div>
             <?php break; case FieldsOptions::CONTROL_NUMBER: // 数字 ?>
             <div class="form-group col-md-<?= $options['layouts'] ?>">
@@ -57,6 +60,9 @@ NgUpload::register($this);
                     </div>
                     <input type="number" autocomplete="off" string-to-number ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
+                <?php if (!empty($options['comment'])): ?>
+                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_PASSWORD: // 密码 ?>
             <div class="form-group col-md-<?= $options['layouts'] ?>">
@@ -71,6 +77,9 @@ NgUpload::register($this);
                     </div>
                     <input type="password" autocomplete="new-password" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
+                <?php if (!empty($options['comment'])): ?>
+                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_CHECKBOX: // 多选框 ?>
             <div class="form-group col-md-<?= $options['layouts'] ?>">
@@ -92,6 +101,9 @@ NgUpload::register($this);
                         <?php endforeach; ?>
                     </div>
                 </div>
+                <?php if (!empty($options['comment'])): ?>
+                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_RADIO: // 单选 ?>
             <div class="form-group col-md-<?= $options['layouts'] ?>">
@@ -113,6 +125,9 @@ NgUpload::register($this);
                         <?php endforeach; ?>
                     </div>
                 </div>
+                <?php if (!empty($options['comment'])): ?>
+                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_DATETIME: // 日期，格式：Y-m-d H:i:s ?>
             <?php case FieldsOptions::CONTROL_DATE: // 日期，格式：Y-m-d ?>
@@ -131,6 +146,9 @@ NgUpload::register($this);
                     </div>
                     <input id="ymFormDate_<?= $field ?>" class="ymFormDates form-control" type="text" data-type="<?= $options['control'] ?>" data-range="<?= $options['range'] ?>" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> placeholder="<?= $options['placeholder'] ?>" readonly>
                 </div>
+                <?php if (!empty($options['comment'])): ?>
+                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_SELECT: // 下拉选择 ?>
             <div class="form-group col-md-<?= $options['layouts'] ?>">
@@ -150,6 +168,9 @@ NgUpload::register($this);
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <?php if (!empty($options['comment'])): ?>
+                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_HIDDEN: // 隐藏 ?>
             <input type="hidden" ng-model="ymFormFields['<?= $field ?>']">
@@ -166,6 +187,9 @@ NgUpload::register($this);
                     </div>
                     <textarea ng-model="ymFormFields['<?= $field ?>']" rows="<?= $options['rows'] ?>" class="form-control" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> placeholder="<?= $options['placeholder'] ?>"></textarea>
                 </div>
+                <?php if (!empty($options['comment'])): ?>
+                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_RICHTEXT: // 富文本 ?>
             <div class="form-group col-md-<?= $options['layouts'] ?>">
@@ -180,6 +204,9 @@ NgUpload::register($this);
                     </div>
                     <div class="YmFormWangEditor" id="ymFormRichtext_<?= $field ?>"></div>
                 </div>
+                <?php if (!empty($options['comment'])): ?>
+                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_FILE: // 文件 ?>
             <div class="form-group col-md-<?= $options['layouts'] ?>">
@@ -206,6 +233,9 @@ NgUpload::register($this);
                         <input type="hidden" ng-model="ymFormFields['<?= $field ?>']">
                     </div>
                 </div>
+                <?php if (!empty($options['comment'])): ?>
+                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_CUSTOM: // 自定义 ?>
             <?php default: // 自定义 ?>

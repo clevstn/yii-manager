@@ -82,6 +82,12 @@ class FieldsOptions extends BaseOptions
     public $required = true;
 
     /**
+     * 注释语
+     * @var string
+     */
+    public $comment = '';
+
+    /**
      * 是否是区间，用于日期控件
      * @var int
      */

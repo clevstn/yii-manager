@@ -266,11 +266,13 @@ class IndexController extends CommonController
                 'label' => '用户名',
                 'placeholder' => '请输入用户名',
                 'default' => 'cleverstone',
+                'comment' => '用户名必须和登记姓名一致。',
             ]),
             'number' => form_fields_helper(FieldsOptions::CONTROL_NUMBER, [
                 'label' => '编号',
                 'placeholder' => '请输入编号',
                 'default' => '1005452',
+                'comment' => '编号必须是登记时的有效编号。',
                 'attribute' => [
                     'max' => 1000,
                     'min' => 1,
@@ -279,11 +281,13 @@ class IndexController extends CommonController
             'password' => form_fields_helper(FieldsOptions::CONTROL_PASSWORD, [
                 'label' => '密码',
                 'default' => '123456',
+                'comment' => '请输入6-18位有效密码。',
                 'placeholder' => '请输入密码',
             ]),
             'mark' => form_fields_helper(FieldsOptions::CONTROL_TEXTAREA, [
                 'label' => '备注',
                 'default' => '这是默认值',
+                'comment' => '请输入您认为有效的默认值。',
                 'placeholder' => '请填写备注，字数范围5-250',
             ]),
             'country' => form_fields_helper(FieldsOptions::CONTROL_CHECKBOX, [
@@ -333,8 +337,8 @@ class IndexController extends CommonController
             ]),
             'photo' => form_fields_helper(FieldsOptions::CONTROL_FILE, [
                 'label' => '头像上传',
-                'default' => '1,2,3,4,5',
-                'number' => 5,
+                'default' => '',
+                'number' => 1,
             ]),
             'id' => form_fields_helper(FieldsOptions::CONTROL_HIDDEN, [
                 'default' => 1,
