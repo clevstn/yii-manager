@@ -112,9 +112,9 @@ use app\builder\form\FieldsOptions;
                     thisEditor.txt.html("<?= $options['default'] ?>");
                 }
                 <?php break; case FieldsOptions::CONTROL_CUSTOM: // 自定义 ?>
-                <?php default: // 自定义 ?>
                 customInitFunc = <?= $options['widget']->initValuesJsFunction() ?>;
                 customInitFunc();
+                <?php break; ?>
                 <?php endswitch; ?>
                 <?php endforeach; ?>
 
@@ -221,10 +221,10 @@ use app\builder\form\FieldsOptions;
                     formData['<?= $field ?>'] = /^(<p><br><\/p>)+$/i.test(richtxtBody) ? "" : richtxtBody;
                 }
                 <?php break; case FieldsOptions::CONTROL_CUSTOM: // 自定义 ?>
-                <?php default: // 自定义 ?>
                 customGetValFunc = <?= $options['widget']->getValuesJsFunction() ?>;
                 customTempMap = customGetValFunc() || {};
                 jQuery.extend(formData, customTempMap);
+                <?php break; ?>
                 <?php endswitch; ?>
                 <?php endforeach; ?>
 

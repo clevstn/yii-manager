@@ -238,8 +238,8 @@ NgUpload::register($this);
                 <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_CUSTOM: // 自定义 ?>
-            <?php default: // 自定义 ?>
             <?= $options['widget']->render() ?>
+            <?php break; ?>
             <?php endswitch; ?>
             <?php endforeach; ?>
             <!--表单尾部-->
