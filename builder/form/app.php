@@ -80,6 +80,9 @@ use app\builder\form\FieldsOptions;
                     if (fileDefaults[i] === "" || fileDefaults[i] === void 0) {
                         fileDefaults[i] = "0";
                     }
+
+                    // 初始化预览图
+                    $scope['ymFormFileLink<?= $field ?>' + i] = "";
                 }
                 scopeFields['<?= $field ?>'] = fileDefaults.join(',');
                 <?php break; case FieldsOptions::CONTROL_CHECKBOX: // 多选 ?>
@@ -89,6 +92,8 @@ use app\builder\form\FieldsOptions;
                     var currentValue = jQuery(this).val();
                     if (checkboxDefaultValues.indexOf(currentValue) !== -1) {
                         jQuery(this).iCheck("check");
+                    } else {
+                        jQuery(this).iCheck("uncheck");
                     }
                 });
                 <?php break; case FieldsOptions::CONTROL_RADIO: // 单选 ?>
@@ -96,6 +101,8 @@ use app\builder\form\FieldsOptions;
                     var currentValue = jQuery(this).val();
                     if (currentValue == "<?= $options['default'] ?>") {
                         jQuery(this).iCheck("check");
+                    } else {
+                        jQuery(this).iCheck("uncheck");
                     }
                 });
                 <?php break; case FieldsOptions::CONTROL_RICHTEXT: // 富文本 ?>
@@ -112,6 +119,29 @@ use app\builder\form\FieldsOptions;
                 <?php endforeach; ?>
 
                 $scope.ymFormFields = scopeFields;
+            };
+            // 上传图片
+            $scope.ymFormUploadImage = function (files, src, field, index) {
+                if (files) {
+                    var attachIds = $scope.ymFormFields[field];
+                    attachIds = attachIds.split(',');
+
+                    console.log('olds:' + attachIds);
+
+                    // 预览文件
+                    Upload.base64DataUrl(files).then(function(urls){
+                        $scope[src] = urls;
+                    });
+
+                    // 上传文件
+                    // 上传成功重新赋值
+                    attachIds[index] = 520;
+                    attachIds = attachIds.join(',');
+
+                    console.log('news:' + attachIds);
+
+                    $scope.ymFormFields[field] = attachIds;
+                }
             };
             // 初始化表单
             var ymInitForm = function () {
@@ -136,28 +166,13 @@ use app\builder\form\FieldsOptions;
                     window.self.history.go(-1);
                 }
             };
-            // 上传图片
-            $scope.ymFormUploadImage = function (files, src, field, index) {
-                if (files) {
-                    var attachIds = $scope.ymFormFields[field];
-                    attachIds = attachIds.split(',');
-                    console.log('olds:' + attachIds);
-                    // 预览文件
-                    Upload.base64DataUrl(files).then(function(urls){
-                        $scope[src] = urls;
-                    });
+            // 清空表单
+            $scope.ymFormClearForm = function () {
 
-                    // 上传文件
-                    // 上传成功重新赋值
-                    attachIds[index] = 520;
-                    attachIds = attachIds.join(',');
-                    console.log('news:' + attachIds);
-                    $scope.ymFormFields[field] = attachIds;
-                }
             };
             // 重置表单
             $scope.ymFormResetForm = function () {
-
+                initFormValues();
             };
             // 提交表单
             $scope.ymFormSubmitForm = function () {

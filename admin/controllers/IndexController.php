@@ -337,8 +337,8 @@ class IndexController extends CommonController
             ]),
             'photo' => form_fields_helper(FieldsOptions::CONTROL_FILE, [
                 'label' => '头像上传',
-                'default' => '',
-                'number' => 1,
+                'default' => '0,0,0',
+                'number' => 3,
             ]),
             'id' => form_fields_helper(FieldsOptions::CONTROL_HIDDEN, [
                 'default' => 1,

@@ -245,6 +245,7 @@ NgUpload::register($this);
             <!--表单尾部-->
             <div class="form-group col-md-12">
                 <div class="addon-fix"></div>
+                <button type="button" class="btn btn-sm btn-default" ng-click="ymFormClearForm()">清空</button>
                 <button type="button" class="btn btn-sm btn-default" ng-click="ymFormResetForm()">重置</button>
                 <button type="button" class="btn btn-sm btn-primary" ng-click="ymFormSubmitForm()">立即提交</button>
             </div>
