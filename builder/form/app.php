@@ -140,6 +140,8 @@ use app\builder\form\FieldsOptions;
                 <?php case FieldsOptions::CONTROL_SELECT: // 下拉选择 ?>
                 <?php case FieldsOptions::CONTROL_TEXTAREA: // 文本域 ?>
                 scopeFields['<?= $field ?>'] = "";
+                <?php break; case FieldsOptions::CONTROL_HIDDEN: // 隐藏 ?>
+                scopeFields['<?= $field ?>'] = '<?= $options['default'] ?>';
                 <?php break; case FieldsOptions::CONTROL_FILE: // 文件 ?>
                 fileDefaults = [];
                 fileNumbers = <?= $options['number'] ?>;
@@ -203,6 +205,8 @@ use app\builder\form\FieldsOptions;
                 });
                 formData['<?= $field ?>'] = checkboxTempMap.join(',');
                 <?php break; case FieldsOptions::CONTROL_RADIO: // 单选 ?>
+                // 设置给单选默认值。
+                formData['<?= $field ?>'] = "";
                 jQuery(".ymFormRadio_<?= $field ?>").each(function () {
                     if (jQuery(this).is(":checked")) {
                         formData['<?= $field ?>'] = jQuery(this).val();
