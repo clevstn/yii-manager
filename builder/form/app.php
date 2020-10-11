@@ -295,6 +295,7 @@ use app\builder\form\FieldsOptions;
                 $http.post(currentUrl, jQuery.param(formData)).then(function (data) {
                     YmSpinner.hide(i);
                     toastr.success("提交成功", "通知");
+
                 }, function (errors) {
                     YmSpinner.hide(i);
                     console.error(errors);
