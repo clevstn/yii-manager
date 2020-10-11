@@ -337,6 +337,7 @@ if (!function_exists('form_fields_helper')) {
      * - layouts bootstrap布局，默认`12`
      * - style 控件样式
      * - attribute 控件属性
+     * - widget 自定义项，用于`control`类型为`custom`
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */

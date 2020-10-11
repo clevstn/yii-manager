@@ -53,6 +53,12 @@ use app\builder\form\FieldsOptions;
             // 初始化表单默认值
             var initFormValues = function () {
                 var scopeFields = {};
+                var fileDefaults;
+                var fileNumbers;
+                var checkboxDefaultValues;
+                var thisRichtxtId;
+                var thisEditor;
+                var customInitFunc;
                 <?php foreach ($_fields as $field => $options): ?>
                 <?php switch ($options['control']): case FieldsOptions::CONTROL_TEXT: //文本 ?>
                 <?php case FieldsOptions::CONTROL_NUMBER: // 数字 ?>
@@ -67,9 +73,9 @@ use app\builder\form\FieldsOptions;
                 <?php case FieldsOptions::CONTROL_TEXTAREA: // 文本域 ?>
                 scopeFields['<?= $field ?>'] = '<?= $options['default'] ?>';
                 <?php break; case FieldsOptions::CONTROL_FILE: // 文件 ?>
-                var fileDefaults = '<?= $options['default'] ?>';
+                fileDefaults = '<?= $options['default'] ?>';
                 fileDefaults = fileDefaults.split(',');
-                var fileNumbers = <?= $options['number'] ?>;
+                fileNumbers = <?= $options['number'] ?>;
                 for (var i = 0; i < fileNumbers; i++) {
                     if (fileDefaults[i] === "" || fileDefaults[i] === void 0) {
                         fileDefaults[i] = "0";
@@ -77,11 +83,11 @@ use app\builder\form\FieldsOptions;
                 }
                 scopeFields['<?= $field ?>'] = fileDefaults.join(',');
                 <?php break; case FieldsOptions::CONTROL_CHECKBOX: // 多选 ?>
-                var defaultValues = "<?= $options['default'] ?>";
-                defaultValues = defaultValues.split(',');
+                checkboxDefaultValues = "<?= $options['default'] ?>";
+                checkboxDefaultValues = checkboxDefaultValues.split(',');
                 jQuery(".ymFormCheckbox_<?= $field ?>").each(function () {
                     var currentValue = jQuery(this).val();
-                    if (defaultValues.indexOf(currentValue) !== -1) {
+                    if (checkboxDefaultValues.indexOf(currentValue) !== -1) {
                         jQuery(this).iCheck("check");
                     }
                 });
@@ -93,14 +99,15 @@ use app\builder\form\FieldsOptions;
                     }
                 });
                 <?php break; case FieldsOptions::CONTROL_RICHTEXT: // 富文本 ?>
-                var thisRichtxtId = "ymFormRichtext_<?= $field ?>";
-                var thisEditor = wangEditorMap[thisRichtxtId];
+                thisRichtxtId = "ymFormRichtext_<?= $field ?>";
+                thisEditor = wangEditorMap[thisRichtxtId];
                 if (thisEditor) {
                     thisEditor.txt.html("<?= $options['default'] ?>");
                 }
                 <?php break; case FieldsOptions::CONTROL_CUSTOM: // 自定义 ?>
                 <?php default: // 自定义 ?>
-
+                customInitFunc = <?= $options['widget']->initValuesJsFunction() ?>;
+                customInitFunc();
                 <?php endswitch; ?>
                 <?php endforeach; ?>
 

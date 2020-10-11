@@ -10,6 +10,7 @@ namespace app\builder\form;
 
 use yii\helpers\Html;
 use app\builder\common\BaseOptions;
+use app\builder\contract\InvalidInstanceException;
 
 /**
  * 表单字段设置选项
@@ -130,6 +131,12 @@ class FieldsOptions extends BaseOptions
     public $attribute = '';
 
     /**
+     * 自定义项
+     * @var CustomControl|null
+     */
+    public $widget;
+
+    /**
      * 初始化
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -142,6 +149,16 @@ class FieldsOptions extends BaseOptions
 
         if (!empty($this->attribute) && is_array($this->attribute)) {
             $this->attribute = Html::renderTagAttributes($this->attribute);
+        }
+
+        if (
+            $this->control == self::CONTROL_CUSTOM
+            && (
+                empty($this->widget) ||
+                !($this->widget instanceof CustomControl)
+            )
+        ) {
+            throw new InvalidInstanceException('The widget option must be implements of `CustomControl`. ');
         }
     }
 }
