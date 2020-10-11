@@ -172,6 +172,58 @@ use app\builder\form\FieldsOptions;
 
                 $scope.ymFormFields = scopeFields;
             };
+            // 获取表单数据
+            var getFormValus = function () {
+                var formData = {};
+                var checkboxTempMap;
+                var thisRichtxtId;
+                var thisEditor;
+                var customGetValFunc;
+                var customTempMap;
+                <?php foreach ($_fields as $field => $options): ?>
+                <?php switch ($options['control']): case FieldsOptions::CONTROL_TEXT: //文本 ?>
+                <?php case FieldsOptions::CONTROL_NUMBER: // 数字 ?>
+                <?php case FieldsOptions::CONTROL_PASSWORD: // 密码 ?>
+                <?php case FieldsOptions::CONTROL_DATETIME: // 日期，格式：Y-m-d H:i:s ?>
+                <?php case FieldsOptions::CONTROL_DATE: // 日期，格式：Y-m-d ?>
+                <?php case FieldsOptions::CONTROL_YEAR: // 年，格式：Y ?>
+                <?php case FieldsOptions::CONTROL_MONTH: // 月，格式：m ?>
+                <?php case FieldsOptions::CONTROL_TIME: // 时，格式：H:i:s ?>
+                <?php case FieldsOptions::CONTROL_SELECT: // 下拉选择 ?>
+                <?php case FieldsOptions::CONTROL_HIDDEN: // 隐藏 ?>
+                <?php case FieldsOptions::CONTROL_TEXTAREA: // 文本域 ?>
+                <?php case FieldsOptions::CONTROL_FILE: // 文件 ?>
+                formData['<?= $field ?>'] = $scope.ymFormFields['<?= $field ?>'];
+                <?php break; case FieldsOptions::CONTROL_CHECKBOX: // 多选 ?>
+                checkboxTempMap = [];
+                jQuery(".ymFormCheckbox_<?= $field ?>").each(function () {
+                    if (jQuery(this).is(":checked")) {
+                        checkboxTempMap.push(jQuery(this).val());
+                    }
+                });
+                formData['<?= $field ?>'] = checkboxTempMap.join(',');
+                <?php break; case FieldsOptions::CONTROL_RADIO: // 单选 ?>
+                jQuery(".ymFormRadio_<?= $field ?>").each(function () {
+                    if (jQuery(this).is(":checked")) {
+                        formData['<?= $field ?>'] = jQuery(this).val();
+                    }
+                });
+                <?php break; case FieldsOptions::CONTROL_RICHTEXT: // 富文本 ?>
+                thisRichtxtId = "ymFormRichtext_<?= $field ?>";
+                thisEditor = wangEditorMap[thisRichtxtId];
+                if (thisEditor) {
+                    formData['<?= $field ?>'] = thisEditor.txt.html();
+                }
+                <?php break; case FieldsOptions::CONTROL_CUSTOM: // 自定义 ?>
+                <?php default: // 自定义 ?>
+                customGetValFunc = <?= $options['widget']->getValuesJsFunction() ?>;
+                customTempMap = customGetValFunc() || {};
+                jQuery.extend(formData, customTempMap);
+                <?php endswitch; ?>
+                <?php endforeach; ?>
+
+                return formData;
+            };
             // 上传图片
             $scope.ymFormUploadImage = function (files, src, field, index) {
                 if (files) {
@@ -228,7 +280,9 @@ use app\builder\form\FieldsOptions;
             };
             // 提交表单
             $scope.ymFormSubmitForm = function () {
+                var formData = getFormValus();
 
+                console.log(formData);
             };
 
             // 初始化表单[调用]
