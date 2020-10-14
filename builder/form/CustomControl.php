@@ -2,22 +2,22 @@
 // +----------------------------------------------------------------------
 // | yii-manager version 1.0.0
 // +----------------------------------------------------------------------
-// | ÈÕÆÚ£º2020/10/11
+// | æ—¥æœŸï¼š2020/10/11
 // +----------------------------------------------------------------------
-// | ×÷Õß£ºcleverstone <yang_hui_lei@163.com>
+// | ä½œè€…ï¼šcleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 
 namespace app\builder\form;
 
 /**
- * ±íµ¥×Ô¶¨ÒåÏî½Ó¿Ú
+ * è¡¨å•è‡ªå®šä¹‰é¡¹æ¥å£
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 interface CustomControl
 {
     /**
-     * äÖÈ¾×Ô¶¨ÒåÏî
+     * æ¸²æŸ“è‡ªå®šä¹‰é¡¹
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -25,7 +25,7 @@ interface CustomControl
     public function render();
 
     /**
-     * ·µ»ØÓÃÓÚ³õÊ¼»¯×Ô¶¨ÒåÏîÖµµÄJsº¯Êı¡£
+     * è¿”å›ç”¨äºåˆå§‹åŒ–è‡ªå®šä¹‰é¡¹å€¼çš„Jså‡½æ•°ã€‚
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -33,7 +33,7 @@ interface CustomControl
     public function initValuesJsFunction();
 
     /**
-     * ·µ»ØÓÃÓÚÇå¿Õ×Ô¶¨ÒåÏîÖµµÄJsº¯Êı¡£
+     * è¿”å›ç”¨äºæ¸…ç©ºè‡ªå®šä¹‰é¡¹å€¼çš„Jså‡½æ•°ã€‚
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -41,7 +41,7 @@ interface CustomControl
     public function clearValuesJsFunction();
 
     /**
-     * ·µ»ØÓÃÓÚ»ñÈ¡×Ô¶¨ÒåÏîÖµµÄJsº¯Êı£¬Jsº¯Êı·µ»ØÖµ±ØĞëÊÇÒ»¸öJs `Object`¡£
+     * è¿”å›ç”¨äºè·å–è‡ªå®šä¹‰é¡¹å€¼çš„Jså‡½æ•°ï¼ŒJså‡½æ•°è¿”å›å€¼å¿…é¡»æ˜¯ä¸€ä¸ªJs `Object`ã€‚
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0

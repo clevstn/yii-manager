@@ -2,9 +2,9 @@
 // +----------------------------------------------------------------------
 // | yii-manager version 1.0.0
 // +----------------------------------------------------------------------
-// | ÈÕÆÚ£º2020/10/9
+// | æ—¥æœŸï¼š2020/10/9
 // +----------------------------------------------------------------------
-// | ×÷Õß£ºcleverstone <yang_hui_lei@163.com>
+// | ä½œè€…ï¼šcleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 namespace app\builder\form;
 
@@ -13,131 +13,131 @@ use app\builder\common\BaseOptions;
 use app\builder\contract\InvalidInstanceException;
 
 /**
- * ±íµ¥×Ö¶ÎÉèÖÃÑ¡Ïî
+ * è¡¨å•å­—æ®µè®¾ç½®é€‰é¡¹
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 class FieldsOptions extends BaseOptions
 {
-    // ÎÄ±¾
+    // æ–‡æœ¬
     const CONTROL_TEXT = 'text';
-    // Êı×Ö
+    // æ•°å­—
     const CONTROL_NUMBER = 'number';
-    // ÃÜÂë
+    // å¯†ç 
     const CONTROL_PASSWORD = 'password';
-    // ¶àÑ¡
+    // å¤šé€‰
     const CONTROL_CHECKBOX = 'checkbox';
-    // µ¥Ñ¡
+    // å•é€‰
     const CONTROL_RADIO = 'radio';
-    // ÈÕÆÚ£¬¸ñÊ½£ºY-m-d H:i:s
+    // æ—¥æœŸï¼Œæ ¼å¼ï¼šY-m-d H:i:s
     const CONTROL_DATETIME = 'datetime';
-    // ÈÕÆÚ£¬¸ñÊ½£ºY-m-d
+    // æ—¥æœŸï¼Œæ ¼å¼ï¼šY-m-d
     const CONTROL_DATE = 'date';
-    // Äê£¬¸ñÊ½£ºY
+    // å¹´ï¼Œæ ¼å¼ï¼šY
     const CONTROL_YEAR = 'year';
-    // ÔÂ£¬¸ñÊ½£ºm
+    // æœˆï¼Œæ ¼å¼ï¼šm
     const CONTROL_MONTH = 'month';
-    // Ê±£¬¸ñÊ½£ºH:i:s
+    // æ—¶ï¼Œæ ¼å¼ï¼šH:i:s
     const CONTROL_TIME = 'time';
-    // ÏÂÀ­Ñ¡Ôñ
+    // ä¸‹æ‹‰é€‰æ‹©
     const CONTROL_SELECT = 'select';
-    // Òş²Ø
+    // éšè—
     const CONTROL_HIDDEN = 'hidden';
-    // ÎÄ¼ş
+    // æ–‡ä»¶
     const CONTROL_FILE = 'file';
-    // ÎÄ±¾Óò
+    // æ–‡æœ¬åŸŸ
     const CONTROL_TEXTAREA = 'textarea';
-    // ¸»ÎÄ±¾
+    // å¯Œæ–‡æœ¬
     const CONTROL_RICHTEXT = 'richtext';
-    // ×Ô¶¨Òå
+    // è‡ªå®šä¹‰
     const CONTROL_CUSTOM = 'custom';
 
     /**
-     * ¿Ø¼şÀàĞÍ£¬Ä¬ÈÏ`text`
+     * æ§ä»¶ç±»å‹ï¼Œé»˜è®¤`text`
      * @var string
      */
     public $control = self::CONTROL_TEXT;
 
     /**
-     * ±êÇ©Ãû
+     * æ ‡ç­¾å
      * @var string
      */
     public $label = '';
 
     /**
-     * ÌáÊ¾Óï
+     * æç¤ºè¯­
      * @var string
      */
     public $placeholder = '';
 
     /**
-     * Ä¬ÈÏÖµ£¬¶à¸öÖµÓÃ`¶ººÅ`¸ô¿ª
+     * é»˜è®¤å€¼ï¼Œå¤šä¸ªå€¼ç”¨`é€—å·`éš”å¼€
      * @var string
      */
     public $default = '';
 
     /**
-     * ÊÇ·ñ±ØÌîÏî
+     * æ˜¯å¦å¿…å¡«é¡¹
      * @var bool
      */
     public $required = true;
 
     /**
-     * ×¢ÊÍÓï
+     * æ³¨é‡Šè¯­
      * @var string
      */
     public $comment = '';
 
     /**
-     * ÊÇ·ñÊÇÇø¼ä£¬ÓÃÓÚÈÕÆÚ¿Ø¼ş
+     * æ˜¯å¦æ˜¯åŒºé—´ï¼Œç”¨äºæ—¥æœŸæ§ä»¶
      * @var int
      */
     public $range = 0;
 
     /**
-     * Ñ¡Ïî£¬ÓÃÓÚ`radio`¡¢`checkbox`¡¢`select`¿Ø¼ş
+     * é€‰é¡¹ï¼Œç”¨äº`radio`ã€`checkbox`ã€`select`æ§ä»¶
      * @var array
      */
     public $options;
 
     /**
-     * ĞĞÊı£¬ÓÃÓÚÎÄ±¾Óò
+     * è¡Œæ•°ï¼Œç”¨äºæ–‡æœ¬åŸŸ
      * @var string
      */
     public $rows = '5';
 
     /**
-     * ÎÄ¼şÊıÁ¿£¬ÓÃÓÚÎÄ¼şÉÏ´«
+     * æ–‡ä»¶æ•°é‡ï¼Œç”¨äºæ–‡ä»¶ä¸Šä¼ 
      * @var int
      */
     public $number = 1;
 
     /**
-     * bootstrap²¼¾Ö£¬Ä¬ÈÏ`12`
+     * bootstrapå¸ƒå±€ï¼Œé»˜è®¤`12`
      * @var string
      */
     public $layouts = '12';
 
     /**
-     * ¿Ø¼şÑùÊ½
+     * æ§ä»¶æ ·å¼
      * @var string|array
      */
     public $style = '';
 
     /**
-     * ¿Ø¼şÊôĞÔ
+     * æ§ä»¶å±æ€§
      * @var string|array
      */
     public $attribute = '';
 
     /**
-     * ×Ô¶¨ÒåÏî
+     * è‡ªå®šä¹‰é¡¹
      * @var CustomControl|null
      */
     public $widget;
 
     /**
-     * ³õÊ¼»¯
+     * åˆå§‹åŒ–
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */

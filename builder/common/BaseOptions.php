@@ -2,9 +2,9 @@
 // +----------------------------------------------------------------------
 // | yii-manager version 1.0.0
 // +----------------------------------------------------------------------
-// | ÈÕÆÚ£º2020/10/9
+// | æ—¥æœŸï¼š2020/10/9
 // +----------------------------------------------------------------------
-// | ×÷Õß£ºcleverstone <yang_hui_lei@163.com>
+// | ä½œè€…ï¼šcleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 
 namespace app\builder\common;
@@ -12,14 +12,14 @@ namespace app\builder\common;
 use yii\base\BaseObject;
 
 /**
- * ÉèÖÃÑ¡Ïî¼Ì³ÐÀà
+ * è®¾ç½®é€‰é¡¹ç»§æ‰¿ç±»
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 abstract class BaseOptions extends BaseObject
 {
     /**
-     * Êä³öÊý×é
+     * è¾“å‡ºæ•°ç»„
      * @return array
      * @throws \ReflectionException
      * @author cleverstone <yang_hui_lei@163.com>

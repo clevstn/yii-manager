@@ -3,24 +3,24 @@
 namespace app\builder\form;
 
 /**
- * ±íµ¥ÖúÊÖÀà
+ * è¡¨å•åŠ©æ‰‹ç±»
  * @author cleverstone
  * @since 1.0
  */
 class Form
 {
     /**
-     * Î»ÓÚ±íµ¥½Å±¾ÉÏÃæ
+     * ä½äºè¡¨å•è„šæœ¬ä¸Šé¢
      */
     const JS_SCRIPT_TOP = 'script-top';
 
     /**
-     * Î»ÓÚ±íµ¥½Å±¾ÏÂÃæ
+     * ä½äºè¡¨å•è„šæœ¬ä¸‹é¢
      */
     const JS_SCRIPT_BOTTOM = 'script-bottom';
 
     /**
-     * Î»ÓÚ±íµ¥½Å±¾ÄÚ²¿
+     * ä½äºè¡¨å•è„šæœ¬å†…éƒ¨
      */
     const JS_SCRIPT_INNER = 'script-inner';
 }
