@@ -9,6 +9,7 @@
 
 namespace app\admin\controllers;
 
+use app\builder\form\Form;
 use app\models\AdminUser;
 use app\builder\ViewBuilder;
 use app\builder\table\Table;
@@ -264,6 +265,10 @@ class IndexController extends CommonController
         $formBuilder->partial = false;
         $formBuilder->backBtn = true;
         $formBuilder->autoBack = true;
+        $formBuilder->css = 'body{color:000 !important;}';
+        $formBuilder->setJs('console.log("this inner")');
+        $formBuilder->setJs('console.log("this top")', Form::JS_SCRIPT_TOP);
+        $formBuilder->setJs('console.log("this bottom")', Form::JS_SCRIPT_BOTTOM);
         $formBuilder->title = '新增';
         $formBuilder->fields = [
             'username' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
