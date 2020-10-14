@@ -22,6 +22,9 @@ use app\builder\contract\BuilderInterface;
  * @property array $fields      表单字段
  * @property bool $backBtn      返回按钮
  * @property bool $autoBack     是否自动返回
+ * @property-write array $js    Js脚本
+ * @property-write array $css   Css脚本
+ * @property-write array $assetBundle
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -69,6 +72,27 @@ class Builder extends BaseObject implements BuilderInterface
      * @var bool
      */
     private $_autoBack = true;
+
+    /**
+     * Asset包定义
+     * @var array
+     * @since 1.0
+     */
+    private $_assetBundle = [];
+
+    /**
+     * 额外的Js代码
+     * @var array
+     * @since 1.0
+     */
+    private $_js = [];
+
+    /**
+     * 额外的css代码
+     * @var array
+     * @since 1.0
+     */
+    private $_css = [];
 
     /**
      * 局部视图路径
@@ -224,6 +248,58 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
+     * 注册额外的assetBundle
+     * @param array|string $assetBundle
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setAssetBundle($assetBundle)
+    {
+        $assetBundle = (array)$assetBundle;
+        foreach ($assetBundle as $in) {
+            $this->_assetBundle[] = $in;
+        }
+
+        return $this;
+    }
+
+    /**
+     * 注册额外的Js代码
+     * @param array|string $js
+     * @param string $pos
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setJs($js, $pos = Form::JS_SCRIPT_INNER)
+    {
+        $js = (array)$js;
+        foreach ($js as $in) {
+            $this->_js[$pos][] = $in . "\n";
+        }
+
+        return $this;
+    }
+
+    /**
+     * 注册额外的Css代码
+     * @param array|string $css
+     * @return $this
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public function setCss($css)
+    {
+        $css = (array)$css;
+        foreach ($css as $in) {
+            $this->_css[] = $in . "\n";
+        }
+
+        return $this;
+    }
+
+    /**
      * 渲染入口
      * @param Controller $context
      * @return string
@@ -260,8 +336,41 @@ class Builder extends BaseObject implements BuilderInterface
     {
         // Set table title
         $this->_view->title = $this->title;
+
+        // 注册Js,位于表格脚本上方
+        if (!empty($this->_js[Form::JS_SCRIPT_TOP])) {
+            $scriptTopJs = $this->_js[Form::JS_SCRIPT_TOP];
+            foreach ($scriptTopJs as $topJs) {
+                $this->_view->registerJs($topJs, View::POS_END);
+            }
+        }
+
         // Register the table widget script js
         $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
+
+        // 注册Js,位于表格脚本下方
+        if (!empty($this->_js[Form::JS_SCRIPT_BOTTOM])) {
+            $scriptBottomJs = $this->_js[Form::JS_SCRIPT_BOTTOM];
+            foreach ($scriptBottomJs as $bottomJs) {
+                $this->_view->registerJs($bottomJs, View::POS_END);
+            }
+        }
+
+        // 注册Css脚本
+        if (!empty($this->_css)) {
+            foreach ($this->_css as $css) {
+                $this->_view->registerCss($css);
+            }
+        }
+
+        // 注册AssetBundle
+        if (!empty($this->_assetBundle)) {
+            foreach ($this->_assetBundle as $assetBundle) {
+                if (class_exists($assetBundle)) {
+                    $this->_view->registerAssetBundle($assetBundle);
+                }
+            }
+        }
 
         return $context->render($this->_viewPath, [
             '_fields'  => $this->fields,             // 表单字段
@@ -279,8 +388,10 @@ class Builder extends BaseObject implements BuilderInterface
     protected function resolveJsScript()
     {
         $scriptTag = $this->_view->renderPhpFile(__DIR__ . '/app.php', [
-            '_fields'   => $this->fields,              // 表单字段
-            '_autoBack' => $this->autoBack,            // 提交完成后是否自动返回
+            '_fields'           => $this->fields,              // 表单字段
+            '_autoBack'         => $this->autoBack,            // 提交完成后是否自动返回
+            // 插入表单脚本内部的Js脚本
+            '_innerScript'      => !empty($this->_js[Form::JS_SCRIPT_INNER]) ? $this->_js[Form::JS_SCRIPT_INNER] : [],
         ]);
         return preg_script($scriptTag);
     }

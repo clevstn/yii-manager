@@ -2,6 +2,7 @@
 /* @var \yii\web\View $this 当前视图组件实例 */
 /* @var array $_fields      表单字段集合 */
 /* @var boolean $_autoBack  提交完成后是否自动返回 */
+/* @var array $_innerScript  插入表单脚本内部的Js脚本 */
 
 use yii\helpers\Url;
 use app\builder\form\FieldsOptions;
@@ -344,6 +345,10 @@ use app\builder\form\FieldsOptions;
 
             // 初始化表单[调用]
             ymInitForm();
+
+            <?php foreach ($_innerScript as $_js): ?>
+            <?= $_js ?>
+            <?php endforeach; ?>
 
         }]);
     }(window, window.angular);
