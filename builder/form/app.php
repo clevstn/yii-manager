@@ -314,7 +314,20 @@ use app\builder\form\FieldsOptions;
                     var result = data.data;
                     if (result.code == 200) {
                         tips(result.msg ? result.msg : '提交成功', '通知', 1, function () {
-
+                            var referrer = window.document.referrer;
+                            if (window.self !== window.top) {
+                                // 在iframe中
+                                // 先得到当前iframe层的索引
+                                var index = parentLayer.getFrameIndex(window.name);
+                                // 再执行关闭   
+                                parentLayer.close(index);
+                            } else if (referrer) {
+                                // 不在iframe中,如果存在来源则返回来源并刷新页面
+                                window.self.location.href = referrer;
+                            } else {
+                                // 不存在来源则使用history
+                                window.self.history.go(-1);
+                            }
                         });
                     } else {
                         tips(result.msg ? result.msg : (result.code == 500 ? '提交失败' : '您没有权限操作!'), "通知", 5);
