@@ -1,6 +1,7 @@
 <?php
 /* @var \yii\web\View $this 当前视图组件实例 */
 /* @var array $_fields      表单字段集合 */
+/* @var boolean $_autoBack  提交完成后是否自动返回 */
 
 use yii\helpers\Url;
 use app\builder\form\FieldsOptions;
@@ -314,12 +315,13 @@ use app\builder\form\FieldsOptions;
                     var result = data.data;
                     if (result.code == 200) {
                         tips(result.msg ? result.msg : '提交成功', '通知', 1, function () {
+                            <?php if ($_autoBack): ?>
                             var referrer = window.document.referrer;
                             if (window.self !== window.top) {
                                 // 在iframe中
                                 // 先得到当前iframe层的索引
                                 var index = parentLayer.getFrameIndex(window.name);
-                                // 再执行关闭   
+                                // 再执行关闭
                                 parentLayer.close(index);
                             } else if (referrer) {
                                 // 不在iframe中,如果存在来源则返回来源并刷新页面
@@ -328,6 +330,7 @@ use app\builder\form\FieldsOptions;
                                 // 不存在来源则使用history
                                 window.self.history.go(-1);
                             }
+                            <?php endif; ?>
                         });
                     } else {
                         tips(result.msg ? result.msg : (result.code == 500 ? '提交失败' : '您没有权限操作!'), "通知", 5);

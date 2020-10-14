@@ -1,6 +1,7 @@
 <?php
 /* @var \yii\web\View $this     当前视图实例 */
 /* @var array $_fields          表单字段集合 */
+/* @var boolean $_backBtn       是否设置返回按钮 */
 
 use app\builder\assets\NgUpload;
 use app\builder\form\FieldsOptions;
@@ -12,18 +13,23 @@ NgUpload::register($this);
 
 <div class="panel panel-default" ng-controller="formCtrl">
     <!--页面标题-->
-    <?php if(!empty($this->title)): ?>
-        <div class="panel-heading border-bottom clearfix">
+    <?php if (!empty($this->title) || $_backBtn): ?>
+    <div class="panel-heading border-bottom clearfix">
+        <?php if(!empty($this->title)): ?>
         <span class="f-13 pull-left">
             <?= $this->title ?>
         </span>
-            <div class="pull-right">
-                <a class="form-header-btn" type="button" href="#" ng-click="ymFormGoBack()">
-                    <i class="glyphicon glyphicon-arrow-left"></i>
-                    <span>返回</span>
-                </a>
-            </div>
+        <?php endif; ?>
+        
+        <?php if ($_backBtn): ?>
+        <div class="pull-right">
+            <a class="form-header-btn" type="button" href="#" ng-click="ymFormGoBack()">
+                <i class="glyphicon glyphicon-arrow-left"></i>
+                <span>返回</span>
+            </a>
         </div>
+        <?php endif; ?>
+    </div>
     <?php endif; ?>
 
     <!--表单内容-->

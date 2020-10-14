@@ -137,8 +137,7 @@ class IndexController extends CommonController
                 'title' => '编辑',
                 'icon' => 'fa fa-pencil-square-o',
                 'route' => 'admin/index/edit',
-                'width' => '100%',
-                'height' => '100%',
+                'height' => '90%',
             ]),
             table_action_helper('page', [
                 'title' => '新增',
@@ -234,8 +233,7 @@ class IndexController extends CommonController
                 'title'     => '新增',
                 'icon'      => 'glyphicon glyphicon-plus',
                 'option'    => 'modal',
-                'width'     => '100%',
-                'height'     => '100%',
+                'height'    => '90%',
                 'route'     => 'admin/index/edit',
             ]),
             table_toolbar_custom_helper('left', [
@@ -263,6 +261,9 @@ class IndexController extends CommonController
             return $this->asSuccess();
         }
         $formBuilder = ViewBuilder::form();
+        $formBuilder->partial = false;
+        $formBuilder->backBtn = true;
+        $formBuilder->autoBack = true;
         $formBuilder->title = '新增';
         $formBuilder->fields = [
             'username' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
@@ -366,6 +367,7 @@ class IndexController extends CommonController
 
         $formBuilder = ViewBuilder::form();
         $formBuilder->partial = true;
+        $formBuilder->backBtn = false;
         $formBuilder->fields = [
             'username' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
                 'label' => '用户名',

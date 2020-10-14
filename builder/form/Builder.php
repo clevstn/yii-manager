@@ -20,6 +20,8 @@ use app\builder\contract\BuilderInterface;
  * @property string $title      表单标题
  * @property boolean $partial   是否独立布局
  * @property array $fields      表单字段
+ * @property bool $backBtn      返回按钮
+ * @property bool $autoBack     是否自动返回
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -55,6 +57,18 @@ class Builder extends BaseObject implements BuilderInterface
      * @see $partial
      */
     private $_partial = false;
+
+    /**
+     * 返回按钮
+     * @var bool
+     */
+    private $_backBtn = true;
+
+    /**
+     * 是否自动返回
+     * @var bool
+     */
+    private $_autoBack = true;
 
     /**
      * 局部视图路径
@@ -162,6 +176,54 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
+     * 设置表单返回按钮
+     * @param bool $boolean
+     * @return $this
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function setBackBtn($boolean = true)
+    {
+        $this->_backBtn = $boolean;
+        return $this;
+    }
+
+    /**
+     * 获取是否设置返回按钮
+     * @return bool
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function getBackBtn()
+    {
+        return $this->_backBtn;
+    }
+
+    /**
+     * 设置自动返回
+     * @param bool $boolean
+     * @return $this
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function setAutoBack($boolean = true)
+    {
+        $this->_autoBack = $boolean;
+        return $this;
+    }
+
+    /**
+     * 获取是否自动返回
+     * @return bool
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function getAutoBack()
+    {
+        return $this->_autoBack;
+    }
+
+    /**
      * 渲染入口
      * @param Controller $context
      * @return string
@@ -202,7 +264,8 @@ class Builder extends BaseObject implements BuilderInterface
         $this->_view->registerJs($this->resolveJsScript(), View::POS_END);
 
         return $context->render($this->_viewPath, [
-            '_fields' => $this->fields,             // 表单字段
+            '_fields'  => $this->fields,             // 表单字段
+            '_backBtn' => $this->backBtn,            // 是否设置返回按钮
         ]);
     }
 
@@ -216,7 +279,8 @@ class Builder extends BaseObject implements BuilderInterface
     protected function resolveJsScript()
     {
         $scriptTag = $this->_view->renderPhpFile(__DIR__ . '/app.php', [
-            '_fields' => $this->fields,              // 表单字段
+            '_fields'   => $this->fields,              // 表单字段
+            '_autoBack' => $this->autoBack,            // 提交完成后是否自动返回
         ]);
         return preg_script($scriptTag);
     }
