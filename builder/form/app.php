@@ -16,6 +16,22 @@ use app\builder\form\FieldsOptions;
         "use strict";
         var _easyApp = angular.module("EasyApp", ["YmAppModule", "ngFileUpload"]);
         _easyApp.controller('formCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "wangEditor", "Upload", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, wangEditor, Upload) {
+            // 封装Layer插件
+            var parentLayer = window.parent.layer;
+            var tips = function (msg, title, icon, callback) {
+                msg = msg || '';
+                title = title || '通知';
+                icon = icon || 1;
+                callback = callback || (new Function())
+                parentLayer.alert(msg, {
+                    closeBtn: 0,
+                    title: title,
+                    icon: icon,
+                }, function (index) {
+                    parentLayer.close(index);
+                    callback();
+                });
+            };
             // 挂载富文本插件
             var wangEditorMap = {};
             var mountedWangEditor = function () {
@@ -288,18 +304,25 @@ use app\builder\form\FieldsOptions;
             // 提交表单
             $scope.ymFormSubmitForm = function () {
                 var formData = getFormValus();
+                formData[yii.getCsrfParam()] = yii.getCsrfToken();
                 var currentUrl = '<?= Url::current() ?>';
 
                 // 节流
                 var i = YmSpinner.show();
                 $http.post(currentUrl, jQuery.param(formData)).then(function (data) {
                     YmSpinner.hide(i);
-                    toastr.success("提交成功", "通知");
+                    var result = data.data;
+                    if (result.code == 200) {
+                        tips(result.msg ? result.msg : '提交成功', '通知', 1, function () {
 
+                        });
+                    } else {
+                        tips(result.msg ? result.msg : (result.code == 500 ? '提交失败' : '您没有权限操作!'), "通知", 5);
+                    }
                 }, function (errors) {
                     YmSpinner.hide(i);
                     console.error(errors);
-                    toastr.error(errors.data || "系统错误，请稍后重试!", "通知");
+                    tips(errors.data || "系统错误，请稍后重试!", "通知", 2);
                 });
             };
 

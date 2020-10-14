@@ -259,6 +259,9 @@ class IndexController extends CommonController
      */
     public function actionAdd()
     {
+        if ($this->isPost) {
+            return $this->asSuccess();
+        }
         $formBuilder = ViewBuilder::form();
         $formBuilder->title = '新增';
         $formBuilder->fields = [
@@ -357,6 +360,10 @@ class IndexController extends CommonController
      */
     public function actionEdit()
     {
+        if ($this->isPost) {
+            return $this->asSuccess();
+        }
+
         $formBuilder = ViewBuilder::form();
         $formBuilder->partial = true;
         $formBuilder->fields = [
