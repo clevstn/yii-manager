@@ -138,7 +138,7 @@ class IndexController extends CommonController
                 'title' => '编辑',
                 'icon' => 'fa fa-pencil-square-o',
                 'route' => 'admin/index/edit',
-                'height' => '90%',
+                'height' => '420px',
             ]),
             table_action_helper('page', [
                 'title' => '新增',
@@ -371,8 +371,8 @@ class IndexController extends CommonController
         }
 
         $formBuilder = ViewBuilder::form();
-        $formBuilder->partial = true;
         $formBuilder->backBtn = false;
+        $formBuilder->partial = true;
         $formBuilder->fields = [
             'username' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
                 'label' => '用户名',
@@ -394,43 +394,6 @@ class IndexController extends CommonController
                 'label' => '备注',
                 'placeholder' => '请填写备注，字数范围5-250',
             ]),
-            'country' => form_fields_helper(FieldsOptions::CONTROL_CHECKBOX, [
-                'label' => '国家',
-                'options' => [
-                    '中国' => 1,
-                    '美国' => 2,
-                    '日本' => 3,
-                    '意大利' => 4,
-                    '德国' => 5,
-                ]
-            ]),
-            'sex' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
-                'label' => '性别',
-                'options' => [
-                    '男' => 0,
-                    '女' => 1,
-                    '未知' => 2,
-                ],
-            ]),
-            'status' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
-                'label' => '状态',
-                'placeholder' => '请选择状态',
-                'options' => [
-                    '禁用' => 0,
-                    '启用' => 2,
-                ],
-            ]),
-            'photo' => form_fields_helper(FieldsOptions::CONTROL_FILE, [
-                'label' => '头像上传',
-                'number' => 5,
-            ]),
-            'id' => form_fields_helper(FieldsOptions::CONTROL_HIDDEN, [
-                'default' => 1,
-            ]),
-            'notice' => form_fields_helper(FieldsOptions::CONTROL_RICHTEXT, [
-                'label' => '公告',
-                'default' => '请填写公告内容',
-            ])
         ];
 
         return $formBuilder->render($this);
