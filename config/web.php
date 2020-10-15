@@ -19,20 +19,6 @@ $config = [
         '@builder' => '@app/builder',
         '@api' => '@app/api',
     ],
-    'modules' => [
-        // yii-manager admin
-        'admin' => [
-            'class' => \app\admin\Module::class,
-        ],
-        // api version 1.0.0
-        'v1' => [
-            'class' => \app\api\v1\Module::class,
-        ],
-        // api version 2.0.0
-        'v2' => [
-            'class' => \app\api\v2\Module::class,
-        ],
-    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -88,6 +74,7 @@ $config = [
                 ],
             ],
         ],
+
         'db' => $db,
         'db1' => $db1,
 

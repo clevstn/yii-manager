@@ -17,7 +17,7 @@ class IndexAsset extends AssetBundle
      * @since 1.0
      */
     public $css = [
-
+        'admin_static/index/index.css',
     ];
 
     /**
@@ -25,7 +25,7 @@ class IndexAsset extends AssetBundle
      * @since 1.0
      */
     public $js = [
-        'admin/index/index.js',
+        'admin_static/index/index.js',
     ];
 
     /**

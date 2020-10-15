@@ -16,7 +16,7 @@ class SiteAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $js = [
-        'home/js/site.js',
+        'home_static/js/site.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
