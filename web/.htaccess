@@ -1,3 +1,9 @@
+# 入口默认访问
+<IfModule dir_module>
+    DirectoryIndex admin.php
+</IfModule>
+
+# 重写规则
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

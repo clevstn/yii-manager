@@ -30,7 +30,9 @@ class BeforeHandleActionFilter extends Behavior
     /**
      * Before send listener
      * @param yii\base\ActionEvent $event
-     * @author cleverstone <yang_hui_lei@163.com>
+     * @return bool
+     * @throws ForbiddenHttpException
+     * @author cleverstone
      * @since 1.0
      */
     public function beforeHandleAction($event)
@@ -38,15 +40,17 @@ class BeforeHandleActionFilter extends Behavior
         $mid = $event->action->controller->module->id;
         $bindMap = defined('BIND_MODULE') ? BIND_MODULE : null;
         if (empty($bindMap)) {
-            return;
+            return $event->isValid;
         }
 
         $event->isValid = true;
 
         $bindMap = (array) $bindMap;
         if (!in_array($mid, $bindMap, true)) {
+            Yii::$app->getResponse()->setStatusCodeByException(new ForbiddenHttpException('Forbidden'));
             $event->isValid = false;
-            throw new ForbiddenHttpException('Forbidden');
         }
+
+        return $event->isValid;
     }
 }

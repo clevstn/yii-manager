@@ -21,6 +21,7 @@ $config['modules']['v2'] = [
     'class' => \app\api\v2\Module::class,
 ];
 
+$config['defaultRoute'] = 'site';
 // 模块绑定，`null`代表不绑定
 defined('BIND_MODULE') or define('BIND_MODULE', null);
 

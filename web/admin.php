@@ -13,6 +13,7 @@ $config['modules']['admin'] = [
     'class' => \app\admin\Module::class,
 ];
 
+$config['defaultRoute'] = 'admin';
 $bindMap = YII_ENV_DEV ? ['debug', 'gii', 'admin'] : ['admin'];
 defined('BIND_MODULE') or define('BIND_MODULE', $bindMap);
 
