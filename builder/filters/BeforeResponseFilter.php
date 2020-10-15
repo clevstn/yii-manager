@@ -7,19 +7,18 @@
 // | 作者：cleverstone <yang_hui_lei@163.com>
 // +----------------------------------------------------------------------
 
-namespace app\behaviors;
+namespace app\builder\filters;
 
 use yii\web\Response;
 use yii\base\Behavior;
 
 /**
- * 响应前处理器
+ * 响应拦截器
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class BeforeResponseBehavior extends Behavior
+class BeforeResponseFilter extends Behavior
 {
-
     /**
      * inherit
      * @return array
