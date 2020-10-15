@@ -15,7 +15,7 @@ use yii\web\ForbiddenHttpException;
 class BeforeHandleActionFilter extends Behavior
 {
     /**
-     * inherit
+     * {@inherit}
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -28,7 +28,7 @@ class BeforeHandleActionFilter extends Behavior
     }
 
     /**
-     * Before send listener
+     * Before action listener
      * @param yii\base\ActionEvent $event
      * @return bool
      * @throws ForbiddenHttpException
