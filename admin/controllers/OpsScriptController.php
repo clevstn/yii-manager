@@ -46,6 +46,6 @@ class OpsScriptController extends CommonController
      */
     public function actionIndex()
     {
-        return $this->render('/index/index');
+        return $this->render('index');
     }
 }
