@@ -9,8 +9,10 @@
 
 namespace app\admin\controllers;
 
-use app\builder\common\CommonController;
+use app\builder\table\ToolbarFilterOptions;
+use app\models\AdminUser;
 use app\builder\ViewBuilder;
+use app\builder\common\CommonController;
 
 /**
  * 管理员操作日志
@@ -47,18 +49,49 @@ class AdminBehaviorLogController extends CommonController
      */
     public function actionIndex()
     {
+        $queryParams = $this->get;
         $table = ViewBuilder::table();
-        $table->setPage(false);
         $table->setTitle('管理员操作日志');
         $table->setHideCheckbox();
-        $table->setQuery(function () {
-            
+        $table->setQuery(function () use ($queryParams) {
+            $query = AdminUser::find();
+            $query->filterWhere([
+                '=', 'username', isset($queryParams['keyword']) ? $queryParams['keyword'] : null
+            ]);
+
+            return $query;
         });
+        $table->setOrderBy(['id' => SORT_DESC]);
         $table->setColumns([
             'id' => table_column_helper('ID'),
-            'name' => table_column_helper('name'),
-            'info' => table_column_helper('info'),
-            'status' => table_column_helper('info'),
+            'name' => table_column_helper('标题', [], function ($item) {
+                return $item['username'];
+            }),
+            'info' => table_column_helper('信息', [], function ($item) {
+                return $item['password'];
+            }),
+            'status' => table_column_helper('状态', [], function ($item) {
+                return '<span class="label label-success">正常</span>';
+            }),
+        ]);
+        $table->setToolbarRefresh();
+        $table->setToolbarFilter([
+            'columns' => [
+                'keyword' => table_toolbar_filter_helper([
+                    'control'       => ToolbarFilterOptions::CONTROL_TEXT,
+                    'label'         => '关键词',
+                    'placeholder'   => '请输入关键词',
+                ]),
+                'status' => table_toolbar_filter_helper([
+                    'control'       => ToolbarFilterOptions::CONTROL_SELECT,
+                    'label'         => '登陆状态',
+                    'placeholder'   => '请选择状态',
+                    'options'       => [
+                       '1' => '正常',
+                       '2' => '异常',
+                    ],
+                ]),
+            ],
         ]);
 
         return $table->render($this);

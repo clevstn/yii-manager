@@ -272,7 +272,7 @@ if (!function_exists('table_toolbar_filter_helper')) {
      * - default 默认值(项)
      * - style 样式，值可以是数组也可以是字符串
      * - attribute 属性，值可以是数组也可以是字符串
-     * - options 选项，用于select控件
+     * - options 选项，用于select控件 格式：[label => value]
      * - widget 自定义组件，值必须是\app\builder\table\CustomControl的实现
      * @return array
      * @throws ReflectionException

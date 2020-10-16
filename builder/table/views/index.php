@@ -179,7 +179,7 @@ use app\builder\table\ToolbarFilterOptions;
 
     <!--筛选表单-->
     <?php if (!empty($filterColumns) && is_array($filterColumns)): ?>
-        <div class="panel-body px-24" style="display:none;" id="YmTableFilterForm">
+        <div class="panel-body px-24 pt-16" style="display:none;" id="YmTableFilterForm">
             <form>
                 <?php foreach ($filterColumns as $field => $options): ?>
                     <?php switch ($options['control']): case ToolbarFilterOptions::CONTROL_TEXT: // text ?>
