@@ -44,24 +44,31 @@
             var ymGetTableList = function (page, perPage, param) {
                 // 节流
                 var i = YmSpinner.show();
-
+                // 初始化页面
+                $scope.YmTableEmpty = false;
                 $http.get(getUrl(page, perPage, param)).then(function (result) {
                     YmSpinner.hide(i);
-
                     var data = result.data;
                     $scope.ymTablePage = data.page;
-                    $scope.ymTablelist = data.data;
-
+                    $scope.ymTablelist = data.data || [];
+                    if ($scope.ymTablelist.length <= 0) {
+                        // 显示空
+                        $scope.YmTableEmpty = true;
+                    }
                     // 列表刷新时，取消多选框的选中状态
                     YmApp.uncheckTableIcheck();
                 }, function (error) {
                     YmSpinner.hide(i);
+                    // 显示空
+                    $scope.YmTableEmpty = true;
                     toastr.error(error.data || "数据加载失败，请稍后重试", "通知");
                     console.error(error);
                 });
             };
             // 初始化表格
             var ymInitTable = function () {
+                // 初始化页面
+                $scope.YmTableEmpty = false;
                 // 初始化导出列表
                 $scope.ymTableExportMap = [];
 

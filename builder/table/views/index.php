@@ -162,6 +162,10 @@ use app\builder\table\ToolbarFilterOptions;
             </tr>
             </tbody>
         </table>
+        <!--空-->
+        <div class="panel-body text-center" ng-if="YmTableEmpty">
+            <img style="margin-top:48px;font-size:0;" src="<?= Yii::getAlias('@web/media/image/empty.png') ?>" alt>
+        </div>
     </div>
 
     <!--分页开始-->
