@@ -35,7 +35,9 @@ class CommonAsset extends BaseAsset
         IcheckAsset::class,             // Icheck
         LaydateAsset::class,            // Laydate
         LayerAsset::class,              // Layer
+        WangEditorAsset::class,         // WangEditor
         AngularAsset::class,            // Angular 1.7.5
         AngularSelect2::class,          // Angular select2 archive
+        NgUpload::class,                // Angular Files Upload
     ];
 }

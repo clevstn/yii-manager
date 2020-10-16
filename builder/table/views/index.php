@@ -14,7 +14,7 @@ use app\builder\table\Table;
 use app\builder\table\ToolbarFilterOptions;
 ?>
 
-<div class="panel panel-default" ng-controller="tableCtrl">
+<div class="panel panel-default" ng-controller="_tableCtrl">
     <!--页面标题-->
     <?php if(!empty($this->title)): ?>
         <div class="panel-heading border-bottom">

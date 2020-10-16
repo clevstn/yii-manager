@@ -119,4 +119,8 @@
         $httpProvider.interceptors.push('httpInterceptor'); //添加拦截器
     }]);
 
+    // 注册App
+    global._EasyApp = angular.module("_EasyApp", ["YmAppModule", "ngFileUpload"]);
+
+
 }(window, window.angular);

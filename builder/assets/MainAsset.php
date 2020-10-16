@@ -10,7 +10,7 @@
 namespace app\builder\assets;
 
 /**
- * 公共定义包
+ * Main Asset
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

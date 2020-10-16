@@ -3,15 +3,10 @@
 /* @var array $_fields          表单字段集合 */
 /* @var boolean $_backBtn       是否设置返回按钮 */
 
-use app\builder\assets\NgUpload;
 use app\builder\form\FieldsOptions;
-use app\builder\assets\WangEditorAsset;
-
-WangEditorAsset::register($this);
-NgUpload::register($this);
 ?>
 
-<div class="panel panel-default" ng-controller="formCtrl">
+<div class="panel panel-default" ng-controller="_formCtrl">
     <!--页面标题-->
     <?php if (!empty($this->title) || $_backBtn): ?>
     <div class="panel-heading border-bottom clearfix">

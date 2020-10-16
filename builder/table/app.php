@@ -12,10 +12,9 @@
      * @author cleverstone
      * @since 1.0
      */
-    !function (window, angular) {
+    !function (window, _EasyApp) {
         "use strict";
-        var _easyApp = angular.module("EasyApp", ["YmAppModule"]);
-        _easyApp.controller('tableCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
+        _EasyApp.controller('_tableCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
             // ------ 列表 start ------
             var link = '<?= $link ?>';
             var pageNumber;
@@ -502,5 +501,5 @@
             <?php endforeach; ?>
 
         }]);
-    }(window, window.angular);
+    }(window, window._EasyApp);
 </script>

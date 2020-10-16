@@ -34,7 +34,7 @@ MainAsset::register($this);
     <title><?= Yii::$app->params['admin_title'] . ($this->title ? ' | ' . Html::encode($this->title) : '') ?></title>
     <?php $this->head() ?>
 </head>
-<body ng-app="EasyApp">
+<body ng-app="_EasyApp">
 <?php $this->beginBody() ?>
 <div class="ym-app">
     <!--Brand-->

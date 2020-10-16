@@ -6,6 +6,7 @@
 
 use yii\helpers\Url;
 use app\builder\form\FieldsOptions;
+
 // 注意这里必须是<script>...</script>的形式
 ?>
 <script>
@@ -14,10 +15,9 @@ use app\builder\form\FieldsOptions;
      * @author cleverstone
      * @since 1.0
      */
-    !function (window, angular) {
+    !function (window, _EasyApp) {
         "use strict";
-        var _easyApp = angular.module("EasyApp", ["YmAppModule", "ngFileUpload"]);
-        _easyApp.controller('formCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "wangEditor", "Upload", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, wangEditor, Upload) {
+        _EasyApp.controller('_formCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "wangEditor", "Upload", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, wangEditor, Upload) {
             // 封装Layer插件
             var parentLayer = window.parent.layer;
             var tips = function (msg, title, icon, callback) {
@@ -351,5 +351,5 @@ use app\builder\form\FieldsOptions;
             <?php endforeach; ?>
 
         }]);
-    }(window, window.angular);
+    }(window, window._EasyApp);
 </script>
