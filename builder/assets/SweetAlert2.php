@@ -38,4 +38,12 @@ class SweetAlert2 extends BaseAsset
     public $js = [
         'libs/sweetalert2/sweetalert2.min.js',
     ];
+
+    /**
+     * 注册依赖包
+     * @var string[]
+     */
+    public $depends = [
+        PromiseAsset::class,            // Es6 Promise
+    ];
 }
