@@ -40,11 +40,12 @@ class SystemSettingController extends CommonController
     ];
 
     /**
+     * 系统设置面板
      * @return string|\yii\web\Response
      * @author cleverstone <yang_hui_lei@163.com>
      */
     public function actionIndex()
     {
-        return $this->render('/index/index');
+        return $this->render('index');
     }
 }
