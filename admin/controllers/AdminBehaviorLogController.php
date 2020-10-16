@@ -10,6 +10,7 @@
 namespace app\admin\controllers;
 
 use app\builder\common\CommonController;
+use app\builder\ViewBuilder;
 
 /**
  * 管理员操作日志
@@ -46,6 +47,20 @@ class AdminBehaviorLogController extends CommonController
      */
     public function actionIndex()
     {
-        return $this->render('/index/index');
+        $table = ViewBuilder::table();
+        $table->setPage(false);
+        $table->setTitle('管理员操作日志');
+        $table->setHideCheckbox();
+        $table->setQuery(function () {
+            
+        });
+        $table->setColumns([
+            'id' => table_column_helper('ID'),
+            'name' => table_column_helper('name'),
+            'info' => table_column_helper('info'),
+            'status' => table_column_helper('info'),
+        ]);
+
+        return $table->render($this);
     }
 }
