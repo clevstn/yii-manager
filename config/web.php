@@ -4,6 +4,8 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 $db1 = require __DIR__ . '/db1.php';
 
+use app\builder\filters\BeforeResponseFilter;
+use app\builder\filters\BeforeHandleActionFilter;
 
 $config = [
     'id' => 'basic',    // 特别注意：该ID在多入口部署中，禁止修改；必须是basic。
@@ -19,7 +21,7 @@ $config = [
         '@builder' => '@app/builder',
         '@api' => '@app/api',
     ],
-    'as beforeHandleAction' => \app\builder\filters\BeforeHandleActionFilter::class,
+    'as beforeHandleAction' => BeforeHandleActionFilter::class,
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -27,7 +29,7 @@ $config = [
         ],
         'response' => [
             'class' => 'yii\web\Response',
-            'as beforeResponseSend' => \app\builder\filters\BeforeResponseFilter::class,
+            'as beforeResponseSend' => BeforeResponseFilter::class,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

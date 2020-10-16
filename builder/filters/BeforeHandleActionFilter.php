@@ -5,7 +5,6 @@ namespace app\builder\filters;
 use Yii;
 use yii\base\Behavior;
 use yii\web\Application;
-use yii\web\ForbiddenHttpException;
 
 /**
  * 动作拦截器
@@ -31,7 +30,6 @@ class BeforeHandleActionFilter extends Behavior
      * Before action listener
      * @param yii\base\ActionEvent $event
      * @return bool
-     * @throws ForbiddenHttpException
      * @author cleverstone
      * @since 1.0
      */
@@ -47,7 +45,7 @@ class BeforeHandleActionFilter extends Behavior
 
         $bindMap = (array) $bindMap;
         if (!in_array($mid, $bindMap, true)) {
-            Yii::$app->getResponse()->setStatusCodeByException(new ForbiddenHttpException('Forbidden'));
+            Yii::$app->getResponse()->redirect('@web/htm/404.html');
             $event->isValid = false;
         }
 
