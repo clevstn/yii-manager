@@ -70,7 +70,8 @@ MainAsset::register($this);
         'brandUrl' => Url::current() ?: Yii::$app->params['admin_url'],
         'brandOptions' => ['class' => 'ym-brand-mobile']
     ]);
-    echo NavHelper::renderItems();
+    echo NavHelper::renderLeftItems();
+    echo NavHelper::renderRightItems();
     NavBar::end();
     ?>
 

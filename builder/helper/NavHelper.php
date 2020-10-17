@@ -10,8 +10,8 @@
 namespace app\builder\helper;
 
 use Yii;
-use yii\bootstrap\Nav;
 use yii\helpers\Html;
+use yii\bootstrap\Nav;
 
 /**
  * 导航助手
@@ -21,24 +21,41 @@ use yii\helpers\Html;
 class NavHelper
 {
     /**
-     * 渲染导航项
+     * 导航左侧项
      * @return string
      * @throws \Exception
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public static function renderItems()
+    public static function renderLeftItems()
+    {
+        $context = new static();
+        return Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-left'],
+            'encodeLabels' => false,
+            'items' => $context->getItems()['left'],
+        ]);
+    }
+
+    /**
+     * 导航右侧项
+     * @return string
+     * @throws \Exception
+     * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
+     */
+    public static function renderRightItems()
     {
         $context = new static();
         return Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'encodeLabels' => false,
-            'items' => $context->getItems(),
+            'items' => $context->getItems()['right'],
         ]);
     }
 
     /**
-     * 个人中心下拉获取标语
+     * 我的Brand
      * @return string
      * @author cleverstone
      * @since 1.0
