@@ -11,12 +11,12 @@ use app\builder\helper\NavHelper;
 return [
     // 个人中心
     [
-        'label' => '个人中心',
+        'label' => '<i class="glyphicon glyphicon-home"></i>&nbsp;我的',
         'items' => [
             NavHelper::getMyBrand(),
             '<li class="divider"></li>',
-            ['label' => '运维脚本', 'url' => '/admin/ops-script/index'],
-            ['label' => '应用日志', 'url' => '/admin/app-log/index'],
+            ['label' => '<i class="glyphicon glyphicon-edit"></i>&nbsp;个人设置', 'url' => '#'],
+            ['label' => '<i class="glyphicon glyphicon-off"></i>&nbsp;退出', 'url' => '#'],
         ],
     ],
 ];
