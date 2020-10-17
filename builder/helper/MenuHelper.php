@@ -57,6 +57,21 @@ class MenuHelper
                 'icon' => 'glyphicon glyphicon-blackboard',
                 'items' => [
                     [
+                        'label' => '管理员',
+                        'url' => ['/admin/manager/index'],
+                        'icon' => 'glyphicon glyphicon-user',
+                    ],
+                    [
+                        'label' => '菜单',
+                        'url' => ['/admin/menu/index'],
+                        'icon' => 'fa fa-bars',
+                    ],
+                    [
+                        'label' => '管理组',
+                        'url' => ['/admin/group/index'],
+                        'icon' => 'fa fa-list-alt',
+                    ],
+                    [
                         'label' => '运维脚本',
                         'url' => ['/admin/ops-script/index'],
                         'icon' => 'glyphicon glyphicon-flash',
