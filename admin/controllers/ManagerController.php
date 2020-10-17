@@ -4,6 +4,7 @@ namespace app\admin\controllers;
 
 use app\models\AdminUser;
 use app\builder\ViewBuilder;
+use app\builder\form\FieldsOptions;
 use app\builder\helper\DateSplitHelper;
 use app\builder\common\CommonController;
 use app\builder\table\ToolbarFilterOptions;
@@ -20,6 +21,8 @@ class ManagerController extends CommonController
      */
     public $actionVerbs = [
         'index' => ['get'],
+        'add-user' => ['get', 'post'],
+        'toggle' => ['get', 'post'],
     ];
 
     /**
@@ -27,6 +30,8 @@ class ManagerController extends CommonController
      */
     public $guestActions = [
         'index',
+        'add-user',
+        'toggle',
     ];
 
     /**
@@ -87,7 +92,7 @@ class ManagerController extends CommonController
                     ['between', 'created_at', $startAt, $endAt],
                 ]);
             }
-            
+
             return $query;
         };
         $table->orderBy = [
@@ -185,7 +190,81 @@ class ManagerController extends CommonController
             ],
             'name' => '管理员列表',
         ];
+        // 自定义工具栏
+        $table->toolbarCustom = [
+            // 新增管理员
+            table_toolbar_custom_helper('left', [
+                'title' => '新增管理员',
+                'icon' => 'fa fa-plus',
+                'option' => 'modal',
+                'route' => 'admin/manager/add-user',
+                'width' => '700px',
+                'height' => '750px',
+            ]),
+            // 封停
+            table_toolbar_custom_helper('left', [
+                'title' => '封停',
+                'icon' => 'fa fa-lock',
+                'option' => 'modal',
+                'route' => 'admin/manager/toggle',
+                'width' => '700px',
+                'height' => '750px',
+                'params' => ['id', 'action' => 'disabled'],
+            ]),
+            // 解封
+            table_toolbar_custom_helper('left', [
+                'title' => '解封',
+                'icon' => 'fa fa-unlock',
+                'option' => 'ajax',
+                'route' => 'admin/manager/toggle',
+                'params' => ['id', 'action' => 'enabled'],
+            ]),
+        ];
 
         return $table->render($this);
+    }
+
+    /**
+     * 新增管理员
+     * @return string
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function actionAddUser()
+    {
+        $form = ViewBuilder::form();
+        $form->partial = true;
+        $form->backBtn = false;
+        $form->fields = [
+            'parent' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                'label' => '我的上级',
+                'placeholder' => '请填写我的上级用户名/邮箱',
+            ]),
+            'username' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                'label' => '用户名',
+                'placeholder' => '请填写用户名',
+            ]),
+            'password' => form_fields_helper(FieldsOptions::CONTROL_PASSWORD, [
+                'label' => '密码',
+                'placeholder' => '请填写密码',
+            ]),
+            'repassword' => form_fields_helper(FieldsOptions::CONTROL_PASSWORD, [
+                'label' => '重复密码',
+                'placeholder' => '请确认密码',
+            ]),
+        ];
+
+        return $form->render($this);
+    }
+
+    /**
+     * 解封、封停
+     * @return string
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function actionToggle()
+    {
+        return '';
     }
 }
