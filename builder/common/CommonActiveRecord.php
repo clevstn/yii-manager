@@ -38,4 +38,16 @@ class CommonActiveRecord extends ActiveRecord
             ],
         ];
     }
+
+    /**
+     * 获取当前模型的查询对象
+     * @param $select
+     * @return \yii\db\ActiveQuery
+     * @author cleverstone
+     * @since 1.0
+     */
+    public static function getQuery($select)
+    {
+        return self::find()->select($select);
+    }
 }
