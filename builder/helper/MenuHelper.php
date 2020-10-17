@@ -12,7 +12,7 @@ namespace app\builder\helper;
 use app\builder\widgets\Menu;
 
 /**
- * 菜单渲染助手
+ * 菜单助手
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

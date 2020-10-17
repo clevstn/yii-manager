@@ -12,7 +12,7 @@ namespace app\builder\helper;
 use yii\bootstrap\Html;
 
 /**
- * 导航栏渲染助手
+ * 导航栏助手
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

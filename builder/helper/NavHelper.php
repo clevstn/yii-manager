@@ -9,10 +9,11 @@
 
 namespace app\builder\helper;
 
+use Yii;
 use yii\bootstrap\Nav;
 
 /**
- * 导航渲染助手
+ * 导航助手
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -40,14 +41,9 @@ class NavHelper
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function getItems()
+    protected function getItems()
     {
-        return [
-            [
-                'label' => '<i class="glyphicon glyphicon-log-out"></i><span>&nbsp;登录</span>',
-                'url' => ['/admin/site/login'],
-                'encode' => false
-            ],
-        ];
+        $navPath = Yii::$app->basePath . '/config/nav.php';
+        return include($navPath);
     }
 }
