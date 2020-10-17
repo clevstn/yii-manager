@@ -11,6 +11,7 @@ namespace app\builder\helper;
 
 use Yii;
 use yii\bootstrap\Nav;
+use yii\helpers\Html;
 
 /**
  * 导航助手
@@ -33,6 +34,31 @@ class NavHelper
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => $context->getItems(),
         ]);
+    }
+
+    /**
+     * 个人中心下拉获取标语
+     * @return string
+     * @author cleverstone
+     * @since 1.0
+     */
+    public static function getMyBrand()
+    {
+        $adminUser = Yii::$app->adminUser;
+        $label = Html::tag('span', '当前登录：' . ($adminUser->isGuest ? '无' : $adminUser->username), [
+            'style' => ['margin-top' => '12px']
+        ]);
+        $imgContent = Html::img('@web/media/image/head.png', [
+            'style' => ['width' => '70px', 'height' => '70px'],
+        ]);
+
+        return Html::tag(
+            'li',
+            "{$imgContent}\n{$label}",
+            [
+                'class' => 'dropdown-header custom-header',
+            ]
+        );
     }
 
     /**

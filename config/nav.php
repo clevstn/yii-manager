@@ -6,11 +6,14 @@
  * @see app\builder\helper\NavHelper::getItems()
  */
 
+use app\builder\helper\NavHelper;
+
 return [
+    // 个人中心
     [
         'label' => '个人中心',
         'items' => [
-            '<li class="dropdown-header">当前登录：admin</li>',
+            NavHelper::getMyBrand(),
             '<li class="divider"></li>',
             ['label' => '运维脚本', 'url' => '/admin/ops-script/index'],
             ['label' => '应用日志', 'url' => '/admin/app-log/index'],
