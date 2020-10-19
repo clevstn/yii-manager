@@ -233,67 +233,72 @@ class ManagerController extends CommonController
      */
     public function actionAddUser()
     {
-        $form = ViewBuilder::form();
-        $form->partial = true;
-        $form->backBtn = false;
-        $form->fields = [
-            'parent' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
-                'label' => '我的上级',
-                'placeholder' => '请填写我的上级用户名/邮箱',
-            ]),
-            'username' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
-                'label' => '用户名',
-                'placeholder' => '请填写用户名',
-            ]),
-            'password' => form_fields_helper(FieldsOptions::CONTROL_PASSWORD, [
-                'label' => '密码',
-                'placeholder' => '请填写密码',
-            ]),
-            'repassword' => form_fields_helper(FieldsOptions::CONTROL_PASSWORD, [
-                'label' => '重复密码',
-                'placeholder' => '请确认密码',
-            ]),
-            'email' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
-                'label' => '邮箱',
-                'placeholder' => '请填写邮箱',
-            ]),
-            'an' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
-                'label' => '电话区号',
-                'placeholder' => '请选择电话区号',
-                'default' => '86',
-                'options' => AreaCode::areaCodes(),
-            ]),
-            'mobile' => form_fields_helper(FieldsOptions::CONTROL_NUMBER, [
-                'label' => '手机号',
-                'placeholder' => '请填写手机号',
-            ]),
-            'safe_auth' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
-                'label' => '是否开启安全认证',
-                'default' => AdminUser::SAFE_AUTH_FOLLOW_SYSTEM,
-                'options' => AdminUser::$safeMap,
-            ]),
-            'open_operate_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
-                'label' => '是否开启操作日志',
-                'default' => AdminUser::OPERATE_LOG_FOLLOW,
-                'options' => AdminUser::$operationMap,
-            ]),
-            'open_login_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
-                'label' => '是否开启登录日志',
-                'default' => AdminUser::LOGIN_LOG_FOLLOW,
-                'options' => AdminUser::$loginMap,
-            ]),
-            'group' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
-                'label' => '管理组',
-                'placeholder' => '请选择管理组',
-                'options' => [
-                    '0' => '超级管理员',
-                    '1' => '普通管理员',
-                    '2' => '市场调查员',
-                ],
-            ]),
-        ];
+        if ($this->isPost) {
+            return $this->asSuccess('新增成功');
+        } else {
+            $form = ViewBuilder::form();
+            $form->partial = true;
+            $form->backBtn = false;
+            $form->fields = [
+                'parent' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                    'label' => '我的上级',
+                    'placeholder' => '请填写我的上级用户名/邮箱',
+                    'required' => false,
+                ]),
+                'username' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                    'label' => '用户名',
+                    'placeholder' => '请填写用户名',
+                ]),
+                'password' => form_fields_helper(FieldsOptions::CONTROL_PASSWORD, [
+                    'label' => '密码',
+                    'placeholder' => '请填写密码',
+                ]),
+                'repassword' => form_fields_helper(FieldsOptions::CONTROL_PASSWORD, [
+                    'label' => '重复密码',
+                    'placeholder' => '请确认密码',
+                ]),
+                'email' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                    'label' => '邮箱',
+                    'placeholder' => '请填写邮箱',
+                ]),
+                'an' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
+                    'label' => '电话区号',
+                    'placeholder' => '请选择电话区号',
+                    'default' => '86',
+                    'options' => AreaCode::areaCodes(),
+                ]),
+                'mobile' => form_fields_helper(FieldsOptions::CONTROL_NUMBER, [
+                    'label' => '手机号',
+                    'placeholder' => '请填写手机号',
+                ]),
+                'safe_auth' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
+                    'label' => '是否开启安全认证',
+                    'default' => AdminUser::SAFE_AUTH_FOLLOW_SYSTEM,
+                    'options' => AdminUser::$safeMap,
+                ]),
+                'open_operate_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
+                    'label' => '是否开启操作日志',
+                    'default' => AdminUser::OPERATE_LOG_FOLLOW,
+                    'options' => AdminUser::$operationMap,
+                ]),
+                'open_login_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
+                    'label' => '是否开启登录日志',
+                    'default' => AdminUser::LOGIN_LOG_FOLLOW,
+                    'options' => AdminUser::$loginMap,
+                ]),
+                'group' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
+                    'label' => '管理组',
+                    'placeholder' => '请选择管理组',
+                    'options' => [
+                        '0' => '超级管理员',
+                        '1' => '普通管理员',
+                        '2' => '市场调查员',
+                    ],
+                ]),
+            ];
 
-        return $form->render($this);
+            return $form->render($this);
+        }
     }
 
     /**

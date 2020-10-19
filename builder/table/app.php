@@ -65,6 +65,16 @@
                     console.error(error);
                 });
             };
+
+            // 挂载到window._EasyFrameModalSuccessCallback
+            if (typeof window._EasyFrameModalSuccessCallback !== "undefined") {
+                window._EasyFrameModalSuccessCallback.ymGetTableList = ymGetTableList;
+            } else {
+                window._EasyFrameModalSuccessCallback = {
+                    ymGetTableList: ymGetTableList,
+                };
+            }
+
             // 初始化表格
             var ymInitTable = function () {
                 // 初始化页面

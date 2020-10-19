@@ -324,6 +324,15 @@ use app\builder\form\FieldsOptions;
                                 var index = parentLayer.getFrameIndex(window.name);
                                 // 再执行关闭
                                 parentLayer.close(index);
+                                // 刷新父窗口
+                                var mountedMethods = window.parent._EasyFrameModalSuccessCallback;
+                                if (typeof mountedMethods !== "undefined") {
+                                    for (var i in mountedMethods) {
+                                        if (mountedMethods.hasOwnProperty(i) && typeof mountedMethods[i] == "function") {
+                                            mountedMethods[i].call();
+                                        }
+                                    }
+                                }
                             } else if (referrer) {
                                 // 不在iframe中,如果存在来源则返回来源并刷新页面
                                 window.self.location.href = referrer;

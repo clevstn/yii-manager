@@ -127,13 +127,13 @@ trait Http
 
     /**
      * Json成功响应
-     * @param array $data
      * @param string $msg
+     * @param array $data
      * @return mixed
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
-    public function asSuccess($data = [], $msg = '执行成功')
+    public function asSuccess($msg = '执行成功', $data = [])
     {
         $code = 200;
         return $this->asJson(compact('code', 'data', 'msg'));
