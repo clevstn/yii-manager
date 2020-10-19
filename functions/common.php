@@ -239,7 +239,7 @@ if (!function_exists('table_action_helper')) {
      * - ajax XMLHttpRequest调用
      * - division 分割线
      * @param array $options 选项
-     * - title 按钮标题和page、modal标题
+     * - title 按钮标题和`page`、`modal`标题
      * - icon  按钮图标
      * - route 路由
      * - params 路由参数
