@@ -252,6 +252,10 @@ class ManagerController extends CommonController
                 'label' => '重复密码',
                 'placeholder' => '请确认密码',
             ]),
+            'email' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                'label' => '邮箱',
+                'placeholder' => '请填写邮箱',
+            ]),
         ];
 
         return $form->render($this);
