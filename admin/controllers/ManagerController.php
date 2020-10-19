@@ -235,8 +235,27 @@ class ManagerController extends CommonController
     {
         if ($this->isPost) {
             $model = new AdminUser();
+            $model->setScenario('add');
             if ($model->load($this->post, '') && $model->validate()) {
-                return $this->asSuccess('新增成功');
+                $pid = 0;
+                $parentPath = '';
+                if (!empty($model->parent)) {
+                    $pid = $model->findIdByKeyword($model->parent);
+                    if ($pid === false) {
+                        return $this->asFail('我的上级不存在');
+                    }
+
+                    $parentPath = $model->findParentPathByPid($pid);
+                    if ($parentPath === false) {
+                        return $this->asFail('我的上级不存在');
+                    }
+                }
+
+                $model->identify_code = $model->generateIdentifyCode();
+                $model->pid = $pid;
+                $model->path = AdminUser::makePath($pid, $parentPath);
+
+                return $model->save(false) ? $this->asSuccess('新增成功') : $this->asFail('新增失败');
             } else {
                 return $this->asFail($model->error);
             }
@@ -280,6 +299,7 @@ class ManagerController extends CommonController
                     'label' => '是否开启安全认证',
                     'default' => AdminUser::SAFE_AUTH_FOLLOW_SYSTEM,
                     'options' => AdminUser::$safeMap,
+                    'comment' => '开启OTP认证后，请前往【我的】绑定Google Authenticator。',
                 ]),
                 'open_operate_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
                     'label' => '是否开启操作日志',

@@ -56,6 +56,9 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      */
     public $repassword;
 
+    // 路由分割符号
+    const PATH_SPLIT_SYMBOL = '-';
+
     // 禁用
     const STATUS_DENY = 0;
 
@@ -173,9 +176,9 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['parent', 'string', 'min' => 3, 'max' => 250],
+            ['parent', 'string', 'min' => 2, 'max' => 250],
             [['username', 'password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log', 'group'], 'required'],
-            ['username', 'string', 'min' => 3, 'max' => 20],
+            ['username', 'string', 'min' => 2, 'max' => 20],
             ['password', 'string', 'min' => 6, 'max' => 25],
             ['password', 'match', 'pattern' => '/^[1-9a-z][1-9a-z_\-+.*!@#$%&=|~]{5,24}$/i', 'message' => '密码存在敏感字符请重写输入'],
             ['repassword', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码输入不一致'],
@@ -215,7 +218,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         $parentBehaviors = parent::behaviors();
         // 密码处理器
         $parentBehaviors['passwordBehavior'] = [
-            'class' => PasswordBehavior::className(),
+            'class' => PasswordBehavior::class,
             'attributes' => [
                 CommonActiveRecord::EVENT_BEFORE_INSERT => 'password',
                 CommonActiveRecord::EVENT_BEFORE_UPDATE => 'password',
@@ -391,5 +394,73 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public function validatePassword($password)
     {
         return \Yii::$app->security->validatePassword($password, $this->password);
+    }
+
+    /**
+     * 生成管理员身份码
+     * @return string
+     * @throws \yii\base\Exception
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function generateIdentifyCode()
+    {
+        $identifyCode = random_string(true, 10);
+        while (self::query('id')->where(['identify_code' => $identifyCode])->one()) {
+            $identifyCode = random_string(true, 10);
+        }
+
+        return $identifyCode;
+    }
+
+    /**
+     * 通过关键词获取用户[[id]]
+     * @param string $keyword 用户名|邮箱
+     * @return int|false
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function findIdByKeyword($keyword)
+    {
+        if (!empty($keyword)) {
+            $result = self::query('id')->where(['username' => $keyword])->orWhere(['email' => $keyword])->one();
+            if (!empty($result)) {
+                return $result['id'];
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 获取父级的[[path]]
+     * @param int $pid 父`id`
+     * @return string|false
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function findParentPathByPid($pid)
+    {
+        if (!empty($pid)) {
+            $result = self::query('path')->where(['id' => $pid])->one();
+            if (!empty($result)) {
+                return $result['path'];
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 组成[[path]]
+     * @param int $pid 父级`id`
+     * @param string $parentPath 父级`path`
+     * @return string
+     * @author cleverstone
+     * @since 1.0
+     */
+    public static function makePath($pid, $parentPath)
+    {
+        return $parentPath . $pid . self::PATH_SPLIT_SYMBOL;
     }
 }

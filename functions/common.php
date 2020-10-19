@@ -24,7 +24,7 @@ if (!function_exists('dd')) {
 
 if (!function_exists('export_str')) {
     /**
-     * 导出变量为字符串
+     * 返回变量字符串
      * @param mixed $mixed 变量
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>

@@ -31,7 +31,7 @@ class CommonActiveRecord extends ActiveRecord
         return [
             // 日期处理器
             'timestampBehavior' => [
-                'class' => DatetimeBehavior::className(),
+                'class' => DatetimeBehavior::class,
                 'attributes' => [
                     CommonActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
                     CommonActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
