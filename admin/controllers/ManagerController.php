@@ -54,7 +54,7 @@ class ManagerController extends CommonController
         $table->title = '管理员';
         // 查询
         $table->query = function () use ($queryParams) {
-            $query = AdminUser::getQuery([
+            $query = AdminUser::query([
                 'id',               // ID
                 'username',         // 用户名
                 'email',            // 邮箱
@@ -126,7 +126,7 @@ class ManagerController extends CommonController
             'identify_code' => table_column_helper('身份码', ['style' => ['min-width' => '130px']]),
             'pid' => table_column_helper('上级', ['style' => ['min-width' => '130px']], function ($item) {
                 if (!empty($item['pid'])) {
-                    $parentUserInfo = AdminUser::getQuery(['username'])->where(['id' => $item['pid']])->one();
+                    $parentUserInfo = AdminUser::query(['username'])->where(['id' => $item['pid']])->one();
                     if (!empty($parentUserInfo)) {
                         return $parentUserInfo['username'];
                     }
@@ -238,7 +238,7 @@ class ManagerController extends CommonController
             if ($model->load($this->post, '') && $model->validate()) {
                 return $this->asSuccess('新增成功');
             } else {
-                return $this->asFail($model->firstErrors);
+                return $this->asFail($model->error);
             }
         } else {
             $form = ViewBuilder::form();

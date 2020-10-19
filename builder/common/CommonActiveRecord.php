@@ -14,13 +14,14 @@ use app\behaviors\DatetimeBehavior;
 
 /**
  * 模型继承类
+ * @property-read string $error 错误信息
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 class CommonActiveRecord extends ActiveRecord
 {
     /**
-     * 附加默认行为
+     * 附加公共行为
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -40,14 +41,26 @@ class CommonActiveRecord extends ActiveRecord
     }
 
     /**
-     * 获取当前模型的查询对象
+     * 获取当前模型映射的ActiveQuery对象
      * @param $select
      * @return \yii\db\ActiveQuery
      * @author cleverstone
      * @since 1.0
      */
-    public static function getQuery($select)
+    public static function query($select)
     {
         return self::find()->select($select);
+    }
+
+    /**
+     * 获取验证错误信息[字符串格式]
+     * @return mixed|string
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function getError()
+    {
+        $firstErrors = $this->firstErrors;
+        return reset($firstErrors) ?: '';
     }
 }

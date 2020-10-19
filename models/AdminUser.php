@@ -37,6 +37,8 @@ use app\builder\common\CommonActiveRecord;
  * @property string $created_at 注册时间
  * @property string $updated_at 更新时间
  *
+ * @property-read string $authKey cookie认证密匙
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -131,12 +133,35 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     ];
 
     /**
-     * 设置表格名
+     * 定义表格名
      * @return string
      */
     public static function tableName()
     {
         return '{{%admin_user}}';
+    }
+
+    /**
+     * 定义属性标签
+     * @return array|string[]
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function attributeLabels()
+    {
+        return [
+            'parent' => '我的上级',
+            'username' => '用户名',
+            'password' => '密码',
+            'repassword' => '重复密码',
+            'email' => '邮箱',
+            'an' => '电话区号',
+            'mobile' => '手机号',
+            'safe_auth' => '是否开启安全认证',
+            'open_operate_log' => '是否开启操作日志',
+            'open_login_log' => '是否开启登录日志',
+            'group' => '管理组',
+        ];
     }
 
     /**
@@ -201,7 +226,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     }
 
     /**
-     * 获取状态label
+     * 获取状态标签
      * @param int $status 状态
      * @param boolean $isHtml 是否是html
      * @return string
@@ -233,7 +258,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     }
 
     /**
-     * 获取是否开启安全认证label
+     * 获取是否开启安全认证标签
      * @param int $safeAuth 是否开启安全认证
      * @return string
      * @author cleverstone
@@ -258,7 +283,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     }
 
     /**
-     * 获取是否开启操作日志label
+     * 获取是否开启操作日志标签
      * @param int $isOpenOperateLog 是否开启操作日志
      * @return string
      * @author cleverstone
@@ -279,7 +304,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     }
 
     /**
-     * 获取是否开启登录日志label
+     * 获取是否开启登录日志标签
      * @param $isOpenLoginLog
      * @return string
      * @author cleverstone
@@ -300,8 +325,8 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     }
 
     /**
-     * 通过用户ID获取用户
-     * @param int|string $id ID
+     * 通过用户`id`获取模型实例
+     * @param int|string $id id
      * @return AdminUser|IdentityInterface|null
      * @author cleverstone <yang_hui_lei@163.com>
      */
@@ -311,7 +336,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     }
 
     /**
-     * 通过访问令牌获取用户
+     * 通过访问令牌获取模型实例
      * @param string $token 访问令牌
      * @param null|string $type 授权类型
      * @return AdminUser|IdentityInterface|null
@@ -323,7 +348,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     }
 
     /**
-     * 通过用户名获取用户
+     * 通过用户名获取模型实例
      * @param string $username 用户名
      * @return AdminUser|null
      * @author cleverstone <yang_hui_lei@163.com>
