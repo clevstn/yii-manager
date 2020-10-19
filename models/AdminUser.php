@@ -42,10 +42,24 @@ use app\builder\common\CommonActiveRecord;
  */
 class AdminUser extends CommonActiveRecord implements IdentityInterface
 {
+    /**
+     * 我的上级
+     * @var string
+     */
+    public $parent;
+
+    /**
+     * 重复密码
+     * @var string
+     */
+    public $repassword;
+
     // 禁用
     const STATUS_DENY = 0;
+
     // 正常
     const STATUS_NORMAL = 1;
+
     /**
      * @var string[]
      */
@@ -56,12 +70,16 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
 
     // 关闭安全认证
     const SAFE_AUTH_CLOSE = 0;
+
     // 安全认证跟随系统设置
     const SAFE_AUTH_FOLLOW_SYSTEM = 1;
+
     // 邮箱认证
     const SAFE_AUTH_EMAIL = 2;
+
     // 短信认证
     const SAFE_AUTH_MESSAGE = 3;
+
     // MFA认证
     const SAFE_AUTH_OTP = 4;
 
@@ -78,8 +96,10 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
 
     // 关闭操作日志
     const OPERATE_LOG_CLOSE = 0;
+
     // 操作日志设置跟随系统
     const OPERATE_LOG_FOLLOW = 1;
+
     // 开启操作日志
     const OPERATE_LOG_OPEN = 2;
 
@@ -94,8 +114,10 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
 
     // 关闭登录日志
     const LOGIN_LOG_CLOSE = 0;
+
     // 登录日志设置跟随系统
     const LOGIN_LOG_FOLLOW = 1;
+
     // 开启登录日志
     const LOGIN_LOG_OPEN = 2;
 
@@ -115,6 +137,46 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public static function tableName()
     {
         return '{{%admin_user}}';
+    }
+
+    /**
+     * 规则定义
+     * @return array
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function rules()
+    {
+        return [
+            ['parent', 'string', 'min' => 3, 'max' => 250],
+            [['username', 'password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log', 'group'], 'required'],
+            ['username', 'string', 'min' => 3, 'max' => 20],
+            ['password', 'string', 'min' => 6, 'max' => 25],
+            ['password', 'match', 'pattern' => '/^[1-9a-z][1-9a-z_\-+.*!@#$%&=|~]{5,24}$/i', 'message' => '密码存在敏感字符请重写输入'],
+            ['repassword', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码输入不一致'],
+            ['email', 'email'],
+            ['an', 'number'],
+            ['mobile', 'string', 'min' => 5, 'max' => 11],
+            ['safe_auth', 'in', 'range' => array_keys(self::$safeMap)],
+            ['open_operate_log', 'in', 'range' => array_keys(self::$operationMap)],
+            ['open_login_log', 'in', 'range' => array_keys(self::$loginMap)],
+            ['group', 'integer'],
+        ];
+    }
+
+    /**
+     * 场景定义
+     * @return array|array[]
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        // 场景`新增`
+        $scenarios['add'] = ['parent', 'username', 'password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log', 'group'];
+
+        return $scenarios;
     }
 
     /**

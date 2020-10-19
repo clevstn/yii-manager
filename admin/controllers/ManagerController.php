@@ -234,7 +234,12 @@ class ManagerController extends CommonController
     public function actionAddUser()
     {
         if ($this->isPost) {
-            return $this->asSuccess('新增成功');
+            $model = new AdminUser();
+            if ($model->load($this->post, '') && $model->validate()) {
+                return $this->asSuccess('新增成功');
+            } else {
+                return $this->asFail($model->firstErrors);
+            }
         } else {
             $form = ViewBuilder::form();
             $form->partial = true;
