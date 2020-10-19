@@ -46,6 +46,14 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     const STATUS_DENY = 0;
     // 正常
     const STATUS_NORMAL = 1;
+    /**
+     * @var string[]
+     */
+    public static $statusMap = [
+        self::STATUS_DENY => '封停',
+        self::STATUS_NORMAL => '正常',
+    ];
+
     // 关闭安全认证
     const SAFE_AUTH_CLOSE = 0;
     // 安全认证跟随系统设置
@@ -56,18 +64,49 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     const SAFE_AUTH_MESSAGE = 3;
     // MFA认证
     const SAFE_AUTH_OTP = 4;
+
+    /**
+     * @var array
+     */
+    public static $safeMap = [
+        self::SAFE_AUTH_CLOSE => '关闭',
+        self::SAFE_AUTH_FOLLOW_SYSTEM => '跟随系统',
+        self::SAFE_AUTH_EMAIL => '邮箱认证',
+        self::SAFE_AUTH_MESSAGE => '短信认证',
+        self::SAFE_AUTH_OTP => 'OTP认证',
+    ];
+
     // 关闭操作日志
     const OPERATE_LOG_CLOSE = 0;
     // 操作日志设置跟随系统
     const OPERATE_LOG_FOLLOW = 1;
     // 开启操作日志
     const OPERATE_LOG_OPEN = 2;
+
+    /**
+     * @var string[]
+     */
+    public static $operationMap = [
+        self::OPERATE_LOG_CLOSE => '关闭',
+        self::OPERATE_LOG_FOLLOW => '跟随系统',
+        self::OPERATE_LOG_OPEN => '开启',
+    ];
+
     // 关闭登录日志
     const LOGIN_LOG_CLOSE = 0;
     // 登录日志设置跟随系统
     const LOGIN_LOG_FOLLOW = 1;
     // 开启登录日志
     const LOGIN_LOG_OPEN = 2;
+
+    /**
+     * @var string[]
+     */
+    public static $loginMap = [
+        self::LOGIN_LOG_CLOSE => '关闭',
+        self::LOGIN_LOG_FOLLOW => '跟随系统',
+        self::LOGIN_LOG_OPEN => '开启',
+    ];
 
     /**
      * 设置表格名

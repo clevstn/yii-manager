@@ -95,7 +95,7 @@ class FieldsOptions extends BaseOptions
     public $range = 0;
 
     /**
-     * 选项，用于`radio`、`checkbox`、`select`控件
+     * 选项，用于`radio`、`checkbox`、`select`控件，格式：[`value` => `label`]
      * @var array
      */
     public $options;

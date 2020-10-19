@@ -39,6 +39,17 @@ class AreaCode extends \app\builder\common\CommonActiveRecord
     }
 
     /**
+     * 区号列表
+     * @return array
+     * @author cleverstone
+     * @since 1.0
+     */
+    public static function areaCodes()
+    {
+        return self::find()->select('name')->indexBy('code')->column();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function attributeLabels()

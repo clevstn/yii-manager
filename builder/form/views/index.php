@@ -94,10 +94,10 @@ use app\builder\form\FieldsOptions;
                         </span>
                     </div>
                     <div class="form-control">
-                        <?php foreach ($options['options'] as $title => $value): ?>
+                        <?php foreach ($options['options'] as $value => $label): ?>
                         <label class="checkbox-inline">
                             <input type="checkbox" class="ymFormCheckbox_<?= $field ?> icheck-control" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> value="<?= $value ?>">
-                            <span class="label-helper"><?= $title ?></span>
+                            <span class="label-helper"><?= $label ?></span>
                         </label>
                         <?php endforeach; ?>
                     </div>
@@ -118,10 +118,10 @@ use app\builder\form\FieldsOptions;
                         </span>
                     </div>
                     <div class="form-control">
-                        <?php foreach ($options['options'] as $title => $value): ?>
+                        <?php foreach ($options['options'] as $value => $label): ?>
                         <label class="radio-inline">
                             <input type="radio" class="ymFormRadio_<?= $field ?> icheck-control" name="ymFormFields<?= $field ?>" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> value="<?= $value ?>">
-                            <span class="label-helper"><?= $title ?></span>
+                            <span class="label-helper"><?= $label ?></span>
                         </label>
                         <?php endforeach; ?>
                     </div>
@@ -164,8 +164,8 @@ use app\builder\form\FieldsOptions;
                     </div>
                     <select id="ymFormSelect2_<?= $field ?>"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ui-select2="{width:'100%'}" ng-model="ymFormFields['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>">
                         <option value=""><?= $options['placeholder'] ?></option>
-                        <?php foreach ($options['options'] as $title => $value): ?>
-                            <option value="<?= $value ?>"><?= $title ?></option>
+                        <?php foreach ($options['options'] as $value => $label): ?>
+                            <option value="<?= $value ?>"><?= $label ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

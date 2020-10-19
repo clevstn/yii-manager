@@ -2,6 +2,7 @@
 
 namespace app\admin\controllers;
 
+use app\models\AreaCode;
 use app\models\AdminUser;
 use app\builder\ViewBuilder;
 use app\builder\form\FieldsOptions;
@@ -198,8 +199,8 @@ class ManagerController extends CommonController
                 'icon' => 'fa fa-plus',
                 'option' => 'modal',
                 'route' => 'admin/manager/add-user',
-                'width' => '700px',
-                'height' => '750px',
+                'width' => '800px',
+                'height' => '720px',
             ]),
             // 封停
             table_toolbar_custom_helper('left', [
@@ -255,6 +256,40 @@ class ManagerController extends CommonController
             'email' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
                 'label' => '邮箱',
                 'placeholder' => '请填写邮箱',
+            ]),
+            'an' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
+                'label' => '电话区号',
+                'placeholder' => '请选择电话区号',
+                'default' => '86',
+                'options' => AreaCode::areaCodes(),
+            ]),
+            'mobile' => form_fields_helper(FieldsOptions::CONTROL_NUMBER, [
+                'label' => '手机号',
+                'placeholder' => '请填写手机号',
+            ]),
+            'safe_auth' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
+                'label' => '是否开启安全认证',
+                'default' => AdminUser::SAFE_AUTH_FOLLOW_SYSTEM,
+                'options' => AdminUser::$safeMap,
+            ]),
+            'open_operate_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
+                'label' => '是否开启操作日志',
+                'default' => AdminUser::OPERATE_LOG_FOLLOW,
+                'options' => AdminUser::$operationMap,
+            ]),
+            'open_login_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
+                'label' => '是否开启登录日志',
+                'default' => AdminUser::LOGIN_LOG_FOLLOW,
+                'options' => AdminUser::$loginMap,
+            ]),
+            'group' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
+                'label' => '管理组',
+                'placeholder' => '请选择管理组',
+                'options' => [
+                    '0' => '超级管理员',
+                    '1' => '普通管理员',
+                    '2' => '市场调查员',
+                ],
             ]),
         ];
 

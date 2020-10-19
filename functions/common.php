@@ -272,7 +272,7 @@ if (!function_exists('table_toolbar_filter_helper')) {
      * - default 默认值(项)
      * - style 样式，值可以是数组也可以是字符串
      * - attribute 属性，值可以是数组也可以是字符串
-     * - options 选项，用于select控件 格式：[label => value]
+     * - options 选项，用于select控件 格式：[`value` => `label`]
      * - widget 自定义组件，值必须是\app\builder\table\CustomControl的实现
      * @return array
      * @throws ReflectionException
@@ -331,7 +331,7 @@ if (!function_exists('form_fields_helper')) {
      * - required 是否必填项
      * - comment 注释语
      * - range 是否是区间，用于日期控件
-     * - options 选项，用于`radio`、`checkbox`、`select`控件
+     * - options 选项，用于`radio`、`checkbox`、`select`控件，格式：[`value` => `label`]
      * - rows 行数，用于文本域
      * - number 文件数量，用于文件上传
      * - layouts bootstrap布局，默认`12`
