@@ -163,6 +163,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ID',
+            'action' => '操作项',
             'parent' => '我的上级',
             'username' => '用户名',
             'password' => '密码',
@@ -174,7 +175,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             'open_operate_log' => '是否开启操作日志',
             'open_login_log' => '是否开启登录日志',
             'group' => '管理组',
-            'action' => '操作项',
             'deny_end_time' => '封停截止时间',
         ];
     }
@@ -188,26 +188,36 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            ['id', 'required'],
+            ['action', 'required'],
+            ['action', 'in', 'range' => ['disabled', 'enabled'], 'message' => '操作项不正确'],
             ['parent', 'string', 'min' => 2, 'max' => 250],
-            [['password', 'repassword'], 'required', 'on' => ['add']],
-            [['id', 'action', 'username', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log', 'group'], 'required'],
+            ['username', 'required'],
             ['username', 'string', 'min' => 2, 'max' => 20],
+            ['password', 'required', 'on' => ['add']],
             ['password', 'string', 'min' => 6, 'max' => 25],
             ['password', 'match', 'pattern' => '/^[1-9a-z][1-9a-z_\-+.*!@#$%&=|~]{5,24}$/i', 'message' => '密码存在敏感字符请重写输入'],
+            ['repassword', 'required', 'on' => ['add']],
             ['repassword', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码输入不一致'],
+            ['email', 'required'],
             ['email', 'email'],
             ['email', 'unique', 'on' => ['add']],
             ['email', 'unique', 'filter' => function ($query) {
                 /* @var Query $query */
                 $query->andWhere(['<>', 'id', $this->id]);
             }, 'on' => ['edit']],
+            ['an', 'required'],
             ['an', 'number'],
+            ['mobile', 'required'],
             ['mobile', 'string', 'min' => 5, 'max' => 11],
+            ['safe_auth', 'required'],
             ['safe_auth', 'in', 'range' => array_keys(self::$safeMap)],
+            ['open_operate_log', 'required'],
             ['open_operate_log', 'in', 'range' => array_keys(self::$operationMap)],
+            ['open_login_log', 'required'],
             ['open_login_log', 'in', 'range' => array_keys(self::$loginMap)],
+            ['group', 'required'],
             ['group', 'integer'],
-            ['action', 'in', 'range' => ['disabled', 'enabled'], 'message' => '操作项不正确'],
             ['deny_end_time', 'default', 'value' => null],
             ['deny_end_time', 'datetime', 'format' => 'php:Y-m-d H:i:s'],
         ];
