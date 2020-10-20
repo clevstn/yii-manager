@@ -25,6 +25,7 @@ class ManagerController extends CommonController
         'add-user'  => ['get', 'post'],
         'toggle'    => ['get', 'post'],
         'edit'      => ['get', 'post'],
+        'group'     => ['get', 'post'],
     ];
 
     /**
@@ -35,6 +36,7 @@ class ManagerController extends CommonController
         'add-user',
         'toggle',
         'edit',
+        'group',
     ];
 
     /**
@@ -235,11 +237,18 @@ class ManagerController extends CommonController
         // 行操作
         $table->rowActions = [
             table_action_helper('modal', [
-                'title' => '编辑',
+                'title' => '基本编辑',
                 'icon' => 'fa fa-pencil-square-o',
                 'route' => 'admin/manager/edit',
                 'width' => '800px',
                 'height' => '700px',
+            ]),
+            table_action_helper('modal', [
+                'title' => '更改管理组',
+                'icon' => 'fa fa-users',
+                'route' => 'admin/manager/group',
+                'width' => '700px',
+                'height' => '500px',
             ]),
         ];
 
@@ -491,5 +500,16 @@ class ManagerController extends CommonController
                 return $this->asFail($model->error);
             }
         }
+    }
+
+    /**
+     * 更改管理组
+     * @return string
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function actionGroup()
+    {
+        return '';
     }
 }
