@@ -54,7 +54,9 @@ class m200814_064828_create_admin_user_table extends Migration
             'username' => 'super',
             'password' => encrypt_password('super666'),
             'email' => '',
+            'mobile' => '',
             'auth_key' => random_string(),
+            'path' => \app\models\AdminUser::makePath(0, ''),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
