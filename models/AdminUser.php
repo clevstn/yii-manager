@@ -56,6 +56,14 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      */
     public $repassword;
 
+    /**
+     * 操作项
+     * - disabled 封停
+     * - enabled  解封
+     * @var string
+     */
+    public $action;
+
     // 路由分割符号
     const PATH_SPLIT_SYMBOL = '-';
 
@@ -153,6 +161,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'parent' => '我的上级',
             'username' => '用户名',
             'password' => '密码',
@@ -164,6 +173,8 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             'open_operate_log' => '是否开启操作日志',
             'open_login_log' => '是否开启登录日志',
             'group' => '管理组',
+            'action' => '操作项',
+            'deny_end_time' => '封停截止时间',
         ];
     }
 
@@ -177,7 +188,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         return [
             ['parent', 'string', 'min' => 2, 'max' => 250],
-            [['username', 'password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log', 'group'], 'required'],
+            [['id', 'action', 'username', 'password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log', 'group'], 'required'],
             ['username', 'string', 'min' => 2, 'max' => 20],
             ['password', 'string', 'min' => 6, 'max' => 25],
             ['password', 'match', 'pattern' => '/^[1-9a-z][1-9a-z_\-+.*!@#$%&=|~]{5,24}$/i', 'message' => '密码存在敏感字符请重写输入'],
@@ -189,6 +200,9 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             ['open_operate_log', 'in', 'range' => array_keys(self::$operationMap)],
             ['open_login_log', 'in', 'range' => array_keys(self::$loginMap)],
             ['group', 'integer'],
+            ['action', 'in', 'range' => ['disabled', 'enabled'], 'message' => '操作项不正确'],
+            ['deny_end_time', 'default', 'value' => null],
+            ['deny_end_time', 'datetime', 'format' => 'php:Y-m-d H:i:s'],
         ];
     }
 
@@ -203,6 +217,8 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         $scenarios = parent::scenarios();
         // 场景`新增`
         $scenarios['add'] = ['parent', 'username', 'password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log', 'group'];
+        // 解封和封停
+        $scenarios['status_action'] = ['id', 'action', 'deny_end_time'];
 
         return $scenarios;
     }

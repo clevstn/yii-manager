@@ -303,8 +303,7 @@ use app\builder\form\FieldsOptions;
             $scope.ymFormResetForm = function () {
                 initFormValues();
             };
-            // 提交表单
-            $scope.ymFormSubmitForm = function () {
+            var submitForm = function () {
                 var formData = getFormValus();
                 formData[yii.getCsrfParam()] = yii.getCsrfToken();
                 var currentUrl = '<?= Url::current() ?>';
@@ -351,7 +350,17 @@ use app\builder\form\FieldsOptions;
                     tips(errors.data || "系统错误，请稍后重试!", "通知", 2);
                 });
             };
-
+            // 提交表单
+            $scope.ymFormSubmitForm = function () {
+                parentLayer.alert("是否确定当前操作?", {
+                    closeBtn: 2,
+                    title: "信息",
+                    icon: 0,
+                }, function (index) {
+                    parentLayer.close(index);
+                    submitForm();
+                });
+            };
             // 初始化表单[调用]
             ymInitForm();
 

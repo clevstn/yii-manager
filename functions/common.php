@@ -91,7 +91,7 @@ if (!function_exists('random_string')) {
 
         $randomStr = \Yii::$app->security->generateRandomString($len);
         if ($trimSpecial === true) {
-            return strtr($randomStr, '-_', '');
+            return strtr($randomStr, ['-' => rand(0, 9), '_' => rand(0, 9)]);
         }
 
         return $randomStr;

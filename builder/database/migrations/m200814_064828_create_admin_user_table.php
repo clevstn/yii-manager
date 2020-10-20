@@ -56,6 +56,7 @@ class m200814_064828_create_admin_user_table extends Migration
             'email' => '',
             'mobile' => '',
             'auth_key' => random_string(),
+            'identify_code' => random_string(true, 10),
             'path' => \app\models\AdminUser::makePath(0, ''),
             'created_at' => now(),
             'updated_at' => now(),

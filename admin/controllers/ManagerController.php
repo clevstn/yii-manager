@@ -200,7 +200,7 @@ class ManagerController extends CommonController
                 'option' => 'modal',
                 'route' => 'admin/manager/add-user',
                 'width' => '800px',
-                'height' => '720px',
+                'height' => '750px',
             ]),
             // 封停
             table_toolbar_custom_helper('left', [
@@ -209,7 +209,7 @@ class ManagerController extends CommonController
                 'option' => 'modal',
                 'route' => 'admin/manager/toggle',
                 'width' => '700px',
-                'height' => '750px',
+                'height' => '500px',
                 'params' => ['id', 'action' => 'disabled'],
             ]),
             // 解封
@@ -217,6 +217,7 @@ class ManagerController extends CommonController
                 'title' => '解封',
                 'icon' => 'fa fa-unlock',
                 'option' => 'ajax',
+                'method' => 'post',
                 'route' => 'admin/manager/toggle',
                 'params' => ['id', 'action' => 'enabled'],
             ]),
@@ -334,6 +335,49 @@ class ManagerController extends CommonController
      */
     public function actionToggle()
     {
-        return '';
+        if ($this->isGet) {
+            // `disabled`获取表单
+            $queryParams = $this->get;
+            if (
+                empty($queryParams)
+                || empty($queryParams['id'])
+                || empty($queryParams['action'])
+            ) {
+                return $this->asFail('参数错误');
+            }
+
+            $form = ViewBuilder::form();
+            $form->partial = true;
+            $form->backBtn = false;
+            $form->fields = [
+                'id' => form_fields_helper(FieldsOptions::CONTROL_HIDDEN, [
+                    'default' => $queryParams['id'],
+                ]),
+                'action' => form_fields_helper(FieldsOptions::CONTROL_HIDDEN, [
+                    'default' => $queryParams['action'],
+                ]),
+                'deny_end_time' => form_fields_helper(FieldsOptions::CONTROL_DATETIME, [
+                    'label' => '封停截止时间',
+                    'placeholder' => '请选择封停截止时间',
+                    'comment' => '保留为空，代表封停无限制。',
+                ]),
+            ];
+
+            return $form->render($this);
+        } else {
+            // `enabled`和`disabled`提交表单
+            $bodyParam = $this->post;
+            $model = new AdminUser();
+            $model->setScenario('status_action');
+            if ($model->load($bodyParam, '') && $model->validate()) {
+                $result = AdminUser::updateAll([
+                    'status' => $model->action == 'disabled' ? AdminUser::STATUS_DENY : AdminUser::STATUS_NORMAL,
+                    'deny_end_time' => $model->action == 'disabled' ? $model->deny_end_time : null,
+                ], ['in', 'id', explode(',', $model->id)]);
+                return $result ? $this->asSuccess('操作成功') : $this->asSuccess('操作失败');
+            } else {
+                return $this->asFail($model->error);
+            }
+        }
     }
 }
