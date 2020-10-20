@@ -114,11 +114,15 @@ class ManagerController extends CommonController
             'open_login_log' => table_column_helper('是否开启登录日志', ['style' => ['min-width' => '135px']], function ($item) {
                 return AdminUser::getIsOpenLoginLogLabel($item['open_login_log']);
             }),
-            'status' => table_column_helper('账户状态', [], function ($item) {
+            'status_label' => table_column_helper('账户状态', [], function ($item) {
                 return AdminUser::getStatusLabel($item['status'], true);
             }),
             'deny_end_time' => table_column_helper('封停时间', ['style' => ['min-width' => '150px']], function ($item) {
-                return $item['deny_end_time'] ?: '无限制';
+                if ($item['status'] == AdminUser::STATUS_NORMAL) {
+                    return '空';
+                } else {
+                    return $item['deny_end_time'] ?: '无限制';
+                }
             }),
             'group' => table_column_helper('管理组', ['style' => ['min-width' => '120px']], function ($item) {
                 return '超级管理员';
@@ -174,11 +178,15 @@ class ManagerController extends CommonController
                 'email',
                 'an',
                 'mobile',
-                'status' => function ($item) {
+                'status_label' => function ($item) {
                     return AdminUser::getStatusLabel($item['status']);
                 },
                 'deny_end_time' => function ($item) {
-                    return $item['deny_end_time'] ?: '无限制';
+                    if ($item['status'] == AdminUser::STATUS_NORMAL) {
+                        return '空';
+                    } else {
+                        return $item['deny_end_time'] ?: '无限制';
+                    }
                 },
                 'group' => function ($item) {
                     return '超级管理员';
