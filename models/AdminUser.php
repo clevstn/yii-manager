@@ -9,6 +9,7 @@
 
 namespace app\models;
 
+use yii\db\Query;
 use yii\web\IdentityInterface;
 use app\behaviors\PasswordBehavior;
 use app\builder\common\CommonActiveRecord;
@@ -188,12 +189,18 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         return [
             ['parent', 'string', 'min' => 2, 'max' => 250],
-            [['id', 'action', 'username', 'password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log', 'group'], 'required'],
+            [['password', 'repassword'], 'required', 'on' => ['add']],
+            [['id', 'action', 'username', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log', 'group'], 'required'],
             ['username', 'string', 'min' => 2, 'max' => 20],
             ['password', 'string', 'min' => 6, 'max' => 25],
             ['password', 'match', 'pattern' => '/^[1-9a-z][1-9a-z_\-+.*!@#$%&=|~]{5,24}$/i', 'message' => '密码存在敏感字符请重写输入'],
             ['repassword', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码输入不一致'],
             ['email', 'email'],
+            ['email', 'unique', 'on' => ['add']],
+            ['email', 'unique', 'filter' => function ($query) {
+                /* @var Query $query */
+                $query->andWhere(['<>', 'id', $this->id]);
+            }, 'on' => ['edit']],
             ['an', 'number'],
             ['mobile', 'string', 'min' => 5, 'max' => 11],
             ['safe_auth', 'in', 'range' => array_keys(self::$safeMap)],
@@ -217,8 +224,10 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         $scenarios = parent::scenarios();
         // 场景`新增`
         $scenarios['add'] = ['parent', 'username', 'password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log', 'group'];
-        // 解封和封停
+        // 场景`解封和封停`
         $scenarios['status_action'] = ['id', 'action', 'deny_end_time'];
+        // 场景`编辑`
+        $scenarios['edit'] = ['id', 'password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log'];
 
         return $scenarios;
     }

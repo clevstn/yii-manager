@@ -21,9 +21,10 @@ class ManagerController extends CommonController
      * {@inheritdoc}
      */
     public $actionVerbs = [
-        'index' => ['get'],
-        'add-user' => ['get', 'post'],
-        'toggle' => ['get', 'post'],
+        'index'     => ['get'],
+        'add-user'  => ['get', 'post'],
+        'toggle'    => ['get', 'post'],
+        'edit'      => ['get', 'post'],
     ];
 
     /**
@@ -33,6 +34,7 @@ class ManagerController extends CommonController
         'index',
         'add-user',
         'toggle',
+        'edit',
     ];
 
     /**
@@ -100,9 +102,9 @@ class ManagerController extends CommonController
             'id' => SORT_DESC,
         ];
         $table->columns = [
-            'username' => table_column_helper('用户名', ['style' => ['min-width' => '120px']]),
-            'email' => table_column_helper('邮箱', ['style' => ['min-width' => '120px']]),
-            'an_mobile' => table_column_helper('电话号', ['style' => ['min-width' => '120px']], function ($item) {
+            'username' => table_column_helper('用户名', ['style' => ['min-width' => '150px']]),
+            'email' => table_column_helper('邮箱', ['style' => ['min-width' => '150px']]),
+            'an_mobile' => table_column_helper('电话号', ['style' => ['min-width' => '130px']], function ($item) {
                 return '+' . $item['an'] . ' ' . $item['mobile'];
             }),
             'safe_auth' => table_column_helper('是否开启安全认证', ['style' => ['min-width' => '135px']], function ($item) {
@@ -128,7 +130,7 @@ class ManagerController extends CommonController
                 return '超级管理员';
             }),
             'identify_code' => table_column_helper('身份码', ['style' => ['min-width' => '130px']]),
-            'pid' => table_column_helper('上级', ['style' => ['min-width' => '130px']], function ($item) {
+            'pid' => table_column_helper('上级', ['style' => ['min-width' => '150px']], function ($item) {
                 if (!empty($item['pid'])) {
                     $parentUserInfo = AdminUser::query(['username'])->where(['id' => $item['pid']])->one();
                     if (!empty($parentUserInfo)) {
@@ -230,6 +232,16 @@ class ManagerController extends CommonController
                 'params' => ['id', 'action' => 'enabled'],
             ]),
         ];
+        // 行操作
+        $table->rowActions = [
+            table_action_helper('modal', [
+                'title' => '编辑',
+                'icon' => 'fa fa-pencil-square-o',
+                'route' => 'admin/manager/edit',
+                'width' => '800px',
+                'height' => '700px',
+            ]),
+        ];
 
         return $table->render($this);
     }
@@ -255,11 +267,6 @@ class ManagerController extends CommonController
                     }
 
                     $pid = $parentInstance['id'];
-                    $parentInstance = AdminUser::findIdentity($pid);
-                    if (empty($parentInstance)) {
-                        return $this->asFail('我的上级不存在');
-                    }
-
                     $parentPath = $parentInstance['path'];
                 }
 
@@ -335,6 +342,100 @@ class ManagerController extends CommonController
             ];
 
             return $form->render($this);
+        }
+    }
+
+    /**
+     * 编辑管理员
+     * @return string
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function actionEdit()
+    {
+        if ($this->isGet) {
+            $queryParams = $this->get;
+            if (empty($queryParams) || empty($queryParams['id'])) {
+                return $this->asFail('参数错误');
+            }
+
+            $identify = AdminUser::findIdentity($queryParams['id']);
+            if (empty($identify)) {
+                return $this->asFail('管理员不存在');
+            }
+
+            // 渲染表单
+            $form = ViewBuilder::form();
+            $form->partial = true;
+            $form->backBtn = false;
+            $form->fields = [
+                'id' => form_fields_helper(FieldsOptions::CONTROL_HIDDEN, [
+                    'default' => $identify->id,
+                ]),
+                'username' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                    'label' => '用户名',
+                    'placeholder' => '请填写用户名',
+                    'default' => $identify->username,
+                    'required' => false,
+                    'attribute' => ['disabled' => true],
+                ]),
+                'password' => form_fields_helper(FieldsOptions::CONTROL_PASSWORD, [
+                    'label' => '密码',
+                    'placeholder' => '请填写密码',
+                    'required' => false,
+                    'comment' => '不填写，则为不修改',
+                ]),
+                'repassword' => form_fields_helper(FieldsOptions::CONTROL_PASSWORD, [
+                    'label' => '重复密码',
+                    'placeholder' => '请确认密码',
+                    'required' => false,
+                    'comment' => '不填写，则为不修改',
+                ]),
+                'email' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                    'label' => '邮箱',
+                    'placeholder' => '请填写邮箱',
+                    'default' => $identify->email,
+                ]),
+                'an' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
+                    'label' => '电话区号',
+                    'placeholder' => '请选择电话区号',
+                    'default' => $identify->an,
+                    'options' => AreaCode::areaCodes(),
+                ]),
+                'mobile' => form_fields_helper(FieldsOptions::CONTROL_NUMBER, [
+                    'label' => '手机号',
+                    'placeholder' => '请填写手机号',
+                    'default' => $identify->mobile,
+                ]),
+                'safe_auth' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
+                    'label' => '是否开启安全认证',
+                    'default' => $identify->safe_auth,
+                    'options' => AdminUser::$safeMap,
+                    'comment' => '开启OTP认证后，请前往【我的】绑定Google Authenticator。',
+                ]),
+                'open_operate_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
+                    'label' => '是否开启操作日志',
+                    'default' => $identify->open_operate_log,
+                    'options' => AdminUser::$operationMap,
+                ]),
+                'open_login_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
+                    'label' => '是否开启登录日志',
+                    'default' => $identify->open_login_log,
+                    'options' => AdminUser::$loginMap,
+                ]),
+            ];
+
+            return $form->render($this);
+        } else {
+            // 提交编辑
+            $bodyParams = $this->post;
+            $model = new AdminUser();
+            $model->setScenario('edit');
+            if ($model->load($bodyParams, '') && $model->validate()) {
+                return $this->asSuccess('编辑成功');
+            } else {
+                return $this->asFail($model->error);
+            }
         }
     }
 
