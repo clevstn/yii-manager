@@ -197,7 +197,11 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             ['password', 'required', 'on' => ['add']],
             ['password', 'string', 'min' => 6, 'max' => 25],
             ['password', 'match', 'pattern' => '/^[1-9a-z][1-9a-z_\-+.*!@#$%&=|~]{5,24}$/i', 'message' => '密码存在敏感字符请重写输入'],
-            ['repassword', 'required', 'on' => ['add']],
+            ['repassword', 'required', 'when' => function ($model) {
+                /* @var AdminUser $model */
+                // 当验证场景是`新增`或者场景是`编辑`并且[[密码]]非空时验证必填。
+                return $model->scenario == 'add' || ($model->scenario == 'edit' && !empty($model->password));
+            }],
             ['repassword', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码输入不一致'],
             ['email', 'required'],
             ['email', 'email'],
@@ -210,6 +214,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             ['an', 'number'],
             ['mobile', 'required'],
             ['mobile', 'string', 'min' => 5, 'max' => 11],
+            ['mobile', 'validateMobileIsUnique'],
             ['safe_auth', 'required'],
             ['safe_auth', 'in', 'range' => array_keys(self::$safeMap)],
             ['open_operate_log', 'required'],
@@ -221,6 +226,33 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             ['deny_end_time', 'default', 'value' => null],
             ['deny_end_time', 'datetime', 'format' => 'php:Y-m-d H:i:s'],
         ];
+    }
+
+    /**
+     * 自定义验证器 - 手机号唯一校验
+     * @param $attribute
+     * @param $params
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function validateMobileIsUnique($attribute, $params)
+    {
+        $an = $this->an;
+        $mobile = $this->{$attribute};
+        if ($this->scenario == 'add') {
+            // 场景`新增`
+            $result = self::query('id')->where(['an' => $an, 'mobile' => $mobile])->one();
+            if (!empty($result)) {
+                $this->addError($attribute, '手机号码已被占用');
+            }
+        } elseif ($this->scenario == 'edit') {
+            // 场景`编辑`
+            $id = $this->id;
+            $result = self::query('id')->where(['and', ['an' => $an, 'mobile' => $mobile], ['<>', 'id', $id]])->one();
+            if (!empty($result)) {
+                $this->addError($attribute, '手机号码已被占用');
+            }
+        }
     }
 
     /**
