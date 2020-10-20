@@ -430,44 +430,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     }
 
     /**
-     * 通过关键词获取用户[[id]]
-     * @param string $keyword 用户名|邮箱
-     * @return int|false
-     * @author cleverstone
-     * @since 1.0
-     */
-    public function findIdByKeyword($keyword)
-    {
-        if (!empty($keyword)) {
-            $result = self::query('id')->where(['username' => $keyword])->orWhere(['email' => $keyword])->one();
-            if (!empty($result)) {
-                return $result['id'];
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * 获取父级的[[path]]
-     * @param int $pid 父`id`
-     * @return string|false
-     * @author cleverstone
-     * @since 1.0
-     */
-    public function findParentPathByPid($pid)
-    {
-        if (!empty($pid)) {
-            $result = self::query('path')->where(['id' => $pid])->one();
-            if (!empty($result)) {
-                return $result['path'];
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * 组成[[path]]
      * @param int $pid 父级`id`
      * @param string $parentPath 父级`path`

@@ -249,15 +249,18 @@ class ManagerController extends CommonController
                 $pid = 0;
                 $parentPath = '';
                 if (!empty($model->parent)) {
-                    $pid = $model->findIdByKeyword($model->parent);
-                    if ($pid === false) {
+                    $parentInstance = AdminUser::findByUsername($model->parent);
+                    if (empty($parentInstance)) {
                         return $this->asFail('我的上级不存在');
                     }
 
-                    $parentPath = $model->findParentPathByPid($pid);
-                    if ($parentPath === false) {
+                    $pid = $parentInstance['id'];
+                    $parentInstance = AdminUser::findIdentity($pid);
+                    if (empty($parentInstance)) {
                         return $this->asFail('我的上级不存在');
                     }
+
+                    $parentPath = $parentInstance['path'];
                 }
 
                 $model->identify_code = $model->generateIdentifyCode();
@@ -275,7 +278,7 @@ class ManagerController extends CommonController
             $form->fields = [
                 'parent' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
                     'label' => '我的上级',
-                    'placeholder' => '请填写我的上级用户名/邮箱',
+                    'placeholder' => '请填写我的上级用户名',
                     'required' => false,
                 ]),
                 'username' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
