@@ -269,7 +269,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         // 场景`解封和封停`
         $scenarios['status_action'] = ['id', 'action', 'deny_end_time'];
         // 场景`编辑`
-        $scenarios['edit'] = ['id', 'password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log'];
+        $scenarios['edit'] = ['password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log'];
 
         return $scenarios;
     }

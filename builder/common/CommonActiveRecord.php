@@ -63,4 +63,17 @@ class CommonActiveRecord extends ActiveRecord
         $firstErrors = $this->firstErrors;
         return reset($firstErrors) ?: '';
     }
+
+    /**
+     * {@inheritdoc}
+     * @param array $data
+     * @param string $formName
+     * @return bool
+     * @author cleverstone
+     * @since 1.0
+     */
+    public function load($data, $formName = '')
+    {
+        return parent::load($data, $formName);
+    }
 }

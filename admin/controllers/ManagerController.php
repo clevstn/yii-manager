@@ -266,7 +266,7 @@ class ManagerController extends CommonController
         if ($this->isPost) {
             $model = new AdminUser();
             $model->setScenario('add');
-            if ($model->load($this->post, '') && $model->validate()) {
+            if ($model->load($this->post) && $model->validate()) {
                 $pid = 0;
                 $parentPath = '';
                 if (!empty($model->parent)) {
@@ -438,10 +438,25 @@ class ManagerController extends CommonController
         } else {
             // 提交编辑
             $bodyParams = $this->post;
-            $model = new AdminUser();
+            // 参数校验
+            if (empty($bodyParams['id'])) {
+                return $this->asFail('参数错误');
+            }
+
+            // 查询校验
+            $model = AdminUser::query(['id', 'username', 'password', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log'])->where(['id' => $bodyParams['id']])->one();
+            if (empty($model)) {
+                return $this->asFail('管理员不存在');
+            }
+
+            // 设置验证场景
             $model->setScenario('edit');
-            if ($model->load($bodyParams, '') && $model->validate()) {
-                return $this->asSuccess('编辑成功');
+            // 不更新[[id]]
+            unset($bodyParams['id']);
+            // 数据校验
+            if ($model->load($bodyParams) && $model->validate()) {
+                $result = $model->save(false);
+                return $result ? $this->asSuccess('编辑成功') : $this->asFail('编辑失败');
             } else {
                 return $this->asFail($model->error);
             }
@@ -490,7 +505,7 @@ class ManagerController extends CommonController
             $bodyParam = $this->post;
             $model = new AdminUser();
             $model->setScenario('status_action');
-            if ($model->load($bodyParam, '') && $model->validate()) {
+            if ($model->load($bodyParam) && $model->validate()) {
                 $result = AdminUser::updateAll([
                     'status' => $model->action == 'disabled' ? AdminUser::STATUS_DENY : AdminUser::STATUS_NORMAL,
                     'deny_end_time' => $model->action == 'disabled' ? $model->deny_end_time : null,

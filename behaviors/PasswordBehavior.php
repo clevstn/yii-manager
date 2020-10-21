@@ -9,6 +9,7 @@
 
 namespace app\behaviors;
 
+use yii\base\UserException;
 use yii\db\BaseActiveRecord;
 use yii\base\InvalidCallException;
 use yii\behaviors\AttributeBehavior;
@@ -60,9 +61,22 @@ class PasswordBehavior extends AttributeBehavior
     {
         if ($this->value === null) {
             $attribute = $this->passwordAttribute;
-            $value = $this->owner->$attribute;
+            /* @var \yii\db\ActiveRecord $owner */
+            $owner = $this->owner;
+            $value = $owner->$attribute;
             if (empty($value)) {
-                return '';
+                if ($event->name == BaseActiveRecord::EVENT_BEFORE_UPDATE) {
+                    // Update
+                    $oldPassword = $owner->getOldAttribute($attribute);
+                    if (empty($oldPassword)) {
+                        throw new UserException('The field `password` must be queried. ');
+                    } else {
+                        return $oldPassword;
+                    }
+                } else {
+                    // Insert
+                    throw new UserException('The field `password` must not be empty. ');
+                }
             }
 
             return encrypt_password($value);
