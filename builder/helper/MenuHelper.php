@@ -107,6 +107,11 @@ class MenuHelper
                         'icon' => 'glyphicon glyphicon-calendar',
                     ],
                     [
+                        'label' => '手机区号管理',
+                        'url' => ['/admin/area-code/index'],
+                        'icon' => 'glyphicon glyphicon-phone-alt',
+                    ],
+                    [
                         'label' => '系统设置',
                         'url' => ['/admin/system-setting/index'],
                         'icon' => 'glyphicon glyphicon-cog',
