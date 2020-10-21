@@ -50,6 +50,8 @@ class AreaCodeController extends CommonController
     public function actionIndex()
     {
         $table = ViewBuilder::table();
+        // title
+        $table->title = '手机区号管理';
         // 表格列
         $table->columns = [
             'name' => table_column_helper('地域名', ['style' => ['min-width' => '150px']]),
