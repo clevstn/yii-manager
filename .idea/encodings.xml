@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/admin/assets/IndexAsset.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin/views/index/index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/assets/AppAsset.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/builder/common/BaseOptions.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/builder/form/CustomControl.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/builder/form/FieldsOptions.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/builder/form/Form.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/builder/form/widgets/.gitkeep" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/config/db.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/config/params.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/config/test.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/config/test_db.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/config/web.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/extend/google/GoogleAuthenticator.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mail/layouts/html.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/migrations/db/m200814_070648_create_user_table.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/web/admin_static/index/index.js" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
