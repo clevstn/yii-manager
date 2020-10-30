@@ -1,4 +1,10 @@
 <?php
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
+
 /* @var string $link 列表链接 */
 /* @var array $filterCustoms 筛选自定义控件选项 */
 /* @var array $filterColumns 筛选表单选项 */

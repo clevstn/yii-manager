@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/9/14
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\widgets;
 
@@ -14,6 +12,7 @@ use yii\helpers\ArrayHelper;
 
 /**
  * 分页组件
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -60,6 +59,7 @@ class LinkPager extends \yii\widgets\LinkPager
 
     /**
      * 渲染分页右侧统计和辅助功能
+     *
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -106,6 +106,7 @@ class LinkPager extends \yii\widgets\LinkPager
     /**
      * Renders a page button.
      * You may override this method to customize the generation of page buttons.
+     *
      * @param string $label the text label for the button
      * @param int $page the page number
      * @param string $class the CSS class for the page button.

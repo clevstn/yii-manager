@@ -1,19 +1,19 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/8/8
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 if (!function_exists('dd')) {
     /**
      * 打印调试
+     *
      * @param mixed $mixed 变量
      * @param int $depth 内容显示的最大深度
      * @param boolean $highlight 是否高亮显示
      * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
      */
     function dd($mixed, $depth = 10, $highlight = true)
     {
@@ -25,9 +25,11 @@ if (!function_exists('dd')) {
 if (!function_exists('export_str')) {
     /**
      * 返回变量字符串
+     *
      * @param mixed $mixed 变量
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
+     * @since 1.0
      */
     function export_str($mixed)
     {
@@ -38,6 +40,7 @@ if (!function_exists('export_str')) {
 if (!function_exists('encrypt_password')) {
     /**
      * 密码加密
+     *
      * @param string $password 明文密码
      * @return string
      * @throws \yii\base\Exception
@@ -61,6 +64,7 @@ if (!function_exists('check_password')) {
 
     /**
      * 密码校验
+     *
      * @param string $password 明文密码
      * @param string $hash 密码hash
      * @return boolean
@@ -76,6 +80,7 @@ if (!function_exists('check_password')) {
 if (!function_exists('random_string')) {
     /**
      * 生成指定长度的字符串
+     *
      * @param boolean $trimSpecial 是否去除特殊字符, 如: -_
      * @param int $len 字符串长度
      * @return string
@@ -101,6 +106,7 @@ if (!function_exists('random_string')) {
 if (!function_exists('random_number')) {
     /**
      * 生成指定长度的数字串
+     *
      * @param int $len 数字串长度
      * @return int
      * @author cleverstone <yang_hui_lei@163.com>
@@ -135,6 +141,7 @@ if (!function_exists('random_number')) {
 if (!function_exists('order_number')) {
     /**
      * 生成指定前缀的订单号
+     *
      * @param string $prefix 订单前缀
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
@@ -151,6 +158,7 @@ if (!function_exists('now')) {
 
     /**
      * 获取当前时间
+     *
      * @param bool|string $toString 是否格式化或格式化正则
      * @param string $timeZone 时区
      * @return false|int|string
@@ -179,6 +187,7 @@ if (!function_exists('xss_filter')) {
     /**
      * Formats the value as HTML text.
      * The value will be purified using [[HtmlPurifier]] to avoid XSS attacks.
+     *
      * @param string $html html文本
      * @param null $config 配置项
      * @return string
@@ -195,6 +204,7 @@ if (!function_exists('html_escape')) {
     /**
      * Encodes special characters into HTML entities.
      * The [[\yii\base\Application::charset|application charset]] will be used for encoding.
+     *
      * @param string $content the content to be encoded
      * @param bool $doubleEncode whether to encode HTML entities in `$content`. If false,
      * HTML entities in `$content` will not be further encoded.
@@ -211,6 +221,7 @@ if (!function_exists('html_escape')) {
 if (!function_exists('table_column_helper')) {
     /**
      * 快捷设置表格列
+     *
      * @param string $title 字段标题，不设置则该字段名作为该表格列的标题
      * @param array $options 选项
      * - attribute html属性
@@ -233,6 +244,7 @@ if (!function_exists('table_column_helper')) {
 if (!function_exists('table_action_helper')) {
     /**
      * 快捷设置表格行操作项
+     *
      * @param string $type 调用类型
      * - page 页面调用
      * - modal 模态框调用
@@ -264,6 +276,7 @@ if (!function_exists('table_action_helper')) {
 if (!function_exists('table_toolbar_filter_helper')) {
     /**
      * 快捷设置表格工具栏筛选项
+     *
      * @param array $options
      * - control 控件类型 `text`、`select`、`number`、`datetime`、`date`、`year`、`month`、`time`、`custom`
      * - label   标签名
@@ -289,6 +302,7 @@ if (!function_exists('table_toolbar_filter_helper')) {
 if (!function_exists('table_toolbar_custom_helper')) {
     /**
      * 快捷设置表格工具栏自定义项
+     *
      * @param string $pos
      * - left 工具栏内左边
      * - right 工具栏内右边
@@ -322,6 +336,7 @@ if (!function_exists('table_toolbar_custom_helper')) {
 if (!function_exists('form_fields_helper')) {
     /**
      * 快捷注册表单字段项
+     *
      * @param string $control 控件类型
      * @see \app\builder\form\FieldsOptions
      * @param array $options
@@ -338,6 +353,8 @@ if (!function_exists('form_fields_helper')) {
      * - style 控件样式
      * - attribute 控件属性
      * - widget 自定义项，用于`control`类型为`custom`
+     * @return array
+     * @throws ReflectionException
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -353,6 +370,7 @@ if (!function_exists('form_fields_helper')) {
 if (!function_exists('resolve_pages')) {
     /**
      * 解析分页
+     *
      * @param \yii\db\QueryInterface $query
      * @param array|string $orderBy
      * @return array
@@ -378,6 +396,7 @@ if (!function_exists('resolve_pages')) {
 if (!function_exists('accept_json')) {
     /**
      * 是否接收Json
+     *
      * @return bool
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -396,6 +415,7 @@ if (!function_exists('accept_json')) {
 if (!function_exists('preg_script')) {
     /**
      * 从script标签中提取js脚本
+     *
      * @param string $scriptTag
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>

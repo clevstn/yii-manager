@@ -1,8 +1,12 @@
 <?php
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 /* @var $this \yii\web\View */
 /* @var $param */
-
 $this->title = '404';
 ?>
 <div style="display:table;width:100%;height:800px;user-select:none;-webkit-user-select:none;">

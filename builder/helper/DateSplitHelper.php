@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/9/23
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\helper;
 
@@ -13,6 +11,7 @@ use yii\base\InvalidArgumentException;
 
 /**
  * 日期分割处理助手
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -20,6 +19,7 @@ class DateSplitHelper
 {
     /**
      * 开始日期
+     *
      * @var string|int
      * @since 1.0
      */
@@ -27,6 +27,7 @@ class DateSplitHelper
 
     /**
      * 结束日期
+     *
      * @var string|int
      * @since 1.0
      */
@@ -34,6 +35,7 @@ class DateSplitHelper
 
     /**
      * 当前时间戳
+     *
      * @var null|int
      * @since 1.0
      */
@@ -41,6 +43,7 @@ class DateSplitHelper
 
     /**
      * 选项
+     *
      * @var array
      * @since 1.0
      */
@@ -51,6 +54,7 @@ class DateSplitHelper
 
     /**
      * 创建实例
+     *
      * @param string $dateStr 日期字符串
      * - 2020-09-23 / 2020-12-01
      * @param string $splitFlag 分隔符
@@ -77,6 +81,7 @@ class DateSplitHelper
 
     /**
      * 重新格式化日期
+     *
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -88,6 +93,7 @@ class DateSplitHelper
 
     /**
      * 是否转为时间戳
+     *
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -100,6 +106,7 @@ class DateSplitHelper
 
     /**
      * 输出数组
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -111,6 +118,7 @@ class DateSplitHelper
 
     /**
      * 解析选项
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0

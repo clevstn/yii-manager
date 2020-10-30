@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/8/21
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\filters;
 
@@ -14,6 +12,7 @@ use yii\base\Behavior;
 
 /**
  * 响应拦截器
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -21,6 +20,7 @@ class BeforeResponseFilter extends Behavior
 {
     /**
      * inherit
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -34,6 +34,7 @@ class BeforeResponseFilter extends Behavior
 
     /**
      * Before send listener
+     *
      * @param \yii\base\Event $event
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0

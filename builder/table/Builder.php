@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/8/5
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\table;
 
@@ -29,6 +27,7 @@ use app\builder\contract\NotFoundAttributeException;
 
 /**
  * 表格构建器
+ *
  * @property string $title
  * @property boolean $page
  * @property array $columns
@@ -58,6 +57,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 表格标题
+     *
      * @var string
      * @since 1.0
      * @see $title
@@ -67,6 +67,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 表格列
+     *
      * @var array
      * - title string 列名
      * - options array
@@ -82,6 +83,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 查询器实例
+     *
      * @var \Closure
      * @since 1.0
      * @see $query
@@ -91,6 +93,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 主键
+     *
      * @var string|array
      * @since 1.0
      * @see $primaryKey
@@ -100,6 +103,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 定义Query排序
+     *
      * @var array
      * @since 1.0
      * @see $orderBy
@@ -109,6 +113,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 是否分页
+     *
      * @since 1.0
      * @see $page
      * @see setPage()
@@ -117,6 +122,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 是否隐藏多选框
+     *
      * @var bool
      * @since 1.0
      * @see $hideCheckbox
@@ -126,6 +132,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 定义多选选项
+     *
      * @var array
      * - style string 样式
      * - attribute string 属性
@@ -140,6 +147,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置行操作项
+     *
      * @var array
      * - type string 支持的值：`page`、`modal`、`ajax`、`division`
      *      - page      页面打开
@@ -164,6 +172,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 表格数据
+     *
      * @var array
      * @since 1.0
      * @see resolveQuery()
@@ -172,6 +181,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 分页实例
+     *
      * @var Linkable|null
      * @since 1.0
      * @see resolveQuery()
@@ -180,6 +190,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 视图组件实例
+     *
      * @var View
      * @since 1.0
      * @see registerView()
@@ -188,6 +199,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 是否为局部视图
+     *
      * @var bool
      * @since 1.0
      * @see $partial
@@ -196,6 +208,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 工具栏
+     *
      * @var array
      * ```php
      * // 数据结构：
@@ -236,6 +249,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 筛选表单字段项
+     *
      * @var array
      *  control支持的类型有:
      *  - text
@@ -278,6 +292,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 导出标识
+     *
      * @var bool
      * @since 1.0
      */
@@ -285,6 +300,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 数据导出选项
+     *
      * @var array
      * - heads 自定义头部
      *    ['ID', '用户名', '邮箱', '电话']
@@ -305,6 +321,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 局部视图路径
+     *
      * @var string
      * @since 1.0
      * @see $partial
@@ -321,6 +338,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 模板路径
+     *
      * @var string
      * @since 1.0
      */
@@ -328,6 +346,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 自定义组件
+     *
      * @var array
      * @since 1.0
      */
@@ -335,6 +354,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * Asset包定义
+     *
      * @var array
      * @since 1.0
      */
@@ -342,6 +362,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 额外的Js代码
+     *
      * @var array
      * @since 1.0
      */
@@ -349,6 +370,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 额外的css代码
+     *
      * @var array
      * @since 1.0
      */
@@ -365,6 +387,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置表格名
+     *
      * @param string $title
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -378,6 +401,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取表格名
+     *
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -389,6 +413,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置数据列
+     *
      * @param array $columns
      * @return $this
      * @throws NotSupportedException
@@ -448,6 +473,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取数据列
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -459,6 +485,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置query
+     *
      * @param \Closure $query
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -472,6 +499,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取query
+     *
      * @return \Closure
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -483,6 +511,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置主键
+     *
      * @param string|array $field
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -496,6 +525,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取主键
+     *
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -507,6 +537,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置Query排序
+     *
      * @param array|string $orderBy
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -520,6 +551,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取Query排序
+     *
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -530,6 +562,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置是否分页
+     *
      * @param boolean $page
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -543,6 +576,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取是否分页
+     *
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -553,6 +587,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置隐藏多选框
+     *
      * @param bool $isHide
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -566,6 +601,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取是否隐藏多选框
+     *
      * @return bool
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -577,6 +613,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置多选框options
+     *
      * @param array $options
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -609,6 +646,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取多选框options
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -620,6 +658,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置行操作项
+     *
      * @param array $actions
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -633,6 +672,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取行情操作项
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -650,6 +690,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置局部视图
+     *
      * @param bool $partial
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -663,6 +704,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取是否是局部视图
+     *
      * @return bool
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -674,6 +716,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置组件
+     *
      * @param string|array|Widget $widget
      * @param int $pos
      * - TABLE_TOOL_TOP
@@ -699,6 +742,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册额外的assetBundle
+     *
      * @param array|string $assetBundle
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -716,6 +760,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册额外的Js代码
+     *
      * @param array|string $js
      * @param string $pos
      * @return $this
@@ -734,6 +779,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册额外的Css代码
+     *
      * @param array|string $css
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -751,6 +797,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取组件
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -762,6 +809,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置工具栏刷新
+     *
      * @param array $options
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -777,6 +825,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置工具栏筛选
+     *
      * @param array $options
      * - title
      * - icon
@@ -802,6 +851,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置工具栏导出
+     *
      * @param array $options
      * @return $this
      * @throws UndefinedOptionsException
@@ -829,6 +879,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置工具栏自定义项
+     *
      * @param array $options
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -847,6 +898,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取工具栏
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -858,6 +910,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 渲染表格
+     *
      * @param Controller $context
      * @return string
      * @throws \Throwable
@@ -900,6 +953,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 数据导出
+     *
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -953,6 +1007,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 数据导出渲染
+     *
      * @param Controller $context
      * @return string
      * @throws \Exception
@@ -967,6 +1022,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * Ajax渲染
+     *
      * @param Controller $context
      * @return string
      * @throws \Exception
@@ -987,6 +1043,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * html渲染
+     *
      * @param Controller $context
      * @return string
      * @throws \Throwable
@@ -1047,6 +1104,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 解析数据导出
+     *
      * @param Controller $context
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
@@ -1078,6 +1136,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 解析Query
+     *
      * @return $this
      * @throws NotFoundAttributeException
      * @author cleverstone <yang_hui_lei@163.com>
@@ -1119,6 +1178,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 解析表格组件JS脚本
+     *
      * @return string
      * @throws \Throwable
      * @author cleverstone <yang_hui_lei@163.com>
@@ -1156,6 +1216,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册视图组件实例
+     *
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0

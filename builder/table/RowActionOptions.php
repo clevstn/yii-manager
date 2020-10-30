@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/9/17
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\table;
 
@@ -15,6 +13,7 @@ use app\builder\common\BaseOptions;
 
 /**
  * 表格行操作项选项
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -22,6 +21,7 @@ class RowActionOptions extends BaseOptions
 {
     /**
      * 按钮标题和`page`、`modal`标题
+     *
      * @var string
      * @since 1.0
      */
@@ -29,6 +29,7 @@ class RowActionOptions extends BaseOptions
 
     /**
      * 按钮图标
+     *
      * @var string
      * @since 1.0
      */
@@ -36,6 +37,7 @@ class RowActionOptions extends BaseOptions
 
     /**
      * 路由
+     *
      * @var string
      * @since 1.0
      */
@@ -43,6 +45,7 @@ class RowActionOptions extends BaseOptions
 
     /**
      * 路由参数，不配置时，默认为主键
+     *
      * @var array
      * @since 1.0
      */
@@ -50,6 +53,7 @@ class RowActionOptions extends BaseOptions
 
     /**
      * 请求动作，当type为ajax时，该配置项有效
+     *
      * @var string
      * @since 1.0
      */
@@ -57,6 +61,7 @@ class RowActionOptions extends BaseOptions
 
     /**
      * 当前type为modal时有效，指定modal的宽，默认800px
+     *
      * @var string
      * @since 1.0
      */
@@ -64,6 +69,7 @@ class RowActionOptions extends BaseOptions
 
     /**
      * 当前type为modal时有效，指定modal的高，默认520px
+     *
      * @var string
      * @since 1.0
      */
@@ -71,6 +77,7 @@ class RowActionOptions extends BaseOptions
 
     /**
      * 配置初始化
+     *
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */

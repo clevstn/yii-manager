@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/9/17
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\table;
 
@@ -13,6 +11,7 @@ use yii\base\Widget;
 
 /**
  * 表格工具助手
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -55,6 +54,7 @@ class Table
 
     /**
      * 表格工具栏开始
+     *
      * @param array $widgets
      * @return void
      * @author cleverstone <yang_hui_lei@163.com>
@@ -67,6 +67,7 @@ class Table
 
     /**
      * 表格工具栏结束
+     *
      * @param array $widgets
      * @return void
      * @author cleverstone <yang_hui_lei@163.com>
@@ -79,6 +80,7 @@ class Table
 
     /**
      * 表格分页开始
+     *
      * @param array $widgets
      * @return void
      * @author cleverstone <yang_hui_lei@163.com>
@@ -91,6 +93,7 @@ class Table
 
     /**
      * 表格分页结束
+     *
      * @param array $widgets
      * @return void
      * @author cleverstone <yang_hui_lei@163.com>
@@ -103,6 +106,7 @@ class Table
 
     /**
      * 输出超文本
+     *
      * @param array $widgets
      * @param int $pos
      * @author cleverstone <yang_hui_lei@163.com>

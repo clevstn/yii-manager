@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/8/19
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\helper;
 
@@ -13,6 +11,7 @@ use app\builder\widgets\Menu;
 
 /**
  * 菜单助手
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -21,6 +20,7 @@ class MenuHelper
 
     /**
      * 渲染菜单
+     *
      * @return string
      * @throws \Exception
      * @author cleverstone <yang_hui_lei@163.com>
@@ -36,6 +36,7 @@ class MenuHelper
 
     /**
      * 获取菜单项
+     *
      * Important: you need to specify url as 'controller/action',
      * not just as 'controller' even if default action is used.
      * @return array

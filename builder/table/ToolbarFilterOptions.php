@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/9/18
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\table;
 
@@ -15,6 +13,7 @@ use app\builder\contract\InvalidInstanceException;
 
 /**
  * 工具栏筛选选项
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -32,6 +31,7 @@ class ToolbarFilterOptions extends BaseOptions
 
     /**
      * 控件类型
+     *
      * - text
      * - select
      * - number
@@ -48,6 +48,7 @@ class ToolbarFilterOptions extends BaseOptions
 
     /**
      * 标签
+     *
      * @var string
      * @since 1.0
      */
@@ -55,6 +56,7 @@ class ToolbarFilterOptions extends BaseOptions
 
     /**
      * 是否是区间, 用于日期控件
+     *
      * @var bool
      * @since 1.0
      */
@@ -62,6 +64,7 @@ class ToolbarFilterOptions extends BaseOptions
 
     /**
      * 提示
+     *
      * @var string
      * @since 1.0
      */
@@ -69,6 +72,7 @@ class ToolbarFilterOptions extends BaseOptions
 
     /**
      * 默认值
+     *
      * @var string
      * @since 1.0
      */
@@ -76,6 +80,7 @@ class ToolbarFilterOptions extends BaseOptions
 
     /**
      * 样式
+     *
      * @var string|array
      * @since 1.0
      */
@@ -83,6 +88,7 @@ class ToolbarFilterOptions extends BaseOptions
 
     /**
      * 属性
+     *
      * @var string|array
      * @since 1.0
      */
@@ -90,6 +96,7 @@ class ToolbarFilterOptions extends BaseOptions
 
     /**
      * 选项，用于select控件
+     *
      * @var array
      * @since 1.0
      */
@@ -97,6 +104,7 @@ class ToolbarFilterOptions extends BaseOptions
 
     /**
      * 用于自定义组件
+     *
      * @var CustomControl
      * @since 1.0
      */
@@ -104,6 +112,7 @@ class ToolbarFilterOptions extends BaseOptions
 
     /**
      * 初始化选项
+     *
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */

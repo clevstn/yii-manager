@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/9/18
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\table;
 
@@ -15,6 +13,7 @@ use app\builder\common\BaseOptions;
 
 /**
  * 工具栏自定义项选项
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -22,6 +21,7 @@ class ToolbarCustomOptions extends BaseOptions
 {
     /**
      * 位置
+     *
      * - left 左边
      * - right 右边
      * @var string
@@ -31,6 +31,7 @@ class ToolbarCustomOptions extends BaseOptions
 
     /**
      * 标题
+     *
      * @var string
      * @since 1.0
      */
@@ -38,6 +39,7 @@ class ToolbarCustomOptions extends BaseOptions
 
     /**
      * Icon
+     *
      * @var string
      * @since 1.0
      */
@@ -45,6 +47,7 @@ class ToolbarCustomOptions extends BaseOptions
 
     /**
      * 选项
+     *
      * - page  页面
      * - modal 模态框
      * - ajax  XMLHttpRequest
@@ -55,6 +58,7 @@ class ToolbarCustomOptions extends BaseOptions
 
     /**
      * 路由
+     *
      * @var string
      * @since 1.0
      */
@@ -62,6 +66,7 @@ class ToolbarCustomOptions extends BaseOptions
 
     /**
      * 参数
+     *
      * @var array
      * @since 1.0
      */
@@ -69,6 +74,7 @@ class ToolbarCustomOptions extends BaseOptions
 
     /**
      * 访问动作, ajax有效
+     *
      * @var string
      * @since 1.0
      */
@@ -76,6 +82,7 @@ class ToolbarCustomOptions extends BaseOptions
 
     /**
      * 当前type为modal时有效，指定modal的宽，默认800px
+     *
      * @var string
      * @since 1.0
      */
@@ -83,6 +90,7 @@ class ToolbarCustomOptions extends BaseOptions
 
     /**
      * 当前type为modal时有效，指定modal的高，默认520px
+     *
      * @var string
      * @since 1.0
      */
@@ -90,6 +98,7 @@ class ToolbarCustomOptions extends BaseOptions
 
     /**
      * 初始化选项
+     *
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */

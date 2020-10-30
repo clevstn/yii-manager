@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/8/22
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\common;
 
@@ -31,6 +29,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 分组名称
+     *
      * @var string
      * @since 1.0
      */
@@ -38,6 +37,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 组别代码
+     *
      * @var string
      * @since 1.0
      */
@@ -45,6 +45,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 描述
+     *
      * @var string
      * @since 1.0
      */
@@ -52,6 +53,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 表单提示
+     *
      * @var string
      * @since 1.0
      */
@@ -59,6 +61,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 配置项
+     *
      * @var array
      * @since 1.0
      */
@@ -66,6 +69,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 获取分组ID
+     *
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -78,6 +82,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 初始化配置项
+     *
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -93,6 +98,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * {@inheritDoc}
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -105,6 +111,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * {@inheritDoc}
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -127,6 +134,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 定义配置
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -135,6 +143,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 校验规则
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -146,6 +155,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 格式化配置项
+     *
      * @param string $code 配置项代码
      * @param mixed $value 配置值
      * @param $control string 控件类型

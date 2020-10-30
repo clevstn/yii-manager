@@ -1,13 +1,17 @@
 <?php
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
+
+use app\builder\helper\NavHelper;
 
 /**
  * 导航项配置
  * @see yii\bootstrap\Nav
  * @see app\builder\helper\NavHelper::getItems()
  */
-
-use app\builder\helper\NavHelper;
-
 return [
     // 导航左侧
     'left' => [

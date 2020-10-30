@@ -1,4 +1,9 @@
 <?php
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\models;
 
@@ -13,6 +18,8 @@ use Yii;
  * @property int|null $status 状态，0：禁用 1：正常
  * @property string $created_at 创建时间
  * @property string|null $updated_at 更新时间
+ * @author cleverstone
+ * @since 1.0
  */
 class AreaCode extends \app\builder\common\CommonActiveRecord
 {

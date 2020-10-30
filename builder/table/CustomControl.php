@@ -1,16 +1,15 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/9/18
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\table;
 
 /**
  * 自定义筛选控件接口
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -18,6 +17,7 @@ interface CustomControl
 {
     /**
      * 渲染Html字符串方法
+     *
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -26,6 +26,7 @@ interface CustomControl
 
     /**
      * 返回用于获取筛选值的Js脚本
+     *
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -34,6 +35,7 @@ interface CustomControl
 
     /**
      * 返回清空筛选值的Js脚本
+     *
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -42,6 +44,7 @@ interface CustomControl
 
     /**
      * 返回用于初始化筛选值的Js脚本
+     *
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0

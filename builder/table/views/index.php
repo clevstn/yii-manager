@@ -1,4 +1,14 @@
 <?php
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
+
+use yii\helpers\Json;
+use app\builder\table\Table;
+use app\builder\table\ToolbarFilterOptions;
+
 /* @var $this \yii\web\View     当前视图实例 */
 /* @var array $columns          数据列选项 */
 /* @var boolean $hideCheckbox   是否隐藏第一列复选框 */
@@ -8,10 +18,6 @@
 /* @var array $toolbars         工具栏操作项 */
 /* @var array $filterColumns    筛选表单选项 */
 /* @var boolean $exportFlag     是否导出 */
-
-use yii\helpers\Json;
-use app\builder\table\Table;
-use app\builder\table\ToolbarFilterOptions;
 ?>
 
 <div class="panel panel-default" ng-controller="_tableCtrl">

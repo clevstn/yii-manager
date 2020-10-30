@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/9/10
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\extend\qrcode;
 
@@ -33,6 +31,7 @@ use Endroid\QrCode\QrCode as EndroidQrcode;
  * // output `qrcode` image.
  * return Extend::qrcode()->output($content);
  * ```
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

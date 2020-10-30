@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\commands\cliscript;
@@ -14,6 +14,7 @@ use yii\console\Controller;
 
 /**
  * Cleanup kit
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -28,6 +29,7 @@ class ClearController extends Controller
     /**
      * Deletes a subdirectory of the special directory
      * default clear the published resource bundles
+     *
      * @param string $d 指定目录
      * @return int
      * @throws \yii\base\ErrorException

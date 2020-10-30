@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/8/13
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\common;
 
@@ -14,6 +12,7 @@ use app\behaviors\DatetimeBehavior;
 
 /**
  * 模型继承类
+ *
  * @property-read string $error 错误信息
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
@@ -22,6 +21,7 @@ class CommonActiveRecord extends ActiveRecord
 {
     /**
      * 附加公共行为
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -42,6 +42,7 @@ class CommonActiveRecord extends ActiveRecord
 
     /**
      * 获取当前模型映射的ActiveQuery对象
+     *
      * @param $select
      * @return \yii\db\ActiveQuery
      * @author cleverstone
@@ -54,6 +55,7 @@ class CommonActiveRecord extends ActiveRecord
 
     /**
      * 获取验证错误信息[字符串格式]
+     *
      * @return mixed|string
      * @author cleverstone
      * @since 1.0
@@ -66,6 +68,7 @@ class CommonActiveRecord extends ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @param array $data
      * @param string $formName
      * @return bool

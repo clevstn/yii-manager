@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/8/12
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\traits;
 
@@ -21,7 +19,6 @@ use yii\web\Response;
  * @property boolean $isPost        Is verb `post` params
  * @property boolean $isAjax        Is ajax request params
  * @property string|null $domain    Current request domain
- *
  * @property Request $request
  * @property Response $response
  * @author cleverstone <yang_hui_lei@163.com>
@@ -127,6 +124,7 @@ trait Http
 
     /**
      * Json成功响应
+     *
      * @param string $msg
      * @param array $data
      * @return mixed
@@ -141,6 +139,7 @@ trait Http
 
     /**
      * Json失败响应
+     *
      * @param string $msg
      * @return mixed
      * @author cleverstone <yang_hui_lei@163.com>
@@ -154,6 +153,7 @@ trait Http
 
     /**
      * Json无权限响应
+     *
      * @param string $msg
      * @return mixed
      * @author cleverstone <yang_hui_lei@163.com>

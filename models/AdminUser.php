@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/8/13
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\models;
 
@@ -37,9 +35,7 @@ use app\builder\common\CommonActiveRecord;
  * @property string $path 关系路径
  * @property string $created_at 注册时间
  * @property string $updated_at 更新时间
- *
  * @property-read string $authKey cookie认证密匙
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

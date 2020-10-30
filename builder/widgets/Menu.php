@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/8/19
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\widgets;
 
@@ -15,6 +13,7 @@ use yii\helpers\ArrayHelper;
 
 /**
  * 菜单组件
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -22,6 +21,7 @@ class Menu extends \yii\widgets\Menu
 {
     /**
      * 菜单id
+     *
      * @var string
      * @since 1.0
      */
@@ -35,6 +35,7 @@ class Menu extends \yii\widgets\Menu
 
     /**
      * 菜单模块link模板
+     *
      * @var string
      * @since 1.0
      */
@@ -48,6 +49,7 @@ class Menu extends \yii\widgets\Menu
 
     /**
      * 菜单项link模板
+     *
      * @var string
      * @since 1.0
      */
@@ -55,6 +57,7 @@ class Menu extends \yii\widgets\Menu
 
     /**
      * 重写子菜单模板
+     *
      * @var string
      * @since 1.0
      */
@@ -69,6 +72,7 @@ class Menu extends \yii\widgets\Menu
 
     /**
      * 重写选中样式
+     *
      * @var string
      * @since 1.0
      */
@@ -82,6 +86,7 @@ class Menu extends \yii\widgets\Menu
 
     /**
      * 重写根节点选项
+     *
      * @var array
      * @since 1.0
      */
@@ -91,6 +96,7 @@ class Menu extends \yii\widgets\Menu
 
     /**
      * 重写render items
+     *
      * @param array $items
      * @return string
      * @throws \Exception
@@ -154,6 +160,7 @@ class Menu extends \yii\widgets\Menu
 
     /**
      * 重写render item
+     *
      * @param array $item
      * @return string
      * @throws \Exception

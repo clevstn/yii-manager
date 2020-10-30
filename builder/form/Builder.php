@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/8/5
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\form;
 
@@ -17,6 +15,7 @@ use app\builder\contract\BuilderInterface;
 
 /**
  * 表单构建器
+ *
  * @property string $title      表单标题
  * @property boolean $partial   是否独立布局
  * @property array $fields      表单字段
@@ -32,6 +31,7 @@ class Builder extends BaseObject implements BuilderInterface
 {
     /**
      * 表单标题
+     *
      * @var string
      * @since 1.0
      * @see $title
@@ -41,12 +41,14 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 表单字段
+     *
      * @var array
      */
     private $_fields = [];
 
     /**
      * 视图组件实例
+     *
      * @var View
      * @since 1.0
      * @see registerView()
@@ -55,6 +57,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 是否为局部视图
+     *
      * @var bool
      * @since 1.0
      * @see $partial
@@ -63,18 +66,21 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 返回按钮
+     *
      * @var bool
      */
     private $_backBtn = true;
 
     /**
      * 是否自动返回
+     *
      * @var bool
      */
     private $_autoBack = true;
 
     /**
      * Asset包定义
+     *
      * @var array
      * @since 1.0
      */
@@ -82,6 +88,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 额外的Js代码
+     *
      * @var array
      * @since 1.0
      */
@@ -89,6 +96,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 额外的css代码
+     *
      * @var array
      * @since 1.0
      */
@@ -96,6 +104,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 局部视图路径
+     *
      * @var string
      * @since 1.0
      * @see $partial
@@ -112,6 +121,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 模板路径
+     *
      * @var string
      * @since 1.0
      */
@@ -119,6 +129,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 初始化
+     *
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
      */
@@ -129,6 +140,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置表单名
+     *
      * @param string $title
      * @return \app\builder\form\Builder
      * @author cleverstone <yang_hui_lei@163.com>
@@ -142,6 +154,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取表单名
+     *
      * @return string
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -153,6 +166,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置局部视图
+     *
      * @param bool $partial
      * @return \app\builder\form\Builder
      * @author cleverstone <yang_hui_lei@163.com>
@@ -166,6 +180,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取是否是局部视图
+     *
      * @return bool
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -177,6 +192,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置表单字段
+     *
      * @param array $options
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -190,6 +206,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取表单字段
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -201,6 +218,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置表单返回按钮
+     *
      * @param bool $boolean
      * @return $this
      * @author cleverstone
@@ -214,6 +232,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取是否设置返回按钮
+     *
      * @return bool
      * @author cleverstone
      * @since 1.0
@@ -225,6 +244,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置自动返回
+     *
      * @param bool $boolean
      * @return $this
      * @author cleverstone
@@ -238,6 +258,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取是否自动返回
+     *
      * @return bool
      * @author cleverstone
      * @since 1.0
@@ -249,6 +270,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册额外的assetBundle
+     *
      * @param array|string $assetBundle
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -266,6 +288,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册额外的Js代码
+     *
      * @param array|string $js
      * @param string $pos
      * @return $this
@@ -284,6 +307,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册额外的Css代码
+     *
      * @param array|string $css
      * @return $this
      * @author cleverstone <yang_hui_lei@163.com>
@@ -301,6 +325,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 渲染入口
+     *
      * @param Controller $context
      * @return string
      * @throws \Throwable
@@ -326,6 +351,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 渲染Html
+     *
      * @param Controller $context
      * @return string
      * @throws \Throwable
@@ -380,6 +406,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 解析表单组件JS脚本
+     *
      * @return string
      * @throws \Throwable
      * @author cleverstone <yang_hui_lei@163.com>
@@ -398,6 +425,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册视图组件实例到当前构建器
+     *
      * @return \app\builder\form\Builder
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0

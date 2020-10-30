@@ -1,9 +1,15 @@
 <?php
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
+
+use app\builder\form\FieldsOptions;
+
 /* @var \yii\web\View $this     当前视图实例 */
 /* @var array $_fields          表单字段集合 */
 /* @var boolean $_backBtn       是否设置返回按钮 */
-
-use app\builder\form\FieldsOptions;
 ?>
 
 <div class="panel panel-default" ng-controller="_formCtrl">

@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/8/22
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\helper;
 
@@ -16,6 +14,7 @@ use app\builder\contract\ConfigureInterface;
 
 /**
  * 配置助手
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -23,6 +22,7 @@ class ConfigHelper
 {
     /**
      * 获取配置
+     *
      * @param string|null $group 配置组代码
      * @return array
      * @throws ErrorException
@@ -51,6 +51,7 @@ class ConfigHelper
 
     /**
      * 格式化配置
+     *
      * @return array
      * @throws ErrorException
      * @author cleverstone <yang_hui_lei@163.com>
@@ -69,6 +70,7 @@ class ConfigHelper
 
     /**
      * 获取分组
+     *
      * @param string|null $group 配置组代码
      * @return array
      * @throws ErrorException
@@ -97,6 +99,7 @@ class ConfigHelper
 
     /**
      * 格式化分组
+     *
      * @return array
      * @throws ErrorException
      * @author cleverstone <yang_hui_lei@163.com>
@@ -110,6 +113,7 @@ class ConfigHelper
 
     /**
      * 分组集合
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0

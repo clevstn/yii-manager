@@ -1,11 +1,9 @@
 <?php
-// +----------------------------------------------------------------------
-// | yii-manager version 1.0.0
-// +----------------------------------------------------------------------
-// | 日期：2020/8/22
-// +----------------------------------------------------------------------
-// | 作者：cleverstone <yang_hui_lei@163.com>
-// +----------------------------------------------------------------------
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\database\config;
 
@@ -14,6 +12,7 @@ use app\models\SystemConfig;
 
 /**
  * 网站配置
+ *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -41,6 +40,7 @@ class WebsiteGroup extends Group
 
     /**
      * {@inheritDoc}
+     *
      * @return array
      * @throws \yii\base\NotSupportedException
      * @author cleverstone <yang_hui_lei@163.com>

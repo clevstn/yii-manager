@@ -1,4 +1,9 @@
 <?php
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
 
 namespace app\builder\filters;
 
@@ -8,6 +13,7 @@ use yii\web\Application;
 
 /**
  * 动作拦截器
+ *
  * @author cleverstone
  * @since 1.0
  */
@@ -15,6 +21,7 @@ class BeforeHandleActionFilter extends Behavior
 {
     /**
      * {@inherit}
+     *
      * @return array
      * @author cleverstone <yang_hui_lei@163.com>
      * @since 1.0
@@ -28,6 +35,7 @@ class BeforeHandleActionFilter extends Behavior
 
     /**
      * Before action listener
+     *
      * @param yii\base\ActionEvent $event
      * @return bool
      * @author cleverstone

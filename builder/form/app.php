@@ -1,11 +1,17 @@
 <?php
+/**
+ * @link http://www.cleverstone.cn/
+ * @copyright Copyright (c) 2020 黑与白
+ * @license http://yii-manager.cleverstone.cn/license/
+ */
+
+use yii\helpers\Url;
+use app\builder\form\FieldsOptions;
+
 /* @var \yii\web\View $this 当前视图组件实例 */
 /* @var array $_fields      表单字段集合 */
 /* @var boolean $_autoBack  提交完成后是否自动返回 */
 /* @var array $_innerScript  插入表单脚本内部的Js脚本 */
-
-use yii\helpers\Url;
-use app\builder\form\FieldsOptions;
 
 // 注意这里必须是<script>...</script>的形式
 ?>
