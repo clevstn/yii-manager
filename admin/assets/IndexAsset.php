@@ -12,7 +12,7 @@ use app\builder\assets\MainAsset;
 
 /**
  * 首页静态包
- * @author cleverstone
+ * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 class IndexAsset extends AssetBundle
