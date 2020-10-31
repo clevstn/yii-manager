@@ -7,6 +7,7 @@
 
 /**
  * 注意: 这里的dbname一定要和db.php中的dbname不同.
+ * @since 1.0
  */
 return [
     'class' => 'yii\db\Connection',

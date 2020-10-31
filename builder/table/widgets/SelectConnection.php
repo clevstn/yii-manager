@@ -13,7 +13,6 @@ use app\builder\table\CustomControl;
 
 /**
  * 三级联动部件
- *
  * @property-read string $valuesJsFunction 获取用于获取筛选值的Js脚本
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0

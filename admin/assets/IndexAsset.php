@@ -19,7 +19,6 @@ class IndexAsset extends AssetBundle
 {
     /**
      * @var array css路径
-     * @since 1.0
      */
     public $css = [
         'admin_static/index/index.css',
@@ -27,7 +26,6 @@ class IndexAsset extends AssetBundle
 
     /**
      * @var array js路径
-     * @since 1.0
      */
     public $js = [
         'admin_static/index/index.js',
@@ -35,7 +33,6 @@ class IndexAsset extends AssetBundle
 
     /**
      * @var array 依赖
-     * @since 1.0
      */
     public $depends = [
         MainAsset::class,

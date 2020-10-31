@@ -9,7 +9,6 @@ namespace app\commands\queuejobs;
 
 /**
  * This is a module for `queuejobs`
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

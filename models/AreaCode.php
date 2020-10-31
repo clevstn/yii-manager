@@ -11,7 +11,6 @@ use Yii;
 
 /**
  * This is the model class for table "{{%area_code}}".
- *
  * @property int $id
  * @property string $name 地域名称
  * @property string $code 电话区号
@@ -61,8 +60,6 @@ class AreaCode extends \app\builder\common\CommonActiveRecord
     /**
      * 区号列表
      * @return array
-     * @author cleverstone
-     * @since 1.0
      */
     public static function areaCodes()
     {
@@ -89,8 +86,6 @@ class AreaCode extends \app\builder\common\CommonActiveRecord
      * @param int $status 状态码
      * @param bool $isHtml 是否是`html`标签
      * @return mixed|string
-     * @author cleverstone
-     * @since 1.0
      */
     public static function statusLabel($status, $isHtml = true)
     {

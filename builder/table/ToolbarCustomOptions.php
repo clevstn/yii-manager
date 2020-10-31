@@ -13,94 +13,63 @@ use app\builder\common\BaseOptions;
 
 /**
  * 工具栏自定义项选项
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 class ToolbarCustomOptions extends BaseOptions
 {
     /**
-     * 位置
-     *
+     * @var string 位置
      * - left 左边
      * - right 右边
-     * @var string
-     * @since 1.0
      */
     public $pos = 'left';
 
     /**
-     * 标题
-     *
-     * @var string
-     * @since 1.0
+     * @var string 标题
      */
     public $title = '自定义';
 
     /**
-     * Icon
-     *
-     * @var string
-     * @since 1.0
+     * @var string Icon
      */
     public $icon = 'glyphicon glyphicon-send';
 
     /**
-     * 选项
-     *
+     * @var string 选项
      * - page  页面
      * - modal 模态框
      * - ajax  XMLHttpRequest
-     * @var string
-     * @since 1.0
      */
     public $option = 'page';
 
     /**
-     * 路由
-     *
-     * @var string
-     * @since 1.0
+     * @var string 路由
      */
     public $route = '';
 
     /**
-     * 参数
-     *
-     * @var array
-     * @since 1.0
+     * @var array 参数
      */
     public $params = [];
 
     /**
-     * 访问动作, ajax有效
-     *
-     * @var string
-     * @since 1.0
+     * @var string 访问动作, ajax有效
      */
     public $method = 'get';
 
     /**
-     * 当前type为modal时有效，指定modal的宽，默认800px
-     *
-     * @var string
-     * @since 1.0
+     * @var string 当前type为modal时有效，指定modal的宽，默认800px
      */
     public $width = '800px';
 
     /**
-     * 当前type为modal时有效，指定modal的高，默认520px
-     *
-     * @var string
-     * @since 1.0
+     * @var string 当前type为modal时有效，指定modal的高，默认520px
      */
     public $height = '520px';
 
     /**
      * 初始化选项
-     *
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function init()
     {

@@ -14,7 +14,6 @@ use app\commands\processjobs\business\Demo;
 
 /**
  * process jobs demo
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -22,10 +21,7 @@ class IndexController extends Process
 {
     /**
      * default queue
-     *
      * @return int
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function actionIndex()
     {

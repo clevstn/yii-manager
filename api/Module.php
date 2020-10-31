@@ -11,7 +11,6 @@ use Yii;
 
 /**
  * 接口模块继承类
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

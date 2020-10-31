@@ -11,7 +11,6 @@ use yii\web\JqueryAsset;
 
 /**
  * Angular-select2
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -23,7 +22,6 @@ class AngularSelect2 extends BaseAsset
 
     /**
      * @var array 依赖
-     * @since 1.0
      */
     public $depends = [
         JqueryAsset::class,

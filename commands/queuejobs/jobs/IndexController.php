@@ -14,7 +14,6 @@ use app\commands\queuejobs\business\Demo;
 
 /**
  * queue jobs demo
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -23,8 +22,6 @@ class IndexController extends Queue
     /**
      * default queue
      * @return int
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function actionIndex()
     {

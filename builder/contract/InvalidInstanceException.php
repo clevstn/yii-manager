@@ -11,7 +11,6 @@ use yii\base\UserException;
 
 /**
  * 无效的实例
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

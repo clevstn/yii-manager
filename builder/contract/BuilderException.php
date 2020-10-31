@@ -11,7 +11,6 @@ use yii\base\UserException;
 
 /**
  * 构建异常捕获器
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

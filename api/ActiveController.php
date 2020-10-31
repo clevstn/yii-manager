@@ -13,7 +13,6 @@ use function Webmozart\Assert\Tests\StaticAnalysis\throws;
 
 /**
  * 资源接口继承类
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

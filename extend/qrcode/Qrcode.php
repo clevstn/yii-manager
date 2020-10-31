@@ -38,76 +38,57 @@ use Endroid\QrCode\QrCode as EndroidQrcode;
 class Qrcode extends BaseObject
 {
     /**
-     * 图片类型
-     * @var \Endroid\QrCode\string
-     * @since 1.0
+     * @var \Endroid\QrCode\string 图片类型
      */
     public $name = 'png';
 
     /**
-     * 图片尺寸
-     * @var \Endroid\QrCode\int
-     * @since 1.0
+     * @var \Endroid\QrCode\int 图片尺寸
      */
     public $size = 300;
 
     /**
-     * 图片外边距
-     * @var \Endroid\QrCode\int
-     * @since 1.0
+     * @var \Endroid\QrCode\int 图片外边距
      */
     public $margin = 10;
 
     /**
-     * 编码
-     * @var \Endroid\QrCode\string
-     * @since 1.0
+     * @var \Endroid\QrCode\string 编码
      */
     public $encoding = 'UTF-8';
 
     /**
-     * 前景色
-     * @var array
-     * @since 1.0
+     * @var array 前景色
      */
     public $foregroundColor = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
 
     /**
-     * 背景色
-     * @var array
-     * @since 1.0
+     * @var array 背景色
      */
     public $backgroundColor = ['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0];
 
     /**
+     * @var \Endroid\QrCode\string
      * 如果$roundBlockSize=true时，该配置项有效
      * 为调整清晰适当缩放模式：
      * - EndroidQrcode::ROUND_BLOCK_SIZE_MODE_MARGIN (default) 改变margin
      * - EndroidQrcode::ROUND_BLOCK_SIZE_MODE_ENLARGE 整体放大
      * - EndroidQrcode::ROUND_BLOCK_SIZE_MODE_SHRINK 整体缩小
-     *
-     * @var \Endroid\QrCode\string
-     * @since 1.0
      */
     public $shrink = EndroidQrcode::ROUND_BLOCK_SIZE_MODE_MARGIN;
 
     /**
      * @var \Endroid\QrCode\bool
-     * @since 1.0
      */
     public $roundBlockSize = true;
 
     /**
-     * 纠错等级默认：HIGH
-     * @var ErrorCorrectionLevel
-     * @since 1.0
+     * @var ErrorCorrectionLevel 纠错等级默认：HIGH
      */
     public $errorCorrectionLevel;
 
     /**
-     * 标签配置项
-     * @var \Endroid\QrCode\string
-     * @since 1.0
+     * @var \Endroid\QrCode\string 标签配置项
      */
     public $label = '';
     /* @var \Endroid\QrCode\int */
@@ -120,24 +101,18 @@ class Qrcode extends BaseObject
     public $labelMargin = ['t' => 0, 'r' => 10, 'b' => 10, 'l' => 10];
 
     /**
-     * LOGO配置项
-     * @var \Endroid\QrCode\string
-     * @since 1.0
+     * @var \Endroid\QrCode\string LOGO配置项
      */
     public $logo = '';
     public $logoSize = ['w' => 60, 'h' => 60];
 
     /**
-     * 是否使用内置阅读器校验二维码内容
-     * @var \Endroid\QrCode\bool
-     * @since 1.0
+     * @var \Endroid\QrCode\bool 是否使用内置阅读器校验二维码内容
      */
     public $validateResult = false;
 
     /**
-     * 额外配置项
-     * @var array
-     * @since 1.0
+     * @var array 额外配置项
      */
     public $extraOptions = [
         'exclude_xml_declaration' => true, // 当name为svg时，该配置有效
@@ -145,7 +120,6 @@ class Qrcode extends BaseObject
 
     /**
      * @var EndroidQrcode
-     * @since 1.0
      */
     private $_instance;
 
@@ -153,8 +127,6 @@ class Qrcode extends BaseObject
      * 创建Qr实例
      * @param \Endroid\QrCode\string $content
      * @return EndroidQrcode
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     private function _instance($content)
     {
@@ -206,8 +178,6 @@ class Qrcode extends BaseObject
      * @param \Endroid\QrCode\string|string $content
      * @param \Endroid\QrCode\string|string $filepath
      * @return true
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function writeFile($content, $filepath)
     {
@@ -222,8 +192,6 @@ class Qrcode extends BaseObject
      * 返回二维码BASE64字符串
      * @param \Endroid\QrCode\string|string $content
      * @return string
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function returnStr($content)
     {
@@ -238,8 +206,6 @@ class Qrcode extends BaseObject
      * 输出二维码
      * @param \Endroid\QrCode\string|string $content
      * @return void
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function output($content)
     {

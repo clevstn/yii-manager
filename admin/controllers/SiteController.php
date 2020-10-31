@@ -13,7 +13,6 @@ use app\builder\common\CommonController;
 
 /**
  * 站点相关
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -42,8 +41,7 @@ class SiteController extends CommonController
 
     /**
      * login
-     * @return string|\yii\web\Response
-     * @author cleverstone <yang_hui_lei@163.com>
+     * @return string
      */
     public function actionLogin()
     {

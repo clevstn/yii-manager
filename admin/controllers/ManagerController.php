@@ -16,9 +16,8 @@ use app\builder\common\CommonController;
 use app\builder\table\ToolbarFilterOptions;
 
 /**
- * 管理员
- *
- * @author cleverstone
+ * 管理员列表
+ * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 class ManagerController extends CommonController
@@ -52,8 +51,8 @@ class ManagerController extends CommonController
 
     /**
      * @return string
-     * @author cleverstone
-     * @since 1.0
+     * @throws \ReflectionException
+     * @throws \Throwable
      */
     public function actionIndex()
     {
@@ -263,9 +262,10 @@ class ManagerController extends CommonController
 
     /**
      * 新增管理员
-     * @return string
-     * @author cleverstone
-     * @since 1.0
+     * @return mixed|string
+     * @throws \ReflectionException
+     * @throws \Throwable
+     * @throws \yii\base\Exception
      */
     public function actionAddUser()
     {
@@ -362,9 +362,9 @@ class ManagerController extends CommonController
 
     /**
      * 编辑管理员
-     * @return string
-     * @author cleverstone
-     * @since 1.0
+     * @return mixed|string
+     * @throws \ReflectionException
+     * @throws \Throwable
      */
     public function actionEdit()
     {
@@ -471,9 +471,9 @@ class ManagerController extends CommonController
 
     /**
      * 解封、封停
-     * @return string
-     * @author cleverstone
-     * @since 1.0
+     * @return mixed|string
+     * @throws \ReflectionException
+     * @throws \Throwable
      */
     public function actionToggle()
     {
@@ -526,8 +526,6 @@ class ManagerController extends CommonController
     /**
      * 更改管理组
      * @return string
-     * @author cleverstone
-     * @since 1.0
      */
     public function actionGroup()
     {

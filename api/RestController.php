@@ -17,7 +17,6 @@ use yii\filters\auth\CompositeAuth;
 
 /**
  * 接口继承类
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

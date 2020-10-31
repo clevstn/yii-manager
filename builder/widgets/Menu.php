@@ -13,68 +13,48 @@ use yii\helpers\ArrayHelper;
 
 /**
  * 菜单组件
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 class Menu extends \yii\widgets\Menu
 {
     /**
-     * 菜单id
-     *
-     * @var string
-     * @since 1.0
+     * @var string 菜单id
      */
     public $menuId = 'ym';
 
     /**
      * @var string 菜单模块class
-     * @since 1.0
      */
     public $menuModuleClass = 'ym-submenu';
 
     /**
-     * 菜单模块link模板
-     *
-     * @var string
-     * @since 1.0
+     * @var string 菜单模块link模板
      */
     public $menuModuleLinkTemplate = '<a class="ym-submenu-module{collapsed}" data-toggle="collapse" href="{id}">{icon}{label}</a>';
 
     /**
      * @var string 菜单项class
-     * @since 1.0
      */
     public $menuItemClass = 'ym-menu-item';
 
     /**
-     * 菜单项link模板
-     *
-     * @var string
-     * @since 1.0
+     * {@inheritDoc}
      */
     public $linkTemplate = '<a class="ym-menu-item-link" href="{url}">{icon}{label}</a>';
 
     /**
-     * 重写子菜单模板
-     *
-     * @var string
-     * @since 1.0
+     * {@inheritDoc}
      */
     public $submenuTemplate = "\n<ul id=\"{id}\" class=\"ym-submenu-wrap {collapse}\">\n{items}\n</ul>\n";
 
     /**
-     * @var string the template used to render the body of a menu which is NOT a link.
-     * In this template, the token `{label}` will be replaced with the label of the menu item.
-     * This property will be overridden by the `template` option set in individual menu items via [[items]].
+     * {@inheritDoc}
      */
     public $labelTemplate = '<span>{icon}{label}</span>';
 
     /**
-     * 重写选中样式
-     *
-     * @var string
-     * @since 1.0
+     * @var string 重写选中样式
      */
     public $activeCssClass = 'ym-active';
 
@@ -85,10 +65,7 @@ class Menu extends \yii\widgets\Menu
     public $activateParents = true;
 
     /**
-     * 重写根节点选项
-     *
-     * @var array
-     * @since 1.0
+     * @var array 重写根节点选项
      */
     public $options = [
         'class' => 'ym-menu-wrap',
@@ -96,12 +73,9 @@ class Menu extends \yii\widgets\Menu
 
     /**
      * 重写render items
-     *
      * @param array $items
      * @return string
      * @throws \Exception
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     protected function renderItems($items)
     {
@@ -160,12 +134,9 @@ class Menu extends \yii\widgets\Menu
 
     /**
      * 重写render item
-     *
      * @param array $item
      * @return string
      * @throws \Exception
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     protected function renderItem($item)
     {

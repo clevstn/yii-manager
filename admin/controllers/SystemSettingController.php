@@ -11,7 +11,6 @@ use app\builder\common\CommonController;
 
 /**
  * 系统设置
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -40,9 +39,7 @@ class SystemSettingController extends CommonController
 
     /**
      * 系统设置面板
-     *
-     * @return string|\yii\web\Response
-     * @author cleverstone <yang_hui_lei@163.com>
+     * @return string
      */
     public function actionIndex()
     {

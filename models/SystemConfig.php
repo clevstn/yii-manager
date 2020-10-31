@@ -11,7 +11,6 @@ use Yii;
 
 /**
  * This is the model class for table "{{%system_config}}".
- *
  * @property string $code 代码
  * @property string|null $value 值
  * @property string|null $control 控件类型
@@ -65,9 +64,7 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
     const CUSTOM = 'custom';
 
     /**
-     * 已支持的控件类型
-     * @var array
-     * @since 1.0
+     * @var array 已支持的控件类型
      */
     public static $controlMap = [
         self::TEXT,

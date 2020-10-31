@@ -11,7 +11,6 @@ use yii\base\BaseObject;
 
 /**
  * 设置选项继承类
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -19,11 +18,8 @@ abstract class BaseOptions extends BaseObject
 {
     /**
      * 输出数组
-     *
      * @return array
      * @throws \ReflectionException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function toArray()
     {

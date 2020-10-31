@@ -12,7 +12,6 @@ use app\models\SystemConfig;
 
 /**
  * 上传配置
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -40,11 +39,6 @@ class UploadGroup extends Group
 
     /**
      * {@inheritDoc}
-     *
-     * @return array
-     * @throws \yii\base\NotSupportedException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function define()
     {

@@ -12,7 +12,6 @@ use yii\helpers\ArrayHelper;
 
 /**
  * 分页组件
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -34,8 +33,7 @@ class LinkPager extends \yii\widgets\LinkPager
     public $hideOnSinglePage = false;
 
     /**
-     * @var array
-     * @since 1.0
+     * @var array 页面数据条数选项
      */
     public $pageRowsMap = [
         '20' => '每页20条',
@@ -59,10 +57,7 @@ class LinkPager extends \yii\widgets\LinkPager
 
     /**
      * 渲染分页右侧统计和辅助功能
-     *
      * @return string
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     protected function renderPageRight()
     {

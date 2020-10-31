@@ -14,7 +14,6 @@ use yii\console\Controller;
 
 /**
  * Cleanup kit
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -22,7 +21,6 @@ class ClearController extends Controller
 {
     /**
      * @var int
-     * @since 1.0
      */
     public $success = ExitCode::OK;
 
@@ -33,8 +31,6 @@ class ClearController extends Controller
      * @param string $d 指定目录
      * @return int
      * @throws \yii\base\ErrorException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function actionAsset($d = '@app/web/assets')
     {

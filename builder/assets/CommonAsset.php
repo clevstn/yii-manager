@@ -12,7 +12,6 @@ use yii\bootstrap\BootstrapPluginAsset;
 
 /**
  * 公共依赖包
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

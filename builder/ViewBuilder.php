@@ -12,7 +12,6 @@ use yii\base\NotSupportedException;
 
 /**
  * 视图构建器
- *
  * @method \app\builder\table\Builder table(array $config = []) static 表格构建器方法
  * @method \app\builder\form\Builder form(array $config = []) static 表单构建器方法
  * @author cleverstone <yang_hui_lei@163.com>
@@ -21,17 +20,12 @@ use yii\base\NotSupportedException;
 class ViewBuilder extends Component
 {
     /**
-     * yii-manager version
-     *
-     * @var string
+     * @var string yii-manager version
      */
     public $version = '1.0.0';
 
     /**
-     * 注册构建器
-     *
-     * @var array
-     * @since 1.0
+     * @var array 注册构建器
      */
     public static $builderMap = [
         'table'     => \app\builder\table\Builder::class,    // table
@@ -39,12 +33,11 @@ class ViewBuilder extends Component
     ];
 
     /**
+     * 构建器映射方法
      * @param string $name
      * @param array $arguments
      * @return mixed
      * @throws NotSupportedException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function __callStatic($name, $arguments)
     {

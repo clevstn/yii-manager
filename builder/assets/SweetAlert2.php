@@ -9,7 +9,6 @@ namespace app\builder\assets;
 
 /**
  * SweetAlert2
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -17,7 +16,6 @@ class SweetAlert2 extends BaseAsset
 {
     /**
      * @var array css路径
-     * @since 1.0
      */
     public $css = [
 //        'libs/sweetalert2/theme/sweetalert2-bootstrap4.min.css',
@@ -32,7 +30,6 @@ class SweetAlert2 extends BaseAsset
 
     /**
      * @var array js路径
-     * @since 1.0
      */
     public $js = [
         'libs/sweetalert2/sweetalert2.min.js',

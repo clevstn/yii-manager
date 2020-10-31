@@ -30,7 +30,6 @@ class Spreadsheet extends BaseObject
 {
     /**
      * @var array
-     * @since 1.0
      */
     private static $_contentTypes = [
         'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -38,7 +37,6 @@ class Spreadsheet extends BaseObject
 
     /**
      * @var array
-     * @since 1.0
      */
     private static $_extByWriterType = [
         'Xlsx' => 'xlsx',
@@ -51,8 +49,6 @@ class Spreadsheet extends BaseObject
      * @param string $filename 文件名
      * @param string $writerType 写入器类型
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function export(array $title, array $data, $filename, $writerType = 'Xlsx')
     {
@@ -71,8 +67,6 @@ class Spreadsheet extends BaseObject
      * @param string $filename 文件名
      * @param string $ext 扩展名
      * @return bool
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     private function setHeaders($filename, $ext = 'xlsx')
     {
@@ -102,8 +96,6 @@ class Spreadsheet extends BaseObject
      * @param array $title 标题
      * @param array $data 数据
      * @return PhpSpreadsheet
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     private function setCellValueByColumnsAndRows(array $title, array $data)
     {
@@ -136,8 +128,6 @@ class Spreadsheet extends BaseObject
      * @param array $title 标题
      * @param array $data 数据
      * @return PhpSpreadsheet
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     private function setCellValues(array $title, array $data)
     {

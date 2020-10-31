@@ -11,6 +11,7 @@ use app\builder\helper\NavHelper;
  * 导航项配置
  * @see yii\bootstrap\Nav
  * @see app\builder\helper\NavHelper::getItems()
+ * @since 1.0
  */
 return [
     // 导航左侧

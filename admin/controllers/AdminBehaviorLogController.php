@@ -13,7 +13,6 @@ use app\builder\common\CommonController;
 
 /**
  * 管理员操作日志
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -41,9 +40,10 @@ class AdminBehaviorLogController extends CommonController
     ];
 
     /**
+     * this is index page
      * @return string
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
+     * @throws \ReflectionException
+     * @throws \Throwable
      */
     public function actionIndex()
     {

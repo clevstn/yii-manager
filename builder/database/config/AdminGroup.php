@@ -39,11 +39,6 @@ class AdminGroup extends Group
 
     /**
      * {@inheritDoc}
-     *
-     * @return array
-     * @throws \yii\base\NotSupportedException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function define()
     {

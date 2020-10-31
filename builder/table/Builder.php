@@ -27,7 +27,6 @@ use app\builder\contract\NotFoundAttributeException;
 
 /**
  * 表格构建器
- *
  * @property string $title
  * @property boolean $page
  * @property array $columns
@@ -56,25 +55,20 @@ class Builder extends BaseObject implements BuilderInterface
     const PER_ROW = 5000;
 
     /**
-     * 表格标题
-     *
-     * @var string
-     * @since 1.0
+     * @var string 表格标题
      * @see $title
      * @see setTitle()
      */
     private $_title = '';
 
     /**
-     * 表格列
-     *
-     * @var array
+     * @var array 表格列
      * - title string 列名
      * - options array
      *   - style string 样式
      *   - attribute string 属性
      * - callback null|\Closure 自定义闭包，用于自定义字段值
-     * @since 1.0
+     *
      * @see $columns
      * @see table_column_helper()
      * @see setColumns()
@@ -82,61 +76,45 @@ class Builder extends BaseObject implements BuilderInterface
     private $_columns = [];
 
     /**
-     * 查询器实例
-     *
-     * @var \Closure
-     * @since 1.0
+     * @var \Closure 查询器实例
      * @see $query
      * @see setQuery()
      */
     private $_query;
 
     /**
-     * 主键
-     *
-     * @var string|array
-     * @since 1.0
+     * @var string|array 主键
      * @see $primaryKey
      * @see setPrimaryKey()
      */
     private $_primaryKey = 'id';
 
     /**
-     * 定义Query排序
-     *
-     * @var array
-     * @since 1.0
+     * @var array 定义Query排序
      * @see $orderBy
      * @see setOrderBy()
      */
     private $_orderBy = ['id' => SORT_DESC];
 
     /**
-     * 是否分页
-     *
-     * @since 1.0
+     * @var bool 是否分页
      * @see $page
      * @see setPage()
      */
     private $_page = true;
 
     /**
-     * 是否隐藏多选框
-     *
-     * @var bool
-     * @since 1.0
+     * @var bool 是否隐藏多选框
      * @see $hideCheckbox
      * @see setHideCheckbox()
      */
     private $_hideCheckbox = false;
 
     /**
-     * 定义多选选项
-     *
-     * @var array
+     * @var array 定义多选选项
      * - style string 样式
      * - attribute string 属性
-     * @since 1.0
+     *
      * @see $checkboxOptions
      * @see setCheckboxOptions()
      */
@@ -146,9 +124,7 @@ class Builder extends BaseObject implements BuilderInterface
     ];
 
     /**
-     * 设置行操作项
-     *
-     * @var array
+     * @var array 设置行操作项
      * - type string 支持的值：`page`、`modal`、`ajax`、`division`
      *      - page      页面打开
      *      - modal     模态框打开
@@ -163,7 +139,7 @@ class Builder extends BaseObject implements BuilderInterface
      *      - method    访问动作，ajax类型有效
      *      - width     当前type为modal时有效，指定modal的宽，默认800px
      *      - height    当前type为modal时有效，指定modal的高，默认520px
-     * @since 1.0
+     *
      * @see $rowActions
      * @see table_action_helper()
      * @see setRowActions()
@@ -171,45 +147,31 @@ class Builder extends BaseObject implements BuilderInterface
     private $_rowActions = [];
 
     /**
-     * 表格数据
-     *
-     * @var array
-     * @since 1.0
+     * @var array 表格数据
      * @see resolveQuery()
      */
     private $_data = [];
 
     /**
-     * 分页实例
-     *
-     * @var Linkable|null
-     * @since 1.0
+     * @var Linkable|null 分页实例
      * @see resolveQuery()
      */
     private $_pagination;
 
     /**
-     * 视图组件实例
-     *
-     * @var View
-     * @since 1.0
+     * @var View 视图组件实例
      * @see registerView()
      */
     private $_view;
 
     /**
-     * 是否为局部视图
-     *
-     * @var bool
-     * @since 1.0
+     * @var bool 是否为局部视图
      * @see $partial
      */
     private $_partial = false;
 
     /**
-     * 工具栏
-     *
-     * @var array
+     * @var array 工具栏
      * ```php
      * // 数据结构：
      * // - 支持的key有：`left`、`right`
@@ -231,9 +193,8 @@ class Builder extends BaseObject implements BuilderInterface
      *          ['type' => 'custom', 'title' => '', 'icon' => '', ...],
      *      ],
      * ]
-     *
      * ```
-     * @since 1.0
+     *
      * @see $toolbars
      * @see getToolbars()
      * @see $toolbarRefresh
@@ -248,9 +209,7 @@ class Builder extends BaseObject implements BuilderInterface
     private $_toolbars = [];
 
     /**
-     * 筛选表单字段项
-     *
-     * @var array
+     * @var array 筛选表单字段项
      *  control支持的类型有:
      *  - text
      *  - select
@@ -286,22 +245,16 @@ class Builder extends BaseObject implements BuilderInterface
      *              ],
      *         ],
      * ```
-     * @since 1.0
      */
     private $_filterColumns = [];
 
     /**
-     * 导出标识
-     *
-     * @var bool
-     * @since 1.0
+     * @var bool 导出标识
      */
     private $_exportFlag = false;
 
     /**
-     * 数据导出选项
-     *
-     * @var array
+     * @var array 数据导出选项
      * - heads 自定义头部
      *    ['ID', '用户名', '邮箱', '电话']
      * - fields 自定义字段; 如果没定义则使用列表字段
@@ -315,70 +268,48 @@ class Builder extends BaseObject implements BuilderInterface
      *      return '+' . $item['an'] . ' ' . $item['mobile'];
      *      },
      *  ],
-     * @since 1.0
      */
     private $_exportOptions = [];
 
     /**
-     * 局部视图路径
-     *
-     * @var string
-     * @since 1.0
+     * @var string 局部视图路径
      * @see $partial
      * @see render()
      */
     public $layoutPartial = '@builder/layouts/partial.php';
 
     /**
-     * Yii-manager layouts.
-     *
-     * @var string
+     * @var string Yii-manager layouts.
      */
     public $layoutPath = '@builder/layouts/layout.php';
 
     /**
-     * 模板路径
-     *
-     * @var string
-     * @since 1.0
+     * @var string 模板路径
      */
     private $_viewPath = '@builder/table/views/index.php';
 
     /**
-     * 自定义组件
-     *
-     * @var array
-     * @since 1.0
+     * @var array 自定义组件
      */
     private $_widget = [];
 
     /**
-     * Asset包定义
-     *
-     * @var array
-     * @since 1.0
+     * @var array Asset包定义
      */
     private $_assetBundle = [];
 
     /**
-     * 额外的Js代码
-     *
-     * @var array
-     * @since 1.0
+     * @var array 额外的Js代码
      */
     private $_js = [];
 
     /**
-     * 额外的css代码
-     *
-     * @var array
-     * @since 1.0
+     * @var array 额外的css代码
      */
     private $_css = [];
 
     /**
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
+     * 初始化构建器
      */
     public function init()
     {
@@ -387,11 +318,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置表格名
-     *
-     * @param string $title
+     * @param string $title 表格页头标题
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setTitle($title = '')
     {
@@ -401,10 +329,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取表格名
-     *
      * @return string
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getTitle()
     {
@@ -413,12 +338,9 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置数据列
-     *
      * @param array $columns
      * @return $this
      * @throws NotSupportedException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setColumns(array $columns)
     {
@@ -473,10 +395,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取数据列
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getColumns()
     {
@@ -485,11 +404,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置query
-     *
      * @param \Closure $query
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setQuery(\Closure $query)
     {
@@ -499,10 +415,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取query
-     *
      * @return \Closure
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getQuery()
     {
@@ -511,11 +424,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置主键
-     *
      * @param string|array $field
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setPrimaryKey($field = 'id')
     {
@@ -525,10 +435,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取主键
-     *
      * @return string
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getPrimaryKey()
     {
@@ -537,11 +444,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置Query排序
-     *
      * @param array|string $orderBy
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setOrderBy($orderBy)
     {
@@ -551,9 +455,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取Query排序
-     *
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
+     * @return array
      */
     public function getOrderBy()
     {
@@ -562,11 +464,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置是否分页
-     *
      * @param boolean $page
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setPage($page = true)
     {
@@ -576,9 +475,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取是否分页
-     *
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
+     * @return bool
      */
     public function getPage()
     {
@@ -587,11 +484,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置隐藏多选框
-     *
      * @param bool $isHide
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setHideCheckbox($isHide = true)
     {
@@ -601,10 +495,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取是否隐藏多选框
-     *
      * @return bool
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getHideCheckbox()
     {
@@ -613,11 +504,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置多选框options
-     *
      * @param array $options
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setCheckboxOptions(array $options)
     {
@@ -646,10 +534,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取多选框options
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getCheckboxOptions()
     {
@@ -658,11 +543,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置行操作项
-     *
      * @param array $actions
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setRowActions(array $actions)
     {
@@ -672,10 +554,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取行情操作项
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getRowActions()
     {
@@ -690,11 +569,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置局部视图
-     *
      * @param bool $partial
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setPartial($partial = true)
     {
@@ -704,10 +580,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取是否是局部视图
-     *
      * @return bool
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getPartial()
     {
@@ -716,16 +589,14 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置组件
-     *
      * @param string|array|Widget $widget
      * @param int $pos
      * - TABLE_TOOL_TOP
      * - TABLE_TOOL_BOTTOM
      * - TABLE_PAGE_TOP
      * - TABLE_PAGE_BOTTOM
+     *
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setWidget($widget, $pos = Table::TABLE_TOOL_TOP)
     {
@@ -742,11 +613,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册额外的assetBundle
-     *
      * @param array|string $assetBundle
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setAssetBundle($assetBundle)
     {
@@ -760,12 +628,9 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册额外的Js代码
-     *
      * @param array|string $js
      * @param string $pos
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setJs($js, $pos = Table::JS_SCRIPT_INNER)
     {
@@ -779,11 +644,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册额外的Css代码
-     *
      * @param array|string $css
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setCss($css)
     {
@@ -797,10 +659,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取组件
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getWidget()
     {
@@ -809,11 +668,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置工具栏刷新
-     *
      * @param array $options
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setToolbarRefresh(array $options = [])
     {
@@ -825,14 +681,12 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置工具栏筛选
-     *
      * @param array $options
      * - title
      * - icon
      * - columns
+     *
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      * @see $_filterColumns
      * @see ToolbarFilterOptions
      */
@@ -851,12 +705,9 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置工具栏导出
-     *
      * @param array $options
      * @return $this
      * @throws UndefinedOptionsException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      * @see $_exportOptions
      */
     public function setToolbarExport(array $options)
@@ -879,11 +730,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 设置工具栏自定义项
-     *
      * @param array $options
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function setToolbarCustom(array $options)
     {
@@ -898,10 +746,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 获取工具栏
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getToolbars()
     {
@@ -910,12 +755,9 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 渲染表格
-     *
      * @param Controller $context
      * @return string
      * @throws \Throwable
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function render(Controller $context)
     {
@@ -953,9 +795,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 数据导出
-     *
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     protected function exportData()
     {
@@ -1007,12 +847,9 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 数据导出渲染
-     *
      * @param Controller $context
      * @return string
      * @throws \Exception
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     protected function renderExport(Controller $context)
     {
@@ -1022,12 +859,9 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * Ajax渲染
-     *
      * @param Controller $context
      * @return string
      * @throws \Exception
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     protected function renderAjax(Controller $context)
     {
@@ -1043,12 +877,9 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * html渲染
-     *
      * @param Controller $context
      * @return string
      * @throws \Throwable
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     protected function renderHtml(Controller $context)
     {
@@ -1104,11 +935,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 解析数据导出
-     *
      * @param Controller $context
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function resolveExport(Controller $context)
     {
@@ -1136,11 +964,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 解析Query
-     *
      * @return $this
      * @throws NotFoundAttributeException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function resolveQuery()
     {
@@ -1178,11 +1003,8 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 解析表格组件JS脚本
-     *
      * @return string
      * @throws \Throwable
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     protected function resolveJsScript()
     {
@@ -1216,10 +1038,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 注册视图组件实例
-     *
      * @return $this
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     protected function registerView()
     {

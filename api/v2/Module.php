@@ -11,7 +11,6 @@ use app\api\Module as BaseModule;
 
 /**
  * 接口2.0.0版本
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

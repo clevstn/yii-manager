@@ -11,7 +11,6 @@ use yii\web\JqueryAsset;
 
 /**
  * Layer
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -19,7 +18,6 @@ class LayerAsset extends BaseAsset
 {
     /**
      * @var array
-     * @since 1.0
      */
     public $js = [
         'libs/layer/layer.js',
@@ -27,7 +25,6 @@ class LayerAsset extends BaseAsset
 
     /**
      * @var array 依赖
-     * @since 1.0
      */
     public $depends = [
         JqueryAsset::class,

@@ -14,7 +14,6 @@ use app\models\AreaCode;
 
 /**
  * 手机区号
- *
  * @author cleverstone
  * @since 1.0
  */
@@ -50,8 +49,8 @@ class AreaCodeController extends CommonController
     /**
      * 数据列表
      * @return string
-     * @author cleverstone
-     * @since 1.0
+     * @throws \ReflectionException
+     * @throws \Throwable
      */
     public function actionIndex()
     {

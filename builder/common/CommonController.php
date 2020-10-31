@@ -16,7 +16,6 @@ use app\builder\filters\RbacFilter;
 
 /**
  * 控制器继承类
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -27,43 +26,35 @@ class CommonController extends Controller
     /**
      * 后台首页
      * @var string
-     * @since 1.0
      */
     public $homeUrl = '/admin/index/index';
 
     /**
      * Yii-manager layouts.
-     *
      * @var string
      */
     public $layout = '@builder/layouts/layout.php';
 
     /**
      * Verbs to specify the actions.
-     *
      * @var array
      */
     public $actionVerbs = [];
 
     /**
      * Define actions that do not require authorization.
-     *
      * @var array
      */
     public $guestActions = [];
 
     /**
      * Register undetected action ids for RBAC.
-     *
      * @var array
      */
     public $undetectedActions = [];
 
     /**
      * {@inheritdoc}
-     *
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function init()
     {
@@ -74,9 +65,7 @@ class CommonController extends Controller
 
     /**
      * Behaviors
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
      */
     public function behaviors()
     {
@@ -95,10 +84,7 @@ class CommonController extends Controller
 
     /**
      * This is action verbs filters.
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @see VerbFilter
      */
     public function verbsFilter()
     {
@@ -116,11 +102,7 @@ class CommonController extends Controller
 
     /**
      * This is access control filters.
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @see AccessControl
-     * @see \yii\filters\AccessRule
      */
     public function accessControlFilter()
     {
@@ -145,9 +127,7 @@ class CommonController extends Controller
 
     /**
      * Rbac controls filters.
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
      */
     public function rbacFilter()
     {

@@ -9,16 +9,14 @@ namespace app\commands\cronjobs\business;
 
 /**
  * 计划任务代码演示
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 class Demo
 {
     /**
+     * This is demo
      * @return string
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getResult()
     {

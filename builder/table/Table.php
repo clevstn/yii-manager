@@ -11,7 +11,6 @@ use yii\base\Widget;
 
 /**
  * 表格工具助手
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -54,11 +53,8 @@ class Table
 
     /**
      * 表格工具栏开始
-     *
      * @param array $widgets
      * @return void
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function beginTableTool($widgets)
     {
@@ -67,11 +63,8 @@ class Table
 
     /**
      * 表格工具栏结束
-     *
      * @param array $widgets
      * @return void
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function endTableTool($widgets)
     {
@@ -80,11 +73,8 @@ class Table
 
     /**
      * 表格分页开始
-     *
      * @param array $widgets
      * @return void
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function beginTablePage($widgets)
     {
@@ -93,11 +83,8 @@ class Table
 
     /**
      * 表格分页结束
-     *
      * @param array $widgets
      * @return void
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function endTablePage($widgets)
     {
@@ -106,11 +93,8 @@ class Table
 
     /**
      * 输出超文本
-     *
      * @param array $widgets
      * @param int $pos
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     protected static function output($widgets, $pos)
     {

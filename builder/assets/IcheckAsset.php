@@ -11,7 +11,6 @@ use yii\web\JqueryAsset;
 
 /**
  * icheck库
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -19,7 +18,6 @@ class IcheckAsset extends BaseAsset
 {
     /**
      * @var array css路径
-     * @since 1.0
      */
     public $css = [
         'libs/icheck/skins/minimal/_all.css',
@@ -27,7 +25,6 @@ class IcheckAsset extends BaseAsset
 
     /**
      * @var array js路径
-     * @since 1.0
      */
     public $js = [
         'libs/icheck/js/icheck.min.js',
@@ -35,7 +32,6 @@ class IcheckAsset extends BaseAsset
 
     /**
      * @var array 依赖
-     * @since 1.0
      */
     public $depends = [
         JqueryAsset::class,

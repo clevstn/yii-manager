@@ -11,7 +11,6 @@ use app\builder\common\CommonController;
 
 /**
  * 首页
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -39,8 +38,6 @@ class IndexController extends CommonController
     /**
      * 渲染首页
      * @return string
-     * @author cleverstone
-     * @since 1.0
      */
     public function actionIndex()
     {

@@ -14,7 +14,6 @@ use app\commands\cronjobs\business\Demo;
 
 /**
  * cron jobs demo
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -23,8 +22,6 @@ class IndexController extends Cron
     /**
      * default cron
      * @return int
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function actionIndex()
     {

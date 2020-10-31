@@ -11,7 +11,6 @@ use yii\web\JqueryAsset;
 
 /**
  * Toastr2
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -19,7 +18,6 @@ class Toastr2 extends BaseAsset
 {
     /**
      * @var array css路径
-     * @since 1.0
      */
     public $css = [
         'libs/toastr2/toastr.css',
@@ -27,7 +25,6 @@ class Toastr2 extends BaseAsset
 
     /**
      * @var array js路径
-     * @since 1.0
      */
     public $js = [
         'libs/toastr2/toastr.min.js',
@@ -35,7 +32,6 @@ class Toastr2 extends BaseAsset
 
     /**
      * @var array
-     * @since 1.0
      */
     public $depends = [
         JqueryAsset::class,

@@ -14,7 +14,6 @@ use yii\behaviors\AttributeBehavior;
 
 /**
  * 密码处理器
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

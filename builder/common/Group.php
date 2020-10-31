@@ -15,7 +15,6 @@ use app\builder\contract\ConfigureInterface;
 
 /**
  * 配置分组逻辑层
- *
  * @property array $config 配置项
  * @property array $group 分组
  * @author cleverstone <yang_hui_lei@163.com>
@@ -29,50 +28,37 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 分组名称
-     *
      * @var string
-     * @since 1.0
      */
     public $name = '默认分组';
 
     /**
      * 组别代码
-     *
      * @var string
-     * @since 1.0
      */
     public $code = 'DEFAULT_GROUP';
 
     /**
      * 描述
-     *
      * @var string
-     * @since 1.0
      */
     public $desc = '这是一个默认分组';
 
     /**
      * 表单提示
-     *
      * @var string
-     * @since 1.0
      */
     public $formTips = '这是一个默认分组';
 
     /**
      * 配置项
-     *
      * @var array
-     * @since 1.0
      */
     private $_config = [];
 
     /**
      * 获取分组ID
-     *
      * @return string
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function getId()
     {
@@ -82,9 +68,6 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 初始化配置项
-     *
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function init()
     {
@@ -98,10 +81,6 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * {@inheritDoc}
-     *
-     * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getConfig()
     {
@@ -111,10 +90,6 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * {@inheritDoc}
-     *
-     * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function getGroup()
     {
@@ -134,19 +109,14 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 定义配置
-     *
+     * @throws \yii\base\NotSupportedException
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     abstract public function define();
 
     /**
      * 校验规则
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function rules()
     {
@@ -155,7 +125,6 @@ abstract class Group extends BaseObject implements ConfigureInterface
 
     /**
      * 格式化配置项
-     *
      * @param string $code 配置项代码
      * @param mixed $value 配置值
      * @param $control string 控件类型
@@ -165,8 +134,6 @@ abstract class Group extends BaseObject implements ConfigureInterface
      * @param string $formTips 表单提示
      * @return array
      * @throws NotSupportedException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     protected function normalizeItem($code, $value, $control, $options, $name, $desc, $formTips)
     {

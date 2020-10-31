@@ -13,7 +13,6 @@ use app\builder\contract\InvalidInstanceException;
 
 /**
  * 表单字段设置选项
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -53,108 +52,79 @@ class FieldsOptions extends BaseOptions
     const CONTROL_CUSTOM = 'custom';
 
     /**
-     * 控件类型，默认`text`
-     *
-     * @var string
+     * @var string 控件类型，默认`text`
      */
     public $control = self::CONTROL_TEXT;
 
     /**
-     * 标签名
-     *
-     * @var string
+     * @var string 标签名
      */
     public $label = '';
 
     /**
-     * 提示语
-     *
-     * @var string
+     * @var string 提示语
      */
     public $placeholder = '';
 
     /**
-     * 默认值，多个值用`逗号`隔开
-     *
-     * @var string
+     * @var string 默认值，多个值用`逗号`隔开
      */
     public $default = '';
 
     /**
-     * 是否必填项
-     *
-     * @var bool
+     * @var bool 是否必填项
      */
     public $required = true;
 
     /**
-     * 注释语
-     *
-     * @var string
+     * @var string 注释语
      */
     public $comment = '';
 
     /**
-     * 是否是区间，用于日期控件
-     *
-     * @var int
+     * @var int 是否是区间，用于日期控件
      */
     public $range = 0;
 
     /**
-     * 选项，用于`radio`、`checkbox`、`select`控件，格式：[`value` => `label`]
-     *
-     * @var array
+     * @var array 选项，用于`radio`、`checkbox`、`select`控件，
+     * 格式：[`value` => `label`]
      */
     public $options;
 
     /**
-     * 行数，用于文本域
-     *
-     * @var string
+     * @var string 行数，用于文本域
      */
     public $rows = '5';
 
     /**
-     * 文件数量，用于文件上传
-     *
-     * @var int
+     * @var int 文件数量，用于文件上传
      */
     public $number = 1;
 
     /**
-     * bootstrap布局，默认`12`
-     *
-     * @var string
+     * @var string bootstrap布局，默认`12`
      */
     public $layouts = '12';
 
     /**
-     * 控件样式
-     *
-     * @var string|array
+     * @var string|array 控件样式
      */
     public $style = '';
 
     /**
-     * 控件属性
-     *
-     * @var string|array
+     * @var string|array 控件属性
      */
     public $attribute = '';
 
     /**
-     * 自定义项
-     *
-     * @var CustomControl|null
+     * @var CustomControl|null 自定义项
      */
     public $widget;
 
     /**
      * 初始化
-     *
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
+     * @throws InvalidInstanceException
      */
     public function init()
     {

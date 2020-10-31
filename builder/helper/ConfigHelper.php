@@ -14,7 +14,6 @@ use app\builder\contract\ConfigureInterface;
 
 /**
  * 配置助手
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -22,12 +21,9 @@ class ConfigHelper
 {
     /**
      * 获取配置
-     *
      * @param string|null $group 配置组代码
      * @return array
      * @throws ErrorException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function getConfig($group = null)
     {
@@ -51,11 +47,8 @@ class ConfigHelper
 
     /**
      * 格式化配置
-     *
      * @return array
      * @throws ErrorException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function normalizeConfig()
     {
@@ -70,12 +63,9 @@ class ConfigHelper
 
     /**
      * 获取分组
-     *
      * @param string|null $group 配置组代码
      * @return array
      * @throws ErrorException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function getGroup($group = null)
     {
@@ -99,11 +89,8 @@ class ConfigHelper
 
     /**
      * 格式化分组
-     *
      * @return array
      * @throws ErrorException
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function normalizeGroup()
     {
@@ -113,10 +100,7 @@ class ConfigHelper
 
     /**
      * 分组集合
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function map()
     {

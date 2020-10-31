@@ -11,7 +11,6 @@ use app\builder\common\CommonController;
 
 /**
  * 应用日志记录
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -40,8 +39,6 @@ class AppLogController extends CommonController
 
     /**
      * @return string
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function actionIndex()
     {

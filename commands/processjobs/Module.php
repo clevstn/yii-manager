@@ -9,7 +9,6 @@ namespace app\commands\processjobs;
 
 /**
  * This is a module for `processjobs`
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

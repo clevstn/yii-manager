@@ -11,7 +11,6 @@ use yii\base\UserException;
 
 /**
  * 未定义的选项异常
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

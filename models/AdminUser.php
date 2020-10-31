@@ -42,22 +42,19 @@ use app\builder\common\CommonActiveRecord;
 class AdminUser extends CommonActiveRecord implements IdentityInterface
 {
     /**
-     * 我的上级
-     * @var string
+     * @var string 我的上级
      */
     public $parent;
 
     /**
-     * 重复密码
-     * @var string
+     * @var string 重复密码
      */
     public $repassword;
 
     /**
-     * 操作项
+     * @var string 操作项
      * - disabled 封停
      * - enabled  解封
-     * @var string
      */
     public $action;
 
@@ -152,8 +149,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     /**
      * 定义属性标签
      * @return array|string[]
-     * @author cleverstone
-     * @since 1.0
      */
     public function attributeLabels()
     {
@@ -178,8 +173,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     /**
      * 规则定义
      * @return array
-     * @author cleverstone
-     * @since 1.0
      */
     public function rules()
     {
@@ -228,8 +221,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      * 自定义验证器 - 手机号唯一校验
      * @param $attribute
      * @param $params
-     * @author cleverstone
-     * @since 1.0
      */
     public function validateMobileIsUnique($attribute, $params)
     {
@@ -254,8 +245,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     /**
      * 场景定义
      * @return array|array[]
-     * @author cleverstone
-     * @since 1.0
      */
     public function scenarios()
     {
@@ -273,8 +262,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     /**
      * 附加行为
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function behaviors()
     {
@@ -296,8 +283,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      * @param int $status 状态
      * @param boolean $isHtml 是否是html
      * @return string
-     * @author cleverstone
-     * @since 1.0
      */
     public static function getStatusLabel($status, $isHtml = false)
     {
@@ -327,8 +312,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      * 获取是否开启安全认证标签
      * @param int $safeAuth 是否开启安全认证
      * @return string
-     * @author cleverstone
-     * @since 1.0
      */
     public static function getIsSafeAuthLabel($safeAuth)
     {
@@ -352,8 +335,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      * 获取是否开启操作日志标签
      * @param int $isOpenOperateLog 是否开启操作日志
      * @return string
-     * @author cleverstone
-     * @since 1.0
      */
     public static function getIsOpenOperateLabel($isOpenOperateLog)
     {
@@ -373,8 +354,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      * 获取是否开启登录日志标签
      * @param $isOpenLoginLog
      * @return string
-     * @author cleverstone
-     * @since 1.0
      */
     public static function getIsOpenLoginLogLabel($isOpenLoginLog)
     {
@@ -394,7 +373,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      * 通过用户`id`获取模型实例
      * @param int|string $id id
      * @return AdminUser|IdentityInterface|null
-     * @author cleverstone <yang_hui_lei@163.com>
      */
     public static function findIdentity($id)
     {
@@ -406,7 +384,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      * @param string $token 访问令牌
      * @param null|string $type 授权类型
      * @return AdminUser|IdentityInterface|null
-     * @author cleverstone <yang_hui_lei@163.com>
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
@@ -417,7 +394,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      * 通过用户名获取模型实例
      * @param string $username 用户名
      * @return AdminUser|null
-     * @author cleverstone <yang_hui_lei@163.com>
      */
     public static function findByUsername($username)
     {
@@ -463,8 +439,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      * 生成管理员身份码
      * @return string
      * @throws \yii\base\Exception
-     * @author cleverstone
-     * @since 1.0
      */
     public function generateIdentifyCode()
     {
@@ -481,8 +455,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      * @param int $pid 父级`id`
      * @param string $parentPath 父级`path`
      * @return string
-     * @author cleverstone
-     * @since 1.0
      */
     public static function makePath($pid, $parentPath)
     {

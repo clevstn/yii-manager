@@ -9,7 +9,6 @@ namespace app\commands\cronjobs;
 
 /**
  * This is a module for `cronjobs`
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

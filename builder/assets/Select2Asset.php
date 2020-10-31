@@ -11,7 +11,6 @@ use yii\web\JqueryAsset;
 
 /**
  * Select2资源包<Bootstrap3主题>
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -19,7 +18,6 @@ class Select2Asset extends BaseAsset
 {
     /**
      * @var array css路径
-     * @since 1.0
      */
     public $css = [
         'libs/select2-4.1.0/css/select2.min.css',
@@ -28,7 +26,6 @@ class Select2Asset extends BaseAsset
 
     /**
      * @var array js路径
-     * @since 1.0
      */
     public $js = [
         'libs/select2-4.1.0/js/select2.min.js',
@@ -38,7 +35,6 @@ class Select2Asset extends BaseAsset
 
     /**
      * @var array 依赖
-     * @since 1.0
      */
     public $depends = [
         JqueryAsset::class,

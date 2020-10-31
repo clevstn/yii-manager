@@ -11,7 +11,6 @@ use yii\web\Controller;
 
 /**
  * 网站控制器继承类
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

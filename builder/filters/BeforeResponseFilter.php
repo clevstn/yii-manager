@@ -12,18 +12,13 @@ use yii\base\Behavior;
 
 /**
  * 响应拦截器
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 class BeforeResponseFilter extends Behavior
 {
     /**
-     * inherit
-     *
-     * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
+     * {@inheritDoc}
      */
     public function events()
     {
@@ -34,10 +29,7 @@ class BeforeResponseFilter extends Behavior
 
     /**
      * Before send listener
-     *
      * @param \yii\base\Event $event
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public function beforeResponseSend($event)
     {

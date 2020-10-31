@@ -9,7 +9,6 @@ namespace app\controllers;
 
 /**
  * 错误处理动作
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

@@ -11,7 +11,6 @@ use app\api\RestController;
 
 /**
  * 默认接口
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */

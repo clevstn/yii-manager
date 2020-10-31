@@ -13,7 +13,6 @@ use app\builder\contract\InvalidInstanceException;
 
 /**
  * 工具栏筛选选项
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -30,8 +29,7 @@ class ToolbarFilterOptions extends BaseOptions
     const CONTROL_CUSTOM = 'custom';
 
     /**
-     * 控件类型
-     *
+     * @var array 控件类型
      * - text
      * - select
      * - number
@@ -41,80 +39,52 @@ class ToolbarFilterOptions extends BaseOptions
      * - month
      * - time
      * - custom
-     * @var array
-     * @since 1.0
      */
     public $control = 'text';
 
     /**
-     * 标签
-     *
-     * @var string
-     * @since 1.0
+     * @var string 标签
      */
     public $label = '';
 
     /**
-     * 是否是区间, 用于日期控件
-     *
-     * @var bool
-     * @since 1.0
+     * @var bool 是否是区间, 用于日期控件
      */
     public $range = 0;
 
     /**
-     * 提示
-     *
-     * @var string
-     * @since 1.0
+     * @var string 提示
      */
     public $placeholder = '';
 
     /**
-     * 默认值
-     *
-     * @var string
-     * @since 1.0
+     * @var string 默认值
      */
     public $default = '';
 
     /**
-     * 样式
-     *
-     * @var string|array
-     * @since 1.0
+     * @var string|array 样式
      */
     public $style = '';
 
     /**
-     * 属性
-     *
-     * @var string|array
-     * @since 1.0
+     * @var string|array 属性
      */
     public $attribute = '';
 
     /**
-     * 选项，用于select控件
-     *
-     * @var array
-     * @since 1.0
+     * @var array 选项，用于select控件
      */
     public $options = [];
 
     /**
-     * 用于自定义组件
-     *
-     * @var CustomControl
-     * @since 1.0
+     * @var CustomControl 用于自定义组件
      */
     public $widget;
 
     /**
      * 初始化选项
-     *
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
+     * @throws InvalidInstanceException
      */
     public function init()
     {

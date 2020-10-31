@@ -9,7 +9,6 @@ namespace app\models;
 
 /**
  * This is the model class for table "{{%user}}".
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -63,7 +62,6 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 
     /**
      * Finds user by username
-     *
      * @param string $username
      * @return static|null
      */
@@ -104,7 +102,6 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 
     /**
      * Validates password
-     *
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */

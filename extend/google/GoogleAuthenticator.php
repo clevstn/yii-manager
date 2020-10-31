@@ -36,7 +36,7 @@ use Endroid\QrCode\ErrorCorrectionLevel;
  * ```
  * @property string $codeLength The code length
  * @author Michael Kliewe
- * @author cleverstone
+ * @author cleverstone <yang_hui_lei@163.com>
  * @copyright 2012 Michael Kliewe
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  *

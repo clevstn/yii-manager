@@ -10,8 +10,7 @@ namespace app\admin\controllers;
 use app\builder\common\CommonController;
 
 /**
- * 菜单
- *
+ * 菜单列表
  * @author cleverstone
  * @since 1.0
  */
@@ -37,8 +36,7 @@ class MenuController extends CommonController
     public $undetectedActions = [];
 
     /**
-     * @author cleverstone
-     * @since 1.0
+     * @return string
      */
     public function actionIndex()
     {

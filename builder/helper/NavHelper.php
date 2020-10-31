@@ -13,7 +13,6 @@ use yii\bootstrap\Nav;
 
 /**
  * 导航助手
- *
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -21,11 +20,8 @@ class NavHelper
 {
     /**
      * 导航左侧项
-     *
      * @return string
      * @throws \Exception
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function renderLeftItems()
     {
@@ -39,11 +35,8 @@ class NavHelper
 
     /**
      * 导航右侧项
-     *
      * @return string
      * @throws \Exception
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     public static function renderRightItems()
     {
@@ -57,10 +50,7 @@ class NavHelper
 
     /**
      * 我的Brand
-     *
      * @return string
-     * @author cleverstone
-     * @since 1.0
      */
     public static function getMyBrand()
     {
@@ -83,10 +73,7 @@ class NavHelper
 
     /**
      * 获取导航项
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
      */
     protected function getItems()
     {

@@ -12,7 +12,6 @@ use yii\web\Response;
 
 /**
  * HTTP常用方法
- *
  * @property array $get             Verb `get` params
  * @property array $post            Verb `post` params
  * @property boolean $isGet         Is verb `get` params
@@ -28,17 +27,13 @@ trait Http
 {
 
     /**
-     * By call this attributes `get` `post`, this is effective.
-     *
-     * @var bool
+     * @var bool By call this attributes `get` `post`, this is effective.
      */
     public $emptyStrToNull = true;
 
     /**
      * Get verb `get` info
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
      */
     public function getGet()
     {
@@ -58,9 +53,7 @@ trait Http
 
     /**
      * Get verb `post` info
-     *
      * @return array
-     * @author cleverstone <yang_hui_lei@163.com>
      */
     public function getPost()
     {
@@ -80,9 +73,7 @@ trait Http
 
     /**
      * Detect get
-     *
      * @return bool
-     * @author cleverstone <yang_hui_lei@163.com>
      */
     public function getIsGet()
     {
@@ -91,9 +82,7 @@ trait Http
 
     /**
      * Detect post
-     *
      * @return bool
-     * @author cleverstone <yang_hui_lei@163.com>
      */
     public function getIsPost()
     {
@@ -104,7 +93,6 @@ trait Http
      * Detect ajax
      * @param boolean $general 是否泛指
      * @return bool
-     * @author cleverstone <yang_hui_lei@163.com>
      */
     public function getIsAjax($general = true)
     {
@@ -113,9 +101,7 @@ trait Http
 
     /**
      * Get domain
-     *
      * @return string|null
-     * @author cleverstone <yang_hui_lei@163.com>
      */
     public function getDomain()
     {
@@ -124,12 +110,9 @@ trait Http
 
     /**
      * Json成功响应
-     *
      * @param string $msg
      * @param array $data
-     * @return mixed
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
+     * @return string
      */
     public function asSuccess($msg = '执行成功', $data = [])
     {
@@ -139,11 +122,8 @@ trait Http
 
     /**
      * Json失败响应
-     *
      * @param string $msg
-     * @return mixed
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
+     * @return string
      */
     public function asFail($msg = '执行失败')
     {
@@ -153,11 +133,8 @@ trait Http
 
     /**
      * Json无权限响应
-     *
      * @param string $msg
-     * @return mixed
-     * @author cleverstone <yang_hui_lei@163.com>
-     * @since 1.0
+     * @return string
      */
     public function asUnauthorized($msg = '您没有权限访问')
     {
