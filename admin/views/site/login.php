@@ -12,7 +12,7 @@ use app\admin\assets\SiteAsset;
 $this->title = '登录';
 SiteAsset::register($this);
 ?>
-<div class="panel panel-default" ng-controller="_loginCtrl">
+<div class="panel panel-default" ng-controller="_loginCtrl" ng-cloak>
     <div class="panel-heading">
         <h3>登录</h3>
     </div>

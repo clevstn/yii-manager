@@ -28,10 +28,8 @@ MainAsset::register($this);
     <!--这里必须是`_EasyApp`-->
     <body ng-app="_EasyApp">
     <?php $this->beginBody() ?>
-    <div class="container-fluid" ng-cloak>
-        <!--content-->
-        <?= $content ?>
-    </div>
+    <!--content-->
+    <?= $content ?>
     <?php $this->endBody() ?>
     </body>
     </html>
