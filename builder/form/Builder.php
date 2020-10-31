@@ -29,80 +29,68 @@ use app\builder\contract\BuilderInterface;
 class Builder extends BaseObject implements BuilderInterface
 {
     /**
-     * 表单标题
-     * @var string
+     * @var string 表单标题
      * @see $title
      * @see setTitle()
      */
     private $_title = '';
 
     /**
-     * 表单字段
-     * @var array
+     * @var array 表单字段
      */
     private $_fields = [];
 
     /**
-     * 视图组件实例
-     * @var View
+     * @var View 视图组件实例
      * @see registerView()
      */
     private $_view;
 
     /**
-     * 是否为局部视图
-     * @var bool
+     * @var bool 是否为局部视图
      * @see $partial
      */
     private $_partial = false;
 
     /**
-     * 返回按钮
-     * @var bool
+     * @var bool 返回按钮
      */
     private $_backBtn = true;
 
     /**
-     * 是否自动返回
-     * @var bool
+     * @var bool 是否自动返回
      */
     private $_autoBack = true;
 
     /**
-     * Asset包定义
-     * @var array
+     * @var array Asset包定义
      */
     private $_assetBundle = [];
 
     /**
-     * 额外的Js代码
-     * @var array
+     * @var array 额外的Js代码
      */
     private $_js = [];
 
     /**
-     * 额外的css代码
-     * @var array
+     * @var array 额外的css代码
      */
     private $_css = [];
 
     /**
-     * 局部视图路径
-     * @var string
+     * @var string 局部视图路径
      * @see $partial
      * @see render()
      */
     public $layoutPartial = '@builder/layouts/partial.php';
 
     /**
-     * Yii-manager layouts.
-     * @var string
+     * @var string Yii-manager layouts.
      */
     public $layoutPath = '@builder/layouts/layout.php';
 
     /**
-     * 模板路径
-     * @var string
+     * @var string 模板路径
      */
     private $_viewPath = '@builder/form/views/index.php';
 

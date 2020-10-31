@@ -22,20 +22,17 @@ class DateSplitHelper
     protected $start;
 
     /**
-     * 结束日期
-     * @var string|int
+     * @var string|int 结束日期
      */
     protected $end;
 
     /**
-     * 当前时间戳
-     * @var null|int
+     * @var null|int 当前时间戳
      */
     protected $now;
 
     /**
-     * 选项
-     * @var array
+     * @var array 选项
      */
     protected $options = [
         'reformat' => false,

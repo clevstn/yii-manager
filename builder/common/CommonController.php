@@ -24,32 +24,27 @@ class CommonController extends Controller
     use Http;
 
     /**
-     * 后台首页
-     * @var string
+     * @var string 后台首页
      */
     public $homeUrl = '/admin/index/index';
 
     /**
-     * Yii-manager layouts.
-     * @var string
+     * @var string Yii-manager layouts.
      */
     public $layout = '@builder/layouts/layout.php';
 
     /**
-     * Verbs to specify the actions.
-     * @var array
+     * @var array Verbs to specify the actions.
      */
     public $actionVerbs = [];
 
     /**
-     * Define actions that do not require authorization.
-     * @var array
+     * @var array Define actions that do not require authorization.
      */
     public $guestActions = [];
 
     /**
-     * Register undetected action ids for RBAC.
-     * @var array
+     * @var array Register undetected action ids for RBAC.
      */
     public $undetectedActions = [];
 

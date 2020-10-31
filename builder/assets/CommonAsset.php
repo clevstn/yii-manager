@@ -18,8 +18,7 @@ use yii\bootstrap\BootstrapPluginAsset;
 class CommonAsset extends BaseAsset
 {
     /**
-     * 注册依赖包
-     * @var array
+     * @var array 注册依赖包
      */
     public $depends = [
         PromiseAsset::class,            // Es6 Promise

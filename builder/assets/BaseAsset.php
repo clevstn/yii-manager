@@ -17,8 +17,7 @@ use yii\web\AssetBundle;
 abstract class BaseAsset extends AssetBundle
 {
     /**
-     * asset source path
-     * @var string
+     * @var string asset source path
      */
     public $sourcePath = '@builder/static';
 }

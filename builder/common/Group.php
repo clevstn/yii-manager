@@ -22,37 +22,33 @@ use app\builder\contract\ConfigureInterface;
  */
 abstract class Group extends BaseObject implements ConfigureInterface
 {
-
-    const TYPE_GROUP = 1;       // 类型: 分组
-    const TYPE_ITEM = 2;        // 类型: 普通配置
+    // 类型: 分组
+    const TYPE_GROUP = 1;
+    // 类型: 普通配置
+    const TYPE_ITEM = 2;
 
     /**
-     * 分组名称
-     * @var string
+     * @var string 分组名称
      */
     public $name = '默认分组';
 
     /**
-     * 组别代码
-     * @var string
+     * @var string 组别代码
      */
     public $code = 'DEFAULT_GROUP';
 
     /**
-     * 描述
-     * @var string
+     * @var string 描述
      */
     public $desc = '这是一个默认分组';
 
     /**
-     * 表单提示
-     * @var string
+     * @var string 表单提示
      */
     public $formTips = '这是一个默认分组';
 
     /**
-     * 配置项
-     * @var array
+     * @var array 配置项
      */
     private $_config = [];
 
