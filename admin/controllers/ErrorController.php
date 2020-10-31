@@ -24,11 +24,6 @@ class ErrorController extends CommonController
     /**
      * {@inheritdoc}
      */
-    public $undetectedActions = ['error'];
-
-    /**
-     * {@inheritdoc}
-     */
     public function actions()
     {
         return [

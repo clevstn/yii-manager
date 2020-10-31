@@ -31,23 +31,7 @@ class AreaCodeController extends CommonController
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-        'add',
-        'edit',
-        'toggle',
-        'delete',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [];
-
-    /**
-     * 数据列表
+     * 手机区号管理列表
      * @return string
      * @throws \ReflectionException
      * @throws \Throwable
@@ -55,7 +39,7 @@ class AreaCodeController extends CommonController
     public function actionIndex()
     {
         $table = ViewBuilder::table();
-        // title
+        // 标题
         $table->title = '手机区号管理';
         // 表格列
         $table->columns = [
@@ -81,7 +65,6 @@ class AreaCodeController extends CommonController
 
             return $query;
         };
-
         // 行操作
         $table->rowActions = [
             // 删除
@@ -100,10 +83,8 @@ class AreaCodeController extends CommonController
                 'height' => '500px',
             ]),
         ];
-
         // 工具栏 - 刷新
         $table->toolbarRefresh = [];
-
         // 工具栏 - 筛选
         $table->toolbarFilter = [
             'columns' => [
@@ -119,7 +100,6 @@ class AreaCodeController extends CommonController
                 ]),
             ],
         ];
-
         // 工具栏 - 自定义
         $table->toolbarCustom = [
             table_toolbar_custom_helper('left', [
@@ -147,7 +127,6 @@ class AreaCodeController extends CommonController
                 'params' => ['id', 'action' => 'disabled'],
             ]),
         ];
-
         // Order by
         $table->orderBy = ['id' => SORT_DESC];
 

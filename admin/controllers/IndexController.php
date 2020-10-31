@@ -10,7 +10,7 @@ namespace app\admin\controllers;
 use app\builder\common\CommonController;
 
 /**
- * 首页
+ * 后台默认控制器
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -24,19 +24,7 @@ class IndexController extends CommonController
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [];
-
-    /**
-     * 渲染首页
+     * 后台首页
      * @return string
      */
     public function actionIndex()

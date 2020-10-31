@@ -24,20 +24,7 @@ class OpsQueueController extends CommonController
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [
-        'index',
-    ];
-
-    /**
+     * 队列监控列表
      * @return string
      */
     public function actionIndex()

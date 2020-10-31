@@ -24,18 +24,7 @@ class GroupController extends CommonController
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [];
-
-    /**
+     * 管理组列表
      * @return string
      */
     public function actionIndex()

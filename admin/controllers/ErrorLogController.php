@@ -10,7 +10,7 @@ namespace app\admin\controllers;
 use app\builder\common\CommonController;
 
 /**
- * 错误日志记录
+ * 系统错误日志记录
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -24,20 +24,7 @@ class ErrorLogController extends CommonController
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [
-        'index',
-    ];
-
-    /**
+     * 系统错误日志列表
      * @return string
      */
     public function actionIndex()

@@ -17,27 +17,14 @@ use app\builder\common\CommonController;
 class AdminLoginLogController extends CommonController
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public $actionVerbs = [
         'index' => ['get'],
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [
-        'index',
-    ];
-
-    /**
+     * 管理员登录日志列表
      * @return string
      */
     public function actionIndex()

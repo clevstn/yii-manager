@@ -16,7 +16,7 @@ use app\builder\common\CommonController;
 use app\builder\table\ToolbarFilterOptions;
 
 /**
- * 管理员列表
+ * 管理员
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
@@ -34,22 +34,7 @@ class ManagerController extends CommonController
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-        'add-user',
-        'toggle',
-        'edit',
-        'group',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [];
-
-    /**
+     * 管理员列表
      * @return string
      * @throws \ReflectionException
      * @throws \Throwable

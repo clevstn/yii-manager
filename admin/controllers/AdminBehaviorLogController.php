@@ -19,28 +19,14 @@ use app\builder\common\CommonController;
 class AdminBehaviorLogController extends CommonController
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public $actionVerbs = [
         'index' => ['get'],
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [
-        'index',
-    ];
-
-    /**
-     * this is index page
+     * 管理员操作日志列表
      * @return string
      * @throws \ReflectionException
      * @throws \Throwable

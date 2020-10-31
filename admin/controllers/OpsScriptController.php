@@ -24,20 +24,7 @@ class OpsScriptController extends CommonController
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [
-        'index',
-    ];
-
-    /**
+     * 运维脚本列表
      * @return string
      */
     public function actionIndex()

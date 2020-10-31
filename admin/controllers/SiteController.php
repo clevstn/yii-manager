@@ -22,7 +22,8 @@ class SiteController extends CommonController
      * {@inheritdoc}
      */
     public $actionVerbs = [
-        'login' => ['get', 'post'],
+        'login'  => ['get', 'post'],
+        'logout' => ['get', 'post'],
     ];
 
     /**
@@ -36,11 +37,11 @@ class SiteController extends CommonController
      * {@inheritdoc}
      */
     public $undetectedActions = [
-        'login',
+        'logout'
     ];
 
     /**
-     * login
+     * 登录
      * @return string
      */
     public function actionLogin()
@@ -49,7 +50,7 @@ class SiteController extends CommonController
     }
 
     /**
-     * logout
+     * 退出
      * @return Response
      */
     public function actionLogout()

@@ -24,21 +24,7 @@ class SystemSettingController extends CommonController
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [
-        'index',
-    ];
-
-    /**
-     * 系统设置面板
+     * 系统设置列表
      * @return string
      */
     public function actionIndex()

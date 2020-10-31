@@ -24,20 +24,7 @@ class OpsCronController extends CommonController
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [
-        'index',
-    ];
-
-    /**
+     * 计划任务监控列表
      * @return string
      */
     public function actionIndex()

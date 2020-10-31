@@ -10,7 +10,7 @@ namespace app\admin\controllers;
 use app\builder\common\CommonController;
 
 /**
- * 菜单列表
+ * 菜单
  * @author cleverstone
  * @since 1.0
  */
@@ -24,18 +24,7 @@ class MenuController extends CommonController
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [];
-
-    /**
+     * 菜单列表
      * @return string
      */
     public function actionIndex()

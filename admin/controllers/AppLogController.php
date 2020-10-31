@@ -17,27 +17,14 @@ use app\builder\common\CommonController;
 class AppLogController extends CommonController
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public $actionVerbs = [
         'index' => ['get'],
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $guestActions = [
-        'index',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [
-        'index',
-    ];
-
-    /**
+     * 应用日志列表
      * @return string
      */
     public function actionIndex()
