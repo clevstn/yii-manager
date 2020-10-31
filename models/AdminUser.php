@@ -426,7 +426,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
 
     /**
      * Validates password
-     *
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */

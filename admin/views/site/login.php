@@ -5,7 +5,15 @@
  * @license http://yii-manager.cleverstone.cn/license/
  */
 
+use app\admin\assets\SiteAsset;
+
 /* @var $this \yii\web\View */
 /* @var $param */
+$this->title = '登录';
+SiteAsset::register($this);
 ?>
-Login
+<div class="panel panel-default" ng-controller="_loginCtrl">
+    <div class="panel-heading">
+        <h3>登录</h3>
+    </div>
+</div>

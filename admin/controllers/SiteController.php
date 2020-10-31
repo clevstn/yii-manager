@@ -41,6 +41,11 @@ class SiteController extends CommonController
     ];
 
     /**
+     * {@inheritdoc}
+     */
+    public $layout = 'partial';
+
+    /**
      * 登录
      * @return string
      */
@@ -55,7 +60,7 @@ class SiteController extends CommonController
      */
     public function actionLogout()
     {
-        Yii::$app->user->logout();
+        Yii::$app->adminUser->logout();
         return $this->goHome();
     }
 }

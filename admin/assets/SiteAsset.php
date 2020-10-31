@@ -8,23 +8,23 @@
 namespace app\admin\assets;
 
 /**
- * 首页静态资源
+ * 站点相关静态资源
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class IndexAsset extends BaseAsset
+class SiteAsset extends BaseAsset
 {
     /**
      * @var array css路径
      */
     public $css = [
-        'admin_static/index/index.css',
+        'admin_static/site/active.css',
     ];
 
     /**
      * @var array js路径
      */
     public $js = [
-        'admin_static/index/index.js',
+        'admin_static/site/login.js',
     ];
 }

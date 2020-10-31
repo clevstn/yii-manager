@@ -7,24 +7,20 @@
 
 namespace app\admin\assets;
 
+use yii\web\AssetBundle;
+use app\builder\assets\MainAsset;
+
 /**
- * 首页静态资源
+ * admin模块静态资源包基础依赖
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-class IndexAsset extends BaseAsset
+abstract class BaseAsset extends AssetBundle
 {
     /**
-     * @var array css路径
+     * @var array 依赖
      */
-    public $css = [
-        'admin_static/index/index.css',
-    ];
-
-    /**
-     * @var array js路径
-     */
-    public $js = [
-        'admin_static/index/index.js',
+    public $depends = [
+        MainAsset::class,
     ];
 }
