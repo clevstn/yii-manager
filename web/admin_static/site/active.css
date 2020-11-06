@@ -1,7 +1,7 @@
 html {
     width: 100%;
     height: 100%;
-    background-color: #eee;
+    background-color: #f9f9f9;
 }
 
 body {
@@ -16,9 +16,64 @@ body {
 }
 
 .ym-login > .login-wrap {
-    width: 800px;
-    height: 600px;
+    width: 350px;
+    height: 520px;
     margin: 0 auto;
-    border-radius: 6px;
+    border-radius: 5px;
+    border: 1px solid #d8dee2;
     background-color: #fff;
+}
+
+.ym-login > .login-wrap .login-header {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.ym-login > .login-wrap .login-header:before {
+    content: " ";
+    position: absolute;
+    bottom:  -1px;
+    height: 0;
+    width: 70%;
+    background-color: inherit;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.ym-login > .login-wrap .login-header .login-logo {
+    width: 70px;
+    max-height: 90px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ym-login > .login-wrap .login-header .login-title {
+    margin: 0;
+    font-size: 15px;
+    line-height: 15px;
+    padding-top: 18px;
+    color: #333;
+}
+
+.ym-login .form-group-icon {
+    padding: 0 15px !important;
+    font-size: 18px !important;
+
+}
+
+.p-24 {
+    padding: 24px !important;
+}
+
+.focus-define:focus {
+    box-shadow: 0 0 0 1px #337ab7;
+    -webkit-box-shadow: 0 0 0 1px #337ab7;
+}
+
+.next-step {
+    width: 100%;
+    margin-top: 18px;
 }
