@@ -33,19 +33,20 @@
                 });
             }
         };
-        // 当[input]控件聚焦时,初始化页面
-        $scope.initPage = function () {
+        // 登录提交
+        $scope.loginSubmit = function () {
+            // 点击登录按钮初始化页面错误信息
             if ($scope.loginErr) {
                 $scope.loginErr = "";
             }
-        };
-        // 登录提交
-        $scope.loginSubmit = function () {
+
+            // 检查邮箱/用户名是否填写
             if (!$scope.usernameOrEmail) {
                 layer.tips('请输入邮箱/用户名', "#usernameOrEmail", {time: 1500, tips: 1});
                 return;
             }
 
+            // 检查登陆密码是否填写
             if (!$scope.password) {
                 layer.tips('请输入登录密码', "#password", {time: 1500, tips: 1});
                 return;
@@ -60,10 +61,12 @@
                 YmSpinner.hide(authLoading);
                 var data = result.data;
                 if (data.code === 200) {
+                    // 登录校验成功进行二次校验或直接进入首页
                     $timeout(function () {
                         window.location.href = YmApp.$adminApi.loginSafePage;
                     });
                 } else {
+                    // 登录校验错误,显示错误信息
                     $scope.loginErr = data.msg;
                 }
             }, function (error) {
