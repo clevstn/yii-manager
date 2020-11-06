@@ -28,7 +28,7 @@ SiteAsset::register($this);
                         <div class="input-group-addon form-group-icon">
                             <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" class="form-control focus-define" id="username" name="username" placeholder="邮箱/用户名" autocomplete="off">
+                        <input type="text" class="form-control focus-define" id="username" name="username" placeholder="邮箱/用户名" autocomplete="off" ng-model="username" ng-blur="checkUser()">
                     </div>
                 </div>
                 <div class="form-group">
@@ -37,7 +37,7 @@ SiteAsset::register($this);
                         <div class="input-group-addon form-group-icon">
                             <i class="fa fa-lock"></i>
                         </div>
-                        <input type="password" class="form-control focus-define" id="password" name="password" placeholder="请输入登录密码" autocomplete="new-password">
+                        <input type="password" class="form-control focus-define" id="password" name="password" placeholder="请输入登录密码" autocomplete="new-password" ng-model="password">
                     </div>
                 </div>
                 <button type="submit" class="next-step btn btn-primary" ng-click="loginSubmit()">登录</button>

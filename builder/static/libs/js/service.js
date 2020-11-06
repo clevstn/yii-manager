@@ -113,6 +113,14 @@
                 return response;
             },
             'request': function (config) {        // 请求拦截
+                // 当时请求方法是`POST`时,自动携带[csrf]令牌,并自动参数序列化.
+                var method = config.method;
+                var bodyParams = config.data || {};
+                if (method.toUpperCase() === 'POST') {
+                    bodyParams[global.yii.getCsrfParam()] = global.yii.getCsrfToken();
+                    config.data = global.jQuery.param(bodyParams);
+                }
+
                 return config;
             },
             'requestError': function (config) {    // 请求错误拦截

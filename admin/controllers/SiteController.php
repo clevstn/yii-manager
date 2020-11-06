@@ -7,6 +7,7 @@
 
 namespace app\admin\controllers;
 
+use app\models\AdminUser;
 use Yii;
 use yii\web\Response;
 use app\builder\common\CommonController;
@@ -22,7 +23,8 @@ class SiteController extends CommonController
      * {@inheritdoc}
      */
     public $actionVerbs = [
-        'login'  => ['get', 'post'],
+        'check-user' => ['post'],
+        'login' => ['get', 'post'],
         'logout' => ['get', 'post'],
     ];
 
@@ -31,6 +33,7 @@ class SiteController extends CommonController
      */
     public $guestActions = [
         'login',
+        'check-user',
     ];
 
     /**
@@ -44,6 +47,23 @@ class SiteController extends CommonController
      * {@inheritdoc}
      */
     public $layout = 'partial';
+
+    /**
+     * 检查用户名是否存在
+     * @return string
+     */
+    public function actionCheckUser()
+    {
+        $user = !empty($this->post['username']) ? $this->post['username'] : null;
+        if ($user) {
+            $userData = AdminUser::query('id')->where(['username' => $user])->orWhere(['email' => $user])->one();
+            if (!empty($userData)) {
+                return $this->asSuccess('success');
+            }
+        }
+
+        return $this->asFail('用户不存在');
+    }
 
     /**
      * 登录

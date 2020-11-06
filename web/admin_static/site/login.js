@@ -9,6 +9,18 @@
     "use strict";
     _EasyApp.controller('_loginCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
         console.log("%c This is Login-Page with Yii-Manager", 'color:blue;');
+        // 检查用户名是否正确
+        $scope.checkUser = function () {
+            if ($scope.username) {
+                $http.post(YmApp.$adminApi.checkUser, {
+                    username: $scope.username,
+                }).then(function (result) {
+                    console.log(result.data)
+                }, function (error) {
+
+                });
+            }
+        };
         // 登录提交
         $scope.loginSubmit = function () {
 

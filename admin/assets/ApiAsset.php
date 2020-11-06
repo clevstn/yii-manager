@@ -7,21 +7,27 @@
 
 namespace app\admin\assets;
 
-use yii\web\AssetBundle;
 use app\builder\assets\MainAsset;
+use yii\web\AssetBundle;
 
 /**
- * admin模块静态资源包基础依赖
+ * 接口定义包
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
-abstract class BaseAsset extends AssetBundle
+class ApiAsset extends AssetBundle
 {
+    /**
+     * @var array js路径
+     */
+    public $js = [
+        'admin_static/api.js',
+    ];
+
     /**
      * @var array 依赖
      */
     public $depends = [
         MainAsset::class,
-        ApiAsset::class,
     ];
 }
