@@ -58,6 +58,11 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      */
     public $action;
 
+    /**
+     * @var string 用户名或邮箱
+     */
+    public $usernameOrEmail;
+
     // 路由分割符号
     const PATH_SPLIT_SYMBOL = '-';
 
@@ -167,6 +172,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             'open_login_log' => '是否开启登录日志',
             'group' => '管理组',
             'deny_end_time' => '封停截止时间',
+            'usernameOrEmail' => '邮箱/用户名',
         ];
     }
 
@@ -183,7 +189,9 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             ['parent', 'string', 'min' => 2, 'max' => 250],
             ['username', 'required'],
             ['username', 'string', 'min' => 2, 'max' => 20],
-            ['password', 'required', 'on' => ['add']],
+            ['username', 'unique', 'on' => ['add']],
+            ['usernameOrEmail', 'required'],
+            ['password', 'required', 'on' => ['add', 'login-base']],
             ['password', 'string', 'min' => 6, 'max' => 25],
             ['password', 'match', 'pattern' => '/^[1-9a-z][1-9a-z_\-+.*!@#$%&=|~]{5,24}$/i', 'message' => '密码存在敏感字符请重写输入'],
             ['repassword', 'required', 'when' => function ($model) {
@@ -252,9 +260,11 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         // 场景`新增`
         $scenarios['add'] = ['parent', 'username', 'password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log', 'group'];
         // 场景`解封和封停`
-        $scenarios['status_action'] = ['id', 'action', 'deny_end_time'];
+        $scenarios['status-action'] = ['id', 'action', 'deny_end_time'];
         // 场景`编辑`
         $scenarios['edit'] = ['password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log'];
+        // 登录 - 基本校验
+        $scenarios['login-base'] = ['usernameOrEmail', 'password'];
 
         return $scenarios;
     }

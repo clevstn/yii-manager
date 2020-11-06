@@ -21,14 +21,18 @@ SiteAsset::register($this);
             </div>
         </div>
         <div class="panel-body">
-            <form class="p-24">
+            <form class="p-24 pt-0">
+                <div class="alert alert-warning" role="alert" ng-if="loginErr">
+                    <i class="fa fa-exclamation-triangle text-warning"></i>
+                    <span ng-bind="loginErr"></span>
+                </div>
                 <div class="form-group">
                     <label class="sr-only" for="username">username</label>
                     <div class="input-group">
                         <div class="input-group-addon form-group-icon">
                             <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" class="form-control focus-define" id="username" name="username" placeholder="邮箱/用户名" autocomplete="off" ng-model="username" ng-blur="checkUser()">
+                        <input type="text" class="form-control focus-define" id="usernameOrEmail" name="usernameOrEmail" placeholder="邮箱/用户名" autocomplete="off" ng-model="usernameOrEmail" ng-blur="checkUser()" ng-focus="initPage()">
                     </div>
                 </div>
                 <div class="form-group">
@@ -37,7 +41,7 @@ SiteAsset::register($this);
                         <div class="input-group-addon form-group-icon">
                             <i class="fa fa-lock"></i>
                         </div>
-                        <input type="password" class="form-control focus-define" id="password" name="password" placeholder="请输入登录密码" autocomplete="new-password" ng-model="password">
+                        <input type="password" class="form-control focus-define" id="password" name="password" placeholder="请输入登录密码" autocomplete="new-password" ng-model="password" ng-focus="initPage()">
                     </div>
                 </div>
                 <button type="submit" class="next-step btn btn-primary" ng-click="loginSubmit()">登录</button>

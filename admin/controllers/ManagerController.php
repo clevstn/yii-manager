@@ -495,7 +495,7 @@ class ManagerController extends CommonController
             // `enabled`和`disabled`提交表单
             $bodyParam = $this->post;
             $model = new AdminUser();
-            $model->setScenario('status_action');
+            $model->setScenario('status-action');
             if ($model->load($bodyParam) && $model->validate()) {
                 $result = AdminUser::updateAll([
                     'status' => $model->action == 'disabled' ? AdminUser::STATUS_DENY : AdminUser::STATUS_NORMAL,

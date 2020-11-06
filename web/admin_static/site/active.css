@@ -72,6 +72,15 @@ body {
     padding: 24px !important;
 }
 
+.pt-16 {
+    padding-top: 16px !important;
+}
+
+.alert {
+    padding: 8px 15px;
+    margin-bottom: 12px;
+}
+
 .focus-define {
     box-shadow: none;
     -webkit-box-shadow: none;
