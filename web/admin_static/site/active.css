@@ -129,6 +129,8 @@ body {
     align-items: center;
     text-align: center;
     cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .other-loginbody>.way-item p {
