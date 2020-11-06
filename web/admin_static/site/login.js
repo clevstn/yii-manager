@@ -29,6 +29,16 @@
         };
         // 登录提交
         $scope.loginSubmit = function () {
+            if (!$scope.username) {
+                layer.tips('请输入邮箱/用户名', "#username", {time: 1500});
+                return;
+            }
+
+            if (!$scope.password) {
+                layer.tips('请输入登录密码', "#password", {time: 1500});
+                return;
+            }
+
 
         };
         // 其他登录方式, asm: app扫码

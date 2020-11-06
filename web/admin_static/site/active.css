@@ -72,6 +72,11 @@ body {
     padding: 24px !important;
 }
 
+.focus-define {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
 .focus-define:focus {
     box-shadow: 0 0 0 1px #337ab7;
     -webkit-box-shadow: 0 0 0 1px #337ab7;
