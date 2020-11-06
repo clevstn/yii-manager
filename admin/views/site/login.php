@@ -40,13 +40,13 @@ SiteAsset::register($this);
                         <input type="password" class="form-control focus-define" id="password" name="password" placeholder="请输入登录密码" autocomplete="new-password">
                     </div>
                 </div>
-                <button type="submit" class="next-step btn btn-primary">登录</button>
+                <button type="submit" class="next-step btn btn-primary" ng-click="loginSubmit()">登录</button>
             </form>
         </div>
         <div class="panel-body pt-0 top-line">
             <p class="other-loginway">其他登录方式</p>
             <div class="panel-body other-loginbody">
-                <div class="way-item">
+                <div class="way-item" ng-click="otherLgn('asm', $event)">
                     <img class="saom-login" src="/media/image/saom.png" alt>
                     <p>APP扫码</p>
                 </div>
