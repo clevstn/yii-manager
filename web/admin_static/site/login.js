@@ -12,12 +12,18 @@
         // 检查用户名是否正确
         $scope.checkUser = function () {
             if ($scope.username) {
+                var index = layer.load(2, {time: 10*1000});
                 $http.post(YmApp.$adminApi.checkUser, {
                     username: $scope.username,
                 }).then(function (result) {
-                    console.log(result.data)
+                    layer.close(index);
+                    var data = result.data;
+                    if (data.code !== 200) {
+                        layer.tips(data.msg, "#username", {time: 1500});
+                    }
                 }, function (error) {
-
+                    layer.close(index);
+                    console.error(error);
                 });
             }
         };
