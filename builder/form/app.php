@@ -311,12 +311,10 @@ use app\builder\form\FieldsOptions;
             };
             var submitForm = function () {
                 var formData = getFormValus();
-                formData[yii.getCsrfParam()] = yii.getCsrfToken();
                 var currentUrl = '<?= Url::current() ?>';
-
                 // 节流
                 var i = YmSpinner.show();
-                $http.post(currentUrl, jQuery.param(formData)).then(function (data) {
+                $http.post(currentUrl, formData).then(function (data) {
                     YmSpinner.hide(i);
                     var result = data.data;
                     if (result.code == 200) {

@@ -12,6 +12,6 @@
     // 定义[admin]模块api接口
     YmApp.$adminApi = {
         // 检查用户名是否存在
-        checkUser: '/admin/site/check-user',
+        checkUser: '/admin/site/check-user'
     };
 }(window, window.YmApp);

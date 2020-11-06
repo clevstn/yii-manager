@@ -200,8 +200,7 @@
                             var u = YmApp.keys(params).length ? (route + '?' + jQuery.param(params)) : route;
                             instance = $http.get(u);
                         } else if (method === "post") {
-                            params[yii.getCsrfParam()] = yii.getCsrfToken();
-                            instance = $http.post(route, jQuery.param(params));
+                            instance = $http.post(route, params);
                         }
 
                         instance.then(function (result) {
@@ -442,8 +441,7 @@
                             var u = YmApp.keys(params).length ? (route + '?' + jQuery.param(params)) : route;
                             instance = $http.get(u);
                         } else if (method === "post") {
-                            params[yii.getCsrfParam()] = yii.getCsrfToken();
-                            instance = $http.post(route, jQuery.param(params));
+                            instance = $http.post(route, params);
                         }
 
                         instance.then(function (result) {
