@@ -38,12 +38,15 @@ body {
     position: absolute;
     bottom:  -1px;
     height: 0;
-    width: 70%;
+    width: 50%;
+    left: 25%;
+    right: 25%;
     background-color: inherit;
     border-bottom: 1px solid #eeeeee;
 }
 
 .ym-login > .login-wrap .login-header .login-logo {
+    display: block;
     width: 70px;
     max-height: 90px;
     margin-left: auto;
@@ -56,6 +59,7 @@ body {
     line-height: 15px;
     padding-top: 18px;
     color: #333;
+    text-align: center;
 }
 
 .ym-login .form-group-icon {
@@ -76,4 +80,64 @@ body {
 .next-step {
     width: 100%;
     margin-top: 18px;
+}
+
+.pt-0 {
+    padding-top: 0 !important;
+}
+
+.top-line {
+    position: relative;
+    z-index: 0;
+}
+
+.top-line:before {
+    content: " ";
+    position: absolute;
+    top:  -1px;
+    height: 0;
+    width: 80%;
+    left: 10%;
+    right: 10%;
+    background-color: inherit;
+    border-top: 1px solid #eeeeee;
+}
+
+.other-loginway {
+    width: 100px;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    bottom: 8px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.other-loginbody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.other-loginbody>.way-item {
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.other-loginbody>.way-item p {
+    margin: 0;
+    font-size: 12px;
+    padding-top: 6px;
+}
+
+.saom-login {
+    width: 30px;
+    height: 30px;
 }

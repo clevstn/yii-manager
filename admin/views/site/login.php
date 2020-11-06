@@ -43,5 +43,14 @@ SiteAsset::register($this);
                 <button type="submit" class="next-step btn btn-primary">登录</button>
             </form>
         </div>
+        <div class="panel-body pt-0 top-line">
+            <p class="other-loginway">其他登录方式</p>
+            <div class="panel-body other-loginbody">
+                <div class="way-item">
+                    <img class="saom-login" src="/media/image/saom.png" alt>
+                    <p>APP扫码</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
