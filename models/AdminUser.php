@@ -424,7 +424,18 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
 
         switch ($user['safe_auth']) {
             case self::SAFE_AUTH_FOLLOW_SYSTEM: // 跟随系统
-                
+                $value = SystemConfig::get('ADMIN_GROUP.ADMIN_CCEE', self::SAFE_AUTH_CLOSE);
+                switch ($value) {
+                    case 1: // 邮箱认证
+                        return self::SAFE_AUTH_EMAIL;
+                    case 2: // 短信认证
+                        return self::SAFE_AUTH_MESSAGE;
+                    case 3: // MFA认证
+                        return self::SAFE_AUTH_OTP;
+                    case 0: // 关闭安全认证
+                    default:
+                        return self::SAFE_AUTH_CLOSE;
+                }
                 break;
             default:
                 return $user['safe_auth'];

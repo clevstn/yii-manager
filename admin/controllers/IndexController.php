@@ -24,6 +24,13 @@ class IndexController extends CommonController
     ];
 
     /**
+     * {@inheritdoc}
+     */
+    public $undetectedActions = [
+        'index',
+    ];
+
+    /**
      * 后台首页
      * @return string
      */

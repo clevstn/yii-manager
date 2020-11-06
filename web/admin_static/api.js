@@ -15,7 +15,5 @@
         checkUser: '/admin/site/check-user',
         // 后台用户登录提交
         loginSubmit: '/admin/site/login',
-        // 登录安全认证页面
-        loginSafePage: '/admin/site/safe-validate',
     };
 }(window, window.YmApp);

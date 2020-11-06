@@ -63,7 +63,7 @@
                 if (data.code === 200) {
                     // 登录校验成功进行二次校验或直接进入首页
                     $timeout(function () {
-                        window.location.href = YmApp.$adminApi.loginSafePage;
+                        window.location.href = data.data;
                     });
                 } else {
                     // 登录校验错误,显示错误信息

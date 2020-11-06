@@ -86,7 +86,7 @@ class SiteController extends CommonController
             if ($adminUser->load($this->post) && $adminUser->validate()) {
                 $usernameOrEmail = $this->post['usernameOrEmail'];
                 $password = $this->post['password'];
-                $userData = AdminUser::query(['id', 'password', 'status', 'deny_end_time'])->where(['username' => $usernameOrEmail])->orWhere(['email' => $usernameOrEmail])->one();
+                $userData = AdminUser::find()->where(['username' => $usernameOrEmail])->orWhere(['email' => $usernameOrEmail])->one();
                 // 校验用户是否存在
                 if (empty($userData)) {
                     return $this->asFail('系统不存在该用户');
@@ -103,8 +103,21 @@ class SiteController extends CommonController
                 }
 
                 $safeWays = $adminUser->getSafeWays($userData['id']);
-                Yii::$app->getSession()->set($this->tempCheckIdentify, $userData['id']);
-                return $this->asSuccess('登录校验成功');
+                if ($safeWays == AdminUser::SAFE_AUTH_CLOSE) {
+                    /* @var \yii\web\IdentityInterface $userData */
+                    $isUser = Yii::$app->adminUser->login($userData, 3 * 86400);
+                    if ($isUser) {
+                        return $this->asSuccess('登录成功', $this->homeUrl);
+                    }
+
+                    return $this->asFail('登录失败');
+                } else {
+                    Yii::$app->getSession()->set($this->tempCheckIdentify, [
+                        'id' => $userData['id'],
+                        'safeWay' => $safeWays,
+                    ]);
+                    return $this->asSuccess('认证成功,即将开启安全认证...', '/admin/site/safe-validate');
+                }
             }
 
             // 登录提交
@@ -119,8 +132,8 @@ class SiteController extends CommonController
     public function actionSafeValidate()
     {
         // 是否存在临时会话
-        $tempUserId = Yii::$app->getSession()->get($this->tempCheckIdentify);
-        if (empty($tempUserId)) {
+        $tempSessionUser = Yii::$app->getSession()->get($this->tempCheckIdentify);
+        if (empty($tempSessionUser)) {
             // 不存在临时会话,则返回登录页
             return $this->redirect('/admin/site/login');
         }

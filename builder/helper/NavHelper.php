@@ -55,7 +55,7 @@ class NavHelper
     public static function getMyBrand()
     {
         $adminUser = Yii::$app->adminUser;
-        $label = Html::tag('span', '当前登录：' . ($adminUser->isGuest ? '无' : $adminUser->username), [
+        $label = Html::tag('span', '当前登录：' . ($adminUser->isGuest ? '无' : $adminUser->identity->username), [
             'style' => ['margin-top' => '12px']
         ]);
         $imgContent = Html::img('@web/media/image/head.png', [
