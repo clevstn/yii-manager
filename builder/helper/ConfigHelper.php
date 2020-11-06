@@ -20,7 +20,7 @@ use app\builder\contract\ConfigureInterface;
 class ConfigHelper
 {
     /**
-     * 获取配置
+     * 项目配置定义集合
      * @param string|null $group 配置组代码
      * @return array
      * @throws ErrorException
@@ -62,7 +62,7 @@ class ConfigHelper
     }
 
     /**
-     * 获取分组
+     * 获取分组配置定义
      * @param string|null $group 配置组代码
      * @return array
      * @throws ErrorException
@@ -88,7 +88,7 @@ class ConfigHelper
     }
 
     /**
-     * 格式化分组
+     * 格式化分组数据
      * @return array
      * @throws ErrorException
      */

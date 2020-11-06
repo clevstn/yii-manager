@@ -21,7 +21,7 @@ return [
 
     // 首页
     'admin_url' => '/admin/index/index',
-    // 后台brand title
+    // 后台[商标]
     'admin_title' => 'YII MANAGER CRM',
     // 分组配置
     'group_config' => [

@@ -411,6 +411,27 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     }
 
     /**
+     * 获取用户的安全认证方式
+     * @param int $userId 用户ID
+     * @return int|mixed
+     */
+    public function getSafeWays($userId)
+    {
+        $user = self::query('safe_auth')->where(['id' => $userId])->one();
+        if (empty($user)) {
+            return self::SAFE_AUTH_CLOSE;
+        }
+
+        switch ($user['safe_auth']) {
+            case self::SAFE_AUTH_FOLLOW_SYSTEM: // 跟随系统
+                
+                break;
+            default:
+                return $user['safe_auth'];
+        }
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getId()

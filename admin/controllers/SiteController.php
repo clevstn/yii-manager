@@ -102,6 +102,7 @@ class SiteController extends CommonController
                     return $this->asFail('登录密码输入错误');
                 }
 
+                $safeWays = $adminUser->getSafeWays($userData['id']);
                 Yii::$app->getSession()->set($this->tempCheckIdentify, $userData['id']);
                 return $this->asSuccess('登录校验成功');
             }
