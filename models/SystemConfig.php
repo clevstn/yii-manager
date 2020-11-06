@@ -28,7 +28,7 @@ use Yii;
 class SystemConfig extends \app\builder\common\CommonActiveRecord
 {
     /**
-     * 每种控件支持的选项如下:
+     * 支持的控件选项如下:
      * -- text[文本]: 无
      * -- number[数字]: 无
      * -- password[密码]: 无
@@ -126,5 +126,42 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
             'created_at' => Yii::t('app', '创建时间'),
             'updated_at' => Yii::t('app', '更新时间'),
         ];
+    }
+
+    /**
+     * 获取配置项
+     * @param string $param 配置代码
+     * - 组成[分组].[代码]
+     * @param null $default 默认值
+     * @return mixed|null
+     */
+    public static function get($param, $default = null)
+    {
+        @list($group, $code) = explode('.', $param);
+        $result = self::query('value')->where(['group' => $group, 'code' => $code])->one();
+        if (empty($result)) {
+            return $default;
+        }
+
+        return $result['value'];
+    }
+
+    /**
+     * 设置配置项
+     * @param string $param 配置代码
+     * - 组成[分组].[代码]
+     * @param mixed $value 值
+     * @return bool
+     */
+    public static function set($param, $value)
+    {
+        @list($group, $code) = explode('.', $param);
+        $model = self::query('value')->where(['group' => $group, 'code' => $code])->one();
+        if (empty($model)) {
+            return false;
+        }
+
+        $model->value = $value;
+        return $model->save(false);
     }
 }

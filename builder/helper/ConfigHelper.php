@@ -13,14 +13,14 @@ use app\builder\common\Group;
 use app\builder\contract\ConfigureInterface;
 
 /**
- * 配置助手
+ * 配置定义助手
  * @author cleverstone <yang_hui_lei@163.com>
  * @since 1.0
  */
 class ConfigHelper
 {
     /**
-     * 项目配置定义集合
+     * 获取项目配置定义
      * @param string|null $group 配置组代码
      * @return array
      * @throws ErrorException
@@ -46,7 +46,7 @@ class ConfigHelper
     }
 
     /**
-     * 格式化配置
+     * 格式化配置定义
      * @return array
      * @throws ErrorException
      */
@@ -88,7 +88,7 @@ class ConfigHelper
     }
 
     /**
-     * 格式化分组数据
+     * 格式化分组配置定义
      * @return array
      * @throws ErrorException
      */
@@ -99,7 +99,7 @@ class ConfigHelper
     }
 
     /**
-     * 分组集合
+     * 获取配置分组映射类集合
      * @return array
      */
     public static function map()
