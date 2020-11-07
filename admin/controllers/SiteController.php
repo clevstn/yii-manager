@@ -148,7 +148,20 @@ class SiteController extends CommonController
             $bodyParams = $this->post;
             // 认证码
             $safeCode = $bodyParams['safe_code'];
-            return $this->asSuccess('安全认证成功');
+            $model = new AdminUser();
+            $result = $model->verifySafeAuth($tempSessionUser['id'], $tempSessionUser['safeWay'], $safeCode);
+            if (true === $result) {
+                $isUser = Yii::$app->adminUser->login(AdminUser::findOne($tempSessionUser['id']), 3 * 86400);
+                if ($isUser) {
+                    return $this->asSuccess('安全认证成功');
+                } else {
+                    return $this->asFail('尝试登录失败');
+                }
+
+            } else {
+                return $this->asFail($result);
+            }
+
         }
     }
 

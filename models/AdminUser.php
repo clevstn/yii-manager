@@ -501,4 +501,16 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         return $parentPath . $pid . self::PATH_SPLIT_SYMBOL;
     }
+
+    /**
+     * 验证安全码
+     * @param int $uid 用户ID
+     * @param int $way 认证方式
+     * @param string $code 认证码
+     * @return true|string
+     */
+    public function verifySafeAuth($uid, $way, $code)
+    {
+        return true;
+    }
 }
