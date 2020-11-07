@@ -34,4 +34,4 @@ body {display: table;width: 100%;height: 100%;}
 .item-group >.item-group-row {display:table-row;}
 .item-group .item-label, .item-group .item-body {display: table-cell; font-size:13px; text-align: left; vertical-align: center;}
 .item-group .item-label {font-size: 14px; width: 40%; color: #777;}
-.item-group .item-body {width: 60%;}
+.item-group .item-merge {display: flex;}

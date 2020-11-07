@@ -91,6 +91,13 @@
     }]).controller('_loginSafeCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
         // 登录 - 安全校验
         console.log("%c This is Login-Safe-Page with Yii-Manager", 'color:#337ab7;');
+        // 切换账号
+        $scope.backLog = function () {
+            window.location.href = YmApp.$adminApi.loginUrl;
+        };
+        // 继续登录
+        $scope.continueLog = function () {
 
+        };
     }]);
 }(window, window._EasyApp);

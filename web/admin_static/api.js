@@ -16,9 +16,9 @@
         // 检查用户名是否存在
         checkUser: '/admin/site/check-user',
         // 后台用户登录提交
-        loginSubmit: '/admin/site/login'
+        loginSubmit: '/admin/site/login',
 
         /* ------------- 登录 - 安全认证 ------------- */
-
+        loginUrl: '/admin/site/login'
     };
 }(window, window.YmApp);

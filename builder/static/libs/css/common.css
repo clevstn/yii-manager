@@ -80,6 +80,7 @@ ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .border-bottom {border-bottom: 1px solid #eee !important;}
 .border-top {border-top: 1px solid #eee !important;}
 .m-0 {margin: 0px !important;}
+.ml-3 {margin-left: 3px !important;}
 .mt-50 {margin-top: 50px !important;}
 .mb-30 {margin-bottom: 30px;}
 .p-0 {padding: 0px !important;}
@@ -141,6 +142,7 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .form-upload-item {display: table-cell;text-align: center;vertical-align: middle;}
 .form-upload-img {width: 80px;height: 80px;font-size: 0;}
 .inline-block {display: inline-block;}
+.w-auto {width: auto!important;}
 .form-comment {padding-left: 136px !important;padding-top: 3px !important;font-size: 12px !important;color: #9d9d9d;}
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {display: none !important;}
 .swal2-popup {border-radius: 12px !important;}
