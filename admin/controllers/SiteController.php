@@ -145,6 +145,9 @@ class SiteController extends CommonController
             $this->view->params['ways'] = $tempSessionUser['safeWay'];
             return $this->render('login-safe');
         } else {
+            $bodyParams = $this->post;
+            // 认证码
+            $safeCode = $bodyParams['safe_code'];
             return $this->asSuccess('安全认证成功');
         }
     }

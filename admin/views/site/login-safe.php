@@ -11,6 +11,7 @@ use app\admin\assets\SiteAsset;
 /* @var $this \yii\web\View */
 $this->title = '安全认证';
 SiteAsset::register($this);
+$safeWay = $this->params['ways'];
 ?>
 <div class="container ym-safe" ng-controller="_loginSafeCtrl" ng-cloak>
     <form class="panel panel-default mt-50">
@@ -27,15 +28,15 @@ SiteAsset::register($this);
                         <div class="item-group-row">
                             <span class="item-label">认证方式</span>
                             <div class="item-body">
-                                <span><?= AdminUser::getIsSafeAuthLabel($this->params['ways']) ?></span>
+                                <span><?= AdminUser::getIsSafeAuthLabel($safeWay) ?></span>
                             </div>
                         </div>
-                        <?php switch ($this->params['ways']): case AdminUser::SAFE_AUTH_EMAIL: // 邮箱认证?>
+                        <?php switch ($safeWay): case AdminUser::SAFE_AUTH_EMAIL: // 邮箱认证?>
                         <div class="item-group-row">
                             <span class="item-label">邮件验证码</span>
                             <div class="item-body">
                                 <label class="sr-only" for="email_code">Email verification code</label>
-                                <input type="number" min="0" id="email_code" class="form-control focus-define inline-block w-auto" autocomplete="off" placeholder="请输入验证码">
+                                <input type="number" min="0" id="email_code" class="form-control focus-define inline-block w-auto" autocomplete="off" placeholder="请输入验证码" ng-model="safeCode">
                                 <button type="button" class="btn btn-default ml-3" ng-click="getVerificationCode()" ng-bind="emailBtnLabel"></button>
                             </div>
                         </div>
@@ -44,7 +45,7 @@ SiteAsset::register($this);
                                 <span class="item-label">短信验证码</span>
                                 <div class="item-body">
                                     <label class="sr-only" for="message_code">Message verification code</label>
-                                    <input type="number" min="0" id="message_code" class="form-control focus-define inline-block w-auto" autocomplete="off" placeholder="请输入验证码">
+                                    <input type="number" min="0" id="message_code" class="form-control focus-define inline-block w-auto" autocomplete="off" placeholder="请输入验证码" ng-model="safeCode">
                                     <button type="button" class="btn btn-default ml-3" ng-click="getMessageCode()" ng-bind="messageBtnLabel"></button>
                                 </div>
                             </div>
@@ -53,7 +54,7 @@ SiteAsset::register($this);
                                 <span class="item-label">OTP数字串</span>
                                 <div class="item-body">
                                     <label class="sr-only" for="otp_code">OTP verification code</label>
-                                    <input type="number" min="0" id="otp_code" class="form-control focus-define inline-block w-auto" autocomplete="off" placeholder="请输入OTP数字串">
+                                    <input type="number" min="0" id="otp_code" class="form-control focus-define inline-block w-auto" autocomplete="off" placeholder="请输入OTP数字串" ng-model="safeCode">
                                 </div>
                             </div>
                         <?php break; default: ?>
@@ -69,7 +70,7 @@ SiteAsset::register($this);
         <div class="panel-body p-24 row">
             <div class="col-xs-10 col-xs-offset-1 row">
                 <button type="button" class="btn btn-default btn-lg col-xs-5 border-radius-none" ng-click="backLog()">切换其他账号</button>
-                <button type="submit" class="btn btn-primary btn-lg col-xs-5 col-xs-offset-2 border-radius-none" ng-click="continueLog()">继续登录</button>
+                <button type="submit" class="btn btn-primary btn-lg col-xs-5 col-xs-offset-2 border-radius-none" ng-click="continueLog('<?= $safeWay ?>')">继续登录</button>
             </div>
         </div>
     </form>

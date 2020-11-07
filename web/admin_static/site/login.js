@@ -106,6 +106,10 @@
             $scope.messageFlag = false;
             $scope.messageBtnLabel = '获取短信码';
         };
+        // 初始化表单值
+        var initFormValues = function () {
+            $scope.safeCode = '';
+        };
         // 初始化页面
         var initScript = function () {
             // 初始化应用信息
@@ -113,6 +117,8 @@
             // 初始化节流器
             initEmailStreamer();
             initMessageStreamer();
+            // 初始化表单值
+            initFormValues();
         };
         // 发送邮件节流器
         var eamilStreamer = function () {
@@ -202,10 +208,47 @@
             window.location.href = YmApp.$adminApi.loginUrl;
         };
         // 继续登录
-        $scope.continueLog = function () {
+        $scope.continueLog = function (way) {
             // 重置应用信息
             initAppInfo();
+            // 检查认证码是否已填写.
+            if (!$scope.safeCode) {
+                var ele = '';
+                switch (way) {
+                    case '2': // 邮箱认证
+                        ele = '#email_code';
+                        break;
+                    case '3': // 短信认证
+                        ele = '#message_code';
+                        break;
+                    case '4': // otp认证
+                        ele = '#otp_code';
+                        break;
+                }
 
+                layer.tips('请输入认证码', ele, {time: 1500, tips: 3});
+                return;
+            }
+
+            // 提交认证码
+            var spinnerIndex = YmSpinner.show('认证提交中,请稍后');
+            $http.post(YmApp.$adminApi.safeSubmit, {
+                safe_code: $scope.safeCode,
+            }).then(function (result) {
+                YmSpinner.hide(spinnerIndex);
+                var data = result.data;
+                if (data.code === 200) {
+                    // 登录成功
+                    window.location.href = YmApp.$adminApi.homeUrl;
+                } else {
+                    $scope.appSuccess = false;
+                    $scope.appInfo = data.msg;
+                }
+            }, function (error) {
+                YmSpinner.hide(spinnerIndex);
+                console.error(error);
+                toastr.error(error.data || "系统错误", "通知");
+            });
         };
 
         initScript();
