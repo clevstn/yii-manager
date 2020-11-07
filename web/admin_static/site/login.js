@@ -118,7 +118,8 @@
         var eamilStreamer = function () {
             $scope.emailFlag = true;
             var total = 60;
-            var timer = setInterval(function () {
+            $scope.emailBtnLabel = total + 's';
+            var timer = $interval(function () {
                 total--;
                 if (total <= 0) {
                     clearInterval(timer);
@@ -132,7 +133,8 @@
         var messageStreamer = function () {
             $scope.messageFlag = true;
             var total = 60;
-            var timer = setInterval(function () {
+            $scope.messageBtnLabel = total + 's';
+            var timer = $interval(function () {
                 total--;
                 if (total <= 0) {
                     clearInterval(timer);
