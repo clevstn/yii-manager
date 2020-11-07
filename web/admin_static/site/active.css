@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 html {width: 100%;height: 100%;background-color: #f9f9f9;}
-body {display: table;width: 100%;height: 100%;}
+body {display: table;width: 100%;height: 100%; background-color: #f7f7f7!important; background-image: url("/media/image/login-bg.png"); background-repeat: repeat; background-attachment: fixed; background-size: cover;}
 
 /*登录 - 基本校验*/
 .ym-login {display: table-cell;vertical-align: middle;}
