@@ -19,7 +19,7 @@ class ErrorController extends CommonController
     /**
      * {@inheritdoc}
      */
-    public $guestActions = ['error'];
+    public $publicActions = ['error'];
 
     /**
      * {@inheritdoc}

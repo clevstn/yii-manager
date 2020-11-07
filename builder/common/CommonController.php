@@ -44,6 +44,11 @@ class CommonController extends Controller
     public $guestActions = [];
 
     /**
+     * @var array The guest and authenticated users can access current action.
+     */
+    public $publicActions = [];
+
+    /**
      * @var array Register undetected action ids for RBAC.
      */
     public $undetectedActions = [];
@@ -101,7 +106,11 @@ class CommonController extends Controller
      */
     public function accessControlFilter()
     {
-        if (empty($this->guestActions) || !in_array($this->action->id, $this->guestActions, true)) {
+        if (
+            empty($this->guestActions) && empty($this->publicActions)
+            || !in_array($this->action->id, $this->guestActions, true) && !in_array($this->action->id, $this->publicActions, true)
+        ) {
+            // 只有认证用户可以访问
             return [
                 'access' => [
                     'class' => AccessControl::class,
@@ -115,7 +124,8 @@ class CommonController extends Controller
                     ],
                 ],
             ];
-        } else {
+        } elseif (in_array($this->action->id, $this->guestActions, true)) {
+            // 只有游客可以访问
             return [
                 'access' => [
                     'class' => AccessControl::class,
@@ -129,6 +139,9 @@ class CommonController extends Controller
                     ],
                 ],
             ];
+        } else {
+            // 游客和认证用户都可以访问
+            return [];
         }
     }
 
@@ -140,7 +153,8 @@ class CommonController extends Controller
     {
         if (
             !in_array($this->action->id, $this->guestActions, true)
-            && (empty($this->undetectedActions) || !in_array($this->action->id, $this->undetectedActions, true))
+            && !in_array($this->action->id, $this->publicActions, true)
+            && !in_array($this->action->id, $this->undetectedActions, true)
         ) {
             return [
                 'rbac' => [
