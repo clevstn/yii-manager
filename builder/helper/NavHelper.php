@@ -49,7 +49,7 @@ class NavHelper
     }
 
     /**
-     * 我的Brand
+     * 我的品牌
      * @return string
      */
     public static function getMyBrand()

@@ -27,7 +27,7 @@ return [
                 NavHelper::getMyBrand(),
                 '<li class="divider"></li>',
                 ['label' => '<i class="glyphicon glyphicon-edit"></i>&nbsp;个人设置', 'url' => '#'],
-                ['label' => '<i class="glyphicon glyphicon-off"></i>&nbsp;退出', 'url' => '#'],
+                ['label' => '<i class="glyphicon glyphicon-off"></i>&nbsp;退出', 'url' => '/admin/site/logout'],
             ],
         ],
 

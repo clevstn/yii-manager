@@ -10,6 +10,7 @@ namespace app\admin\controllers;
 use Yii;
 use yii\web\Response;
 use app\models\AdminUser;
+use yii\base\UserException;
 use app\builder\common\CommonController;
 
 /**
@@ -25,7 +26,7 @@ class SiteController extends CommonController
     public $actionVerbs = [
         'check-user' => ['post'],
         'login' => ['get', 'post'],
-        'logout' => ['post'],
+        'logout' => ['get'],
         'safe-validate' => ['get', 'post'],
     ];
 
@@ -148,10 +149,15 @@ class SiteController extends CommonController
     /**
      * 退出
      * @return Response
+     * @throws UserException
      */
     public function actionLogout()
     {
-        Yii::$app->adminUser->logout();
-        return $this->goHome();
+        $isGuest = Yii::$app->adminUser->logout();
+        if ($isGuest) {
+            return $this->goHome();
+        }
+
+        throw new UserException('Logout failure. ');
     }
 }

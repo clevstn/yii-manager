@@ -240,7 +240,7 @@ ul, ol, dl {
 
 .dropdown-menu {
     z-index: 1050 !important;
-    font-size: 13px !important;
+    font-size: 12px !important;
 }
 
 .dropdown-menu > li > a {
