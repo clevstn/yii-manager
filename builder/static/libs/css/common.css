@@ -47,6 +47,7 @@ ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .custom-header {font-size: 12px;color: #999;padding-top: 12px;padding-bottom: 6px;display: flex;flex-direction: column;justify-content: center;align-items: center;}
 .dropdown-menu {z-index: 1050 !important;font-size: 12px !important;}
 .dropdown-menu > li > a {padding: 5px 20px}
+.panel-body {padding: 10px !important;}
 .table {margin-bottom: 0;}
 .table > thead > tr > .row-handle,
 .table > tbody > tr > .row-handle,
@@ -115,7 +116,6 @@ ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .f-14 {font-size: 14px;}
 .f-13 {font-size: 13px;}
 .font-bold {font-weight:700;}
-.panel-body {padding: 10px !important;}
 .min-300 {min-width: 300px;}
 .layui-layer-btn .layui-layer-btn0 {border-color: #337ab7 !important;background-color: #337ab7 !important;}
 .input-group-addon {background-color: #FBFBFB !important;border-color: #e6e6e6 !important;color: #333 !important;padding: 0 3px !important;font-size: 13px !important;line-height: normal !important;}
