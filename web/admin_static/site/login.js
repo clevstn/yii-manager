@@ -122,7 +122,7 @@
             var timer = $interval(function () {
                 total--;
                 if (total <= 0) {
-                    clearInterval(timer);
+                    $interval.cancel(timer);
                     initEmailStreamer();
                 } else {
                     $scope.emailBtnLabel = total + 's';
@@ -137,7 +137,7 @@
             var timer = $interval(function () {
                 total--;
                 if (total <= 0) {
-                    clearInterval(timer);
+                    $interval.cancel(timer);
                     initMessageStreamer();
                 } else {
                     $scope.messageBtnLabel = total + 's';
