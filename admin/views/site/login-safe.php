@@ -35,8 +35,8 @@ SiteAsset::register($this);
                             <span class="item-label">邮件验证码</span>
                             <div class="item-body">
                                 <label class="sr-only" for="email_code">Email verification code</label>
-                                <input type="number" id="email_code" class="form-control focus-define inline-block w-auto" autocomplete="off" placeholder="请输入验证码">
-                                <button type="button" class="btn btn-default ml-3" ng-click="getVerificationCode()">获取验证码</button>
+                                <input type="number" min="0" id="email_code" class="form-control focus-define inline-block w-auto" autocomplete="off" placeholder="请输入验证码">
+                                <button type="button" class="btn btn-default ml-3" ng-click="getVerificationCode()" ng-bind="emailBtnLabel"></button>
                             </div>
                         </div>
                         <?php break; case AdminUser::SAFE_AUTH_MESSAGE: // 短信认证?>
@@ -44,8 +44,8 @@ SiteAsset::register($this);
                                 <span class="item-label">短信验证码</span>
                                 <div class="item-body">
                                     <label class="sr-only" for="message_code">Message verification code</label>
-                                    <input type="number" id="message_code" class="form-control focus-define inline-block w-auto" autocomplete="off" placeholder="请输入验证码">
-                                    <button type="button" class="btn btn-default ml-3" ng-click="getMessageCode()">获取验证码</button>
+                                    <input type="number" min="0" id="message_code" class="form-control focus-define inline-block w-auto" autocomplete="off" placeholder="请输入验证码">
+                                    <button type="button" class="btn btn-default ml-3" ng-click="getMessageCode()" ng-bind="messageBtnLabel"></button>
                                 </div>
                             </div>
                         <?php break; case AdminUser::SAFE_AUTH_OTP: // OTP认证?>
@@ -53,7 +53,7 @@ SiteAsset::register($this);
                                 <span class="item-label">OTP数字串</span>
                                 <div class="item-body">
                                     <label class="sr-only" for="otp_code">OTP verification code</label>
-                                    <input type="number" id="otp_code" class="form-control focus-define inline-block w-auto" autocomplete="off" placeholder="请输入OTP数字串">
+                                    <input type="number" min="0" id="otp_code" class="form-control focus-define inline-block w-auto" autocomplete="off" placeholder="请输入OTP数字串">
                                 </div>
                             </div>
                         <?php break; default: ?>

@@ -91,13 +91,63 @@
     }]).controller('_loginSafeCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
         // 登录 - 安全校验
         console.log("%c This is Login-Safe-Page with Yii-Manager", 'color:#337ab7;');
-        // 初始化页面
-        var initScript = function () {
+        // 初始化应用信息
+        var initAppInfo = function () {
             $scope.appInfo = '';
             $scope.appSuccess = true;
         };
+        // 初始化发送邮件节流器
+        var initEmailStreamer = function () {
+            $scope.emailFlag = false;
+            $scope.emailBtnLabel = '获取邮件码';
+        };
+        // 初始化发送短信节流器
+        var initMessageStreamer = function () {
+            $scope.messageFlag = false;
+            $scope.messageBtnLabel = '获取短信码';
+        };
+        // 初始化页面
+        var initScript = function () {
+            // 初始化应用信息
+            initAppInfo();
+            // 初始化节流器
+            initEmailStreamer();
+            initMessageStreamer();
+        };
+        // 发送邮件节流器
+        var eamilStreamer = function () {
+            $scope.emailFlag = true;
+            var total = 60;
+            var timer = setInterval(function () {
+                total--;
+                if (total <= 0) {
+                    clearInterval(timer);
+                    initEmailStreamer();
+                } else {
+                    $scope.emailBtnLabel = total + 's';
+                }
+            }, 1000);
+        };
+        // 发送短信节流器
+        var messageStreamer = function () {
+            $scope.messageFlag = true;
+            var total = 60;
+            var timer = setInterval(function () {
+                total--;
+                if (total <= 0) {
+                    clearInterval(timer);
+                    initMessageStreamer();
+                } else {
+                    $scope.messageBtnLabel = total + 's';
+                }
+            }, 1000);
+        };
         // 获取邮件验证码
         $scope.getVerificationCode = function () {
+            if ($scope.emailFlag === true) {
+                return;
+            }
+
             var index = layer.load(2, {time: 10 * 1000});
             $http.post(YmApp.$adminApi.sendCodeUrl, {
                 scenario: 'email',
@@ -106,6 +156,7 @@
                 var data = result.data;
                 if (data.code === 200) {
                     $scope.appSuccess = true;
+                    eamilStreamer();
                 } else {
                     $scope.appSuccess = false;
                 }
@@ -119,6 +170,10 @@
         };
         // 获取短信验证码
         $scope.getMessageCode = function () {
+            if ($scope.messageFlag === true) {
+                return;
+            }
+
             var index = layer.load(2, {time: 10 * 1000});
             $http.post(YmApp.$adminApi.sendCodeUrl, {
                 scenario: 'message',
@@ -127,6 +182,7 @@
                 var data = result.data;
                 if (data.code === 200) {
                     $scope.appSuccess = true;
+                    messageStreamer();
                 } else {
                     $scope.appSuccess = false;
                 }
@@ -145,6 +201,8 @@
         };
         // 继续登录
         $scope.continueLog = function () {
+            // 重置应用信息
+            initAppInfo();
 
         };
 
