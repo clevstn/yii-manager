@@ -85,6 +85,7 @@ ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .p-0 {padding: 0px !important;}
 .p-24 {padding: 24px !important;}
 .pt-0 {padding-top: 0px !important;}
+.pt-6 {padding-top: 6px !important; }
 .pt-16 {padding-top: 16px !important;}
 .pb-0 {padding-bottom: 0px !important;}
 .pb-16 {padding-bottom:16px;}
@@ -117,6 +118,8 @@ ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .f-13 {font-size: 13px;}
 .font-bold {font-weight:700;}
 .min-300 {min-width: 300px;}
+.border-none {border: none !important;}
+.border-radius-none {border-radius: unset !important; -webkit-border-radius: unset !important;}
 .layui-layer-btn .layui-layer-btn0 {border-color: #337ab7 !important;background-color: #337ab7 !important;}
 .input-group-addon {background-color: #FBFBFB !important;border-color: #e6e6e6 !important;color: #333 !important;padding: 0 3px !important;font-size: 13px !important;line-height: normal !important;}
 .form-control {border-color: #e6e6e6 !important;font-size: 13px !important;height: auto !important;min-height: 34px !important;line-height: normal !important;}

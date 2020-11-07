@@ -140,6 +140,7 @@ class SiteController extends CommonController
         }
 
         if ($this->isGet) {
+            $this->view->params['ways'] = $tempSessionUser['safeWay'];
             return $this->render('login-safe');
         } else {
             return $this->asSuccess('安全认证成功');
