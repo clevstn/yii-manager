@@ -86,7 +86,7 @@ class CommonController extends Controller
         if (!empty($this->actionVerbs)) {
             return [
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => $this->actionVerbs,
                 ],
             ];
@@ -104,7 +104,7 @@ class CommonController extends Controller
         if (empty($this->guestActions) || !in_array($this->action->id, $this->guestActions, true)) {
             return [
                 'access' => [
-                    'class' => AccessControl::className(),
+                    'class' => AccessControl::class,
                     'user' => 'adminUser',
                     'only' => [$this->action->id],
                     'rules' => [
@@ -115,9 +115,21 @@ class CommonController extends Controller
                     ],
                 ],
             ];
+        } else {
+            return [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'user' => 'adminUser',
+                    'only' => [$this->action->id],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['?'],
+                        ],
+                    ],
+                ],
+            ];
         }
-
-        return [];
     }
 
     /**
@@ -132,7 +144,7 @@ class CommonController extends Controller
         ) {
             return [
                 'rbac' => [
-                    'class' => RbacFilter::className(),
+                    'class' => RbacFilter::class,
                 ],
             ];
         }
