@@ -12,7 +12,7 @@ use app\admin\assets\SiteAsset;
 $this->title = '登录';
 SiteAsset::register($this);
 ?>
-<div class="ym-login" ng-controller="_loginCtrl" ng-cloak>
+<div class="ym-login" ng-controller="_loginBaseCtrl" ng-cloak>
     <div class="login-wrap">
         <div class="panel-body">
             <div class="login-header">

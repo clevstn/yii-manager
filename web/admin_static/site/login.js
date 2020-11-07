@@ -7,8 +7,10 @@
  */
 !function (window, _EasyApp) {
     "use strict";
-    _EasyApp.controller('_loginCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
-        console.log("%c This is Login-Page with Yii-Manager", 'color:#337ab7;');
+
+    // 登录 - 基本校验
+    _EasyApp.controller('_loginBaseCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
+        console.log("%c This is Login-Base-Page with Yii-Manager", 'color:#337ab7;');
         // 初始化脚本
         var initedScript = function () {
             // 登录错误信息
@@ -86,5 +88,9 @@
 
         // 初始化脚本
         initedScript();
+    }]).controller('_loginSafeCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
+        // 登录 - 安全校验
+        console.log("%c This is Login-Safe-Page with Yii-Manager", 'color:#337ab7;');
+
     }]);
 }(window, window._EasyApp);
