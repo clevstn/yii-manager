@@ -24,7 +24,12 @@ body {display: table;width: 100%;height: 100%;}
 .saom-login {width: 30px;height: 30px;}
 
 /*登录 - 安全认证*/
-.item-group {display: table; width: 100%;}
+@media (min-width: 768px) { .container {width: 750px;} }
+@media (min-width: 992px) { .container {width: 850px;} }
+@media (min-width: 1200px) { .container {width: 950px;} }
+.underline {position: relative;}
+.underline:before {content: " "; position: absolute; left:20%; right:20%; width: 60%; height: 0; bottom: -1px; border-bottom: 1px solid #d8dee2;}
+.item-group {display: table; width: 100%; border-collapse:separate; border-spacing:0px 36px;}
 .item-group >.item-group-row {display:table-row;}
 .item-group .item-label, .item-group .item-body {display: table-cell; font-size:13px; width: 50%; text-align: center;}
-.item-group .item-label {font-weight:700;}
+.item-group .item-label {font-weight:700; font-size: 14px;}

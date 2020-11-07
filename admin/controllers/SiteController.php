@@ -95,7 +95,7 @@ class SiteController extends CommonController
 
                 // 校验用户是否已被封停
                 if ($userData['status'] == AdminUser::STATUS_DENY) {
-                    return $this->asFail($userData['deny_end_time'] ? '该账号已被永久封停' : '该账号已被封停,封停截止时间:' . $userData['deny_end_time']);
+                    return $this->asFail(!$userData['deny_end_time'] ? '该账号已被永久封停' : '该账号已被封停,封停截止时间:' . $userData['deny_end_time']);
                 }
 
                 // 校验用户密码是否正确
