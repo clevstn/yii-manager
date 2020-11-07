@@ -19,6 +19,9 @@
         loginSubmit: '/admin/site/login',
 
         /* ------------- 登录 - 安全认证 ------------- */
-        loginUrl: '/admin/site/login'
+        // 登录页
+        loginUrl: '/admin/site/login',
+        // 发送邮箱验证码/短信验证码
+        sendCodeUrl: '/admin/site/send'
     };
 }(window, window.YmApp);

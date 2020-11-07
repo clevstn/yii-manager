@@ -28,6 +28,7 @@ class SiteController extends CommonController
         'login' => ['get', 'post'],
         'logout' => ['get'],
         'safe-validate' => ['get', 'post'],
+        'send' => ['post'],
     ];
 
     /**
@@ -37,6 +38,7 @@ class SiteController extends CommonController
         'login',
         'check-user',
         'safe-validate',
+        'send',
     ];
 
     /**
@@ -145,6 +147,18 @@ class SiteController extends CommonController
         } else {
             return $this->asSuccess('安全认证成功');
         }
+    }
+
+    /**
+     * 登录 - 发送邮箱验证码/短信验证码
+     * - scenario string [email] 邮件 [message] 短信
+     *
+     * @return string
+     */
+    public function actionSend()
+    {
+        $bodyParams = $this->post;
+        return $this->asSuccess('已发送');
     }
 
     /**

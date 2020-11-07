@@ -91,10 +91,54 @@
     }]).controller('_loginSafeCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
         // 登录 - 安全校验
         console.log("%c This is Login-Safe-Page with Yii-Manager", 'color:#337ab7;');
+        // 初始化页面
+        var initScript = function () {
+            $scope.appInfo = '';
+            $scope.appSuccess = true;
+        };
         // 获取邮件验证码
         $scope.getVerificationCode = function () {
+            var index = layer.load(2, {time: 10 * 1000});
+            $http.post(YmApp.$adminApi.sendCodeUrl, {
+                scenario: 'email',
+            }).then(function (result) {
+                layer.close(index);
+                var data = result.data;
+                if (data.code === 200) {
+                    $scope.appSuccess = true;
+                } else {
+                    $scope.appSuccess = false;
+                }
 
+                $scope.appInfo = data.msg;
+            }, function (error) {
+                layer.close(index);
+                console.error(error);
+                toastr.error(error.data || "系统错误", "通知");
+            });
         };
+        // 获取短信验证码
+        $scope.getMessageCode = function () {
+            var index = layer.load(2, {time: 10 * 1000});
+            $http.post(YmApp.$adminApi.sendCodeUrl, {
+                scenario: 'message',
+            }).then(function (result) {
+                layer.close(index);
+                var data = result.data;
+                if (data.code === 200) {
+                    $scope.appSuccess = true;
+                } else {
+                    $scope.appSuccess = false;
+                }
+
+                $scope.appInfo = data.msg;
+            }, function (error) {
+                layer.close(index);
+                console.error(error);
+                toastr.error(error.data || "系统错误", "通知");
+            });
+        };
+
         // 切换账号
         $scope.backLog = function () {
             window.location.href = YmApp.$adminApi.loginUrl;
@@ -103,5 +147,7 @@
         $scope.continueLog = function () {
 
         };
+
+        initScript();
     }]);
 }(window, window._EasyApp);
