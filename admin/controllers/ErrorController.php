@@ -7,6 +7,7 @@
 
 namespace app\admin\controllers;
 
+use Yii;
 use app\builder\common\CommonController;
 
 /**
@@ -26,6 +27,10 @@ class ErrorController extends CommonController
      */
     public function actions()
     {
+        if (Yii::$app->adminUser->isGuest) {
+            $this->layout = 'partial';
+        }
+
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
