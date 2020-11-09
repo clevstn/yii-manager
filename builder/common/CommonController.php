@@ -95,9 +95,9 @@ class CommonController extends Controller
                     'actions' => $this->actionVerbs,
                 ],
             ];
+        } else {
+            return [];
         }
-
-        return [];
     }
 
     /**
@@ -107,8 +107,8 @@ class CommonController extends Controller
     public function accessControlFilter()
     {
         if (
-            empty($this->guestActions) && empty($this->publicActions)
-            || !in_array($this->action->id, $this->guestActions, true) && !in_array($this->action->id, $this->publicActions, true)
+            !in_array($this->action->id, $this->guestActions, true)
+            && !in_array($this->action->id, $this->publicActions, true)
         ) {
             // 只有认证用户可以访问
             return [
@@ -161,8 +161,8 @@ class CommonController extends Controller
                     'class' => RbacFilter::class,
                 ],
             ];
+        } else {
+            return [];
         }
-
-        return [];
     }
 }
