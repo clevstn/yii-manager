@@ -48,14 +48,14 @@ class AdminUserOperationLog extends \app\builder\common\CommonActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'admin_user_id' => Yii::t('app', '管理员ID'),
-            'function' => Yii::t('app', '功能描述,如:新增管理员'),
-            'route' => Yii::t('app', '路由,如:admin/user/add'),
-            'ip' => Yii::t('app', 'IP'),
-            'operate_status' => Yii::t('app', '操作状态,0:失败 1:成功'),
-            'operate_info' => Yii::t('app', '操作信息'),
-            'client_info' => Yii::t('app', '客户端信息'),
-            'created_at' => Yii::t('app', '操作时间'),
+            'admin_user_id' => Yii::t('app', 'administrator ID'),
+            'function' => Yii::t('app', 'the functional description'),
+            'route' => Yii::t('app', 'the routing'),
+            'ip' => 'IP',
+            'operate_status' => Yii::t('app', 'the operating state'),
+            'operate_info' => Yii::t('app', 'the operational information'),
+            'client_info' => Yii::t('app', 'the client information'),
+            'created_at' => Yii::t('app', 'the operating time'),
         ];
     }
 }
