@@ -10,8 +10,8 @@ use app\builder\filters\BeforeHandleActionFilter;
 $config = [
     'id' => 'basic',    // 特别注意：该ID在多入口部署中，禁止修改；必须是basic。
     'name' => 'YII MANAGER CRM',
-    'language' => 'zh-CN',
-    'sourceLanguage' => 'zh-CN',
+    'language' => 'zh-CN', // 终端语言/目标语言
+    'sourceLanguage' => 'en-US', // 代码源语言,用于[[I18n]]翻译的源语言,即: messages/zh-CN/app.php中的[[key]]所使用的语言.
     'timeZone' => 'Asia/Shanghai',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -67,6 +67,20 @@ $config = [
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
             'useFileTransport' => true,
+        ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource', // 翻译类
+                    //'basePath' => '@app/messages', // 消息源根目录,不设置则使用[[应用主体]]默认的
+                    //'sourceLanguage' => 'en-US', // 源语言,不设置则使用[[应用主体]]默认的
+                    'fileMap' => [
+                        // 种类 => 种类文件
+                        'app' => 'app.php',
+                        'app.admin' => 'admin.php',
+                    ],
+                ],
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

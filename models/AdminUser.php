@@ -7,6 +7,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\db\Query;
 use yii\web\IdentityInterface;
 use app\behaviors\PasswordBehavior;
@@ -159,20 +160,20 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ID',
-            'action' => '操作项',
-            'parent' => '我的上级',
-            'username' => '用户名',
-            'password' => '密码',
-            'repassword' => '重复密码',
-            'email' => '邮箱',
-            'an' => '电话区号',
-            'mobile' => '手机号',
-            'safe_auth' => '是否开启安全认证',
-            'open_operate_log' => '是否开启操作日志',
-            'open_login_log' => '是否开启登录日志',
-            'group' => '管理组',
-            'deny_end_time' => '封停截止时间',
-            'usernameOrEmail' => '邮箱/用户名',
+            'action' => Yii::t('app', 'action items'),
+            'parent' => Yii::t('app', 'my supervisor'),
+            'username' => Yii::t('app', 'user name'),
+            'password' => Yii::t('app', 'password'),
+            'repassword' => Yii::t('app', 'repeat password'),
+            'email' => Yii::t('app', 'email'),
+            'an' => Yii::t('app', 'the mobile area number'),
+            'mobile' => Yii::t('app', 'mobile'),
+            'safe_auth' => Yii::t('app', 'whether to enable security authentication'),
+            'open_operate_log' => Yii::t('app', 'whether to turn on the operation log'),
+            'open_login_log' => Yii::t('app', 'whether log on or not'),
+            'group' => Yii::t('app', 'management group'),
+            'deny_end_time' => Yii::t('app', 'closing time'),
+            'usernameOrEmail' => Yii::t('app', 'email/username'),
         ];
     }
 
