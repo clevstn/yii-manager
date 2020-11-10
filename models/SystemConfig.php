@@ -114,17 +114,17 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
     public function attributeLabels()
     {
         return [
-            'code' => Yii::t('app', '代码'),
-            'value' => Yii::t('app', '值'),
-            'control' => Yii::t('app', '控件类型'),
-            'options' => Yii::t('app', '选项'),
-            'name' => Yii::t('app', '名称'),
-            'desc' => Yii::t('app', '字段描述'),
-            'tips' => Yii::t('app', '表单提示'),
-            'type' => Yii::t('app', '类型, 1:分组 2:配置'),
-            'group' => Yii::t('app', '所属分组'),
-            'created_at' => Yii::t('app', '创建时间'),
-            'updated_at' => Yii::t('app', '更新时间'),
+            'code' => Yii::t('app', 'code'),
+            'value' => Yii::t('app', 'value'),
+            'control' => Yii::t('app', 'control types'),
+            'options' => Yii::t('app', 'options'),
+            'name' => Yii::t('app', 'the name'),
+            'desc' => Yii::t('app', 'the field'),
+            'tips' => Yii::t('app', 'form prompt'),
+            'type' => Yii::t('app', 'types'),
+            'group' => Yii::t('app', 'subordinate to the group'),
+            'created_at' => Yii::t('app', 'the creation time'),
+            'updated_at' => Yii::t('app', 'the update time'),
         ];
     }
 

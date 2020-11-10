@@ -45,12 +45,12 @@ class ShortMsgRecord extends \app\builder\common\CommonActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'service_name' => Yii::t('app', '服务名称'),
-            'msg_content' => Yii::t('app', '短信内容'),
-            'send_user' => Yii::t('app', '发送人, 0:系统'),
-            'receive_mobile' => Yii::t('app', '接收手机号'),
-            'send_time' => Yii::t('app', '发送时间'),
+            'id' => 'ID',
+            'service_name' => Yii::t('app', 'the service name'),
+            'msg_content' => Yii::t('app', 'message content'),
+            'send_user' => Yii::t('app', 'the sender'),
+            'receive_mobile' => Yii::t('app', 'receive cell phone number'),
+            'send_time' => Yii::t('app', 'the send time'),
         ];
     }
 }

@@ -45,4 +45,22 @@ return [
     'the sender' => '发送人',
     'to receive your email' => '接收邮箱',
     'the send time' => '发送时间',
+    'message content' => '短信内容',
+    'receive cell phone number' => '接收手机号',
+    'code' => '代码',
+    'value' => '值',
+    'control types' => '控件类型',
+    'options' => '选项',
+    'the name' => '名称',
+    'the field' => '字段描述',
+    'form prompt' => '表单提示',
+    'types' => '类型',
+    'subordinate to the group' => '所属分组',
 ];
+
+
+
+
+
+
+
