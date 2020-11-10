@@ -104,8 +104,8 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public static function statusMap()
     {
         return [
-            self::STATUS_DENY => '封停',
-            self::STATUS_NORMAL => '正常',
+            self::STATUS_DENY => Yii::t('app', 'closure'),
+            self::STATUS_NORMAL => Yii::t('app', 'normal'),
         ];
     }
 
@@ -116,11 +116,11 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public static function safeMap()
     {
         return [
-            self::SAFE_AUTH_CLOSE => '关闭',
-            self::SAFE_AUTH_FOLLOW_SYSTEM => '跟随系统',
-            self::SAFE_AUTH_EMAIL => '邮箱认证',
-            self::SAFE_AUTH_MESSAGE => '短信认证',
-            self::SAFE_AUTH_OTP => 'OTP认证',
+            self::SAFE_AUTH_CLOSE => Yii::t('app', 'close'),
+            self::SAFE_AUTH_FOLLOW_SYSTEM => Yii::t('app', 'follow the system'),
+            self::SAFE_AUTH_EMAIL => Yii::t('app', 'email authentication'),
+            self::SAFE_AUTH_MESSAGE => Yii::t('app', 'SMS authentication'),
+            self::SAFE_AUTH_OTP => Yii::t('app', 'OTP authentication'),
         ];
     }
 
@@ -131,9 +131,9 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public static function operationMap()
     {
         return [
-            self::OPERATE_LOG_CLOSE => '关闭',
-            self::OPERATE_LOG_FOLLOW => '跟随系统',
-            self::OPERATE_LOG_OPEN => '开启',
+            self::OPERATE_LOG_CLOSE => Yii::t('app', 'close'),
+            self::OPERATE_LOG_FOLLOW => Yii::t('app', 'follow the system'),
+            self::OPERATE_LOG_OPEN => Yii::t('app', 'open'),
         ];
     }
 
@@ -144,9 +144,9 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public static function loginMap()
     {
         return [
-            self::LOGIN_LOG_CLOSE => '关闭',
-            self::LOGIN_LOG_FOLLOW => '跟随系统',
-            self::LOGIN_LOG_OPEN => '开启',
+            self::LOGIN_LOG_CLOSE => Yii::t('app', 'close'),
+            self::LOGIN_LOG_FOLLOW => Yii::t('app', 'follow the system'),
+            self::LOGIN_LOG_OPEN => Yii::t('app', 'open'),
         ];
     }
 
@@ -246,14 +246,14 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             // 场景`新增`
             $result = self::query('id')->where(['an' => $an, 'mobile' => $mobile])->one();
             if (!empty($result)) {
-                $this->addError($attribute, '手机号码已被占用');
+                $this->addError($attribute, Yii::t('app', 'The cell phone number already exists'));
             }
         } elseif ($this->scenario == 'edit') {
             // 场景`编辑`
             $id = $this->id;
             $result = self::query('id')->where(['and', ['an' => $an, 'mobile' => $mobile], ['<>', 'id', $id]])->one();
             if (!empty($result)) {
-                $this->addError($attribute, '手机号码已被占用');
+                $this->addError($attribute, Yii::t('app', 'The cell phone number already exists'));
             }
         }
     }
@@ -306,23 +306,26 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         switch ($status) {
             case self::STATUS_DENY:
+                $label = Yii::t('app', 'disable');
                 if ($isHtml) {
-                    return '<span class="label label-danger">禁用</span>';
+                    return '<span class="label label-danger">' . $label . '</span>';
                 }
 
-                return '禁用';
+                return $label;
             case self::STATUS_NORMAL:
+                $label = Yii::t('app', 'normal');
                 if ($isHtml) {
-                    return '<span class="label label-success">正常</span>';
+                    return '<span class="label label-success">' . $label . '</span>';
                 }
 
-                return '正常';
+                return $label;
             default:
+                $label = Yii::t('app', 'unknown');
                 if ($isHtml) {
-                    return '<span class="label label-default">未知</span>';
+                    return '<span class="label label-default">' . $label . '</span>';
                 }
 
-                return '未知';
+                return $label;
         }
     }
 
@@ -335,17 +338,17 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         switch ($safeAuth) {
             case self::SAFE_AUTH_CLOSE:
-                return '关闭';
+                return Yii::t('app', 'close');
             case self::SAFE_AUTH_FOLLOW_SYSTEM:
-                return '跟随系统';
+                return Yii::t('app', 'follow the system');
             case self::SAFE_AUTH_EMAIL:
-                return '邮箱认证';
+                return Yii::t('app', 'email authentication');
             case self::SAFE_AUTH_MESSAGE:
-                return '短信认证';
+                return Yii::t('app', 'SMS authentication');
             case self::SAFE_AUTH_OTP:
-                return 'MFA认证';
+                return Yii::t('app', 'OTP authentication');
             default:
-                return '未知';
+                return Yii::t('app', 'unknown');
         }
     }
 
@@ -358,13 +361,13 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         switch ($isOpenOperateLog) {
             case self::OPERATE_LOG_CLOSE:
-                return '关闭';
+                return Yii::t('app', 'close');
             case self::OPERATE_LOG_FOLLOW:
-                return '跟随系统';
+                return Yii::t('app', 'follow the system');
             case self::OPERATE_LOG_OPEN:
-                return '开启';
+                return Yii::t('app', 'open');
             default:
-                return '未知';
+                return Yii::t('app', 'unknown');
         }
     }
 
@@ -377,13 +380,13 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         switch ($isOpenLoginLog) {
             case self::LOGIN_LOG_CLOSE:
-                return '关闭';
+                return Yii::t('app', 'close');
             case self::LOGIN_LOG_FOLLOW:
-                return '跟随系统';
+                return Yii::t('app', 'follow the system');
             case self::LOGIN_LOG_OPEN:
-                return '开启';
+                return Yii::t('app', 'open');
             default:
-                return '未知';
+                return Yii::t('app', 'unknown');
         }
     }
 

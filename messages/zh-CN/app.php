@@ -57,6 +57,17 @@ return [
     'types' => '类型',
     'subordinate to the group' => '所属分组',
     'the operation item is not correct' => '操作项不正确',
+    'closure' => '封停',
+    'normal' => '正常',
+    'close' => '关闭',
+    'follow the system' => '跟随系统',
+    'open' => '开启',
+    'email authentication' => '邮箱认证',
+    'SMS authentication' => '短信认证',
+    'OTP authentication' => 'OTP认证',
+    'The cell phone number already exists' => '手机号已存在',
+    'disable' => '禁用',
+    'unknown' => '未知',
 ];
 
 
