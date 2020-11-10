@@ -328,18 +328,18 @@ class ManagerController extends CommonController
                 'safe_auth' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
                     'label' => '是否开启安全认证',
                     'default' => AdminUser::SAFE_AUTH_FOLLOW_SYSTEM,
-                    'options' => AdminUser::$safeMap,
+                    'options' => AdminUser::safeMap(),
                     'comment' => '开启OTP认证后，请前往【我的】绑定Google Authenticator。',
                 ]),
                 'open_operate_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
                     'label' => '是否开启操作日志',
                     'default' => AdminUser::OPERATE_LOG_FOLLOW,
-                    'options' => AdminUser::$operationMap,
+                    'options' => AdminUser::operationMap(),
                 ]),
                 'open_login_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
                     'label' => '是否开启登录日志',
                     'default' => AdminUser::LOGIN_LOG_FOLLOW,
-                    'options' => AdminUser::$loginMap,
+                    'options' => AdminUser::loginMap(),
                 ]),
                 'group' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
                     'label' => '管理组',
@@ -421,18 +421,18 @@ class ManagerController extends CommonController
                 'safe_auth' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
                     'label' => '是否开启安全认证',
                     'default' => $identify->safe_auth,
-                    'options' => AdminUser::$safeMap,
+                    'options' => AdminUser::safeMap(),
                     'comment' => '开启OTP认证后，请前往【我的】绑定Google Authenticator。',
                 ]),
                 'open_operate_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
                     'label' => '是否开启操作日志',
                     'default' => $identify->open_operate_log,
-                    'options' => AdminUser::$operationMap,
+                    'options' => AdminUser::operationMap(),
                 ]),
                 'open_login_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
                     'label' => '是否开启登录日志',
                     'default' => $identify->open_login_log,
-                    'options' => AdminUser::$loginMap,
+                    'options' => AdminUser::loginMap(),
                 ]),
             ];
 

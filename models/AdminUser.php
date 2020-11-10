@@ -42,6 +42,39 @@ use app\builder\common\CommonActiveRecord;
  */
 class AdminUser extends CommonActiveRecord implements IdentityInterface
 {
+    // 路由分割符号
+    const PATH_SPLIT_SYMBOL = '-';
+
+    // 禁用
+    const STATUS_DENY = 0;
+    // 正常
+    const STATUS_NORMAL = 1;
+
+    // 关闭安全认证
+    const SAFE_AUTH_CLOSE = 0;
+    // 安全认证跟随系统设置
+    const SAFE_AUTH_FOLLOW_SYSTEM = 1;
+    // 邮箱认证
+    const SAFE_AUTH_EMAIL = 2;
+    // 短信认证
+    const SAFE_AUTH_MESSAGE = 3;
+    // MFA认证
+    const SAFE_AUTH_OTP = 4;
+
+    // 关闭操作日志
+    const OPERATE_LOG_CLOSE = 0;
+    // 操作日志设置跟随系统
+    const OPERATE_LOG_FOLLOW = 1;
+    // 开启操作日志
+    const OPERATE_LOG_OPEN = 2;
+
+    // 关闭登录日志
+    const LOGIN_LOG_CLOSE = 0;
+    // 登录日志设置跟随系统
+    const LOGIN_LOG_FOLLOW = 1;
+    // 开启登录日志
+    const LOGIN_LOG_OPEN = 2;
+
     /**
      * @var string 我的上级
      */
@@ -64,84 +97,58 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      */
     public $usernameOrEmail;
 
-    // 路由分割符号
-    const PATH_SPLIT_SYMBOL = '-';
-
-    // 禁用
-    const STATUS_DENY = 0;
-
-    // 正常
-    const STATUS_NORMAL = 1;
+    /**
+     * 获取状态集合
+     * @return array
+     */
+    public static function statusMap()
+    {
+        return [
+            self::STATUS_DENY => '封停',
+            self::STATUS_NORMAL => '正常',
+        ];
+    }
 
     /**
-     * @var string[]
+     * 获取安全认证选项集合
+     * @return array
      */
-    public static $statusMap = [
-        self::STATUS_DENY => '封停',
-        self::STATUS_NORMAL => '正常',
-    ];
-
-    // 关闭安全认证
-    const SAFE_AUTH_CLOSE = 0;
-
-    // 安全认证跟随系统设置
-    const SAFE_AUTH_FOLLOW_SYSTEM = 1;
-
-    // 邮箱认证
-    const SAFE_AUTH_EMAIL = 2;
-
-    // 短信认证
-    const SAFE_AUTH_MESSAGE = 3;
-
-    // MFA认证
-    const SAFE_AUTH_OTP = 4;
+    public static function safeMap()
+    {
+        return [
+            self::SAFE_AUTH_CLOSE => '关闭',
+            self::SAFE_AUTH_FOLLOW_SYSTEM => '跟随系统',
+            self::SAFE_AUTH_EMAIL => '邮箱认证',
+            self::SAFE_AUTH_MESSAGE => '短信认证',
+            self::SAFE_AUTH_OTP => 'OTP认证',
+        ];
+    }
 
     /**
-     * @var array
+     * 获取操作日志,操作项集合
+     * @return array
      */
-    public static $safeMap = [
-        self::SAFE_AUTH_CLOSE => '关闭',
-        self::SAFE_AUTH_FOLLOW_SYSTEM => '跟随系统',
-        self::SAFE_AUTH_EMAIL => '邮箱认证',
-        self::SAFE_AUTH_MESSAGE => '短信认证',
-        self::SAFE_AUTH_OTP => 'OTP认证',
-    ];
-
-    // 关闭操作日志
-    const OPERATE_LOG_CLOSE = 0;
-
-    // 操作日志设置跟随系统
-    const OPERATE_LOG_FOLLOW = 1;
-
-    // 开启操作日志
-    const OPERATE_LOG_OPEN = 2;
+    public static function operationMap()
+    {
+        return [
+            self::OPERATE_LOG_CLOSE => '关闭',
+            self::OPERATE_LOG_FOLLOW => '跟随系统',
+            self::OPERATE_LOG_OPEN => '开启',
+        ];
+    }
 
     /**
-     * @var string[]
+     * 获取登陆日志,操作项集合
+     * @return array
      */
-    public static $operationMap = [
-        self::OPERATE_LOG_CLOSE => '关闭',
-        self::OPERATE_LOG_FOLLOW => '跟随系统',
-        self::OPERATE_LOG_OPEN => '开启',
-    ];
-
-    // 关闭登录日志
-    const LOGIN_LOG_CLOSE = 0;
-
-    // 登录日志设置跟随系统
-    const LOGIN_LOG_FOLLOW = 1;
-
-    // 开启登录日志
-    const LOGIN_LOG_OPEN = 2;
-
-    /**
-     * @var string[]
-     */
-    public static $loginMap = [
-        self::LOGIN_LOG_CLOSE => '关闭',
-        self::LOGIN_LOG_FOLLOW => '跟随系统',
-        self::LOGIN_LOG_OPEN => '开启',
-    ];
+    public static function loginMap()
+    {
+        return [
+            self::LOGIN_LOG_CLOSE => '关闭',
+            self::LOGIN_LOG_FOLLOW => '跟随系统',
+            self::LOGIN_LOG_OPEN => '开启',
+        ];
+    }
 
     /**
      * 定义表格名
@@ -186,7 +193,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         return [
             ['id', 'required'],
             ['action', 'required'],
-            ['action', 'in', 'range' => ['disabled', 'enabled'], 'message' => '操作项不正确'],
+            ['action', 'in', 'range' => ['disabled', 'enabled'], 'message' => Yii::t('app', 'the operation item is not correct')],
             ['parent', 'string', 'min' => 2, 'max' => 250],
             ['username', 'required'],
             ['username', 'string', 'min' => 2, 'max' => 20],
@@ -194,13 +201,13 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             ['usernameOrEmail', 'required'],
             ['password', 'required', 'on' => ['add', 'login-base']],
             ['password', 'string', 'min' => 6, 'max' => 25],
-            ['password', 'match', 'pattern' => '/^[1-9a-z][1-9a-z_\-+.*!@#$%&=|~]{5,24}$/i', 'message' => '密码存在敏感字符请重写输入'],
+            ['password', 'match', 'pattern' => '/^[1-9a-z][1-9a-z_\-+.*!@#$%&=|~]{5,24}$/i'],
             ['repassword', 'required', 'when' => function ($model) {
                 /* @var AdminUser $model */
                 // 当验证场景是`新增`或者场景是`编辑`并且[[密码]]非空时验证必填。
                 return $model->scenario == 'add' || ($model->scenario == 'edit' && !empty($model->password));
             }],
-            ['repassword', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码输入不一致'],
+            ['repassword', 'compare', 'compareAttribute' => 'password'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'unique', 'on' => ['add']],
@@ -214,11 +221,11 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             ['mobile', 'string', 'min' => 5, 'max' => 11],
             ['mobile', 'validateMobileIsUnique'],
             ['safe_auth', 'required'],
-            ['safe_auth', 'in', 'range' => array_keys(self::$safeMap)],
+            ['safe_auth', 'in', 'range' => array_keys(self::safeMap())],
             ['open_operate_log', 'required'],
-            ['open_operate_log', 'in', 'range' => array_keys(self::$operationMap)],
+            ['open_operate_log', 'in', 'range' => array_keys(self::operationMap())],
             ['open_login_log', 'required'],
-            ['open_login_log', 'in', 'range' => array_keys(self::$loginMap)],
+            ['open_login_log', 'in', 'range' => array_keys(self::loginMap())],
             ['group', 'required'],
             ['group', 'integer'],
             ['deny_end_time', 'default', 'value' => null],

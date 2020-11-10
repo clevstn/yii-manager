@@ -56,6 +56,7 @@ return [
     'form prompt' => '表单提示',
     'types' => '类型',
     'subordinate to the group' => '所属分组',
+    'the operation item is not correct' => '操作项不正确',
 ];
 
 
