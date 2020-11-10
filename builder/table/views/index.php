@@ -107,7 +107,7 @@ use app\builder\table\ToolbarFilterOptions;
 
                 <!--操作项渲染-->
                 <?php if (!empty($rowActions)): ?>
-                    <th style="width:50px;">操作</th>
+                    <th style="width:50px;"><?= t('operation') ?></th>
                 <?php endif; ?>
 
                 <!--渲染表头-->
@@ -136,7 +136,7 @@ use app\builder\table\ToolbarFilterOptions;
                         <div class="dropdown">
                             <a href="#" type="button" class="btn btn-sm btn-default dropdown-toggle"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                操作
+                                <?= t('operation') ?>
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -249,14 +249,14 @@ use app\builder\table\ToolbarFilterOptions;
                 <li class="list-group-item" ng-repeat="(key, value) in ymTableExportMap track by key">
                     <div class="row text-dark">
                         <p class="col-sm-4 f-14 m-0 text-left">
-                            <span>第</span><span ng-bind="value.page"></span><span>块</span>
+                            <span><?= t('number') ?></span><span ng-bind="value.page"></span><span><?= t('block') ?></span>
                         </p>
                         <p class="col-sm-4 f-14 m-0 text-center">
-                            <span>共</span><span ng-bind="value.rows"></span><span>条</span>
+                            <span><?= t('total') ?></span><span ng-bind="value.rows"></span><span><?= t('rows') ?></span>
                         </p>
                         <a class="col-sm-4 f-14 text-right" ng-href="{{value.url}}" ng-click="ymTableFlagExport($event)">
                             <i class="glyphicon glyphicon-export"></i>
-                            <span>导出</span>
+                            <span><?= t('export') ?></span>
                         </a>
                     </div>
                 </li>

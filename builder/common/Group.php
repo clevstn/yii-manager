@@ -30,7 +30,7 @@ abstract class Group extends BaseObject implements ConfigureInterface
     /**
      * @var string 分组名称
      */
-    public $name = '默认分组';
+    public $name = 'default group';
 
     /**
      * @var string 组别代码
@@ -40,12 +40,12 @@ abstract class Group extends BaseObject implements ConfigureInterface
     /**
      * @var string 描述
      */
-    public $desc = '这是一个默认分组';
+    public $desc = 'this is default group';
 
     /**
      * @var string 表单提示
      */
-    public $formTips = '这是一个默认分组';
+    public $formTips = 'this is default group';
 
     /**
      * @var array 配置项

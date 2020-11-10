@@ -79,6 +79,17 @@ return [
     'You do not have permission to access' => '您没有权限访问',
     'To deal with failure' => '执行失败',
     'Execute successfully' => '执行成功',
+    'operation' => '操作',
+    'export' => '导出',
+    'number' => '第',
+    'block' => '块',
+    'empty' => '无',
+    'current' => '当前登录',
+    'back' => '返回',
+    'note' => '注',
+    'clear' => '清空',
+    'reset' => '重置',
+    'submit' => '立即提交',
 ];
 
 

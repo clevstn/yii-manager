@@ -28,7 +28,7 @@ class ToolbarCustomOptions extends BaseOptions
     /**
      * @var string 标题
      */
-    public $title = '自定义';
+    public $title = 'custom';
 
     /**
      * @var string Icon

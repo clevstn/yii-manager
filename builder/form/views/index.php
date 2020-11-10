@@ -26,7 +26,7 @@ use app\builder\form\FieldsOptions;
         <div class="pull-right">
             <a class="form-header-btn" type="button" href="#" ng-click="ymFormGoBack()">
                 <i class="glyphicon glyphicon-arrow-left"></i>
-                <span>返回</span>
+                <span><?= t('back') ?></span>
             </a>
         </div>
         <?php endif; ?>
@@ -51,7 +51,7 @@ use app\builder\form\FieldsOptions;
                     <input type="text" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
                 <?php if (!empty($options['comment'])): ?>
-                <div class="form-comment">注：<?= $options['comment'] ?></div>
+                <div class="form-comment"><?= t('note') ?>: <?= $options['comment'] ?></div>
                 <?php endif; ?>
             </div>
             <?php break; case FieldsOptions::CONTROL_NUMBER: // 数字 ?>
@@ -68,7 +68,7 @@ use app\builder\form\FieldsOptions;
                     <input type="number" autocomplete="off" string-to-number ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
                 <?php if (!empty($options['comment'])): ?>
-                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                    <div class="form-comment"><?= t('note') ?>: <?= $options['comment'] ?></div>
                 <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_PASSWORD: // 密码 ?>
@@ -85,7 +85,7 @@ use app\builder\form\FieldsOptions;
                     <input type="password" autocomplete="new-password" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
                 <?php if (!empty($options['comment'])): ?>
-                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                    <div class="form-comment"><?= t('note') ?>: <?= $options['comment'] ?></div>
                 <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_CHECKBOX: // 多选框 ?>
@@ -109,7 +109,7 @@ use app\builder\form\FieldsOptions;
                     </div>
                 </div>
                 <?php if (!empty($options['comment'])): ?>
-                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                    <div class="form-comment"><?= t('note') ?>: <?= $options['comment'] ?></div>
                 <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_RADIO: // 单选 ?>
@@ -133,7 +133,7 @@ use app\builder\form\FieldsOptions;
                     </div>
                 </div>
                 <?php if (!empty($options['comment'])): ?>
-                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                    <div class="form-comment"><?= t('note') ?>: <?= $options['comment'] ?></div>
                 <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_DATETIME: // 日期，格式：Y-m-d H:i:s ?>
@@ -154,7 +154,7 @@ use app\builder\form\FieldsOptions;
                     <input id="ymFormDate_<?= $field ?>" class="ymFormDates form-control" type="text" data-type="<?= $options['control'] ?>" data-range="<?= $options['range'] ?>" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> placeholder="<?= $options['placeholder'] ?>" readonly>
                 </div>
                 <?php if (!empty($options['comment'])): ?>
-                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                    <div class="form-comment"><?= t('note') ?>: <?= $options['comment'] ?></div>
                 <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_SELECT: // 下拉选择 ?>
@@ -176,7 +176,7 @@ use app\builder\form\FieldsOptions;
                     </select>
                 </div>
                 <?php if (!empty($options['comment'])): ?>
-                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                    <div class="form-comment"><?= t('note') ?>: <?= $options['comment'] ?></div>
                 <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_HIDDEN: // 隐藏 ?>
@@ -195,7 +195,7 @@ use app\builder\form\FieldsOptions;
                     <textarea ng-model="ymFormFields['<?= $field ?>']" rows="<?= $options['rows'] ?>" class="form-control" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> placeholder="<?= $options['placeholder'] ?>"></textarea>
                 </div>
                 <?php if (!empty($options['comment'])): ?>
-                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                    <div class="form-comment"><?= t('note') ?>: <?= $options['comment'] ?></div>
                 <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_RICHTEXT: // 富文本 ?>
@@ -212,7 +212,7 @@ use app\builder\form\FieldsOptions;
                     <div class="YmFormWangEditor" id="ymFormRichtext_<?= $field ?>"></div>
                 </div>
                 <?php if (!empty($options['comment'])): ?>
-                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                    <div class="form-comment"><?= t('note') ?>: <?= $options['comment'] ?></div>
                 <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_FILE: // 文件 ?>
@@ -241,7 +241,7 @@ use app\builder\form\FieldsOptions;
                     </div>
                 </div>
                 <?php if (!empty($options['comment'])): ?>
-                    <div class="form-comment">注：<?= $options['comment'] ?></div>
+                    <div class="form-comment"><?= t('note') ?>: <?= $options['comment'] ?></div>
                 <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_CUSTOM: // 自定义 ?>
@@ -252,9 +252,9 @@ use app\builder\form\FieldsOptions;
             <!--表单尾部-->
             <div class="form-group col-md-12">
                 <div class="addon-fix"></div>
-                <button type="button" class="btn btn-sm btn-default" ng-click="ymFormClearForm()">清空</button>
-                <button type="button" class="btn btn-sm btn-default" ng-click="ymFormResetForm()">重置</button>
-                <button type="button" class="btn btn-sm btn-primary" ng-click="ymFormSubmitForm()">立即提交</button>
+                <button type="button" class="btn btn-sm btn-default" ng-click="ymFormClearForm()"><?= t('clear') ?></button>
+                <button type="button" class="btn btn-sm btn-default" ng-click="ymFormResetForm()"><?= t('reset') ?></button>
+                <button type="button" class="btn btn-sm btn-primary" ng-click="ymFormSubmitForm()"><?= t('submit') ?></button>
             </div>
         </form>
     </div>

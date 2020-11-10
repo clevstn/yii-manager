@@ -21,7 +21,7 @@ class RowActionOptions extends BaseOptions
     /**
      * @var string 按钮标题和`page`、`modal`标题
      */
-    public $title = '默认项';
+    public $title = 'default';
 
     /**
      * @var string 按钮图标
