@@ -22,12 +22,12 @@ return [
     'right' => [
         // 个人中心
         [
-            'label' => '<i class="glyphicon glyphicon-home"></i>&nbsp;我的',
+            'label' => '<i class="glyphicon glyphicon-home"></i>&nbsp;' . t('My'),
             'items' => [
                 NavHelper::getMyBrand(),
                 '<li class="divider"></li>',
-                ['label' => '<i class="glyphicon glyphicon-edit"></i>&nbsp;个人设置', 'url' => '#'],
-                ['label' => '<i class="glyphicon glyphicon-off"></i>&nbsp;退出', 'url' => '/admin/site/logout'],
+                ['label' => '<i class="glyphicon glyphicon-edit"></i>&nbsp;' . t('Personal Settings'), 'url' => '#'],
+                ['label' => '<i class="glyphicon glyphicon-off"></i>&nbsp;' . t('sign out', 'app.admin'), 'url' => '/admin/site/logout'],
             ],
         ],
 

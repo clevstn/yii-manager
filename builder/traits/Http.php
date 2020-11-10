@@ -7,6 +7,7 @@
 
 namespace app\builder\traits;
 
+use Yii;
 use yii\web\Request;
 use yii\web\Response;
 
@@ -114,8 +115,9 @@ trait Http
      * @param array $data
      * @return string
      */
-    public function asSuccess($msg = '执行成功', $data = [])
+    public function asSuccess($msg = 'Execute successfully', $data = [])
     {
+        $msg = Yii::t('app', $msg);
         $code = 200;
         return $this->asJson(compact('code', 'data', 'msg'));
     }
@@ -125,8 +127,9 @@ trait Http
      * @param string $msg
      * @return string
      */
-    public function asFail($msg = '执行失败')
+    public function asFail($msg = 'To deal with failure')
     {
+        $msg = Yii::t('app', $msg);
         $code = 500;
         return $this->asJson(compact('code', 'msg'));
     }
@@ -136,8 +139,9 @@ trait Http
      * @param string $msg
      * @return string
      */
-    public function asUnauthorized($msg = '您没有权限访问')
+    public function asUnauthorized($msg = 'You do not have permission to access')
     {
+        $msg = Yii::t('app', $msg);
         $code = 401;
         return $this->asJson(compact('code', 'msg'));
     }

@@ -68,6 +68,17 @@ return [
     'The cell phone number already exists' => '手机号已存在',
     'disable' => '禁用',
     'unknown' => '未知',
+    'My' => '我的',
+    'Personal Settings' => '个人设置',
+    'confirm' => '确定',
+    'pages' => '页',
+    '{number} lines per page' => '每页{number}条',
+    'until' => '到第',
+    'total' => '总共',
+    'rows' => '条',
+    'You do not have permission to access' => '您没有权限访问',
+    'To deal with failure' => '执行失败',
+    'Execute successfully' => '执行成功',
 ];
 
 

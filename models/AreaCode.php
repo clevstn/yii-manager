@@ -28,12 +28,16 @@ class AreaCode extends \app\builder\common\CommonActiveRecord
     const STATUS_NORMAL = 1;
 
     /**
-     * @var array
+     * 状态集合
+     * @return array
      */
-    public static $statusMap = [
-        self::STATUS_DENY => '禁用',
-        self::STATUS_NORMAL => '正常',
-    ];
+    public static function statusMap()
+    {
+        return [
+            self::STATUS_DENY => Yii::t('app', 'disable'),
+            self::STATUS_NORMAL => Yii::t('app', 'normal'),
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -90,15 +94,18 @@ class AreaCode extends \app\builder\common\CommonActiveRecord
     public static function statusLabel($status, $isHtml = true)
     {
         if (!$isHtml) {
-            return self::$statusMap[$status];
+            return self::statusMap()[$status];
         } else {
             switch ($status) {
                 case self::STATUS_NORMAL:  // 正常
-                    return '<span class="label label-success">正常</span>';
+                    $label = Yii::t('app', 'normal');
+                    return '<span class="label label-success">' . $label . '</span>';
                 case self::STATUS_DENY:    // 禁用
-                    return '<span class="label label-danger">禁用</span>';
+                    $label = Yii::t('app', 'disable');
+                    return '<span class="label label-danger">' . $label . '</span>';
                 default:                   // 未知
-                    return '<span class="label label-default">未知</span>';
+                    $label = Yii::t('app', 'unknown');
+                    return '<span class="label label-default">' . $label . '</span>';
             }
         }
     }

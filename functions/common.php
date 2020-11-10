@@ -383,6 +383,22 @@ if (!function_exists('preg_script')) {
     }
 }
 
+if (!function_exists('t')) {
+
+    /**
+     * I18N转义
+     * @param string $messages 消息
+     * @param string $category 类别
+     * @param array $params 参数
+     * @param null|string $language 语言
+     * @return string
+     */
+    function t($messages, $category = 'app', $params = [], $language = null)
+    {
+        return Yii::t($category, $messages, $params, $language);
+    }
+}
+
 // 包含用户自定义函数文件
 include __DIR__ . '/function.php';
 

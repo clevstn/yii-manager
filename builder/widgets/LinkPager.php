@@ -35,12 +35,25 @@ class LinkPager extends \yii\widgets\LinkPager
     /**
      * @var array 页面数据条数选项
      */
-    public $pageRowsMap = [
-        '20' => '每页20条',
-        '100' => '每页100条',
-        '300' => '每页300条',
-        '500' => '每页500条',
-    ];
+    public $pageRowsMap = [];
+
+    /**
+     * 获取分页选项
+     * @return array
+     */
+    public function getPageRowsMap()
+    {
+        if (!empty($this->pageRowsMap)) {
+            return $this->pageRowsMap;
+        } else {
+            return [
+                '20' => t('{number} lines per page', 'app', ['number' => 20]),
+                '100' => t('{number} lines per page', 'app', ['number' => 100]),
+                '300' => t('{number} lines per page', 'app', ['number' => 300]),
+                '500' => t('{number} lines per page', 'app', ['number' => 500]),
+            ];
+        }
+    }
 
     /**
      * Executes the widget.
@@ -64,7 +77,7 @@ class LinkPager extends \yii\widgets\LinkPager
         $currentPage = $this->pagination->getPage() + 1;
         $items[] = Html::tag(
             'li',
-            "<span>到第</span>\n" . Html::tag(
+            "<span>" . t('until') . "</span>\n" . Html::tag(
                 'span',
                 Html::input(
                     'number',
@@ -77,18 +90,18 @@ class LinkPager extends \yii\widgets\LinkPager
                     ]
                 ),
                 ['class' => 'page-dump-control']
-            ) . "\n<span>页</span>\n" . Html::a('确定', '#', [
+            ) . "\n<span>" . t('pages') . "</span>\n" . Html::a(t('confirm'), '#', [
                 'class' => 'btn btn-sm btn-default',
                 'ng-click' => 'ymTableDumpSpecialPage(' . $this->pagination->limit . ')',
             ])
         );
 
-        $items[] = Html::tag('li', "<span>共{$this->pagination->totalCount}条</span>");
+        $items[] = Html::tag('li', "<span>" . t('total') . "{$this->pagination->totalCount}" . t('rows') . "</span>");
         $items[] = Html::tag(
             'li',
             Html::tag(
                 'span',
-                Html::tag('select', Html::renderSelectOptions($this->pagination->limit, $this->pageRowsMap), [
+                Html::tag('select', Html::renderSelectOptions($this->pagination->limit, $this->getPageRowsMap()), [
                     'id' => 'YmTablePageSelect',
                 ]),
                 ['class' => 'page-select-control']
