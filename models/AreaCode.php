@@ -73,11 +73,11 @@ class AreaCode extends \app\builder\common\CommonActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => '地域名称',
-            'code' => '电话区号',
-            'status' => '状态，0：禁用 1：正常',
-            'created_at' => '创建时间',
-            'updated_at' => '更新时间',
+            'name' => Yii::t('app', 'geographical names'),
+            'code' => Yii::t('app', 'telephone area code'),
+            'status' => Yii::t('app', 'the status'),
+            'created_at' => Yii::t('app', 'the creation time'),
+            'updated_at' => Yii::t('app', 'the update time'),
         ];
     }
 

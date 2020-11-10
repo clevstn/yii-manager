@@ -47,8 +47,8 @@ class AdminUserOperationLog extends \app\builder\common\CommonActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'admin_user_id' => Yii::t('app', 'administrator ID'),
+            'id' => 'ID',
+            'admin_user_id' => Yii::t('app', 'the administrator ID'),
             'function' => Yii::t('app', 'the functional description'),
             'route' => Yii::t('app', 'the routing'),
             'ip' => 'IP',

@@ -160,20 +160,20 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ID',
-            'action' => Yii::t('app', 'action items'),
+            'action' => Yii::t('app', 'the action items'),
             'parent' => Yii::t('app', 'my supervisor'),
             'username' => Yii::t('app', 'user name'),
-            'password' => Yii::t('app', 'password'),
-            'repassword' => Yii::t('app', 'repeat password'),
-            'email' => Yii::t('app', 'email'),
+            'password' => Yii::t('app', 'the password'),
+            'repassword' => Yii::t('app', 'the repeat password'),
+            'email' => Yii::t('app', 'the email'),
             'an' => Yii::t('app', 'the mobile area number'),
-            'mobile' => Yii::t('app', 'mobile'),
+            'mobile' => Yii::t('app', 'the mobile'),
             'safe_auth' => Yii::t('app', 'whether to enable security authentication'),
             'open_operate_log' => Yii::t('app', 'whether to turn on the operation log'),
             'open_login_log' => Yii::t('app', 'whether log on or not'),
-            'group' => Yii::t('app', 'management group'),
-            'deny_end_time' => Yii::t('app', 'closing time'),
-            'usernameOrEmail' => Yii::t('app', 'email/username'),
+            'group' => Yii::t('app', 'the management group'),
+            'deny_end_time' => Yii::t('app', 'the closing time'),
+            'usernameOrEmail' => Yii::t('app', 'the email/username'),
         ];
     }
 

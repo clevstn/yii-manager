@@ -44,12 +44,12 @@ class EmailRecord extends \app\builder\common\CommonActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'service_name' => Yii::t('app', '服务名称'),
-            'email_content' => Yii::t('app', '邮件内容'),
-            'send_user' => Yii::t('app', '发送人, 0:系统'),
-            'receive_email' => Yii::t('app', '接收邮箱'),
-            'send_time' => Yii::t('app', '发送时间'),
+            'id' => 'ID',
+            'service_name' => Yii::t('app', 'the service name'),
+            'email_content' => Yii::t('app', 'email content'),
+            'send_user' => Yii::t('app', 'the sender'),
+            'receive_email' => Yii::t('app', 'to receive your email'),
+            'send_time' => Yii::t('app', 'the send time'),
         ];
     }
 }

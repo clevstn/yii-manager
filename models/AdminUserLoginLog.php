@@ -48,14 +48,14 @@ class AdminUserLoginLog extends \app\builder\common\CommonActiveRecord
     {
         return [
             'id' => 'ID',
-            'admin_user_id' => Yii::t('app', 'administrator ID'),
+            'admin_user_id' => Yii::t('app', 'the administrator ID'),
             'identify_type' => Yii::t('app', 'the authentication type'),
-            'client_info' => Yii::t('app', 'client information'),
+            'client_info' => Yii::t('app', 'the client information'),
             'attempt_info' => Yii::t('app', 'try to information'),
-            'attempt_status' => Yii::t('app', 'status'),
+            'attempt_status' => Yii::t('app', 'the status'),
             'error_type' => Yii::t('app', 'custom error types'),
             'login_ip' => Yii::t('app', 'the login IP'),
-            'created_at' => Yii::t('app', 'creation time'),
+            'created_at' => Yii::t('app', 'the creation time'),
         ];
     }
 }
