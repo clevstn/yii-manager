@@ -22,6 +22,7 @@ namespace yii\web {
     {
         public function handleRequest($request)
         {
+
         }
     }
 }
