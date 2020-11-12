@@ -9,7 +9,7 @@
     "use strict";
 
     // 登录 - 基本校验
-    _EasyApp.controller('_loginBaseCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
+    _EasyApp.controller('_loginBaseCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "lang", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, lang) {
         console.log("%c This is Login-Base-Page with Yii-Manager", 'color:#337ab7;');
         var defaultPhoto = '/media/image/login-photo.jpg';
         // 初始化脚本
@@ -37,7 +37,7 @@
                 }, function (error) {
                     layer.close(index);
                     console.error(error);
-                    toastr.error(error.data || "系统错误", "通知");
+                    toastr.error(error.data || lang('System Error'), lang('Notice'));
                 });
             }
         };
@@ -50,18 +50,18 @@
 
             // 检查邮箱/用户名是否填写
             if (!$scope.usernameOrEmail) {
-                layer.tips('请输入邮箱/用户名', "#usernameOrEmail", {time: 1500, tips: 1});
+                layer.tips(lang('Please enter email/user name'), "#usernameOrEmail", {time: 1500, tips: 1});
                 return;
             }
 
             // 检查登陆密码是否填写
             if (!$scope.password) {
-                layer.tips('请输入登录密码', "#password", {time: 1500, tips: 1});
+                layer.tips(lang('Please enter your login password'), "#password", {time: 1500, tips: 1});
                 return;
             }
 
             // 登录提交
-            var authLoading = YmSpinner.show('登录认证中,请稍后');
+            var authLoading = YmSpinner.show(lang('Be logging in, please wait'));
             $http.post(YmApp.$adminApi.loginSubmit, {
                 usernameOrEmail: $scope.usernameOrEmail,
                 password: $scope.password,
@@ -80,21 +80,21 @@
             }, function (error) {
                 YmSpinner.hide(authLoading);
                 console.error(error);
-                toastr.error(error.data || "系统错误", "通知");
+                toastr.error(error.data || lang('System Error'), lang('Notice'));
             });
         };
         // 其他登录方式, asm: app扫码
         $scope.otherLgn = function (code, $event) {
             switch (code) {
                 case 'asm': // app扫码
-                    layer.tips('APP扫码暂不支持', $event.currentTarget, {time: 1500, tips: 3});
+                    layer.tips(lang('The APP code is not supported'), $event.currentTarget, {time: 1500, tips: 3});
                     break;
             }
         };
 
         // 初始化脚本
         initedScript();
-    }]).controller('_loginSafeCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
+    }]).controller('_loginSafeCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "lang", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, lang) {
         // 登录 - 安全校验
         console.log("%c This is Login-Safe-Page with Yii-Manager", 'color:#337ab7;');
         // 初始化应用信息
@@ -105,12 +105,12 @@
         // 初始化发送邮件节流器
         var initEmailStreamer = function () {
             $scope.emailFlag = false;
-            $scope.emailBtnLabel = '获取邮件码';
+            $scope.emailBtnLabel = lang('Get mail code');
         };
         // 初始化发送短信节流器
         var initMessageStreamer = function () {
             $scope.messageFlag = false;
-            $scope.messageBtnLabel = '获取短信码';
+            $scope.messageBtnLabel = lang('Get SMS code');
         };
         // 初始化表单值
         var initFormValues = function () {
@@ -179,7 +179,7 @@
             }, function (error) {
                 layer.close(index);
                 console.error(error);
-                toastr.error(error.data || "系统错误", "通知");
+                toastr.error(error.data || lang('System Error'), lang('Notice'));
             });
         };
         // 获取短信验证码
@@ -205,7 +205,7 @@
             }, function (error) {
                 layer.close(index);
                 console.error(error);
-                toastr.error(error.data || "系统错误", "通知");
+                toastr.error(error.data || lang('System Error'), lang('Notice'));
             });
         };
 
@@ -232,12 +232,12 @@
                         break;
                 }
 
-                layer.tips('请输入认证码', ele, {time: 1500, tips: 3});
+                layer.tips(lang('Please enter the authentication code'), ele, {time: 1500, tips: 3});
                 return;
             }
 
             // 提交认证码
-            var spinnerIndex = YmSpinner.show('认证提交中,请稍后');
+            var spinnerIndex = YmSpinner.show(lang('authenticating, please wait'));
             $http.post(YmApp.$adminApi.safeSubmit, {
                 safe_code: $scope.safeCode,
             }).then(function (result) {
@@ -253,7 +253,7 @@
             }, function (error) {
                 YmSpinner.hide(spinnerIndex);
                 console.error(error);
-                toastr.error(error.data || "系统错误", "通知");
+                toastr.error(error.data || lang('System Error'), lang('Notice'));
             });
         };
 

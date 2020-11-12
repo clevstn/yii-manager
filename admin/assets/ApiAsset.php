@@ -21,6 +21,7 @@ class ApiAsset extends AssetBundle
      * @var array js路径
      */
     public $js = [
+        'admin_static/lang.js',
         'admin_static/api.js',
     ];
 

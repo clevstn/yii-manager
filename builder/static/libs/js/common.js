@@ -204,6 +204,14 @@
     };
 
     /**
+     * 获取当前应用语言
+     * @return string
+     */
+    YmAppConstructor.prototype.language = function () {
+        return jQuery('html').attr('lang') || 'zh-CN';
+    };
+
+    /**
      * 获取当前时间戳
      * @returns {number}
      */

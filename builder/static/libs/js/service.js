@@ -42,6 +42,11 @@
     }).factory("wangEditor", function () {
         // wangEditor
         return global.wangEditor;
+    }).factory("lang", function () {
+        // YmLang
+        return global.YmLang || function (message) {
+            return message;
+        };
     });
 
     // 自定义过滤器
