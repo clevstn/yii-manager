@@ -75,7 +75,7 @@ class SiteController extends CommonController
             }
         }
 
-        return $this->asFail('用户不存在');
+        return $this->asFail(t('the user does not exist', 'app.admin'));
     }
 
     /**

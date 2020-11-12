@@ -115,10 +115,11 @@ trait Http
      * @param array $data
      * @return string
      */
-    public function asSuccess($msg = 'Execute successfully', $data = [])
+    public function asSuccess($msg = '', $data = [])
     {
-        $msg = Yii::t('app', $msg);
+        $msg = $msg ?: Yii::t('app', 'Execute successfully');
         $code = 200;
+
         return $this->asJson(compact('code', 'data', 'msg'));
     }
 
@@ -127,10 +128,11 @@ trait Http
      * @param string $msg
      * @return string
      */
-    public function asFail($msg = 'To deal with failure')
+    public function asFail($msg = '')
     {
-        $msg = Yii::t('app', $msg);
+        $msg = $msg ?: Yii::t('app', 'To deal with failure');
         $code = 500;
+
         return $this->asJson(compact('code', 'msg'));
     }
 
@@ -139,10 +141,11 @@ trait Http
      * @param string $msg
      * @return string
      */
-    public function asUnauthorized($msg = 'You do not have permission to access')
+    public function asUnauthorized($msg = '')
     {
-        $msg = Yii::t('app', $msg);
+        $msg = $msg ?: Yii::t('app', 'You do not have permission to access');
         $code = 401;
+
         return $this->asJson(compact('code', 'msg'));
     }
 }

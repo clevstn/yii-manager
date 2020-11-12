@@ -11,4 +11,5 @@
  */
 return [
     'sign out' => '退出',
+    'the user does not exist' => '用户不存在',
 ];
