@@ -58,13 +58,14 @@ class NavHelper
         $label = Html::tag('span', t('current') . ($adminUser->isGuest ? t('empty') : $adminUser->identity->username), [
             'style' => ['margin-top' => '12px']
         ]);
-        $imgContent = Html::img('@web/media/image/head.png', [
-            'style' => ['width' => '70px', 'height' => '70px'],
+        $headSrc = $adminUser->isGuest ? '@web/media/image/head.png' : attach_url($adminUser->identity->photo);
+        $headContent = Html::img($headSrc, [
+            'style' => ['max-width' => '80%', 'height' => '70px'],
         ]);
 
         return Html::tag(
             'li',
-            "{$imgContent}\n{$label}",
+            "{$headContent}\n{$label}",
             [
                 'class' => 'dropdown-header custom-header',
             ]
