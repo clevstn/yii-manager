@@ -90,6 +90,20 @@ return [
     'clear' => '清空',
     'reset' => '重置',
     'submit' => '立即提交',
+    'sign in' => '登录',
+    'please enter your login password' => '请输入登录密码',
+    'other login methods' => '其他登录方式',
+    'sweep the APP code' => 'APP扫码',
+    'safety certification' => '安全认证',
+    'authentication methods' => '认证方式',
+    'mail verification code' => '邮箱验证码',
+    'please enter a verification code' => '请输入验证码',
+    'SMS verification code' => '短信验证码',
+    'OTP Numbers' => 'OTP数字串',
+    'please enter the OTP numeric string' => '请输入OPT数字串',
+    'unknown authentication method' => '未知认证方式',
+    'switch to another account' => '切换其他账号',
+    'continue to login' => '继续登录',
 ];
 
 
