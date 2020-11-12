@@ -77,6 +77,12 @@
     color: #333333;
     font-size: 13px;
     line-height: 30px;
+
+    /* 新增 */
+    width: 125px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 @keyframes ym-bounce-in {
