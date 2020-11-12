@@ -95,17 +95,21 @@ class SiteController extends CommonController
                 $userData = AdminUser::find()->where(['username' => $usernameOrEmail])->orWhere(['email' => $usernameOrEmail])->one();
                 // 校验用户是否存在
                 if (empty($userData)) {
-                    return $this->asFail('系统不存在该用户');
+                    return $this->asFail(t('the user does not exist', 'app.admin'));
                 }
 
                 // 校验用户是否已被封停
                 if ($userData['status'] == AdminUser::STATUS_DENY) {
-                    return $this->asFail(!$userData['deny_end_time'] ? '该账号已被永久封停' : '该账号已被封停,封停截止时间:' . $userData['deny_end_time']);
+                    return $this->asFail(
+                        !$userData['deny_end_time'] ?
+                            t('The account has been permanently suspended', 'app.admin') :
+                            t('The account has been suspended until {date}', 'app.admin', ['date' => $userData['deny_end_time']])
+                    );
                 }
 
                 // 校验用户密码是否正确
                 if (!$userData->validatePassword($password)) {
-                    return $this->asFail('登录密码输入错误');
+                    return $this->asFail(t('The login password was entered incorrectly', 'app.admin'));
                 }
 
                 $safeWays = $adminUser->getSafeWays($userData['id']);
@@ -113,16 +117,16 @@ class SiteController extends CommonController
                     /* @var \yii\web\IdentityInterface $userData */
                     $isUser = Yii::$app->adminUser->login($userData, 3 * 86400);
                     if ($isUser) {
-                        return $this->asSuccess('登录成功', $this->homeUrl);
+                        return $this->asSuccess(t('Login successful', 'app.admin'), $this->homeUrl);
                     }
 
-                    return $this->asFail('登录失败');
+                    return $this->asFail(t('Login failed', 'app.admin'));
                 } else {
                     Yii::$app->getSession()->set($this->tempCheckIdentify, [
                         'id' => $userData['id'],
                         'safeWay' => $safeWays,
                     ]);
-                    return $this->asSuccess('认证成功,即将开启安全认证...', '/admin/site/safe-validate');
+                    return $this->asSuccess(t('Authentication success', 'app.admin'), '/admin/site/safe-validate');
                 }
             }
 
@@ -156,9 +160,9 @@ class SiteController extends CommonController
             if (true === $result) {
                 $isUser = Yii::$app->adminUser->login(AdminUser::findOne($tempSessionUser['id']), 3 * 86400);
                 if ($isUser) {
-                    return $this->asSuccess('安全认证成功');
+                    return $this->asSuccess(t('Authentication success', 'app.admin'));
                 } else {
-                    return $this->asFail('尝试登录失败');
+                    return $this->asFail(t('Login failed', 'app.admin'));
                 }
 
             } else {
@@ -177,7 +181,7 @@ class SiteController extends CommonController
     public function actionSend()
     {
         $bodyParams = $this->post;
-        return $this->asSuccess('已发送');
+        return $this->asSuccess(t('Has been sent', 'app.admin'));
     }
 
     /**
