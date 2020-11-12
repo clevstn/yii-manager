@@ -93,7 +93,7 @@ return [
     'sign in' => '登录',
     'please enter your login password' => '请输入登录密码',
     'other login methods' => '其他登录方式',
-    'sweep the APP code' => 'APP扫码',
+    'APP code' => 'APP扫码',
     'safety certification' => '安全认证',
     'authentication methods' => '认证方式',
     'mail verification code' => '邮箱验证码',

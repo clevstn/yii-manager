@@ -52,7 +52,7 @@ SiteAsset::register($this);
             <div class="panel-body other-loginbody">
                 <div class="way-item" ng-click="otherLgn('asm', $event)">
                     <img class="saom-login" src="/media/image/saom.png" alt>
-                    <p><?= t('sweep the APP code') ?></p>
+                    <p><?= t('APP code') ?></p>
                 </div>
             </div>
         </div>

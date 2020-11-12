@@ -17,7 +17,7 @@ body {display: table;width: 100%;height: 100%; background-color: #fff!important;
 .next-step {width: 100%;margin-top: 18px;}
 .top-line {position: relative;z-index: 0;}
 .top-line:before {content: " ";position: absolute;top:  -1px;height: 0;width: 80%;left: 10%;right: 10%;background-color: inherit;border-top: 1px solid #eeeeee;}
-.other-loginway {width: 100px;margin: 0;margin-left: auto;margin-right: auto;position: relative;bottom: 8px;background-color: #fff;text-align: center;}
+.other-loginway {width: 120px;margin: 0;margin-left: auto;margin-right: auto;position: relative;bottom: 8px;background-color: #fff;text-align: center;}
 .other-loginbody {display: flex;justify-content: center;align-items: center;flex-wrap: wrap;}
 .other-loginbody>.way-item {width: 60px;display: flex;flex-direction: column;justify-content: center;align-items: center;text-align: center;cursor: pointer;user-select: none;-webkit-user-select: none;}
 .other-loginbody>.way-item p {margin: 0;font-size: 12px;padding-top: 6px;}
