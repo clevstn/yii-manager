@@ -66,9 +66,12 @@ class SiteController extends CommonController
     {
         $usernameOrEmail = !empty($this->post['usernameOrEmail']) ? $this->post['usernameOrEmail'] : null;
         if ($usernameOrEmail) {
-            $userData = AdminUser::query('id')->where(['username' => $usernameOrEmail])->orWhere(['email' => $usernameOrEmail])->one();
+            $userData = AdminUser::query(['id', 'photo'])->where(['username' => $usernameOrEmail])->orWhere(['email' => $usernameOrEmail])->one();
             if (!empty($userData)) {
-                return $this->asSuccess('success');
+                $photoUrl = attach_url($userData['photo']);
+                return $this->asSuccess('success', [
+                    'photo_url' => $photoUrl,
+                ]);
             }
         }
 

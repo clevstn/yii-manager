@@ -16,7 +16,7 @@ SiteAsset::register($this);
     <div class="login-wrap">
         <div class="panel-body">
             <div class="login-header">
-                <img class="login-logo" src="/media/image/login-photo.jpg" alt>
+                <img class="login-logo" ng-src="{{ loginPhoto }}" alt>
                 <p class="login-title">用户登录</p>
             </div>
         </div>

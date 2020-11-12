@@ -399,6 +399,30 @@ if (!function_exists('t')) {
     }
 }
 
+if (!function_exists('attach_url')) {
+    /**
+     * 获取附件URL
+     * @param int $attachId 附件ID
+     * @return string
+     */
+    function attach_url($attachId)
+    {
+        // 附件ID为空,返回默认附件路径
+        if (empty($attachId)) {
+            return Yii::$app->params['default_photo'];
+        }
+
+        // 查询附件
+
+        // 判断是否存在
+        if (!empty($attachData)) {
+            return $attachData['path'];
+        }
+
+        return Yii::$app->params['default_photo'];
+    }
+}
+
 // 包含用户自定义函数文件
 include __DIR__ . '/function.php';
 

@@ -11,10 +11,13 @@
     // 登录 - 基本校验
     _EasyApp.controller('_loginBaseCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
         console.log("%c This is Login-Base-Page with Yii-Manager", 'color:#337ab7;');
+        var defaultPhoto = '/media/image/login-photo.jpg';
         // 初始化脚本
         var initedScript = function () {
             // 登录错误信息
             $scope.loginErr = '';
+            // 登录头像
+            $scope.loginPhoto = defaultPhoto;
         };
         // 当[邮箱/用户名]失焦时,检查用户名是否正确
         $scope.checkUser = function () {
@@ -25,7 +28,10 @@
                 }).then(function (result) {
                     layer.close(index);
                     var data = result.data;
-                    if (data.code !== 200) {
+                    if (data.code === 200) {
+                        $scope.loginPhoto = data.data.photo_url;
+                    } else {
+                        $scope.loginPhoto = defaultPhoto;
                         layer.tips(data.msg, "#usernameOrEmail", {time: 1500, tips: 1});
                     }
                 }, function (error) {

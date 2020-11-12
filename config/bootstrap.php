@@ -23,6 +23,8 @@ return [
     'admin_url' => '/admin/index/index',
     // 后台[商标]
     'admin_title' => 'YII MANAGER CRM',
+    // 默认头像Url
+    'default_photo' => '/media/image/default.jpg',
     // 分组配置
     'group_config' => [
         WebsiteGroup::class,
