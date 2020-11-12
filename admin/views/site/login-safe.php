@@ -16,7 +16,7 @@ $safeWay = $this->params['ways'];
 <div class="container ym-safe" ng-controller="_loginSafeCtrl" ng-cloak>
     <form class="panel panel-default mt-50">
         <div class="panel-body p-24 pt-6 pb-0 row underline">
-            <div class="col-sm-12 col-md-8 col-md-offset-2 min-300 px-0">
+            <div class="col-sm-12 col-md-9 col-md-offset-1 min-300 px-0">
                 <h4 class="text-center font-bold pb-16 pt-16"><?= t('safety certification') ?></h4>
                 <div class="alert" ng-class="appSuccess ? 'alert-success' : 'alert-warning'" role="alert" ng-if="appInfo">
                     <i class="fa fa-exclamation-triangle text-warning" ng-if="!appSuccess"></i>
