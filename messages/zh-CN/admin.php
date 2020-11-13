@@ -13,11 +13,11 @@ return [
     'sign out' => '退出',
     'the user does not exist' => '用户不存在',
     'The account has been permanently suspended' => '该账号已被永久封停',
-    'The account has been suspended until {date}' => '账号已被封停,封停时间为:{date}',
+    'The account has been suspended until {date}' => '您的账号已被封停,封停截止时间为:{date}',
     'The login password was entered incorrectly' => '登录密码输入错误',
     'Login successful' => '登录成功',
     'Login failed' => '登录失败',
     'Authentication success' => '认证成功',
     'Has been sent' => '已发送',
-    'Due to too many password errors, your account has been suspended until {date}.' => '由于密码错误次数过多,您的账号已被冻结, 冻结截止时间为{date}',
+    'Due to too many password errors, your account has been suspended until {date}.' => '由于密码错误次数过多,您的账号已被封停,封停截止时间为{date}',
 ];
