@@ -9,6 +9,7 @@ namespace app\admin\controllers;
 
 use Yii;
 use yii\web\Response;
+use app\logic\Message;
 use app\models\AdminUser;
 use yii\base\UserException;
 use app\builder\common\CommonController;
@@ -284,7 +285,7 @@ class SiteController extends CommonController
             // 验证认证码
             $model = new AdminUser();
             $result = $model->verifySafeAuth($tempSessionUser['id'], $tempSessionUser['safeWay'], $safeCode);
-            
+
             if (true === $result) {
                 $isUser = Yii::$app->adminUser->login(AdminUser::findOne($tempSessionUser['id']), 3 * 86400);
                 if ($isUser) {
@@ -310,8 +311,49 @@ class SiteController extends CommonController
      */
     public function actionSend()
     {
+        // 检查临时会话是否存在
+        $tempSessionUser = Yii::$app->getSession()->get($this->tempSessionIdentify);
+        if (empty($tempSessionUser)) {
+            if ($this->isGet) {
+                // 不存在临时会话,则返回登录页
+                return $this->redirect('/admin/site/login');
+            } else {
+                return $this->asUnauthorized();
+            }
+        }
+
+        // 检查参数是否正确
         $bodyParams = $this->post;
-        return $this->asSuccess(t('Has been sent', 'app.admin'));
+        if (empty($bodyParams['scenario'])) {
+            return $this->asFail(t('parameter error'));
+        }
+
+        // 获取用户信息
+        $userData = AdminUser::query(['email', 'an', 'mobile'])->where(['id' => $tempSessionUser['id']])->one();
+        if (empty($userData)) {
+            return $this->asFail(t('the user does not exist'));
+        }
+
+        // 获取[[key]]
+        $key = '';
+        switch ($bodyParams['scenario']) {
+            case 'email':   // 邮件
+                $key = $userData['email'];
+                break;
+            case 'message': // 短信
+                $key = $userData['an'] . ' ' . $userData['mobile'];
+                break;
+            default:
+                return $this->asFail(t('parameter error'));
+        }
+
+        // 发送消息
+        $sendResult = Message::send($key, $bodyParams['scenario']);
+        if (true === $sendResult) {
+            return $this->asSuccess(t('Has been sent', 'app.admin'));
+        }
+
+        return $this->asFail($sendResult);
     }
 
     /**
