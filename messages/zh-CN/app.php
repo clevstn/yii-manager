@@ -104,6 +104,7 @@ return [
     'unknown authentication method' => '未知认证方式',
     'switch to another account' => '切换其他账号',
     'continue to login' => '继续登录',
+    'basic authentication' => '基本认证',
 ];
 
 

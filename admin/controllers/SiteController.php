@@ -12,6 +12,8 @@ use yii\web\Response;
 use app\models\AdminUser;
 use yii\base\UserException;
 use app\builder\common\CommonController;
+use app\models\AdminUserLoginLog as LoginLog;
+use function Webmozart\Assert\Tests\StaticAnalysis\email;
 
 /**
  * 站点相关
@@ -79,6 +81,36 @@ class SiteController extends CommonController
     }
 
     /**
+     * 后置操作
+     * @param \yii\base\Action $action
+     * @param mixed $result
+     * @return mixed
+     */
+    public function afterAction($action, $result)
+    {
+        if ($action->id == 'login' && $this->isPost) {
+            if ($result instanceof Response) {
+                $data = $result->data;
+            } else {
+                $data = $result;
+            }
+
+            $userData = Yii::$app->session->getFlash('__user', null);
+            LoginLog::in([
+                'admin_user_id' => empty($userData) ? 0 : $userData['id'],
+                'identify_type' => LoginLog::IDENTIFY_TYPE_BASE,
+                'client_info' => $this->request->userAgent ?: '',
+                'attempt_info' => export_str($this->post),
+                'attempt_status' => !empty($data['code']) && $data['code'] == 200 ? LoginLog::ATTEMPT_SUCCESS : LoginLog::ATTEMPT_FAILED,
+                'error_type' => !empty($data['msg']) ? $data['msg'] : '',
+                'login_ip' => $this->request->userIP ?: '',
+            ]);
+        }
+
+        return parent::afterAction($action, $result);
+    }
+
+    /**
      * 登录 - 基本校验
      * @return string
      */
@@ -97,6 +129,8 @@ class SiteController extends CommonController
                 if (empty($userData)) {
                     return $this->asFail(t('the user does not exist', 'app.admin'));
                 }
+
+                Yii::$app->session->setFlash('__user', $userData);
 
                 // 校验用户是否已被封停
                 if ($userData['status'] == AdminUser::STATUS_DENY) {

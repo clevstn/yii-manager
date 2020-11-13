@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use app\behaviors\DatetimeBehavior;
+use app\builder\common\CommonActiveRecord;
 
 /**
  * This is the model class for table "{{%admin_user_login_log}}".
@@ -19,6 +21,57 @@ use Yii;
  */
 class AdminUserLoginLog extends \app\builder\common\CommonActiveRecord
 {
+    // 基本认证
+    const IDENTIFY_TYPE_BASE = 0;
+    // 邮箱认证
+    const IDENTIFY_TYPE_EMAIL = 1;
+    // 短信认证
+    const IDENTIFY_TYPE_SMS = 2;
+    // MFA认证
+    const IDENTIFY_TYPE_MFA = 3;
+
+    // 尝试状态:成功
+    const ATTEMPT_SUCCESS = 1;
+    // 尝试状态:失败
+    const ATTEMPT_FAILED = 0;
+
+    /**
+     * 获取认证标签
+     * @param int $type 认证类型码
+     * @return string
+     */
+    public static function identifyLabel($type)
+    {
+        switch ($type) {
+            case self::IDENTIFY_TYPE_BASE:
+                return t('basic authentication');
+            case self::IDENTIFY_TYPE_EMAIL:
+                return t('email authentication');
+            case self::IDENTIFY_TYPE_SMS:
+                return t('SMS authentication');
+            case self::IDENTIFY_TYPE_MFA:
+                return t('OTP authentication');
+            default:
+                return t('unknown authentication method');
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['timestampBehavior'] = [
+            'class' => DatetimeBehavior::class,
+            'attributes' => [
+                CommonActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+            ],
+        ];
+
+        return $behaviors;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -35,8 +88,6 @@ class AdminUserLoginLog extends \app\builder\common\CommonActiveRecord
         return [
             [['admin_user_id', 'identify_type', 'attempt_status'], 'integer'],
             [['client_info', 'attempt_info'], 'string'],
-            [['created_at'], 'required'],
-            [['created_at'], 'safe'],
             [['error_type', 'login_ip'], 'string', 'max' => 255],
         ];
     }
@@ -57,5 +108,22 @@ class AdminUserLoginLog extends \app\builder\common\CommonActiveRecord
             'login_ip' => Yii::t('app', 'the login IP'),
             'created_at' => Yii::t('app', 'the creation time'),
         ];
+    }
+
+    /**
+     * 记录登录日志
+     * @param array $data 需要记录的数据
+     * @return true|string
+     */
+    public static function in($data)
+    {
+        $model = new static();
+        $model->setAttributes($data);
+        $result = $model->save();
+        if ($result) {
+            return true;
+        }
+
+        return $model->error;
     }
 }
