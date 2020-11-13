@@ -31,13 +31,21 @@ class Message
     {
         switch ($scenario) {
             case self::SCENARIO_EMAIL:   // 邮件
-                break;
+                return self::sendEmail($key);
             case self::SCENARIO_MESSAGE: // 短信
-                break;
+                return self::sendSMS($key);
             default:
                 return t('unknown message scenarios');
         }
+    }
 
-        return true;
+    public static function sendEmail($email)
+    {
+        
+    }
+
+    public static function sendSMS($mobile)
+    {
+
     }
 }

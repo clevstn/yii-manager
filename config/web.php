@@ -28,6 +28,10 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'XaAN1rnY43OVTxmc',
         ],
+        'session' => [
+            'class' => 'yii\web\Session',
+            'name' => 'YMAPPSESSIONID',
+        ],
         'response' => [
             'class' => 'yii\web\Response',
             'as beforeResponseSend' => BeforeResponseFilter::class,
