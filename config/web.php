@@ -10,8 +10,8 @@ use app\builder\filters\BeforeHandleActionFilter;
 $config = [
     'id' => 'basic',    // 特别注意：该ID在多入口部署中，禁止修改；必须是basic。
     'name' => 'YII MANAGER CRM',
-//    'language' => 'en-US', // 终端语言/目标语言 zh-CN / en / en-US
-    'language' => 'zh-CN', // 终端语言/目标语言 zh-CN / en / en-US
+    'language' => 'en-US', // 终端语言/目标语言 zh-CN / en / en-US
+//    'language' => 'zh-CN', // 终端语言/目标语言 zh-CN / en / en-US
     'sourceLanguage' => 'en-US', // 代码源语言,用于[[I18n]]翻译的源语言,即: messages/zh-CN/app.php中的[[key]]所使用的语言.
     'timeZone' => 'Asia/Shanghai',
     'basePath' => dirname(__DIR__),

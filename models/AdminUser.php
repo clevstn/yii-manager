@@ -12,6 +12,7 @@ use yii\db\Query;
 use yii\web\IdentityInterface;
 use app\behaviors\PasswordBehavior;
 use app\builder\common\CommonActiveRecord;
+use app\models\AdminUserLoginLog as LoginLog;
 
 /**
  * 后台管理员
@@ -337,6 +338,25 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             'updated_at' => now(),
         ], 'id=:adminId', ['adminId' => $adminId])->execute();
         return true;
+    }
+
+    /**
+     * [[adminUser]]表认证类型转管理员登录日志表认证类型
+     * @param int $safeWay [[adminUser]]表认证类型
+     * @return int
+     */
+    public static function getLoginLogIdentifyType($safeWay)
+    {
+        switch ($safeWay) {
+            case self::SAFE_AUTH_EMAIL: // 邮箱认证
+                return LoginLog::IDENTIFY_TYPE_EMAIL;
+            case self::SAFE_AUTH_MESSAGE:
+                return LoginLog::IDENTIFY_TYPE_SMS;
+            case self::SAFE_AUTH_OTP:
+                return LoginLog::IDENTIFY_TYPE_MFA;
+            default:
+                return 250;
+        }
     }
 
     /**
