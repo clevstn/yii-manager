@@ -106,6 +106,9 @@ return [
     'continue to login' => '继续登录',
     'basic authentication' => '基本认证',
     'unknown message scenarios' => '未知的消息场景',
+    'error SMS template root path' => '短信模板根路径错误',
+    'the SMS template does not exist' => '短信模板不存在',
+    'The parameter [[use]] is required' => '参数[[use]]必填',
 ];
 
 

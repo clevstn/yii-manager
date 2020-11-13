@@ -347,7 +347,7 @@ class SiteController extends CommonController
         }
 
         // 发送消息
-        $sendResult = Message::send($key, $bodyParams['scenario']);
+        $sendResult = Message::sendSync($key, $bodyParams['scenario']);
         if (true === $sendResult) {
             return $this->asSuccess(t('has been sent', 'app.admin'));
         }
