@@ -164,6 +164,10 @@ class SiteController extends CommonController
     public function actionLogin()
     {
         if ($this->isGet) {
+            if (Yii::$app->session->has($this->tempSessionIdentify)) {
+                Yii::$app->session->remove($this->tempSessionIdentify);
+            }
+
             return $this->render('login-base');
         } else {
             $adminUser = new AdminUser();
