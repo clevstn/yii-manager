@@ -19,4 +19,5 @@ return [
     'Login failed' => '登录失败',
     'Authentication success' => '认证成功',
     'Has been sent' => '已发送',
+    'Due to too many password errors, your account has been suspended until {date}.' => '由于密码错误次数过多,您的账号已被冻结, 冻结截止时间为{date}',
 ];

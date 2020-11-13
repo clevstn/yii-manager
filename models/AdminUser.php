@@ -98,6 +98,15 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public $usernameOrEmail;
 
     /**
+     * 定义表格名
+     * @return string
+     */
+    public static function tableName()
+    {
+        return '{{%admin_user}}';
+    }
+
+    /**
      * 获取状态集合
      * @return array
      */
@@ -151,12 +160,183 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     }
 
     /**
-     * 定义表格名
+     * 获取状态标签
+     * @param int $status 状态
+     * @param boolean $isHtml 是否是html
      * @return string
      */
-    public static function tableName()
+    public static function getStatusLabel($status, $isHtml = false)
     {
-        return '{{%admin_user}}';
+        switch ($status) {
+            case self::STATUS_DENY:
+                $label = Yii::t('app', 'disable');
+                if ($isHtml) {
+                    return '<span class="label label-danger">' . $label . '</span>';
+                }
+
+                return $label;
+            case self::STATUS_NORMAL:
+                $label = Yii::t('app', 'normal');
+                if ($isHtml) {
+                    return '<span class="label label-success">' . $label . '</span>';
+                }
+
+                return $label;
+            default:
+                $label = Yii::t('app', 'unknown');
+                if ($isHtml) {
+                    return '<span class="label label-default">' . $label . '</span>';
+                }
+
+                return $label;
+        }
+    }
+
+    /**
+     * 获取是否开启安全认证标签
+     * @param int $safeAuth 是否开启安全认证
+     * @return string
+     */
+    public static function getIsSafeAuthLabel($safeAuth)
+    {
+        switch ($safeAuth) {
+            case self::SAFE_AUTH_CLOSE:
+                return Yii::t('app', 'close');
+            case self::SAFE_AUTH_FOLLOW_SYSTEM:
+                return Yii::t('app', 'follow the system');
+            case self::SAFE_AUTH_EMAIL:
+                return Yii::t('app', 'email authentication');
+            case self::SAFE_AUTH_MESSAGE:
+                return Yii::t('app', 'SMS authentication');
+            case self::SAFE_AUTH_OTP:
+                return Yii::t('app', 'OTP authentication');
+            default:
+                return Yii::t('app', 'unknown');
+        }
+    }
+
+    /**
+     * 获取是否开启操作日志标签
+     * @param int $isOpenOperateLog 是否开启操作日志
+     * @return string
+     */
+    public static function getIsOpenOperateLabel($isOpenOperateLog)
+    {
+        switch ($isOpenOperateLog) {
+            case self::OPERATE_LOG_CLOSE:
+                return Yii::t('app', 'close');
+            case self::OPERATE_LOG_FOLLOW:
+                return Yii::t('app', 'follow the system');
+            case self::OPERATE_LOG_OPEN:
+                return Yii::t('app', 'open');
+            default:
+                return Yii::t('app', 'unknown');
+        }
+    }
+
+    /**
+     * 获取是否开启登录日志标签
+     * @param $isOpenLoginLog
+     * @return string
+     */
+    public static function getIsOpenLoginLogLabel($isOpenLoginLog)
+    {
+        switch ($isOpenLoginLog) {
+            case self::LOGIN_LOG_CLOSE:
+                return Yii::t('app', 'close');
+            case self::LOGIN_LOG_FOLLOW:
+                return Yii::t('app', 'follow the system');
+            case self::LOGIN_LOG_OPEN:
+                return Yii::t('app', 'open');
+            default:
+                return Yii::t('app', 'unknown');
+        }
+    }
+
+    /**
+     * 通过用户`id`获取模型实例
+     * @param int|string $id id
+     * @return AdminUser|IdentityInterface|null
+     */
+    public static function findIdentity($id)
+    {
+        return self::findOne($id);
+    }
+
+    /**
+     * 通过访问令牌获取模型实例
+     * @param string $token 访问令牌
+     * @param null|string $type 授权类型
+     * @return AdminUser|IdentityInterface|null
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return self::findOne(['access_token' => $token]);
+    }
+
+    /**
+     * 通过用户名获取模型实例
+     * @param string $username 用户名
+     * @return AdminUser|null
+     */
+    public static function findByUsername($username)
+    {
+        return self::findOne(['username' => $username]);
+    }
+
+    /**
+     * 组成[[path]]
+     * @param int $pid 父级`id`
+     * @param string $parentPath 父级`path`
+     * @return string
+     */
+    public static function makePath($pid, $parentPath)
+    {
+        return $parentPath . $pid . self::PATH_SPLIT_SYMBOL;
+    }
+
+    /**
+     * 是否封停中
+     * @param int $adminId 管理员ID
+     * @param null|string $expireDate 封停过期时间
+     * @return bool
+     * @throws \yii\db\Exception
+     */
+    public static function isDisabled($adminId, $expireDate = null)
+    {
+        if (empty($expireDate)) {
+            return true;
+        } else {
+            $expireTime = strtotime($expireDate);
+            if ($expireTime && $expireTime > time()) {
+                return true;
+            } else {
+                /* 封停时间已过期,重置管理员账户状态 */
+                self::getDb()->createCommand()->update(self::tableName(), [
+                    'status' => self::STATUS_NORMAL,
+                    'deny_end_time' => null,
+                    'updated_at' => now(),
+                ], 'id=:adminId', ['adminId' => $adminId])->execute();
+                return false;
+            }
+        }
+    }
+
+    /**
+     * 封停管理员
+     * @param int $adminId 管理员ID
+     * @param null|string $expireData 封停过期时间
+     * @return true
+     * @throws \yii\db\Exception
+     */
+    public static function freezeUser($adminId, $expireData = null)
+    {
+        self::getDb()->createCommand()->update(self::tableName(), [
+            'status' => self::STATUS_DENY,
+            'deny_end_time' => $expireData,
+            'updated_at' => now(),
+        ], 'id=:adminId', ['adminId' => $adminId])->execute();
+        return true;
     }
 
     /**
@@ -297,131 +477,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     }
 
     /**
-     * 获取状态标签
-     * @param int $status 状态
-     * @param boolean $isHtml 是否是html
-     * @return string
-     */
-    public static function getStatusLabel($status, $isHtml = false)
-    {
-        switch ($status) {
-            case self::STATUS_DENY:
-                $label = Yii::t('app', 'disable');
-                if ($isHtml) {
-                    return '<span class="label label-danger">' . $label . '</span>';
-                }
-
-                return $label;
-            case self::STATUS_NORMAL:
-                $label = Yii::t('app', 'normal');
-                if ($isHtml) {
-                    return '<span class="label label-success">' . $label . '</span>';
-                }
-
-                return $label;
-            default:
-                $label = Yii::t('app', 'unknown');
-                if ($isHtml) {
-                    return '<span class="label label-default">' . $label . '</span>';
-                }
-
-                return $label;
-        }
-    }
-
-    /**
-     * 获取是否开启安全认证标签
-     * @param int $safeAuth 是否开启安全认证
-     * @return string
-     */
-    public static function getIsSafeAuthLabel($safeAuth)
-    {
-        switch ($safeAuth) {
-            case self::SAFE_AUTH_CLOSE:
-                return Yii::t('app', 'close');
-            case self::SAFE_AUTH_FOLLOW_SYSTEM:
-                return Yii::t('app', 'follow the system');
-            case self::SAFE_AUTH_EMAIL:
-                return Yii::t('app', 'email authentication');
-            case self::SAFE_AUTH_MESSAGE:
-                return Yii::t('app', 'SMS authentication');
-            case self::SAFE_AUTH_OTP:
-                return Yii::t('app', 'OTP authentication');
-            default:
-                return Yii::t('app', 'unknown');
-        }
-    }
-
-    /**
-     * 获取是否开启操作日志标签
-     * @param int $isOpenOperateLog 是否开启操作日志
-     * @return string
-     */
-    public static function getIsOpenOperateLabel($isOpenOperateLog)
-    {
-        switch ($isOpenOperateLog) {
-            case self::OPERATE_LOG_CLOSE:
-                return Yii::t('app', 'close');
-            case self::OPERATE_LOG_FOLLOW:
-                return Yii::t('app', 'follow the system');
-            case self::OPERATE_LOG_OPEN:
-                return Yii::t('app', 'open');
-            default:
-                return Yii::t('app', 'unknown');
-        }
-    }
-
-    /**
-     * 获取是否开启登录日志标签
-     * @param $isOpenLoginLog
-     * @return string
-     */
-    public static function getIsOpenLoginLogLabel($isOpenLoginLog)
-    {
-        switch ($isOpenLoginLog) {
-            case self::LOGIN_LOG_CLOSE:
-                return Yii::t('app', 'close');
-            case self::LOGIN_LOG_FOLLOW:
-                return Yii::t('app', 'follow the system');
-            case self::LOGIN_LOG_OPEN:
-                return Yii::t('app', 'open');
-            default:
-                return Yii::t('app', 'unknown');
-        }
-    }
-
-    /**
-     * 通过用户`id`获取模型实例
-     * @param int|string $id id
-     * @return AdminUser|IdentityInterface|null
-     */
-    public static function findIdentity($id)
-    {
-        return self::findOne($id);
-    }
-
-    /**
-     * 通过访问令牌获取模型实例
-     * @param string $token 访问令牌
-     * @param null|string $type 授权类型
-     * @return AdminUser|IdentityInterface|null
-     */
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        return self::findOne(['access_token' => $token]);
-    }
-
-    /**
-     * 通过用户名获取模型实例
-     * @param string $username 用户名
-     * @return AdminUser|null
-     */
-    public static function findByUsername($username)
-    {
-        return self::findOne(['username' => $username]);
-    }
-
-    /**
      * 获取用户的安全认证方式
      * @param int $userId 用户ID
      * @return int|mixed
@@ -500,17 +555,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         }
 
         return $identifyCode;
-    }
-
-    /**
-     * 组成[[path]]
-     * @param int $pid 父级`id`
-     * @param string $parentPath 父级`path`
-     * @return string
-     */
-    public static function makePath($pid, $parentPath)
-    {
-        return $parentPath . $pid . self::PATH_SPLIT_SYMBOL;
     }
 
     /**

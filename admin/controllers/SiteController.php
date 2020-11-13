@@ -13,7 +13,6 @@ use app\models\AdminUser;
 use yii\base\UserException;
 use app\builder\common\CommonController;
 use app\models\AdminUserLoginLog as LoginLog;
-use function Webmozart\Assert\Tests\StaticAnalysis\email;
 
 /**
  * 站点相关
@@ -22,6 +21,11 @@ use function Webmozart\Assert\Tests\StaticAnalysis\email;
  */
 class SiteController extends CommonController
 {
+    // 最大尝试登陆次数
+    const MAX_ATTEMPT_SIZE = 10;
+    // 超出最大尝试次数之后,封停时间(秒)
+    const FREEZE_TIME = 1200;
+
     /**
      * {@inheritdoc}
      */
@@ -51,9 +55,14 @@ class SiteController extends CommonController
     ];
 
     /**
-     * @var string 用户临时存储[ID]
+     * @var string 用户临时会话记录标识
      */
-    protected $tempCheckIdentify = 'user-temp-login-id';
+    protected $tempCheckIdentify = '__user_temp_session';
+
+    /**
+     * @var string 尝试登陆次数记录标识
+     */
+    protected $attemptLoginIdentify = '__attempt_login_size';
 
     /**
      * {@inheritdoc}
@@ -113,6 +122,7 @@ class SiteController extends CommonController
     /**
      * 登录 - 基本校验
      * @return string
+     * @throws \yii\db\Exception
      */
     public function actionLogin()
     {
@@ -130,10 +140,28 @@ class SiteController extends CommonController
                     return $this->asFail(t('the user does not exist', 'app.admin'));
                 }
 
+                // 临时缓存用户信息
                 Yii::$app->session->setFlash('__user', $userData);
 
+                // 检查最大登陆次数
+                $attemptSize = $size = Yii::$app->cache->get($this->attemptLoginIdentify);
+                if ($attemptSize && $attemptSize >= self::MAX_ATTEMPT_SIZE) {
+                    // 封停当前登陆管理员
+                    $freezeUntilDate = date('Y-m-d H:i:s', time() + self::FREEZE_TIME);
+                    AdminUser::freezeUser($userData['id'], $freezeUntilDate);
+                    // 初始化尝试次数
+                    Yii::$app->cache->delete($this->attemptLoginIdentify);
+                    // 返回冻结信息
+                    return $this->asFail(
+                        t('Due to too many password errors, your account has been suspended until {date}.', 'app.admin', ['date' => $freezeUntilDate])
+                    );
+                }
+
                 // 校验用户是否已被封停
-                if ($userData['status'] == AdminUser::STATUS_DENY) {
+                if (
+                    $userData['status'] == AdminUser::STATUS_DENY
+                    && AdminUser::isDisabled($userData['id'], $userData['deny_end_time'])
+                ) {
                     return $this->asFail(
                         !$userData['deny_end_time'] ?
                             t('The account has been permanently suspended', 'app.admin') :
@@ -143,10 +171,25 @@ class SiteController extends CommonController
 
                 // 校验用户密码是否正确
                 if (!$userData->validatePassword($password)) {
+                    $size = Yii::$app->cache->get($this->attemptLoginIdentify);
+
+                    // 设置尝试登陆次数缓存时间为超限冻结时间(秒)
+                    if (empty($size)) {
+                        Yii::$app->cache->set($this->attemptLoginIdentify, 1, self::FREEZE_TIME);
+                    } else {
+                        Yii::$app->cache->set($this->attemptLoginIdentify, ++$size, self::FREEZE_TIME);
+                    }
+
                     return $this->asFail(t('The login password was entered incorrectly', 'app.admin'));
                 }
 
+                // 基本校验成功,初始化尝试登陆次数
+                Yii::$app->cache->delete($this->attemptLoginIdentify);
+
+                // 获取登录管理员安全认证方式
                 $safeWays = $adminUser->getSafeWays($userData['id']);
+
+                // 仅仅基本认证
                 if ($safeWays == AdminUser::SAFE_AUTH_CLOSE) {
                     /* @var \yii\web\IdentityInterface $userData */
                     $isUser = Yii::$app->adminUser->login($userData, 3 * 86400);
@@ -156,6 +199,7 @@ class SiteController extends CommonController
 
                     return $this->asFail(t('Login failed', 'app.admin'));
                 } else {
+                    // 使用安全认证
                     Yii::$app->getSession()->set($this->tempCheckIdentify, [
                         'id' => $userData['id'],
                         'safeWay' => $safeWays,
@@ -164,7 +208,6 @@ class SiteController extends CommonController
                 }
             }
 
-            // 登录提交
             return $this->asFail($adminUser->error);
         }
     }
@@ -178,8 +221,12 @@ class SiteController extends CommonController
         // 是否存在临时会话
         $tempSessionUser = Yii::$app->getSession()->get($this->tempCheckIdentify);
         if (empty($tempSessionUser)) {
-            // 不存在临时会话,则返回登录页
-            return $this->redirect('/admin/site/login');
+            if ($this->isGet) {
+                // 不存在临时会话,则返回登录页
+                return $this->redirect('/admin/site/login');
+            } else {
+                return $this->asUnauthorized();
+            }
         }
 
         if ($this->isGet) {
@@ -194,6 +241,9 @@ class SiteController extends CommonController
             if (true === $result) {
                 $isUser = Yii::$app->adminUser->login(AdminUser::findOne($tempSessionUser['id']), 3 * 86400);
                 if ($isUser) {
+                    // 删除临时会话数据
+                    Yii::$app->session->remove($this->tempCheckIdentify);
+
                     return $this->asSuccess(t('Authentication success', 'app.admin'));
                 } else {
                     return $this->asFail(t('Login failed', 'app.admin'));
