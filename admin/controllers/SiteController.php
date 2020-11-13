@@ -195,7 +195,7 @@ class SiteController extends CommonController
                     Yii::$app->cache->delete($this->attemptLoginIdentify);
                     // 返回冻结信息
                     return $this->asFail(
-                        t('Due to too many password errors, your account has been suspended until {date}.', 'app.admin', ['date' => $freezeUntilDate])
+                        t('due to too many password errors, your account has been suspended until {date}.', 'app.admin', ['date' => $freezeUntilDate])
                     );
                 }
 
@@ -206,8 +206,8 @@ class SiteController extends CommonController
                 ) {
                     return $this->asFail(
                         !$userData['deny_end_time'] ?
-                            t('The account has been permanently suspended', 'app.admin') :
-                            t('The account has been suspended until {date}', 'app.admin', ['date' => $userData['deny_end_time']])
+                            t('the account has been permanently suspended', 'app.admin') :
+                            t('the account has been suspended until {date}', 'app.admin', ['date' => $userData['deny_end_time']])
                     );
                 }
 
@@ -222,7 +222,7 @@ class SiteController extends CommonController
                         Yii::$app->cache->set($this->attemptLoginIdentify, ++$size, self::FREEZE_TIME);
                     }
 
-                    return $this->asFail(t('The login password was entered incorrectly', 'app.admin'));
+                    return $this->asFail(t('the login password was entered incorrectly', 'app.admin'));
                 }
 
                 // 基本校验成功,初始化尝试登陆次数
@@ -236,17 +236,17 @@ class SiteController extends CommonController
                     /* @var \yii\web\IdentityInterface $userData */
                     $isUser = Yii::$app->adminUser->login($userData, 3 * 86400);
                     if ($isUser) {
-                        return $this->asSuccess(t('Login successful', 'app.admin'), $this->homeUrl);
+                        return $this->asSuccess(t('login successful', 'app.admin'), $this->homeUrl);
                     }
 
-                    return $this->asFail(t('Login failed', 'app.admin'));
+                    return $this->asFail(t('login failed', 'app.admin'));
                 } else {
                     // 使用安全认证
                     Yii::$app->getSession()->set($this->tempSessionIdentify, [
                         'id' => $userData['id'],
                         'safeWay' => $safeWays,
                     ]);
-                    return $this->asSuccess(t('Authentication success', 'app.admin'), '/admin/site/safe-validate');
+                    return $this->asSuccess(t('authentication success', 'app.admin'), '/admin/site/safe-validate');
                 }
             }
 
@@ -291,9 +291,9 @@ class SiteController extends CommonController
                 if ($isUser) {
                     // 删除临时会话数据
                     Yii::$app->session->remove($this->tempSessionIdentify);
-                    return $this->asSuccess(t('Authentication success', 'app.admin'));
+                    return $this->asSuccess(t('authentication success', 'app.admin'));
                 } else {
-                    return $this->asFail(t('Login failed', 'app.admin'));
+                    return $this->asFail(t('login failed', 'app.admin'));
                 }
 
             } else {
@@ -325,32 +325,31 @@ class SiteController extends CommonController
         // 检查参数是否正确
         $bodyParams = $this->post;
         if (empty($bodyParams['scenario'])) {
-            return $this->asFail(t('parameter error'));
+            return $this->asFail(t('parameter error', 'app.admin'));
         }
 
         // 获取用户信息
         $userData = AdminUser::query(['email', 'an', 'mobile'])->where(['id' => $tempSessionUser['id']])->one();
         if (empty($userData)) {
-            return $this->asFail(t('the user does not exist'));
+            return $this->asFail(t('the user does not exist', 'app.admin'));
         }
 
         // 获取[[key]]
-        $key = '';
         switch ($bodyParams['scenario']) {
-            case 'email':   // 邮件
+            case Message::SCENARIO_EMAIL:   // 邮件
                 $key = $userData['email'];
                 break;
-            case 'message': // 短信
+            case Message::SCENARIO_MESSAGE: // 短信
                 $key = $userData['an'] . ' ' . $userData['mobile'];
                 break;
             default:
-                return $this->asFail(t('parameter error'));
+                return $this->asFail(t('parameter error', 'app.admin'));
         }
 
         // 发送消息
         $sendResult = Message::send($key, $bodyParams['scenario']);
         if (true === $sendResult) {
-            return $this->asSuccess(t('Has been sent', 'app.admin'));
+            return $this->asSuccess(t('has been sent', 'app.admin'));
         }
 
         return $this->asFail($sendResult);

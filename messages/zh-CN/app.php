@@ -105,6 +105,7 @@ return [
     'switch to another account' => '切换其他账号',
     'continue to login' => '继续登录',
     'basic authentication' => '基本认证',
+    'unknown message scenarios' => '未知的消息场景',
 ];
 
 

@@ -14,6 +14,11 @@ namespace app\logic;
  */
 class Message
 {
+    // 场景 - 邮件
+    const SCENARIO_EMAIL = 'email';
+    // 场景 - 短信
+    const SCENARIO_MESSAGE = 'message';
+
     /**
      * 发送消息
      * @param string $key email场景下: 邮箱 / message场景下: 手机号
@@ -22,9 +27,17 @@ class Message
      *
      * @return true|string
      */
-    public static function send($key, $scenario = '')
+    public static function send($key, $scenario = self::SCENARIO_EMAIL)
     {
-        
+        switch ($scenario) {
+            case self::SCENARIO_EMAIL:   // 邮件
+                break;
+            case self::SCENARIO_MESSAGE: // 短信
+                break;
+            default:
+                return t('unknown message scenarios');
+        }
+
         return true;
     }
 }
