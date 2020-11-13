@@ -67,7 +67,8 @@ class AreaCode extends \app\builder\common\CommonActiveRecord
      */
     public static function areaCodes()
     {
-        return self::find()->select('name')->indexBy('code')->column();
+        $selectColumn = Yii::$app->language === 'zh-CN' ? 'name' : 'name_en AS name';
+        return self::find()->select($selectColumn)->indexBy('code')->column();
     }
 
     /**

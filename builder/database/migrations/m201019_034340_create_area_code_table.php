@@ -21,7 +21,8 @@ class m201019_034340_create_area_code_table extends Migration
 
         $this->createTable(self::TABLE_NAME, [
             'id' => $this->primaryKey(),
-            'name' => $this->string(50)->notNull()->unique()->comment('地域名称'),
+            'name' => $this->string(100)->notNull()->unique()->comment('地域名称(中文)'),
+            'name_en' => $this->string(100)->notNull()->unique()->comment('地域名称(英文)'),
             'code' => $this->string(50)->notNull()->comment('电话区号'),
             'status' => $this->tinyInteger()->defaultValue(1)->comment('状态，0：禁用 1：正常'),
             'created_at' => $this->dateTime()->notNull()->comment('创建时间'),
@@ -30,6 +31,7 @@ class m201019_034340_create_area_code_table extends Migration
 
         $this->insert(self::TABLE_NAME, [
             'name' => '中国',
+            'name_en' => 'china',
             'code' => '86',
             'created_at' => now(),
         ]);
