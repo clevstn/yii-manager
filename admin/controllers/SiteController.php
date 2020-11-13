@@ -307,7 +307,8 @@ class SiteController extends CommonController
      * 登录 - 发送邮箱验证码/短信验证码
      * - scenario string [email] 邮件 [message] 短信
      *
-     * @return string
+     * @return string|Response
+     * @throws \Throwable
      */
     public function actionSend()
     {
@@ -347,7 +348,7 @@ class SiteController extends CommonController
         }
 
         // 发送消息
-        $sendResult = Message::sendSync($key, $bodyParams['scenario']);
+        $sendResult = Message::sendSync($key, 'default', ['code' => random_number(), 'minutes' => 5, 'use' => '登录安全认证'], $bodyParams['scenario']);
         if (true === $sendResult) {
             return $this->asSuccess(t('has been sent', 'app.admin'));
         }

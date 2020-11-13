@@ -86,7 +86,7 @@ class Message
         $callRes = $_->callSmsApi();
         if (true === $callRes) {
             // 记录短信日志
-            
+
         }
 
         return $callRes;
