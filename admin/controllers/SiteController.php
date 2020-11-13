@@ -180,8 +180,10 @@ class SiteController extends CommonController
                 if (empty($userData)) {
                     return $this->asFail(t('the user does not exist', 'app.admin'));
                 }
+
                 // 闪存用户信息
                 Yii::$app->session->setFlash($this->loginBaseFlashIdentify, $userData);
+
                 // 检查最大登陆次数
                 $attemptSize = $size = Yii::$app->cache->get($this->attemptLoginIdentify);
                 if ($attemptSize && $attemptSize >= self::MAX_ATTEMPT_SIZE) {
@@ -274,12 +276,15 @@ class SiteController extends CommonController
         } else {
             // 闪存用户信息
             Yii::$app->session->setFlash($this->loginSafeFlashIdentify, $tempSessionUser);
+
             // 获取表单
             $bodyParams = $this->post;
             $safeCode = !empty($bodyParams['safe_code']) ? $bodyParams['safe_code'] : null;
+
             // 验证认证码
             $model = new AdminUser();
             $result = $model->verifySafeAuth($tempSessionUser['id'], $tempSessionUser['safeWay'], $safeCode);
+            
             if (true === $result) {
                 $isUser = Yii::$app->adminUser->login(AdminUser::findOne($tempSessionUser['id']), 3 * 86400);
                 if ($isUser) {
