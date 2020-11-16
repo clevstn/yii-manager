@@ -24,21 +24,22 @@ class Message
 
     /**
      * 同步发送消息
-     * @param string $key email场景下: 邮箱 / message场景下: 手机号
+     * @param string $key email场景下: 邮箱地址 / message场景下: 手机号码
      * @param string $template 短信/邮箱模板名称
+     * @param string $use 业务用途
      * @param array $params 短信/邮箱模板参数
      * @param string $scenario 消息场景
      * - scenario string [email] 邮件 [message] 短信
      * @throws \Throwable
      * @return true|string
      */
-    public static function sendSync($key, $template, array $params, $scenario = self::SCENARIO_EMAIL)
+    public static function sendSync($key, $template, $use, array $params = [], $scenario = self::SCENARIO_EMAIL)
     {
         switch ($scenario) {
             case self::SCENARIO_EMAIL:   // 邮件
-                return self::sendSyncEmail($key, $template, $params);
+                return self::sendSyncEmail($key, $template, $use, $params);
             case self::SCENARIO_MESSAGE: // 短信
-                return self::sendSyncSMS($key, $template, $params);
+                return self::sendSyncSMS($key, $template, $use, $params);
             default:
                 return t('unknown message scenarios');
         }
@@ -48,10 +49,11 @@ class Message
      * 同步发送邮件
      * @param string $email 邮箱
      * @param string $template 模板名称
+     * @param string $use 业务用途
      * @param array $params 模板参数
      * @return true|string
      */
-    public static function sendSyncEmail($email, $template, array $params)
+    public static function sendSyncEmail($email, $template, $use, array $params = [])
     {
         return true;
     }
@@ -60,20 +62,21 @@ class Message
      * 同步发送短信
      * @param string $mobile 手机号
      * @param string $template 模板名称
+     * @param string $use 业务用途
      * @param array $params 模板参数
      * @throws \Throwable
      * @return true|string
      */
-    public static function sendSyncSMS($mobile, $template, array $params)
+    public static function sendSyncSMS($mobile, $template, $use, array $params = [])
     {
         // 获取短信签名
         $smsSign = Yii::$app->params['app_sign'];
         // 检查[[params]]中是否存在[[use]]字段
+        // 如果不存在则添加[[use]]参数
         if (empty($params['use'])) {
-            return t('The parameter [[use]] is required');
+            $params['use'] = $use;
         }
 
-        $use = $params['use'];
         // 获取短信内容
         $smsRender = new SmsRender([
             'viewName' => $template,
@@ -83,7 +86,7 @@ class Message
         $smsContent = $smsRender->execute();
         // 调用三方接口发送短信
         $_ = new static();
-        $callRes = $_->callSmsApi();
+        $callRes = $_->callSmsApi($mobile, $smsSign, $smsContent);
         if (true === $callRes) {
             // 记录短信日志
 
@@ -94,9 +97,12 @@ class Message
 
     /**
      * 调用短信接口,发送短信
-     * @return bool
+     * @param string $mobile 手机号
+     * @param string $smsSign 短信签名
+     * @param string $smsContent 短信内容
+     * @return true|string
      */
-    protected function callSmsApi()
+    protected function callSmsApi($mobile, $smsSign, $smsContent)
     {
         return true;
     }

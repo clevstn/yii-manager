@@ -348,7 +348,7 @@ class SiteController extends CommonController
         }
 
         // 发送消息
-        $sendResult = Message::sendSync($key, 'default', ['code' => random_number(), 'minutes' => 5, 'use' => '登录安全认证'], $bodyParams['scenario']);
+        $sendResult = Message::sendSync($key, 'default', '登录安全认证', ['code' => random_number(), 'use' => '安全认证'], $bodyParams['scenario']);
         if (true === $sendResult) {
             return $this->asSuccess(t('has been sent', 'app.admin'));
         }
