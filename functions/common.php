@@ -423,6 +423,114 @@ if (!function_exists('attach_url')) {
     }
 }
 
+if (!function_exists('xadd')) {
+    /**
+     * 高精度加法函数
+     * @param mixed ...$params
+     * @return float
+     * @see bcadd()
+     * @since >= php5.6
+     */
+    function xadd(...$params)
+    {
+        // 参数数量>=1
+        if (count($params) == 0) {
+            throw new \ArgumentCountError('At least one parameter. ');
+        }
+
+        $tempAddend = 0;
+        foreach ($params as $addend) {
+            /* bc库最高精度12位 */
+            $tempAddend = bcadd($addend, $tempAddend, 12);
+        }
+
+        return (float)$tempAddend;
+    }
+}
+
+if (!function_exists('xsub')) {
+    /**
+     * 高精度减法函数
+     * @param mixed ...$params
+     * @return float
+     * @see bcsub()
+     * @since >= php5.6
+     */
+    function xsub(...$params)
+    {
+        // 参数数量>=1
+        if (count($params) == 0) {
+            throw new \ArgumentCountError('At least one parameter. ');
+        }
+
+        // 拿出第一个参数,做为被减数
+        $minuend = array_shift($params);
+        // 剩余数量为空,则直接返回被减数
+        if (!count($params)) {
+            return $minuend;
+        }
+
+        // 剩余减数累加
+        $total = xadd(...$params);
+        // 做精度减法运算,得出结果
+        return (float)bcsub($minuend, $total, 12);
+    }
+}
+
+if (!function_exists('xmul')) {
+    /**
+     * 高精度乘法函数
+     * @param mixed ...$params
+     * @return float
+     * @see bcmul()
+     * @since >= php5.6
+     */
+    function xmul(...$params)
+    {
+        // 参数数量>=1
+        if (count($params) == 0) {
+            throw new \ArgumentCountError('At least one parameter. ');
+        }
+
+        $tempMultiplier = 1;
+        foreach ($params as $multiplier) {
+            /* bc库最高精度12位 */
+            $tempMultiplier = bcmul($multiplier, $tempMultiplier, 12);
+        }
+
+        return (float)$tempMultiplier;
+    }
+}
+
+if (!function_exists('xdiv')) {
+    /**
+     * 高精度除法函数
+     * @param mixed ...$params
+     * @return float
+     * @see bcdiv()
+     * @since >= php5.6
+     */
+    function xdiv(...$params)
+    {
+        // 参数数量>=1
+        if (count($params) == 0) {
+            throw new \ArgumentCountError('At least one parameter. ');
+        }
+
+        // 拿出第一个参数,做为被除数
+        $dividend = array_shift($params);
+        // 剩余数量为空,则直接返回被除数
+        if (!count($params)) {
+            return $dividend;
+        }
+
+        // 剩余除数累乘
+        $total = xmul(...$params);
+        // 做精度减法运算,得出结果
+        return (float)bcdiv($dividend, $total, 12);
+    }
+}
+
 // 包含用户自定义函数文件
 include __DIR__ . '/function.php';
 
