@@ -531,6 +531,52 @@ if (!function_exists('xdiv')) {
     }
 }
 
+if (!function_exists('xfloor')) {
+    /**
+     * 向下保留n位
+     * @param float|int $val 值
+     * @param int $precision 精度,默认:2
+     * @return float
+     */
+    function xfloor($val, $precision = 2)
+    {
+        return bcadd($val, 0, $precision);
+    }
+}
+
+if (!function_exists('xceil')) {
+    /**
+     * 向上保留n位
+     * @param float|int $val 值
+     * @param int $precision 精度,默认:2
+     * @return float
+     */
+    function xceil($val, $precision = 2)
+    {
+        if ($precision < 0) {
+            throw new \ArgumentCountError('The parameter [[precision]] must be greater than 0. ');
+        }
+
+        $multiplier = pow(10, $precision);
+        $result = bcdiv(ceil(xmul($val, $multiplier)), $multiplier, $precision);
+
+        return $result;
+    }
+}
+
+if (!function_exists('xround')) {
+    /**
+     * 四舍五入保留n位
+     * @param float|int $val 值
+     * @param int $precision 精度,默认:2
+     * @return float
+     */
+    function xround($val, $precision = 2)
+    {
+        return round($val, $precision);
+    }
+}
+
 // 包含用户自定义函数文件
 include __DIR__ . '/function.php';
 
