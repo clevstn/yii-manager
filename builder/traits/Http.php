@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.cleverstone.cn/
+ * @link http://www.hili.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.cleverstone.cn/license/
+ * @license http://yii-manager.hili.cn/license/
  */
 
 namespace app\builder\traits;
@@ -21,7 +21,7 @@ use yii\web\Response;
  * @property string|null $domain    Current request domain
  * @property Request $request
  * @property Response $response
- * @author cleverstone <yang_hui_lei@163.com>
+ * @author HiLi
  * @since 1.0
  */
 trait Http

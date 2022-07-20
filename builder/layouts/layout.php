@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.cleverstone.cn/
+ * @link http://www.hili.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.cleverstone.cn/license/
+ * @license http://yii-manager.hili.cn/license/
  */
 
 use yii\helpers\Url;
@@ -23,7 +23,7 @@ MainAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="author" content="cleverstone">
+    <meta name="author" content="hili">
     <meta name="robots" content="noindex, nofollow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=0">

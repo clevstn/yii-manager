@@ -1,15 +1,15 @@
 <?php
 /**
- * @link http://www.cleverstone.cn/
+ * @link http://www.hili.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.cleverstone.cn/license/
+ * @license http://yii-manager.hili.cn/license/
  */
 
 namespace app\commands\queuejobs;
 
 /**
  * This is a module for `queuejobs`
- * @author cleverstone <yang_hui_lei@163.com>
+ * @author HiLi
  * @since 1.0
  */
 class Module extends \yii\base\Module

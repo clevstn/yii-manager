@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.cleverstone.cn/
+ * @link http://www.hili.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.cleverstone.cn/license/
+ * @license http://yii-manager.hili.cn/license/
  */
 
 namespace app\builder\table\widgets;
@@ -14,7 +14,7 @@ use app\builder\table\CustomControl;
 /**
  * 三级联动部件
  * @property-read string $valuesJsFunction 获取用于获取筛选值的Js脚本
- * @author cleverstone <yang_hui_lei@163.com>
+ * @author HiLi
  * @since 1.0
  */
 class SelectConnection extends BaseObject implements CustomControl

@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.cleverstone.cn/
+ * @link http://www.hili.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.cleverstone.cn/license/
+ * @license http://yii-manager.hili.cn/license/
  */
 
 namespace app\extend;
@@ -18,7 +18,7 @@ use app\extend\google\GoogleAuthenticator;
  * @method Qrcode qrcode(array $config = []) static Qrcode扩展实例
  * @method GoogleAuthenticator googleAuth(array $config = []) static GoogleAuthenticator扩展实例
  * @method Spreadsheet spreadsheet(array $config = []) static Spreadsheet扩展实例
- * @author cleverstone <yang_hui_lei@163.com>
+ * @author HiLi
  * @since 1.0
  */
 class Extend extends BaseObject

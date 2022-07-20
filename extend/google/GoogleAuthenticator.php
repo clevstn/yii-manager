@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.cleverstone.cn/
+ * @link http://www.hili.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.cleverstone.cn/license/
+ * @license http://yii-manager.hili.cn/license/
  */
 
 namespace app\extend\google;
@@ -24,7 +24,7 @@ use Endroid\QrCode\ErrorCorrectionLevel;
  * ```php
  *
  *  // Get `OTP` bind qr code.
- *  $img = $googleAuth->getQRCodeGoogleUrl('Test', $secret, 'cleverstone');
+ *  $img = $googleAuth->getQRCodeGoogleUrl('Test', $secret, 'hili');
  *  echo '<img src="'.$img.'" alt>';
  *  exit(0);
  * ```
@@ -36,7 +36,7 @@ use Endroid\QrCode\ErrorCorrectionLevel;
  * ```
  * @property string $codeLength The code length
  * @author Michael Kliewe
- * @author cleverstone <yang_hui_lei@163.com>
+ * @author HiLi
  * @copyright 2012 Michael Kliewe
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  *
@@ -153,7 +153,7 @@ class GoogleAuthenticator extends BaseObject
      * @param int $h
      * @param string $ecc
      * @return string
-     * @author cleverstone <yang_hui_lei@163.com>
+     * @author HiLi
      * @since 1.0
      */
     private function generateQrcode($content, $w, $h, $ecc)
@@ -220,7 +220,7 @@ class GoogleAuthenticator extends BaseObject
     /**
      * Get the code length
      * @return int
-     * @author cleverstone <yang_hui_lei@163.com>
+     * @author HiLi
      * @since 1.0
      */
     public function getCodeLength()
