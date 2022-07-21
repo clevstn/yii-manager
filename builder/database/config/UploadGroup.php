@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\builder\database\config;
@@ -12,7 +12,7 @@ use app\models\SystemConfig;
 
 /**
  * 上传配置
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class UploadGroup extends Group

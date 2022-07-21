@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\builder;
@@ -14,7 +14,7 @@ use yii\base\NotSupportedException;
  * 视图构建器
  * @method \app\builder\table\Builder table(array $config = []) static 表格构建器方法
  * @method \app\builder\form\Builder form(array $config = []) static 表单构建器方法
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class ViewBuilder extends Component

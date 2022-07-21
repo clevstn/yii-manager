@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\admin\controllers;
@@ -17,7 +17,7 @@ use app\models\AdminUserLoginLog as LoginLog;
 
 /**
  * 站点相关
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class SiteController extends CommonController

@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\api\v2;
@@ -11,7 +11,7 @@ use app\api\Module as BaseModule;
 
 /**
  * 接口2.0.0版本
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class Module extends BaseModule

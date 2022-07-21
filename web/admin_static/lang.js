@@ -1,8 +1,8 @@
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
- * @author HiLi
+ * @license http://yii-manager.cleverstone.cn/license/
+ * @author cleverstone
  * @since 1.0
  */
 

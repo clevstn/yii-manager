@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace yii\web {
@@ -15,7 +15,7 @@ namespace yii\web {
      * @property Session $session The session component. This property is read-only.
      * @property User $user The user component. This property is read-only.
      * @property User $adminUser The user component. This property is read-only.
-     * @author HiLi
+     * @author cleverstone
      * @since 1.0
      */
     class Application extends \yii\base\Application

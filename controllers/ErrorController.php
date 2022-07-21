@@ -1,15 +1,15 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\controllers;
 
 /**
  * 错误处理动作
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class ErrorController extends CommonController

@@ -1,13 +1,13 @@
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 /**
  * this is a background js-file for Yii-Manager
  * if env is windows, the global object is `YmSpinner`
- * @author hili
+ * @author cleverstone
  * @since 1.0
  */
 (function (global, jQuery, factory) {

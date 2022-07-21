@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 use app\admin\assets\IndexAsset;
@@ -23,7 +23,7 @@ $this->title = '首页';
                 <th>姓名</th>
             </tr>
             <tr>
-                <td>hili</td>
+                <td>cleverstone</td>
             </tr>
         </table>
     </div>

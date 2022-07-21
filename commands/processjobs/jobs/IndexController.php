@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\commands\processjobs\jobs;
@@ -14,7 +14,7 @@ use app\commands\processjobs\business\Demo;
 
 /**
  * process jobs demo
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class IndexController extends Process

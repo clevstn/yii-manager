@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\builder\common;
@@ -13,7 +13,7 @@ use app\behaviors\DatetimeBehavior;
 /**
  * 模型继承类
  * @property-read string $error 错误信息
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class CommonActiveRecord extends ActiveRecord

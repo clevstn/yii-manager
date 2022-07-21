@@ -1,15 +1,15 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\admin\assets;
 
 /**
  * 首页静态资源
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class IndexAsset extends BaseAsset

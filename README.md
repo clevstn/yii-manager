@@ -13,7 +13,7 @@ yii-manager
 + `mbstring`
 
 ### 使用文档
-[https://www.kancloud.cn/hili/yii-manager/1956677](https://www.kancloud.cn/hili/yii-manager/1956677)
+[https://www.kancloud.cn/cleverstone/yii-manager/1956677](https://www.kancloud.cn/cleverstone/yii-manager/1956677)
 
 > 已安装扩展库有：
 + `phpoffice/phpspreadsheet` PHP电子表格处理库

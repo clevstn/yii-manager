@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\extend\qrcode;
@@ -32,7 +32,7 @@ use Endroid\QrCode\QrCode as EndroidQrcode;
  * return Extend::qrcode()->output($content);
  * ```
  *
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class Qrcode extends BaseObject

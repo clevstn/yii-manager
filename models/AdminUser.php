@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\models;
@@ -38,7 +38,7 @@ use app\models\AdminUserLoginLog as LoginLog;
  * @property string $created_at 注册时间
  * @property string $updated_at 更新时间
  * @property-read string $authKey cookie认证密匙
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class AdminUser extends CommonActiveRecord implements IdentityInterface

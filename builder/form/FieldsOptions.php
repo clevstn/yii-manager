@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\builder\form;
@@ -13,7 +13,7 @@ use app\builder\contract\InvalidInstanceException;
 
 /**
  * 表单字段设置选项
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class FieldsOptions extends BaseOptions

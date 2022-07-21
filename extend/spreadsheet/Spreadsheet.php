@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\extend\spreadsheet;
@@ -23,7 +23,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet as PhpSpreadsheet;
  *
  * ```
  *
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class Spreadsheet extends BaseObject

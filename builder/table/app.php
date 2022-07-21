@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 /* @var string $link 列表链接 */
@@ -15,7 +15,7 @@
 <script>
     /**
      * table builder script
-     * @author hili
+     * @author cleverstone
      * @since 1.0
      */
     !function (window, _EasyApp) {

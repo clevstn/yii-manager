@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\builder\common;
@@ -17,7 +17,7 @@ use app\builder\contract\ConfigureInterface;
  * 配置分组逻辑层
  * @property array $config 配置项
  * @property array $group 分组
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 abstract class Group extends BaseObject implements ConfigureInterface

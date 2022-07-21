@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.hili.cn/
+ * @link http://www.cleverstone.cn/
  * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.hili.cn/license/
+ * @license http://yii-manager.cleverstone.cn/license/
  */
 
 namespace app\commands\queuejobs\jobs;
@@ -14,7 +14,7 @@ use app\commands\queuejobs\business\Demo;
 
 /**
  * queue jobs demo
- * @author HiLi
+ * @author cleverstone
  * @since 1.0
  */
 class IndexController extends Queue
