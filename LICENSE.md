@@ -1,5 +1,5 @@
 yii-manager遵循BSD-3-Clause开源协议发布，并提供免费使用。
-Copyright © 2020 by 黑与白 LLC (http://www.cleverstone.cn)
+Copyright © 2020 by cleverstone LLC
 All rights reserved.
 
 Redistribution and use in source and binary forms, 

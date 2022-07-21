@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.cleverstone.cn/
- * @copyright Copyright (c) 2020 黑与白
- * @license http://yii-manager.cleverstone.cn/license/
+ *
+ * @copyright Copyright (c) 2020 cleverstone
+ *
  */
 
 /* @var string $link 列表链接 */
