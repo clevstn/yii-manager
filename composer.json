@@ -76,6 +76,13 @@
         {
             "type": "composer",
             "url": "https://asset-packagist.cn"
+        },
+        {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer"
+        },
+        {
+            "packagist": false
         }
     ]
 }
