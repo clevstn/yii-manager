@@ -72,6 +72,31 @@ if (extension_loaded('gd')) {
  * Adjust requirements according to your application specifics.
  */
 $requirements = array(
+    // -- new add -- PHP version
+    array(
+        'name' => 'PHP version',
+        'mandatory' => true,
+        'condition' => version_compare(PHP_VERSION, '7.2.0', '>='),
+        'by' => 'Framework run dependency.',
+        'memo' => 'PHP 7.2.0 or higher is required.',
+    ),
+    // -- new add -- redis
+    array(
+        'name' => 'redis extension',
+        'mandatory' => false,
+        'condition' => extension_loaded('redis'),
+        'by' => 'redis cache database classes',
+        'memo' => 'Required for redis cache database.',
+    ),
+    // -- new add -- bcmath
+    array(
+        'name' => 'bcmath extension',
+        'mandatory' => true, // 强制开启
+        'condition' => extension_loaded('bcmath'),
+        'by' => 'High precision computation classes',
+        'memo' => 'Required for bcmath extension.',
+    ),
+
     // Database :
     array(
         'name' => 'PDO extension',
