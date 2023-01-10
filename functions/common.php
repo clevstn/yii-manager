@@ -435,7 +435,7 @@ if (!function_exists('xadd')) {
     {
         // 参数数量>=1
         if (count($params) == 0) {
-            throw new \ArgumentCountError('At least one parameter. ');
+            throw new \InvalidArgumentException('At least one parameter. ');
         }
 
         $tempAddend = 0;
@@ -460,7 +460,7 @@ if (!function_exists('xsub')) {
     {
         // 参数数量>=1
         if (count($params) == 0) {
-            throw new \ArgumentCountError('At least one parameter. ');
+            throw new \InvalidArgumentException('At least one parameter. ');
         }
 
         // 拿出第一个参数,做为被减数
@@ -489,7 +489,7 @@ if (!function_exists('xmul')) {
     {
         // 参数数量>=1
         if (count($params) == 0) {
-            throw new \ArgumentCountError('At least one parameter. ');
+            throw new \InvalidArgumentException('At least one parameter. ');
         }
 
         $tempMultiplier = 1;
@@ -514,7 +514,7 @@ if (!function_exists('xdiv')) {
     {
         // 参数数量>=1
         if (count($params) == 0) {
-            throw new \ArgumentCountError('At least one parameter. ');
+            throw new \InvalidArgumentException('At least one parameter. ');
         }
 
         // 拿出第一个参数,做为被除数
@@ -554,7 +554,7 @@ if (!function_exists('xceil')) {
     function xceil($val, $precision = 2)
     {
         if ($precision < 0) {
-            throw new \ArgumentCountError('The parameter [[precision]] must be greater than 0. ');
+            throw new \InvalidArgumentException('The parameter [[precision]] must be greater than 0. ');
         }
 
         $multiplier = pow(10, $precision);

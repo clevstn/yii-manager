@@ -76,9 +76,9 @@ $requirements = array(
     array(
         'name' => 'PHP version',
         'mandatory' => true,
-        'condition' => version_compare(PHP_VERSION, '7.2.0', '>='),
+        'condition' => version_compare(PHP_VERSION, '7.3.0', '>='),
         'by' => 'Framework run dependency.',
-        'memo' => 'PHP 7.2.0 or higher is required.',
+        'memo' => 'PHP 7.3.0 or higher is required.',
     ),
     // -- new add -- redis
     array(

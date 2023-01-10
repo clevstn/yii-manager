@@ -5,7 +5,7 @@ yii-manager
 
 ### 环境要求
 
-+ `php version >= 7.2`
++ `php version >= 7.3`
 + `bcmath`
 + `redis`
 + `gd2`
