@@ -28,7 +28,9 @@ $config = [
         // 文件上传组件
         'uploads' => [
             'class' => 'app\components\Uploads',
-            'type' => Uploads::LOCAL_UPLOAD_ENGINE_SYMBOL,
+            'type' => function () {
+                return Uploads::QINIU_UPLOAD_ENGINE_SYMBOL;
+            },
             'configs' => [
                 'rootUrl' => '@web/upload', // 外链域名
                 'rootPath' => '@webroot' . DIRECTORY_SEPARATOR . 'upload', // 上传地址

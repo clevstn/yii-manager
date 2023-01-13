@@ -134,6 +134,11 @@ class Uploads extends Component
         if (empty($this->_videoRules)) {
             $this->setVideoRules();
         }
+
+        // 如果`type`是函数，则执行
+        if (is_function($this->type)) {
+            $this->type = call_user_func($this->type);
+        }
     }
 
     /**
