@@ -4,6 +4,7 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 $db1 = require __DIR__ . '/db1.php';
 
+use app\components\Uploads;
 use app\builder\filters\BeforeResponseFilter;
 use app\builder\filters\BeforeHandleActionFilter;
 
@@ -24,6 +25,22 @@ $config = [
     ],
     'as beforeHandleAction' => BeforeHandleActionFilter::class,
     'components' => [
+        // 文件上传组件
+        'uploads' => [
+            'class' => 'app\components\Uploads',
+            'type' => Uploads::LOCAL_UPLOAD_ENGINE_SYMBOL,
+            'configs' => [
+                'rootUrl' => '@web/upload', // 外链域名
+                'rootPath' => '@webroot' . DIRECTORY_SEPARATOR . 'upload', // 上传地址
+            ],
+        ],
+        // 短信发送组件
+        'sms' => [
+            'class' => 'app\components\Sms',
+            'configs' => [
+                //...
+            ],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'XaAN1rnY43OVTxmc',
@@ -71,7 +88,29 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
+            // 当`true`时：开启调试模式，邮件不真正发送，只是保存到`@runtime/mail`。
+            // `false`时：想要真正发送，需要配置`transport`参数。
             'useFileTransport' => true,
+            'transport' => [
+               // 'class' => 'Swift_SmtpTransport',
+               // 'host' => 'localhost',
+               // 'username' => 'username',
+               // 'password' => 'password',
+               // 'port' => '587',
+               // 'encryption' => 'tls',
+            ],
+            /**
+             * @see yii\swiftmailer\Message
+             */
+            'messageConfig' => [
+               // 'charset' => 'UTF-8',
+               // 'from' => 'noreply@mydomain.com',
+               // 'replyTo' => '',
+               // 'cc' => '',
+               // 'bcc' => '',
+               // 'subject' => '',
+               // 'headers' => [],
+            ],
         ],
         'i18n' => [
             'translations' => [

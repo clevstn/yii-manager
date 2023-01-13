@@ -15,6 +15,8 @@ namespace yii\web {
      * @property Session $session The session component. This property is read-only.
      * @property User $user The user component. This property is read-only.
      * @property User $adminUser The user component. This property is read-only.
+     * @property \app\components\Uploads $uploads The upload component. This property is read-only.
+     * @property \app\components\Sms $sms The sms component. This property is read-only.
      * @author cleverstone
      * @since 1.0
      */

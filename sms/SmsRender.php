@@ -11,7 +11,7 @@ use Yii;
 use yii\base\BaseObject;
 
 /**
- * 短信发送器
+ * 短信模板渲染器
  * @author cleverstone
  * @since 1.0
  */
@@ -41,7 +41,6 @@ class SmsRender extends BaseObject
     /**
      * 执行模板渲染
      * @return false|string
-     * @throws \Throwable
      */
     public function execute()
     {

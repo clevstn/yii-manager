@@ -9,7 +9,6 @@ namespace app\admin\controllers;
 
 use Yii;
 use yii\web\Response;
-use app\logic\Message;
 use app\models\AdminUser;
 use yii\base\UserException;
 use app\builder\common\CommonController;
@@ -26,6 +25,9 @@ class SiteController extends CommonController
     const MAX_ATTEMPT_SIZE = 10;
     // 超出最大尝试次数之后,封停时间(秒)
     const FREEZE_TIME = 1200;
+    // 消息场景
+    const MESSAGE_SCENARIO_SMS = 'message';
+    const MESSAGE_SCENARIO_EMAIL = 'email';
 
     /**
      * {@inheritdoc}
@@ -336,19 +338,26 @@ class SiteController extends CommonController
         }
 
         // 获取[[key]]
+        $sendResult = false;
         switch ($bodyParams['scenario']) {
-            case Message::SCENARIO_EMAIL:   // 邮件
+            case self::MESSAGE_SCENARIO_EMAIL:   // 邮件
                 $key = $userData['email'];
+                // 发送邮件
+                // ...
                 break;
-            case Message::SCENARIO_MESSAGE: // 短信
+            case self::MESSAGE_SCENARIO_SMS: // 短信
                 $key = $userData['an'] . ' ' . $userData['mobile'];
+                // 发送消息
+                $sendResult = Yii::$app->sms->send($key, '登录安全认证', [
+                    'template' => 'default',
+                    'use' => '登录安全认证',
+                    'code' => random_number(),
+                ]);
                 break;
             default:
                 return $this->asFail(t('parameter error', 'app.admin'));
         }
 
-        // 发送消息
-        $sendResult = Message::sendSync($key, 'default', '登录安全认证', ['code' => random_number(), 'use' => '安全认证'], $bodyParams['scenario']);
         if (true === $sendResult) {
             return $this->asSuccess(t('has been sent', 'app.admin'));
         }

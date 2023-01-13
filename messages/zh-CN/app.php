@@ -108,6 +108,8 @@ return [
     'unknown message scenarios' => '未知的消息场景',
     'error SMS template root path' => '短信模板根路径错误',
     'the SMS template does not exist' => '短信模板不存在',
+    'the file upload scenario is incorrect' => '文件上传场景错误',
+    'the upload engine is not defined' => '文件上传引擎未定义！',
 ];
 
 
