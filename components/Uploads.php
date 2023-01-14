@@ -9,6 +9,7 @@ namespace app\components;
 
 use Yii;
 use yii\base\Component;
+use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 use yii\base\DynamicModel;
 use http\Exception\UnexpectedValueException;
@@ -186,9 +187,7 @@ class Uploads extends Component
      */
     protected function uploadAttachmentLocal($name, $saveDirectory = 'common', $pathPrefix = '', $scenario = self::SCENARIO_IMAGE)
     {
-        // 文件保存路径
-        $savePath = $this->generateAttachmentSavePath($scenario, $saveDirectory, $pathPrefix);
-        // 上传文件实例集合
+        // 文件实例集合
         $uploadedFileInstanceMap = UploadedFile::getInstancesByName($name);
         // 上传前校验
         $validateResult = $this->validateFiles($scenario, $uploadedFileInstanceMap);
@@ -196,11 +195,20 @@ class Uploads extends Component
             return $validateResult;
         }
 
+        // 获取文件保存路径
+        $savePath = $this->generateAttachmentSavePath($scenario, $saveDirectory, $pathPrefix);
+        // 递归创建目录
+        $ifSuccess = FileHelper::createDirectory($savePath);
+        if (!$ifSuccess) {
+            return "Failed to create directory {$savePath}.";
+        }
+
         /* @param UploadedFile $uploadedFileInstance */
         foreach ($uploadedFileInstanceMap as $uploadedFileInstance) {
             $filename = $this->generateFilename();
             $ext = $uploadedFileInstance->extension;
-            $uploadedFileInstance->saveAs($savePath . DIRECTORY_SEPARATOR . $filename . '.' . $ext);
+            $fileSavePath = $savePath . $filename . '.' . $ext;
+            $uploadedFileInstance->saveAs($fileSavePath);
         }
 
         return true;
@@ -487,9 +495,9 @@ class Uploads extends Component
         $savePath .= $saveDirectory . DIRECTORY_SEPARATOR;
         if (!empty($_pathPrefix)) {
             // 拼接路径前缀
-            $savePath .= $_pathPrefix;
+            $savePath .= $_pathPrefix . DIRECTORY_SEPARATOR;
         }
 
-        return Yii::getAlias($savePath);
+        return strtr(Yii::getAlias(str_replace('\\', '/', $savePath)), '/', DIRECTORY_SEPARATOR);
     }
 }

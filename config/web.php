@@ -29,7 +29,7 @@ $config = [
         'uploads' => [
             'class' => 'app\components\Uploads',
             'type' => function () {
-                return Uploads::QINIU_UPLOAD_ENGINE_SYMBOL;
+                return Uploads::LOCAL_UPLOAD_ENGINE_SYMBOL;
             },
             'configs' => [
                 'rootUrl' => '@web/upload', // 外链域名
