@@ -148,6 +148,7 @@ class Uploads extends Component
      * @param string $saveDirectory 保存目录，如：order
      * @param string $pathPrefix 路径前缀，如：100.1.0
      * @param string|null $scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
+     * @param boolean $isBase64 是否是base64字符串
      * @return string|true
      * @throws \yii\base\Exception
      */
@@ -203,6 +204,10 @@ class Uploads extends Component
      * @param string $saveDirectory 保存目录，如：order
      * @param string $pathPrefix 路径前缀，如：100.1.0
      * @param string|null $scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
+     * - base64数据组成
+     *   // `log`为客户端拼接上的文件扩展名。 拼接格式为：扩展名+英文逗号+base64字符
+     *   log,data:application/octet-stream;base64,ICdodHRwczovL2x4LmRhbWFuemouY29tL2FkbWluLnBocD9zPS9vcmRlci9pbmRleC...
+     *
      * @return true|string
      * @throws \yii\base\Exception
      */
@@ -393,25 +398,41 @@ class Uploads extends Component
     /**
      * base64数据分离
      * @param string $originalFileBase64 base64原始数据
+     * - base64数据组成
+     *   // `log`为客户端拼接上的文件扩展名。 拼接格式为：扩展名+英文逗号+base64字符
+     *   log,data:application/octet-stream;base64,ICdodHRwczovL2x4LmRhbWFuemouY29tL2FkbWluLnBocD9zPS9vcmRlci9pbmRleC...
+     *
      * @return array|string
      */
     protected function base64DataSplit($originalFileBase64)
     {
         $fileBase64 = str_replace([':', ';'], ',', $originalFileBase64);
         $fileBase64Array = explode(',', $fileBase64);
-        $mineType = $fileBase64Array[1];
-        $fileData = $fileBase64Array[3];
-        $extensionArray = FileHelper::getExtensionsByMimeType($mineType);
-        if (empty($extensionArray)) {
-            return t('the file type cannot be uploaded');
+        $string = $fileBase64Array[2];
+        if ($string === 'base64') {
+            return t('concatenate the extension before the string');
         }
 
-        reset($extensionArray);
-        // 文件扩展名
-        $extension = current($extensionArray);
+        $extension = $fileBase64Array[0];
+        $mineType = $fileBase64Array[2];
+        $fileData = $fileBase64Array[4];
+
+        if (empty($extension)) {
+            // //通过`mimeType`获取扩展名，会出现多个扩展名。
+            // //有些文件上传后扩展名会不统一。
+            // $extensionArray = FileHelper::getExtensionsByMimeType($mineType);
+            // if (empty($extensionArray)) {
+            //    return t('the file type cannot be uploaded');
+            // }
+
+            // reset($extensionArray);
+            // //文件扩展名
+            // $extension = current($extensionArray);
+            return t('concatenate the extension before the string');
+        }
+
         // 文件二进制数据
         $fileBinaryData = base64_decode($fileData);
-
         return ['extension' => $extension, 'data' => $fileBinaryData];
     }
 

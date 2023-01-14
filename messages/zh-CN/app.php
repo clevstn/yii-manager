@@ -113,6 +113,7 @@ return [
     'the file {filename} extension is not supported' => '文件{filename}扩展名不被支持。',
     'failed to upload the file for unknown reasons' => '文件上传失败，原因未知。',
     'the file type cannot be uploaded' => '文件类型不支持上传。',
+    'concatenate the extension before the string' => '请在字符串前拼接扩展名。',
 ];
 
 
