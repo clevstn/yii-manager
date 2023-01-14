@@ -123,7 +123,22 @@
                 var bodyParams = config.data || {};
                 if (method.toUpperCase() === 'POST') {
                     bodyParams[global.yii.getCsrfParam()] = global.yii.getCsrfToken();
-                    config.data = global.jQuery.param(bodyParams);
+
+                    var contentType = config.headers['Content-Type'];
+                    if (contentType && global.YmApp.typeOf(contentType) === 'string') {
+                        // application/x-www-form-urlencoded
+                        if (contentType.indexOf('application/x-www-form-urlencoded') !== -1) {
+                            config.data = global.jQuery.param(bodyParams);
+                        }
+
+                        // application/json
+                        if (contentType.indexOf('application/json') !== -1) {
+                            config.data = global.JSON.stringify(bodyParams);
+                        }
+
+                        // ...
+                    }
+                    // 其他`content-type`不用处理，如：undefined、multipart/form-data
                 }
 
                 return config;

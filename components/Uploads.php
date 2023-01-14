@@ -75,7 +75,7 @@ class Uploads extends Component
     // 图片支持的扩展名
     public $imageSupportExt = ['png', 'jpg', 'jpeg', 'gif',];
     // 文件支持的扩展名
-    public $fileSupportExt = ['gz', 'zip', 'RAR', 'txt', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf', 'exe', 'log', 'msi',];
+    public $fileSupportExt = ['zip', 'rar', 'txt', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf', 'exe', 'log', 'msi',];
     // 音频支持的扩展名
     public $audioSupportExt = ['cda', 'wav', 'mp3', 'aiff', 'aif', 'mid', 'wma', 'ra', 'vqf', 'ape',];
     // 视频支持的扩展名
@@ -151,33 +151,54 @@ class Uploads extends Component
      * @return string|true
      * @throws \yii\base\Exception
      */
-    public function execute($name, $saveDirectory = 'common', $pathPrefix = '', $scenario = self::SCENARIO_IMAGE)
+    public function execute($name, $saveDirectory = 'common', $pathPrefix = '', $scenario = self::SCENARIO_IMAGE, $isBase64 = false)
     {
         switch ($this->type) {
             case self::LOCAL_UPLOAD_ENGINE_SYMBOL: // 本地
-                return $this->uploadAttachmentLocal($name, $saveDirectory, $pathPrefix, $scenario);
+                if ($isBase64 === false) {
+                    return $this->uploadAttachmentLocalForBinary($name, $saveDirectory, $pathPrefix, $scenario);
+                }
+
+                return $this->uploadAttachmentLocalForBase64($name, $saveDirectory, $pathPrefix, $scenario);
             case self::QINIU_UPLOAD_ENGINE_SYMBOL: // 七牛
-                return $this->uploadAttachmentQiniu($name, $saveDirectory, $pathPrefix, $scenario);
+                if ($isBase64 === false) {
+                    return $this->uploadAttachmentQiniuForBinary($name, $saveDirectory, $pathPrefix, $scenario);
+                }
+
+                return $this->uploadAttachmentQiniuForBase64($name, $saveDirectory, $pathPrefix, $scenario);
             default:
                 throw new UnexpectedValueException(t('the upload engine is not defined'));
         }
     }
 
     /**
-     * 上传附件(七牛云)
+     * 二进制上传附件(七牛云)
      * @param $name
      * @param $saveDirectory
      * @param $pathPrefix
      * @param $scenario
      * @return true|string
      */
-    protected function uploadAttachmentQiniu($name, $saveDirectory, $pathPrefix, $scenario)
+    protected function uploadAttachmentQiniuForBinary($name, $saveDirectory, $pathPrefix, $scenario)
     {
         return true;
     }
 
     /**
-     * 上传附件(本地)
+     * Base64上传附件(七牛云)
+     * @param $name
+     * @param $saveDirectory
+     * @param $pathPrefix
+     * @param $scenario
+     * @return true|string
+     */
+    protected function uploadAttachmentQiniuForBase64($name, $saveDirectory, $pathPrefix, $scenario)
+    {
+        return true;
+    }
+
+    /**
+     * Base64上传附件(本地)
      * @param string $name 附件字段名，如：photo
      * @param string $saveDirectory 保存目录，如：order
      * @param string $pathPrefix 路径前缀，如：100.1.0
@@ -185,7 +206,21 @@ class Uploads extends Component
      * @return true|string
      * @throws \yii\base\Exception
      */
-    protected function uploadAttachmentLocal($name, $saveDirectory = 'common', $pathPrefix = '', $scenario = self::SCENARIO_IMAGE)
+    protected function uploadAttachmentLocalForBase64($name, $saveDirectory = 'common', $pathPrefix = '', $scenario = self::SCENARIO_IMAGE)
+    {
+
+    }
+
+    /**
+     * 二进制上传附件(本地)
+     * @param string $name 附件字段名，如：photo
+     * @param string $saveDirectory 保存目录，如：order
+     * @param string $pathPrefix 路径前缀，如：100.1.0
+     * @param string|null $scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
+     * @return true|string
+     * @throws \yii\base\Exception
+     */
+    protected function uploadAttachmentLocalForBinary($name, $saveDirectory = 'common', $pathPrefix = '', $scenario = self::SCENARIO_IMAGE)
     {
         // 文件实例集合
         $uploadedFileInstanceMap = UploadedFile::getInstancesByName($name);
