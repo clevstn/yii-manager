@@ -75,7 +75,7 @@ class Uploads extends Component
     // 图片支持的扩展名
     public $imageSupportExt = ['png', 'jpg', 'jpeg', 'gif',];
     // 文件支持的扩展名
-    public $fileSupportExt = ['zip', 'RAR', 'txt', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf',];
+    public $fileSupportExt = ['gz', 'zip', 'RAR', 'txt', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf', 'exe', 'log', 'msi',];
     // 音频支持的扩展名
     public $audioSupportExt = ['cda', 'wav', 'mp3', 'aiff', 'aif', 'mid', 'wma', 'ra', 'vqf', 'ape',];
     // 视频支持的扩展名
@@ -147,7 +147,7 @@ class Uploads extends Component
      * @param string $name 附件字段名，如：photo
      * @param string $saveDirectory 保存目录，如：order
      * @param string $pathPrefix 路径前缀，如：100.1.0
-     * @param string $scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
+     * @param string|null $scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
      * @return string|true
      * @throws \yii\base\Exception
      */
@@ -181,7 +181,7 @@ class Uploads extends Component
      * @param string $name 附件字段名，如：photo
      * @param string $saveDirectory 保存目录，如：order
      * @param string $pathPrefix 路径前缀，如：100.1.0
-     * @param string $scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
+     * @param string|null $scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
      * @return true|string
      * @throws \yii\base\Exception
      */
@@ -195,20 +195,38 @@ class Uploads extends Component
             return $validateResult;
         }
 
-        // 获取文件保存路径
-        $savePath = $this->generateAttachmentSavePath($scenario, $saveDirectory, $pathPrefix);
-        // 递归创建目录
-        $ifSuccess = FileHelper::createDirectory($savePath);
-        if (!$ifSuccess) {
-            return "Failed to create directory {$savePath}.";
-        }
-
         /* @param UploadedFile $uploadedFileInstance */
+        $savedFiles = [];
         foreach ($uploadedFileInstanceMap as $uploadedFileInstance) {
+            if (empty($scenario)) {
+                $scenario = $this->getScenarioByInstance($uploadedFileInstance);
+            }
+
+            // 获取文件保存路径
+            $savePath = $this->generateAttachmentSavePath($scenario, $saveDirectory, $pathPrefix);
+            // 递归创建目录
+            $ifSuccess = FileHelper::createDirectory($savePath);
+            if (!$ifSuccess) {
+                $this->unlinkFile($savedFiles);
+
+                return "Failed to create directory {$savePath}.";
+            }
+
             $filename = $this->generateFilename();
             $ext = $uploadedFileInstance->extension;
             $fileSavePath = $savePath . $filename . '.' . $ext;
-            $uploadedFileInstance->saveAs($fileSavePath);
+            $uploadResult = $uploadedFileInstance->saveAs($fileSavePath);
+            if (!$uploadResult) {
+                $this->unlinkFile($savedFiles);
+
+                if ($uploadedFileInstance->hasError) {
+                    return $uploadedFileInstance->error;
+                }
+
+                return t('failed to upload the file for unknown reasons');
+            }
+
+            $savedFiles[] = $fileSavePath;
         }
 
         return true;
@@ -216,12 +234,43 @@ class Uploads extends Component
 
     /**
      * 上传校验
-     * @param string $scenario 场景
+     * @param string|null $scenario 场景
      * @param UploadedFile[] $files
      * @return true|string
      * @throws \yii\base\InvalidConfigException
      */
     protected function validateFiles($scenario, $files)
+    {
+        if (empty($scenario)) {
+            foreach ($files as $file) {
+                $scenario = $this->getScenarioByInstance($file);
+                if ($scenario === false) {
+                    return t('the file {filename} extension is not supported', 'app', ['filename' => $file->baseName]);
+                }
+
+                $rule = $this->getRulesByScenario($scenario);
+                $model = DynamicModel::validateData(compact('files'), $rule);
+                if ($model->hasErrors()) {
+                    return current($model->firstErrors) ?: '';
+                }
+            }
+        } else {
+            $rule = $this->getRulesByScenario($scenario);
+            $model = DynamicModel::validateData(compact('files'), $rule);
+            if ($model->hasErrors()) {
+                return current($model->firstErrors) ?: '';
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * 根据上传附件类型场景获取验证规则
+     * @param string $scenario 上传附件类型场景
+     * @return array
+     */
+    protected function getRulesByScenario($scenario)
     {
         /* @param UploadedFile $uploadedFileInstance */
         switch ($scenario) {
@@ -239,12 +288,7 @@ class Uploads extends Component
                 $rule = $this->getImageRules();
         }
 
-        $model = DynamicModel::validateData(compact('files'), $rule);
-        if ($model->hasErrors()) {
-            return current($model->firstErrors) ?: '';
-        }
-
-        return true;
+        return $rule;
     }
 
     /**
@@ -406,19 +450,64 @@ class Uploads extends Component
 
     /**
      * 删除附件
-     * @param string $filepath 文件路径
-     * @return bool
+     * @param string|array $filepath 文件路径
+     * @return boolean
      */
     public function unlinkFile($filepath)
     {
         switch ($this->type) {
             case self::LOCAL_UPLOAD_ENGINE_SYMBOL:
-                return @unlink($filepath);
+                try {
+                    if (is_array($filepath)) {
+                        foreach ($filepath as $path) {
+                            if (is_file($path)) {
+                                @unlink($path);
+                            }
+                        }
+                    } else {
+                        if (is_file($filepath)) {
+                            @unlink($filepath);
+                        }
+                    }
+                } catch (\Throwable $e) {
+                    if (!$e instanceof \Exception) {
+                        throw new \Exception($e->getMessage());
+                    }
+                }
+
+                return true;
             case self::QINIU_UPLOAD_ENGINE_SYMBOL:
                 return true;
             default:
                 throw new UnexpectedValueException(t('the upload engine is not defined'));
         }
+    }
+
+    /**
+     * 根据上传文件实例对象获取文件上传的类型场景
+     * @param UploadedFile $uploadedFileInstance 上传文件实例对象
+     * @return false|string
+     */
+    protected function getScenarioByInstance(UploadedFile $uploadedFileInstance)
+    {
+        $ext = $uploadedFileInstance->extension;
+        if (in_array($ext, $this->imageSupportExt)) {
+            return self::SCENARIO_IMAGE;
+        }
+
+        if (in_array($ext, $this->fileSupportExt)) {
+            return self::SCENARIO_FILE;
+        }
+
+        if (in_array($ext, $this->audioSupportExt)) {
+            return self::SCENARIO_AUDIO;
+        }
+
+        if (in_array($ext, $this->videoSupportExt)) {
+            return self::SCENARIO_VIDEO;
+        }
+
+        return false;
     }
 
     /**
