@@ -214,6 +214,7 @@ class Uploads extends Component
             return $validateCountsResult;
         }
 
+        $savedFiles = [];
         foreach ($fileBase64Map as $originalFileBase64) {
             $map = $this->base64DataSplit($originalFileBase64);
             if (is_string($map)) {
@@ -223,14 +224,55 @@ class Uploads extends Component
             // 文件上传校验
             $ext = mb_strtolower($map['extension']);
             $data = $map['data'];
-            $validateResult = $this->uploadValidateForBase64($ext, $data);
+            if (empty($scenario)) {
+                $scenario = $this->getScenarioByExtension($ext);
+            }
+
+            $validateResult = $this->uploadValidateForBase64($ext, $data, $scenario);
             if ($validateResult !== true) {
                 return $validateResult;
             }
 
-            // 上传保存
+            // 获取文件保存路径
+            $savePath = $this->generateAttachmentSavePath($scenario, $saveDirectory, $pathPrefix);
+            // 递归创建目录
+            $ifSuccess = FileHelper::createDirectory($savePath);
+            if (!$ifSuccess) {
+                $this->unlinkFile($savedFiles);
 
+                return "Failed to create directory {$savePath}.";
+            }
+
+            $fileSavePath = $this->getUniqueFilenamePath($savePath, $ext);
+            $uploadResult = file_put_contents($fileSavePath, $data);
+            if ($uploadResult === false) {
+                $this->unlinkFile($savedFiles);
+
+                return t('failed to upload the file for unknown reasons');
+            }
+
+            $savedFiles[] = $fileSavePath;
         }
+
+        return  true;
+    }
+
+    /**
+     * 获取唯一的文件名路径
+     * @param string $savePath 文件保存的路径
+     * @param string $ext 文件扩展名
+     * @return string
+     * @throws \yii\base\Exception
+     */
+    protected function getUniqueFilenamePath($savePath, $ext)
+    {
+        $filename = $this->generateFilename();
+        $fileSavePath = $savePath . $filename . '.' . $ext;
+        if (is_file($fileSavePath)) {
+            return $this->getUniqueFilenamePath($savePath, $ext);
+        }
+
+        return $fileSavePath;
     }
 
     /**
@@ -249,23 +291,58 @@ class Uploads extends Component
      * base64文件数据校验
      * @param string $ext 文件扩展名
      * @param string $data 数据字符串
+     * @param string $scenario 上传文件类型场景
      * @return bool|string
      */
-    protected function uploadValidateForBase64($ext, $data)
+    protected function uploadValidateForBase64($ext, $data, $scenario)
     {
         // 校验扩展名是否支持
-        $extValidateResult = $this->validateExtension($ext);
+        if (empty($scenario)) {
+            $scenario = $this->getScenarioByExtension($ext);
+            $extValidateResult = $this->validateExtensionByExt($ext);
+        } else {
+            $extValidateResult = $this->validateExtensionByScenario($ext, $scenario);
+        }
+
         if ($extValidateResult !== true) {
             return $extValidateResult;
         }
 
         // 校验文件大小
-        $sizeValidateResult = $this->validateMaxSize($this->getScenarioByExtension($ext), $data);
+        $sizeValidateResult = $this->validateMaxSize($scenario, $data);
         if ($sizeValidateResult !== true) {
             return $sizeValidateResult;
         }
 
         return true;
+    }
+
+    /**
+     * 通过场景校验文件扩展名
+     * @param string $extension 文件扩展名
+     * @param string $scenario 场景
+     * @return true|string
+     */
+    protected function validateExtensionByScenario($extension, $scenario)
+    {
+        switch ($scenario) {
+            case self::SCENARIO_IMAGE:
+                $result = in_array($extension, array_map('mb_strtolower', $this->imageSupportExt));
+                break;
+            case self::SCENARIO_FILE:
+                $result = in_array($extension, array_map('mb_strtolower', $this->fileSupportExt));
+                break;
+            case self::SCENARIO_AUDIO:
+                $result = in_array($extension, array_map('mb_strtolower', $this->audioSupportExt));
+                break;
+            case self::SCENARIO_VIDEO:
+                $result = in_array($extension, array_map('mb_strtolower', $this->videoSupportExt));
+                break;
+            default:
+                throw new \InvalidArgumentException(t('the file upload scenario is incorrect'));
+        }
+
+        return $result ?: t('the file {filename} extension is not supported', 'app', ['filename' => '--']);
     }
 
     /**
@@ -303,11 +380,11 @@ class Uploads extends Component
     }
 
     /**
-     * 校验文件扩展名
+     * 通过扩展名校验文件的扩展名是否合法
      * @param string $ext 文件扩展名
      * @return bool|string
      */
-    protected function validateExtension($ext)
+    protected function validateExtensionByExt($ext)
     {
         $scenario = $this->getScenarioByExtension($ext);
         return $scenario ? true : t('the file {filename} extension is not supported', 'app', ['filename' => '--']);
@@ -374,9 +451,8 @@ class Uploads extends Component
                 return "Failed to create directory {$savePath}.";
             }
 
-            $filename = $this->generateFilename();
             $ext = $uploadedFileInstance->extension;
-            $fileSavePath = $savePath . $filename . '.' . $ext;
+            $fileSavePath = $this->getUniqueFilenamePath($savePath, $ext);
             $uploadResult = $uploadedFileInstance->saveAs($fileSavePath);
             if (!$uploadResult) {
                 $this->unlinkFile($savedFiles);
