@@ -269,7 +269,7 @@ use app\builder\form\FieldsOptions;
                     });
 
                     // 上传文件
-                    
+
                     // 上传成功重新赋值
                     attachIds[index] = 520;
                     attachIds = attachIds.join(',');

@@ -112,6 +112,7 @@ return [
     'the upload engine is not defined' => '文件上传引擎未定义！',
     'the file {filename} extension is not supported' => '文件{filename}扩展名不被支持。',
     'failed to upload the file for unknown reasons' => '文件上传失败，原因未知。',
+    'the file type cannot be uploaded' => '文件类型不支持上传。',
 ];
 
 

@@ -208,7 +208,134 @@ class Uploads extends Component
      */
     protected function uploadAttachmentLocalForBase64($name, $saveDirectory = 'common', $pathPrefix = '', $scenario = self::SCENARIO_IMAGE)
     {
+        $fileBase64Map = (array)Yii::$app->request->post($name);
+        $validateCountsResult = $this->validateFilesCountsForBase64($fileBase64Map);
+        if ($validateCountsResult !== true) {
+            return $validateCountsResult;
+        }
 
+        foreach ($fileBase64Map as $originalFileBase64) {
+            $map = $this->base64DataSplit($originalFileBase64);
+            if (is_string($map)) {
+                return $map;
+            }
+
+            // 文件上传校验
+            $ext = mb_strtolower($map['extension']);
+            $data = $map['data'];
+            $validateResult = $this->uploadValidateForBase64($ext, $data);
+            if ($validateResult !== true) {
+                return $validateResult;
+            }
+
+            // 上传保存
+
+        }
+    }
+
+    /**
+     * 校验文件最大数量是否合法
+     * @param array $filesBase64Map 文件数据集合
+     * @return bool|string
+     */
+    protected function validateFilesCountsForBase64($filesBase64Map)
+    {
+        settype($filesBase64Map, 'array');
+
+        return count($filesBase64Map) <= $this->attachMaxFiles ?: t('The file "{file}" is too big. Its size cannot exceed {formattedLimit}.', 'yii', ['file' => '--', 'formattedLimit' => $this->attachMaxFiles]);
+    }
+
+    /**
+     * base64文件数据校验
+     * @param string $ext 文件扩展名
+     * @param string $data 数据字符串
+     * @return bool|string
+     */
+    protected function uploadValidateForBase64($ext, $data)
+    {
+        // 校验扩展名是否支持
+        $extValidateResult = $this->validateExtension($ext);
+        if ($extValidateResult !== true) {
+            return $extValidateResult;
+        }
+
+        // 校验文件大小
+        $sizeValidateResult = $this->validateMaxSize($this->getScenarioByExtension($ext), $data);
+        if ($sizeValidateResult !== true) {
+            return $sizeValidateResult;
+        }
+
+        return true;
+    }
+
+    /**
+     * 校验文件数据大小
+     * @param string $scenario 上传类型场景
+     * @param string $data 数据字符串
+     * @return bool
+     */
+    protected function validateMaxSize($scenario, $data)
+    {
+        $len = strlen($data);
+
+        switch ($scenario) {
+            case self::SCENARIO_FILE:
+                $maxSize = $this->fileMaxSize;
+                $result = $len <= $maxSize;
+                break;
+            case self::SCENARIO_AUDIO:
+                $maxSize = $this->audioMaxSize;
+                $result = $len <= $maxSize;
+                break;
+            case self::SCENARIO_VIDEO:
+                $maxSize = $this->videoMaxSize;
+                $result = $len <= $maxSize;
+                break;
+            case self::SCENARIO_IMAGE:
+                $maxSize = $this->imageMaxSize;
+                $result = $len <= $maxSize;
+                break;
+            default:
+                throw new \InvalidArgumentException(t('the file upload scenario is incorrect'));
+        }
+
+        return $result?: t('The file "{file}" is too big. Its size cannot exceed {formattedLimit}.', 'yii', ['file' => '--', 'formattedLimit' => $maxSize]);
+    }
+
+    /**
+     * 校验文件扩展名
+     * @param string $ext 文件扩展名
+     * @return bool|string
+     */
+    protected function validateExtension($ext)
+    {
+        $scenario = $this->getScenarioByExtension($ext);
+        return $scenario ? true : t('the file {filename} extension is not supported', 'app', ['filename' => '--']);
+    }
+
+    /**
+     * base64数据分离
+     * @param string $originalFileBase64 base64原始数据
+     * @return array|string
+     */
+    protected function base64DataSplit($originalFileBase64)
+    {
+        $fileBase64 = str_replace([':', ';'], ',', $originalFileBase64);
+        $fileBase64Array = explode(',', $fileBase64);
+        $mineType = $fileBase64Array[1];
+        $fileData = $fileBase64Array[3];
+        $extensionArray = FileHelper::getExtensionsByMimeType($mineType);
+        if (empty($extensionArray)) {
+            return t('the file type cannot be uploaded');
+        }
+
+        reset($extensionArray);
+        // 文件扩展名
+        $extension = current($extensionArray);
+        // 文件二进制数据
+        $fileBinaryData = base64_decode($fileData);
+
+        return ['extension' => $extension, 'data' => $fileBinaryData];
     }
 
     /**
@@ -526,19 +653,30 @@ class Uploads extends Component
     protected function getScenarioByInstance(UploadedFile $uploadedFileInstance)
     {
         $ext = $uploadedFileInstance->extension;
-        if (in_array($ext, $this->imageSupportExt)) {
+
+        return $this->getScenarioByExtension($ext);
+    }
+
+    /**
+     * 根据上传文件的扩展名获取上传类型场景
+     * @param string $extension 扩展名
+     * @return false|string
+     */
+    protected function getScenarioByExtension($extension)
+    {
+        if (in_array($extension, array_map('mb_strtolower', $this->imageSupportExt))) {
             return self::SCENARIO_IMAGE;
         }
 
-        if (in_array($ext, $this->fileSupportExt)) {
+        if (in_array($extension, array_map('mb_strtolower', $this->fileSupportExt))) {
             return self::SCENARIO_FILE;
         }
 
-        if (in_array($ext, $this->audioSupportExt)) {
+        if (in_array($extension, array_map('mb_strtolower', $this->audioSupportExt))) {
             return self::SCENARIO_AUDIO;
         }
 
-        if (in_array($ext, $this->videoSupportExt)) {
+        if (in_array($extension, array_map('mb_strtolower', $this->videoSupportExt))) {
             return self::SCENARIO_VIDEO;
         }
 
