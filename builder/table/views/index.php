@@ -57,19 +57,19 @@ use app\builder\table\ToolbarFilterOptions;
                         <?php foreach ($toolbars['right'] as $item): ?>
                             <?php switch ($item['type']): case 'refresh': // refresh ?>
                                 <!--刷新-->
-                                <a href="#" type="button" id="ym_script_refresh" class="btn btn-default">
+                                <a href="#" type="button" id="ym_script_refresh" class="btn btn-default" title="刷新">
                                     <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-refresh' ?>" aria-hidden="true"></i>
                                     <span><?= !empty($item['title']) ? $item['title'] : '' // 刷新 ?></span>
                                 </a>
                                 <?php break; case 'filter': // filter ?>
                                 <!--筛选-->
-                                <a href="#" type="button" class="btn btn-default" ng-click="ymTableFilterMethod()">
+                                <a href="#" type="button" class="btn btn-default" ng-click="ymTableFilterMethod()" title="筛选">
                                     <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-filter' ?>" aria-hidden="true"></i>
                                     <span><?= !empty($item['title']) ? $item['title'] : '' // 筛选 ?></span>
                                 </a>
                                 <?php break; case 'export': // export ?>
                                 <!--导出-->
-                                <a href="#" type="button" class="btn btn-default" ng-click="ymTableExportMethod()">
+                                <a href="#" type="button" class="btn btn-default" ng-click="ymTableExportMethod()" title="导出">
                                     <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-export' ?>" aria-hidden="true"></i>
                                     <span><?= !empty($item['title']) ? $item['title'] : '' // 导出 ?></span>
                                 </a>
