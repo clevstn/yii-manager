@@ -306,12 +306,16 @@ if (!function_exists('form_fields_helper')) {
      * - label 标签名
      * - placeholder 提示语
      * - default 默认值，多个值用`逗号`隔开
+     * - defaultLink 默认附件外链，多个用`逗号隔开`，用于文件上传
      * - required 是否必填项
      * - comment 注释语
      * - range 是否是区间，用于日期控件
      * - options 选项，用于`radio`、`checkbox`、`select`控件，格式：[`value` => `label`]
      * - rows 行数，用于文本域
      * - number 文件数量，用于文件上传
+     * - fileScenario 文件上传类型场景，为空则可以上传任意类型，用于文件上传
+     * - saveDirectory 文件保存目录，用于文件上传
+     * - pathPrefix 文件路径前缀，用于文件上传
      * - layouts bootstrap布局，默认`12`
      * - style 控件样式
      * - attribute 控件属性
@@ -407,19 +411,36 @@ if (!function_exists('attach_url')) {
      */
     function attach_url($attachId)
     {
+        if (!empty($attachId)) {
+            // SQL查询附件
+            // ...
+
+            // 判断是否存在，如果存在返回处理过后的`path`，否则返回默认文件。
+            // path: 附件路径
+            // attachment_scenario: 附件上传类型场景
+            if (!empty($attachmentData)) {
+                return Yii::$app->uploads->getAttachmentUrl($attachmentData['path'], $attachmentData['attachment_scenario']);
+            }
+        }
+
         // 附件ID为空,返回默认附件路径
-        if (empty($attachId)) {
-            return Yii::$app->params['default_photo'];
+        return into_full_url(Yii::$app->params['default_photo']);
+    }
+}
+
+if (!function_exists('into_full_url')) {
+    /**
+     * 绝对url转完整url
+     * @param string $url url路径
+     * @return string
+     */
+    function into_full_url($url)
+    {
+        if (strncasecmp($url, 'http', 4)) {
+            return rtrim(Yii::$app->request->getHostInfo(), '/') . '/' . ltrim($url, '/');
         }
 
-        // 查询附件
-
-        // 判断是否存在
-        if (!empty($attachData)) {
-            return $attachData['path'];
-        }
-
-        return Yii::$app->params['default_photo'];
+        return $url;
     }
 }
 
@@ -574,6 +595,40 @@ if (!function_exists('xround')) {
     function xround($val, $precision = 2)
     {
         return round($val, $precision);
+    }
+}
+
+if (!function_exists('isset_return')) {
+
+    /**
+     * 对数据字段进行`isset`验证，失败返回字段对应的提示语
+     * @param array $data 待验证的数据
+     * @param array $fields 要验证的字段和对应的提示语
+     * - key: 字段
+     * - value: 自定义提示语
+     * --------------
+     *
+     * - value: 字段
+     *
+     * @return bool|mixed|string
+     */
+    function isset_return(array $data, array $fields)
+    {
+        foreach ($fields as $field => $message) {
+            if (is_numeric($field)) {
+                // 索引
+                if (!isset($data[$message])) {
+                    return t('request parameter {param} is not defined', 'app', ['param' => $message]);
+                }
+            } else {
+                // 关联
+                if (!isset($data[$field])) {
+                    return $message ?: t('request parameter {param} is not defined', 'app', ['param' => $field]);
+                }
+            }
+        }
+
+        return true;
     }
 }
 

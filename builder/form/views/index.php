@@ -229,7 +229,7 @@ use app\builder\form\FieldsOptions;
                     <div class="form-upload-group">
                         <?php for ($i = 0; $i < $options['number']; $i++): ?>
                         <div class="inline-block">
-                            <div class="form-upload-control" ngf-select="ymFormUploadImage($file, 'ymFormFileLink<?= $field . $i ?>', '<?= $field ?>', <?= $i ?>)">
+                            <div class="form-upload-control" ngf-select="ymFormUploadImage($file, '<?= $options['saveDirectory'] ?>', '<?= $options['pathPrefix'] ?>', '<?= $options['fileScenario'] ?>', 'ymFormFileLink<?= $field . $i ?>', '<?= $field ?>', <?= $i ?>)">
                                 <div class="form-upload-item">
                                     <i ng-hide="ymFormFileLink<?= $field . $i ?>" class="fa fa-file-image-o f-32 text-dark"></i>
                                     <img ng-show="ymFormFileLink<?= $field . $i ?>" class="form-upload-img" ng-src="{{ymFormFileLink<?= $field . $i ?>}}" alt>

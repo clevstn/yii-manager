@@ -72,6 +72,11 @@ class FieldsOptions extends BaseOptions
     public $default = '';
 
     /**
+     * @var string 默认外链，多个值用`逗号`隔开，用于文件上传
+     */
+    public $defaultLink = '';
+
+    /**
      * @var bool 是否必填项
      */
     public $required = true;
@@ -101,6 +106,21 @@ class FieldsOptions extends BaseOptions
      * @var int 文件数量，用于文件上传
      */
     public $number = 1;
+
+    /**
+     * @var string 文件上传类型场景
+     */
+    public $fileScenario = '';
+
+    /**
+     * @var string 文件保存目录
+     */
+    public $saveDirectory = 'common';
+
+    /**
+     * @var string 文件路径前缀
+     */
+    public $pathPrefix = '000000';
 
     /**
      * @var string bootstrap布局，默认`12`

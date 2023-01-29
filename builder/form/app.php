@@ -9,9 +9,9 @@ use yii\helpers\Url;
 use app\builder\form\FieldsOptions;
 
 /* @var \yii\web\View $this 当前视图组件实例 */
-/* @var array $_fields      表单字段集合 */
-/* @var boolean $_autoBack  提交完成后是否自动返回 */
-/* @var array $_innerScript  插入表单脚本内部的Js脚本 */
+/* @var array $_fields 表单字段集合 */
+/* @var boolean $_autoBack 提交完成后是否自动返回 */
+/* @var array $_innerScript 插入表单脚本内部的Js脚本 */
 
 // 注意这里必须是<script>...</script>的形式
 ?>
@@ -80,6 +80,7 @@ use app\builder\form\FieldsOptions;
                 var scopeFields = {};
                 var fileDefaults;
                 var fileNumbers;
+                var fileDefaultLink;
                 var checkboxDefaultValues;
                 var thisRichtxtId;
                 var thisEditor;
@@ -100,15 +101,19 @@ use app\builder\form\FieldsOptions;
                 <?php break; case FieldsOptions::CONTROL_FILE: // 文件 ?>
                 fileDefaults = '<?= $options['default'] ?>';
                 fileDefaults = fileDefaults.split(',');
+                fileDefaultLink = '<?= $options['defaultLink'] ?>';
+                fileDefaultLink = fileDefaultLink.split(',');
                 fileNumbers = <?= $options['number'] ?>;
                 for (var i = 0; i < fileNumbers; i++) {
-                    if (fileDefaults[i] === "" || fileDefaults[i] === void 0) {
+                    // 初始化附件ID
+                    if (!fileDefaults[i]) {
                         fileDefaults[i] = "0";
                     }
 
                     // 初始化预览图
-                    $scope['ymFormFileLink<?= $field ?>' + i] = "";
+                    $scope['ymFormFileLink<?= $field ?>' + i] = fileDefaultLink[i] ? fileDefaultLink[i] : "";
                 }
+
                 scopeFields['<?= $field ?>'] = fileDefaults.join(',');
                 <?php break; case FieldsOptions::CONTROL_CHECKBOX: // 多选 ?>
                 checkboxDefaultValues = "<?= $options['default'] ?>";
@@ -175,6 +180,7 @@ use app\builder\form\FieldsOptions;
                     // 初始化预览图
                     $scope['ymFormFileLink<?= $field ?>' + i] = "";
                 }
+
                 scopeFields['<?= $field ?>'] = fileDefaults.join(',');
                 <?php break; case FieldsOptions::CONTROL_CHECKBOX: // 多选 ?>
                 jQuery(".ymFormCheckbox_<?= $field ?>").each(function () {
@@ -256,27 +262,57 @@ use app\builder\form\FieldsOptions;
                 return formData;
             };
             // 上传图片
-            $scope.ymFormUploadImage = function (files, src, field, index) {
+            $scope.ymFormUploadImage = function (files, saveDirectory, pathPrefix, fileScenario, srcAttr, field, index) {
                 if (files) {
-                    var attachIds = $scope.ymFormFields[field];
-                    attachIds = attachIds.split(',');
+                    var attachIds = $scope.ymFormFields[field].split(',');
+                    var mineType = files.type;
 
-                    console.log('olds:' + attachIds);
+                    // 文件大小限制(M)
+                    var size = files.size / 1024 / 1024;
+                    if (size > 50) {
+                        tips('文件大于50M，请分片或FTP上传！', '通知', 2);
+                        return false;
+                    }
 
                     // 预览文件
-                    Upload.base64DataUrl(files).then(function(urls){
-                        $scope[src] = urls;
+                    Upload.base64DataUrl(files).then(function (urls) {
+                        // 如果文件不是图片
+                        var urlsVal = urls;
+                        if (!/image\//i.test(mineType)) {
+                            urlsVal = '<?= into_full_url("/media/image/default-file.png") ?>';
+                        }
+
+                        $scope[srcAttr] = urlsVal;
                     });
 
                     // 上传文件
+                    var fields = {};
+                    fields['scenario'] = fileScenario;
+                    fields['name'] = 'file';
+                    fields['saveDirectory'] = saveDirectory;
+                    fields['pathPrefix'] = pathPrefix;
+                    fields['isBase64'] = 0;
+                    fields[window.yii.getCsrfParam()] = window.yii.getCsrfToken();
 
-                    // 上传成功重新赋值
-                    attachIds[index] = 520;
-                    attachIds = attachIds.join(',');
+                    Upload.upload({
+                        url: '<?= into_full_url('/admin/upload/one') ?>',
+                        fields: fields,
+                        file: files
+                    }).progress(function (evt) {
+                        // var progressPercentage = parseInt(100 * evt.loaded / evt.total);
+                        // console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+                    }).success(function (data, status, headers, config) {
+                        // 上传成功重新赋值
+                        attachIds[index] = 520;
+                        attachIds = attachIds.join(',');
+                        $scope.ymFormFields[field] = attachIds;
 
-                    console.log('news:' + attachIds);
+                    }).error(function (data, status, headers, config) {
 
-                    $scope.ymFormFields[field] = attachIds;
+                        tips(data, '错误', 2);
+                        console.log(data);
+                    });
+
                 }
             };
             // 初始化表单

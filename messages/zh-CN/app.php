@@ -114,6 +114,8 @@ return [
     'failed to upload the file for unknown reasons' => '文件上传失败，原因未知。',
     'the file type cannot be uploaded' => '文件类型不支持上传。',
     'concatenate the extension before the string' => '请在字符串前拼接扩展名。',
+    'an undefined field exists in the request parameter' => '请求参数中存在未定义的字段。',
+    'request parameter {param} is not defined' => '请求参数{param}未定义',
 ];
 
 

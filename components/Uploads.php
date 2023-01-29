@@ -73,7 +73,7 @@ class Uploads extends Component
     private $_videoRules = [];
 
     // 图片支持的扩展名
-    public $imageSupportExt = ['png', 'jpg', 'jpeg', 'gif',];
+    public $imageSupportExt = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg',];
     // 文件支持的扩展名
     public $fileSupportExt = ['zip', 'rar', 'txt', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf', 'exe', 'log', 'msi',];
     // 音频支持的扩展名
@@ -81,14 +81,14 @@ class Uploads extends Component
     // 视频支持的扩展名
     public $videoSupportExt = ['avi', 'mov', 'rmvb', 'rm', 'flv', 'mp4', '3gp',];
 
-    // 图片大小最大值
+    // 图片大小最大值(字节)
     public $imageMaxSize = 1024 * 1024 * 10;
-    // 文件大小最大值
-    public $fileMaxSize = 1024 * 1024 * 250;
-    // 音频大小最大值
-    public $audioMaxSize = 1024 * 1024 * 150;
-    // 视频大小最大值
-    public $videoMaxSize = 1024 * 1024 * 500;
+    // 文件大小最大值(字节)
+    public $fileMaxSize = 1024 * 1024 * 50;
+    // 音频大小最大值(字节)
+    public $audioMaxSize = 1024 * 1024 * 50;
+    // 视频大小最大值(字节)
+    public $videoMaxSize = 1024 * 1024 * 50;
 
     // 同时上传最大数量
     public $attachMaxFiles = 10;
@@ -700,11 +700,30 @@ class Uploads extends Component
     {
         $bucket = $this->getBucketByScenario($scenario);
         $attachmentUrl = rtrim(Yii::getAlias($this->configs['rootUrl']), '/') . '/' . str_replace('\\', '/', $bucket . '/' . ltrim($fileBasename, '\\/'));
-        if (strncasecmp($attachmentUrl, 'http', 4)) {
-            return rtrim(Yii::$app->request->getHostInfo(), '/') . '/' . ltrim($attachmentUrl, '/');
+
+        return into_full_url($attachmentUrl);
+    }
+
+    /**
+     * 根据mimeType获得附件上传类型场景
+     * @param string $mimeType
+     * @return string
+     */
+    public function getScenarioByMimeType($mimeType)
+    {
+        if (strpos($mimeType, 'image/') !== false) {
+            return self::SCENARIO_IMAGE;
         }
 
-        return $attachmentUrl;
+        if (strpos($mimeType, 'video/') !== false) {
+            return self::SCENARIO_VIDEO;
+        }
+
+        if (strpos($mimeType, 'audio/') !== false) {
+            return self::SCENARIO_AUDIO;
+        }
+
+        return self::SCENARIO_FILE;
     }
 
     /**

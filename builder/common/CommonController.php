@@ -39,7 +39,7 @@ class CommonController extends Controller
     public $actionVerbs = [];
 
     /**
-     * @var array Define actions that do not require authorization.
+     * @var array Define actions that don't require authorization.
      */
     public $guestActions = [];
 
