@@ -5,7 +5,7 @@ body {display: table;width: 100%;height: 100%; background-color: #fff!important;
 
 /*登录 - 基本校验*/
 .ym-login {display: table-cell;vertical-align: middle;}
-.ym-login > .login-wrap {width: 370px;margin: 0 auto;border-radius: 5px;border: 1px solid #d8dee2;background-color: rgba(255, 255, 255, .9);}
+.ym-login > .login-wrap {width: 420px;padding: 42px 28px;margin-left: auto;margin-right: auto;margin-top: -88px;border-radius: 20px;border: 1px solid #d8dee2;background-color: rgba(255, 255, 255, 1);box-shadow: -8px -10px rgba(0, 0, 0, .3);}
 .ym-login > .login-wrap .login-header {height: 150px;display: flex;flex-direction: column;justify-content: center;align-items: center;position: relative;}
 .ym-login > .login-wrap .login-header:before {content: " ";position: absolute;bottom:  -1px;height: 0;width: 50%;left: 25%;right: 25%;background-color: inherit;border-bottom: 1px solid #eeeeee;}
 .ym-login > .login-wrap .login-header .login-logo {display: block;max-width: 80%;max-height: 70px;margin-left: auto;margin-right: auto;}
