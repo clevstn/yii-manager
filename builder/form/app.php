@@ -75,7 +75,7 @@ use app\builder\form\FieldsOptions;
                     laydate.render(options);
                 });
             };
-            // 初始化表单
+            // 重置表单
             var initFormValues = function () {
                 var scopeFields = {};
                 var fileDefaults;
@@ -112,6 +112,8 @@ use app\builder\form\FieldsOptions;
 
                     // 初始化预览图
                     $scope['ymFormFileLink<?= $field ?>' + i] = fileDefaultLink[i] ? fileDefaultLink[i] : "";
+                    // 初始化上传进度值
+                    $scope['ymFormFileLoadingProcess<?= $field ?>' + i] = 0;
                 }
 
                 scopeFields['<?= $field ?>'] = fileDefaults.join(',');
@@ -179,6 +181,8 @@ use app\builder\form\FieldsOptions;
                     fileDefaults[i] = "0";
                     // 初始化预览图
                     $scope['ymFormFileLink<?= $field ?>' + i] = "";
+                    // 初始化上传进度值
+                    $scope['ymFormFileLoadingProcess<?= $field ?>' + i] = 0;
                 }
 
                 scopeFields['<?= $field ?>'] = fileDefaults.join(',');
@@ -262,7 +266,7 @@ use app\builder\form\FieldsOptions;
                 return formData;
             };
             // 上传图片
-            $scope.ymFormUploadImage = function (files, saveDirectory, pathPrefix, fileScenario, srcAttr, field, index) {
+            $scope.ymFormUploadImage = function (files, saveDirectory, pathPrefix, fileScenario, field, index) {
                 if (files) {
                     var attachIds = $scope.ymFormFields[field].split(',');
                     var mineType = files.type;
@@ -274,17 +278,6 @@ use app\builder\form\FieldsOptions;
                         return false;
                     }
 
-                    // 预览文件
-                    Upload.base64DataUrl(files).then(function (urls) {
-                        // 如果文件不是图片
-                        var urlsVal = urls;
-                        if (!/image\//i.test(mineType)) {
-                            urlsVal = '<?= into_full_url("/media/image/default-file.png") ?>';
-                        }
-
-                        $scope[srcAttr] = urlsVal;
-                    });
-
                     // 上传文件
                     var fields = {};
                     fields['scenario'] = fileScenario;
@@ -293,24 +286,47 @@ use app\builder\form\FieldsOptions;
                     fields['pathPrefix'] = pathPrefix;
                     fields['isBase64'] = 0;
                     fields[window.yii.getCsrfParam()] = window.yii.getCsrfToken();
-
+                    // 显示上传进度
+                    $scope['ymFormFileLoading' + field + index] = true;
+                    // 初始化上传进度值
+                    $scope['ymFormFileLoadingProcess' + field + index] = 0;
                     Upload.upload({
                         url: '<?= into_full_url('/admin/upload/one') ?>',
                         fields: fields,
                         file: files
                     }).progress(function (evt) {
-                        // var progressPercentage = parseInt(100 * evt.loaded / evt.total);
+                        var progressPercentage = parseInt(100 * evt.loaded / evt.total);
                         // console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+                        // 实时同步上传进度值
+                        $scope['ymFormFileLoadingProcess' + field + index] = progressPercentage === 100 ? 99 : progressPercentage;
                     }).success(function (data, status, headers, config) {
-                        // 上传成功重新赋值
-                        attachIds[index] = 520;
-                        attachIds = attachIds.join(',');
-                        $scope.ymFormFields[field] = attachIds;
+                        // 关闭上传进度
+                        $scope['ymFormFileLoading' + field + index] = false;
+                        if (data.code === 200) {
+                            // 上传成功重新赋值
+                            attachIds[index] = data.data;
+                            attachIds = attachIds.join(',');
+                            $scope.ymFormFields[field] = attachIds;
+
+                            // 预览文件
+                            Upload.base64DataUrl(files).then(function (urls) {
+                                // 如果文件不是图片
+                                var urlsVal = urls;
+                                if (!/image\//i.test(mineType)) {
+                                    urlsVal = '<?= into_full_url("/media/image/default-file.png") ?>';
+                                }
+
+                                $scope['ymFormFileLink' + field + index] = urlsVal;
+                            });
+                        } else {
+                            tips(data.msg ? data.msg : (data.code == 500 ? '提交失败' : '您没有权限操作!'), "通知", 5);
+                        }
 
                     }).error(function (data, status, headers, config) {
-
+                        // 关闭上传进度
+                        $scope['ymFormFileLoading' + field + index] = false;
                         tips(data, '错误', 2);
-                        console.log(data);
+                        console.error(data);
                     });
 
                 }

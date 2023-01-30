@@ -229,10 +229,13 @@ use app\builder\form\FieldsOptions;
                     <div class="form-upload-group">
                         <?php for ($i = 0; $i < $options['number']; $i++): ?>
                         <div class="inline-block">
-                            <div class="form-upload-control" ngf-select="ymFormUploadImage($file, '<?= $options['saveDirectory'] ?>', '<?= $options['pathPrefix'] ?>', '<?= $options['fileScenario'] ?>', 'ymFormFileLink<?= $field . $i ?>', '<?= $field ?>', <?= $i ?>)">
-                                <div class="form-upload-item">
+                            <div class="form-upload-control" ngf-select="ymFormUploadImage($file, '<?= $options['saveDirectory'] ?>', '<?= $options['pathPrefix'] ?>', '<?= $options['fileScenario'] ?>', '<?= $field ?>', <?= $i ?>)">
+                                <div class="form-upload-item" ng-init="ymFormFileLoading<?= $field . $i ?>=false" ng-hide="ymFormFileLoading<?= $field . $i ?>">
                                     <i ng-hide="ymFormFileLink<?= $field . $i ?>" class="fa fa-file-image-o f-32 text-dark"></i>
                                     <img ng-show="ymFormFileLink<?= $field . $i ?>" class="form-upload-img" ng-src="{{ymFormFileLink<?= $field . $i ?>}}" alt>
+                                </div>
+                                <div class="form-upload-item" ng-show="ymFormFileLoading<?= $field . $i ?>">
+                                    <p class="p-0 m-0 text-success" ng-bind="'进度' + ymFormFileLoadingProcess<?= $field . $i ?> + '%'"></p>
                                 </div>
                             </div>
                         </div>

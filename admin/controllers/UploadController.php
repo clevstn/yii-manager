@@ -60,6 +60,10 @@ class UploadController extends CommonController
             !!$bodyParams['isBase64']
         );
 
-        return $this->asSuccess($result);
+        if ($result === true) {
+            return $this->asSuccess('提交成功', time());
+        }
+
+        return $this->asFail($result);
     }
 }
