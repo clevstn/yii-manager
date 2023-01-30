@@ -116,6 +116,7 @@ return [
     'concatenate the extension before the string' => '请在字符串前拼接扩展名。',
     'an undefined field exists in the request parameter' => '请求参数中存在未定义的字段。',
     'request parameter {param} is not defined' => '请求参数{param}未定义',
+    'home' => '首页',
 ];
 
 

@@ -17,7 +17,7 @@ SiteAsset::register($this);
         <div class="panel-body">
             <div class="login-header">
                 <img class="login-logo" ng-src="{{ loginPhoto }}" alt>
-                <p class="login-title"><?= t('sign in') ?></p>
+                <p class="login-title"><?= Yii::$app->params['admin_title'] . t('sign in') ?></p>
             </div>
         </div>
         <div class="panel-body">
@@ -47,7 +47,9 @@ SiteAsset::register($this);
                 <button type="submit" class="next-step btn btn-primary" ng-click="loginSubmit()"><?= t('sign in') ?></button>
             </form>
         </div>
-        <div class="panel-body pt-0 top-line">
+
+        <!--其他登录方式-->
+        <!--<div class="panel-body pt-0 top-line">
             <p class="other-loginway"><?= t('other login methods') ?></p>
             <div class="panel-body other-loginbody">
                 <div class="way-item" ng-click="otherLgn('asm', $event)">
@@ -55,6 +57,7 @@ SiteAsset::register($this);
                     <p><?= t('APP code') ?></p>
                 </div>
             </div>
-        </div>
+        </div>-->
+
     </div>
 </div>

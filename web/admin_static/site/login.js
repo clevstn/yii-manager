@@ -10,7 +10,7 @@
 
     // 登录 - 基本校验
     _EasyApp.controller('_loginBaseCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "lang", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, lang) {
-        console.log("%c This is Login-Base-Page with Yii-Manager", 'color:#337ab7;');
+        window.console.log("%c This is Login-Base-Page with Yii-Manager", 'color:#337ab7;');
         var defaultPhoto = '/media/image/login-photo.jpg';
         // 初始化脚本
         var initedScript = function () {
@@ -36,7 +36,7 @@
                     }
                 }, function (error) {
                     layer.close(index);
-                    console.error(error);
+                    window.console.error(error);
                     toastr.error(error.data || lang('System Error'), lang('Notice'));
                 });
             }
@@ -79,7 +79,7 @@
                 }
             }, function (error) {
                 YmSpinner.hide(authLoading);
-                console.error(error);
+                window.console.error(error);
                 toastr.error(error.data || lang('System Error'), lang('Notice'));
             });
         };
@@ -96,7 +96,7 @@
         initedScript();
     }]).controller('_loginSafeCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "lang", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, lang) {
         // 登录 - 安全校验
-        console.log("%c This is Login-Safe-Page with Yii-Manager", 'color:#337ab7;');
+        window.console.log("%c This is Login-Safe-Page with Yii-Manager", 'color:#337ab7;');
         // 初始化应用信息
         var initAppInfo = function () {
             $scope.appInfo = '';
@@ -178,7 +178,7 @@
                 $scope.appInfo = data.msg;
             }, function (error) {
                 layer.close(index);
-                console.error(error);
+                window.console.error(error);
                 toastr.error(error.data || lang('System Error'), lang('Notice'));
             });
         };
@@ -204,7 +204,7 @@
                 $scope.appInfo = data.msg;
             }, function (error) {
                 layer.close(index);
-                console.error(error);
+                window.console.error(error);
                 toastr.error(error.data || lang('System Error'), lang('Notice'));
             });
         };
@@ -252,7 +252,7 @@
                 }
             }, function (error) {
                 YmSpinner.hide(spinnerIndex);
-                console.error(error);
+                window.console.error(error);
                 toastr.error(error.data || lang('System Error'), lang('Notice'));
             });
         };

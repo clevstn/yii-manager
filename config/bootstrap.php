@@ -21,7 +21,7 @@ return [
 
     // 后台首页路由，用于后台页面
     'admin_url' => '/admin/index/index',
-    // 后台商标，用于后台页面显示
+    // 后台站点名，用于后台抬头、登录、页面Title
     'admin_title' => 'YII MANAGER CRM',
     // 默认附件，当前获取的附件不存在时返回。
     'default_photo' => '/media/image/default.jpg',
