@@ -49,7 +49,7 @@ $config = [
         ],
         'session' => [
             'class' => 'yii\web\Session',
-            'name' => 'YMAPPSESSIONID',
+            'name' => 'YMAPPSID',
         ],
         'response' => [
             'class' => 'yii\web\Response',
