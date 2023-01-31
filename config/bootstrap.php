@@ -24,7 +24,7 @@ return [
     // 后台站点名，用于后台抬头、登录、页面Title
     'admin_title' => 'YII MANAGER CRM',
     // 默认附件，当前获取的附件不存在时返回。
-    'default_photo' => '/media/image/default.jpg',
+    'default_photo' => '/media/image/admin_static/default-0.jpg',
     // 分组配置，用于应用配置
     'group_config' => [
         WebsiteGroup::class,
