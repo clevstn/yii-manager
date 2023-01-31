@@ -5,8 +5,6 @@
 
 namespace app\components;
 
-use yii\rbac\Item;
-use yii\rbac\Rule;
 use yii\db\Connection;
 use yii\rbac\BaseManager;
 use yii\caching\CacheInterface;
@@ -26,17 +24,22 @@ class RbacManager extends BaseManager
      */
     public $db = 'db';
     /**
-     * @var string the name of the table storing authorization items. Defaults to "auth_item".
+     * @var string 权限菜单表
      */
-    public $itemTable = '{{%auth_item}}';
+    public $menuTable = '{{%auth_menu}}';
     /**
-     * @var string the name of the table storing authorization item hierarchy. Defaults to "auth_item_child".
+     * @var string 管理组（角色）表
      */
-    public $itemChildTable = '{{%auth_item_child}}';
+    public $groupsTable = '{{%auth_groups}}';
+
     /**
-     * @var string the name of the table storing authorization item assignments. Defaults to "auth_assignment".
+     * @var string 权限角色关系表
      */
-    public $assignmentTable = '{{%auth_assignment}}';
+    public $relationsTable = '{{%auth_relations}}';
+    /**
+     * @var string 用户表
+     */
+    public $adminUserTable = '{{%admin_user}}';
 
     /**
      * @var CacheInterface|array|string|null the cache used to improve RBAC performance. This can be one of the following:
@@ -64,24 +67,6 @@ class RbacManager extends BaseManager
      * @since 2.0.3
      */
     public $cacheKey = 'rbac';
-
-    /**
-     * @var Item[] all auth items (name => Item)
-     */
-    protected $items;
-    /**
-     * @var Rule[] all auth rules (name => Rule)
-     */
-    protected $rules;
-    /**
-     * @var array auth item parent-child relationships (childName => list of parents)
-     */
-    protected $parents;
-    /**
-     * @var array user assignments (user id => Assignment[])
-     * @since `protected` since 2.0.38
-     */
-    protected $checkAccessAssignments = [];
 
     /**
      * {@inheritdoc}
@@ -112,6 +97,46 @@ class RbacManager extends BaseManager
      */
     protected function addRule($rule)
     {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function removeRule($rule)
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function updateRule($name, $rule)
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRule($name)
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRules()
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeAllRules()
+    {
 
     }
 
@@ -126,23 +151,7 @@ class RbacManager extends BaseManager
     /**
      * {@inheritdoc}
      */
-    protected function removeRule($rule)
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function updateItem($name, $item)
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function updateRule($name, $rule)
     {
 
     }
@@ -159,38 +168,6 @@ class RbacManager extends BaseManager
      * {@inheritdoc}
      */
     public function createPermission($name)
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function add($object)
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function remove($object)
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function update($name, $object)
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getRole($name)
     {
 
     }
@@ -222,22 +199,6 @@ class RbacManager extends BaseManager
     /**
      * {@inheritdoc}
      */
-    public function getPermission($name)
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getPermissions()
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getPermissionsByRole($roleName)
     {
 
@@ -247,22 +208,6 @@ class RbacManager extends BaseManager
      * {@inheritdoc}
      */
     public function getPermissionsByUser($userId)
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getRule($name)
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getRules()
     {
 
     }
@@ -321,6 +266,19 @@ class RbacManager extends BaseManager
     public function assign($role, $userId)
     {
 
+    }
+
+    /**
+     * 清除缓存
+     * @return bool
+     */
+    public function invalidateCache()
+    {
+        if ($this->cache !== null) {
+            $this->cache->delete($this->cacheKey);
+        }
+
+        return true;
     }
 
     /**
@@ -383,14 +341,6 @@ class RbacManager extends BaseManager
      * {@inheritdoc}
      */
     public function removeAllRoles()
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function removeAllRules()
     {
 
     }
