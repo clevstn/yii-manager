@@ -22,7 +22,7 @@ use yii\web\Response;
  * @property Request $request
  * @property Response $response
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 trait Http
 {

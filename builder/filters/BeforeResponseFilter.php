@@ -13,7 +13,7 @@ use yii\base\Behavior;
 /**
  * 响应拦截器
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class BeforeResponseFilter extends Behavior
 {

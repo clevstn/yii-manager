@@ -19,7 +19,7 @@ use app\extend\google\GoogleAuthenticator;
  * @method GoogleAuthenticator googleAuth(array $config = []) static GoogleAuthenticator扩展实例
  * @method Spreadsheet spreadsheet(array $config = []) static Spreadsheet扩展实例
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Extend extends BaseObject
 {

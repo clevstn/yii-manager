@@ -15,7 +15,7 @@ use yii\web\UnauthorizedHttpException;
 /**
  * RBAC验证器
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class RbacFilter extends Behavior
 {

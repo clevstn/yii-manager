@@ -15,7 +15,7 @@ use app\commands\cronjobs\business\Demo;
 /**
  * cron jobs demo
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class IndexController extends Cron
 {

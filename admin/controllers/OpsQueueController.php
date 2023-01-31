@@ -12,7 +12,7 @@ use app\builder\common\CommonController;
 /**
  * 队列监控
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class OpsQueueController extends CommonController
 {

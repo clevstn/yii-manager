@@ -14,7 +14,7 @@ use yii\web\Application;
 /**
  * 动作拦截器
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class BeforeHandleActionFilter extends Behavior
 {

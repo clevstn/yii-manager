@@ -8,7 +8,7 @@
 /**
  * Yii-manager 内置函数库
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 
 if (!function_exists('dd')) {

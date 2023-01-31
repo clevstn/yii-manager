@@ -12,7 +12,7 @@ use app\builder\common\CommonController;
 /**
  * 系统设置
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class SystemSettingController extends CommonController
 {

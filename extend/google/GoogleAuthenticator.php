@@ -154,7 +154,7 @@ class GoogleAuthenticator extends BaseObject
      * @param string $ecc
      * @return string
      * @author cleverstone
-     * @since 1.0
+     * @since ym1.0
      */
     private function generateQrcode($content, $w, $h, $ecc)
     {
@@ -221,7 +221,7 @@ class GoogleAuthenticator extends BaseObject
      * Get the code length
      * @return int
      * @author cleverstone
-     * @since 1.0
+     * @since ym1.0
      */
     public function getCodeLength()
     {

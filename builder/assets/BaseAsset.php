@@ -12,7 +12,7 @@ use yii\web\AssetBundle;
 /**
  * Builder资源包继承类
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 abstract class BaseAsset extends AssetBundle
 {

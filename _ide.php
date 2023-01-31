@@ -18,7 +18,7 @@ namespace yii\web {
      * @property \app\components\Uploads $uploads The upload component. This property is read-only.
      * @property \app\components\Sms $sms The sms component. This property is read-only.
      * @author cleverstone
-     * @since 1.0
+     * @since ym1.0
      */
     class Application extends \yii\base\Application
     {

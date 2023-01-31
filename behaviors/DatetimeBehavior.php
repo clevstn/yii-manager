@@ -14,7 +14,7 @@ use yii\behaviors\AttributeBehavior;
 /**
  * 日期处理器
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class DatetimeBehavior extends AttributeBehavior
 {

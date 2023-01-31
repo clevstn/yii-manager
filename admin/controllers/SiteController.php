@@ -17,7 +17,7 @@ use app\models\AdminUserLoginLog as LoginLog;
 /**
  * 站点相关
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class SiteController extends CommonController
 {

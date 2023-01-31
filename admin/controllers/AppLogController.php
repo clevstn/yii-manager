@@ -12,7 +12,7 @@ use app\builder\common\CommonController;
 /**
  * 应用日志记录
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class AppLogController extends CommonController
 {

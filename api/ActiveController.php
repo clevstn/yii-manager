@@ -13,7 +13,7 @@ use yii\rest\ActiveController as BaseActiveController;
 /**
  * 资源接口继承类
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class ActiveController extends BaseActiveController
 {

@@ -15,7 +15,7 @@ use app\builder\contract\ConfigureInterface;
 /**
  * 配置定义助手
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class ConfigHelper
 {

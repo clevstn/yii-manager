@@ -15,7 +15,7 @@ use app\builder\table\CustomControl;
  * 三级联动部件
  * @property-read string $valuesJsFunction 获取用于获取筛选值的Js脚本
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class SelectConnection extends BaseObject implements CustomControl
 {

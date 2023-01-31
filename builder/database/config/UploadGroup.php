@@ -13,7 +13,7 @@ use app\models\SystemConfig;
 /**
  * 上传配置
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class UploadGroup extends Group
 {

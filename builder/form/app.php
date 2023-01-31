@@ -19,7 +19,7 @@ use app\builder\form\FieldsOptions;
     /**
      * form builder script
      * @author cleverstone
-     * @since 1.0
+     * @since ym1.0
      */
     !function (window, _EasyApp) {
         "use strict";

@@ -17,7 +17,7 @@ use app\builder\filters\RbacFilter;
 /**
  * 控制器继承类
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class CommonController extends Controller
 {

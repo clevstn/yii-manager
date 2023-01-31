@@ -10,7 +10,7 @@ namespace app\admin\assets;
 /**
  * 首页静态资源
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class IndexAsset extends BaseAsset
 {

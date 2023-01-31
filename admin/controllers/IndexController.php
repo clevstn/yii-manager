@@ -12,7 +12,7 @@ use app\builder\common\CommonController;
 /**
  * 后台默认控制器
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class IndexController extends CommonController
 {

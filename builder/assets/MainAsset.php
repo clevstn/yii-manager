@@ -10,7 +10,7 @@ namespace app\builder\assets;
 /**
  * Main Asset
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class MainAsset extends CommonAsset
 {

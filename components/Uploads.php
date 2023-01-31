@@ -15,7 +15,7 @@ use yii\base\DynamicModel;
 use http\Exception\UnexpectedValueException;
 
 /**
- * 上传文件组件
+ * 附件上传组件
  *
  * ```php
  * //配置
@@ -40,7 +40,7 @@ use http\Exception\UnexpectedValueException;
  * ```
  *
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Uploads extends Component
 {

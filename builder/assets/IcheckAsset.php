@@ -12,7 +12,7 @@ use yii\web\JqueryAsset;
 /**
  * icheck库
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class IcheckAsset extends BaseAsset
 {

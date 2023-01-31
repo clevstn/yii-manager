@@ -10,7 +10,7 @@ namespace app\models;
 /**
  * This is the model class for table "{{%user}}".
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 {

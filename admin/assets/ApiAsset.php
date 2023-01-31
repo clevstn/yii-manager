@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 /**
  * 接口定义包
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class ApiAsset extends AssetBundle
 {

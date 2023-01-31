@@ -13,7 +13,7 @@ use app\builder\common\CommonController;
 /**
  * 错误页
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class ErrorController extends CommonController
 {

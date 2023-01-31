@@ -12,7 +12,7 @@ use app\builder\common\CommonController;
 /**
  * 系统错误日志记录
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class ErrorLogController extends CommonController
 {

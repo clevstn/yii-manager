@@ -10,7 +10,7 @@ namespace app\builder\assets;
 /**
  * font awesome 图标库
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class FontAwesomeAsset extends BaseAsset
 {

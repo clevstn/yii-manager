@@ -12,7 +12,7 @@ use yii\base\Widget;
 /**
  * 表格工具助手
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Table
 {

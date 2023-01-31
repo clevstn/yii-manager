@@ -13,7 +13,7 @@ use app\models\SystemConfig;
 /**
  * 网站配置
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class WebsiteGroup extends Group
 {

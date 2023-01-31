@@ -12,7 +12,7 @@ use yii\base\UserException;
 /**
  * 未定义的选项异常
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class UndefinedOptionsException extends UserException
 {

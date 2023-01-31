@@ -12,7 +12,7 @@ use yii\web\JqueryAsset;
 /**
  * Angular-select2
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class AngularSelect2 extends BaseAsset
 {

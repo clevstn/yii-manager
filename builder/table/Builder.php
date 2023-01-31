@@ -47,7 +47,7 @@ use app\builder\contract\NotFoundAttributeException;
  * @property-write array $toolbarExport
  * @property-write array $toolbarCustom
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Builder extends BaseObject implements BuilderInterface
 {

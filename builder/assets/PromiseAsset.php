@@ -10,7 +10,7 @@ namespace app\builder\assets;
 /**
  * Promise Es6
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class PromiseAsset extends BaseAsset
 {

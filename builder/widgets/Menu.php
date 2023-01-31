@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
 /**
  * 菜单组件
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Menu extends \yii\widgets\Menu
 {

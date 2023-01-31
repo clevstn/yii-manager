@@ -33,7 +33,7 @@ use Endroid\QrCode\QrCode as EndroidQrcode;
  * ```
  *
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Qrcode extends BaseObject
 {

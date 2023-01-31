@@ -12,7 +12,7 @@ use yii\web\JqueryAsset;
 /**
  * Select2资源包<Bootstrap3主题>
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Select2Asset extends BaseAsset
 {

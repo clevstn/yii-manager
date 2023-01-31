@@ -10,7 +10,7 @@ namespace app\builder\assets;
 /**
  * laydate库
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class LaydateAsset extends BaseAsset
 {

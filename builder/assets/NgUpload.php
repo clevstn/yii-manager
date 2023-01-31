@@ -12,7 +12,7 @@ use yii\web\JqueryAsset;
 /**
  * angular文件上传插件
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  * @see https://github.com/danialfarid/ng-file-upload
  */
 class NgUpload extends BaseAsset

@@ -10,7 +10,7 @@ namespace app\commands\cronjobs;
 /**
  * This is a module for `cronjobs`
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Module extends \yii\base\Module
 {

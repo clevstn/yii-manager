@@ -15,7 +15,7 @@ use yii\console\Controller;
 /**
  * Cleanup kit
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class ClearController extends Controller
 {

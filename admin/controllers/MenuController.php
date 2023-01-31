@@ -12,7 +12,7 @@ use app\builder\common\CommonController;
 /**
  * 菜单
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class MenuController extends CommonController
 {

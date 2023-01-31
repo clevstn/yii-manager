@@ -58,6 +58,10 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        // RBAC组件
+        'authManager' => [
+            'class' => 'app\components\RbacManager'
+        ],
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,

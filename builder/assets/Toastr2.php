@@ -12,7 +12,7 @@ use yii\web\JqueryAsset;
 /**
  * Toastr2
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Toastr2 extends BaseAsset
 {

@@ -10,7 +10,7 @@ namespace app\commands\queuejobs\business;
 /**
  * 队列业务代码演示
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Demo
 {

@@ -12,7 +12,7 @@ use yii\web\Controller;
 /**
  * 网站首页
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class SiteController extends Controller
 {

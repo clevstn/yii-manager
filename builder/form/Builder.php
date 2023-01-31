@@ -24,7 +24,7 @@ use app\builder\contract\BuilderInterface;
  * @property-write array $css   Css脚本
  * @property-write array $assetBundle
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Builder extends BaseObject implements BuilderInterface
 {

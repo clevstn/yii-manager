@@ -12,7 +12,7 @@ use app\builder\common\CommonController;
 /**
  * 管理组
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class GroupController extends CommonController
 {

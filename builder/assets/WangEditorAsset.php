@@ -9,7 +9,7 @@ namespace app\builder\assets;
 /**
  * Wangeditor
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class WangEditorAsset extends BaseAsset
 {

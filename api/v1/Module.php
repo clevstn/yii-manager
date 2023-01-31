@@ -12,7 +12,7 @@ use app\api\Module as BaseModule;
 /**
  * 接口1.0.0版本
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Module extends BaseModule
 {

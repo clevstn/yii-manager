@@ -14,7 +14,7 @@ use yii\bootstrap\Nav;
 /**
  * 导航助手
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class NavHelper
 {

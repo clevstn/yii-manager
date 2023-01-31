@@ -10,7 +10,7 @@ namespace app\commands\processjobs;
 /**
  * This is a module for `processjobs`
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Module extends \yii\base\Module
 {

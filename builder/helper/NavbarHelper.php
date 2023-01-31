@@ -12,7 +12,7 @@ use yii\bootstrap\Html;
 /**
  * 导航栏助手
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class NavbarHelper
 {

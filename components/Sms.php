@@ -14,7 +14,7 @@ use yii\base\Component;
  * 短信组件
  *
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class Sms extends Component
 {

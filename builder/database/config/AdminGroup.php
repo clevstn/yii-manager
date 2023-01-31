@@ -13,7 +13,7 @@ use app\models\SystemConfig;
 /**
  * 后台配置
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class AdminGroup extends Group
 {

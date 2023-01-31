@@ -10,7 +10,7 @@ namespace app\admin\assets;
 /**
  * 站点相关静态资源
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class SiteAsset extends BaseAsset
 {

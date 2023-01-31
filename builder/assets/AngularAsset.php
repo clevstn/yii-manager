@@ -12,7 +12,7 @@ use yii\web\JqueryAsset;
 /**
  * Angular
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class AngularAsset extends BaseAsset
 {

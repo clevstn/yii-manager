@@ -12,7 +12,7 @@ use yii\console\Controller;
 /**
  * 计划任务
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 abstract class Cron extends Controller
 {

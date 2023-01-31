@@ -14,7 +14,7 @@ use app\builder\contract\InvalidInstanceException;
 /**
  * 表单字段设置选项
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class FieldsOptions extends BaseOptions
 {

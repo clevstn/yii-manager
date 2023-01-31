@@ -7,7 +7,7 @@
 
 /**
  * 建议用户自定义的函数在这里编写
- * @since 1.0
+ * @since ym1.0
  */
 
 if (!function_exists('is_function')) {

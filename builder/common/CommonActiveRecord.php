@@ -14,7 +14,7 @@ use app\behaviors\DatetimeBehavior;
  * 模型继承类
  * @property-read string $error 错误信息
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class CommonActiveRecord extends ActiveRecord
 {

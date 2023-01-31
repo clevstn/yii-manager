@@ -12,7 +12,7 @@ use yii\base\Controller;
 /**
  * 构建契约
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 interface BuilderInterface
 {

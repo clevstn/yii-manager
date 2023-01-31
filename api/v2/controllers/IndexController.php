@@ -12,7 +12,7 @@ use app\api\RestController;
 /**
  * 默认接口
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class IndexController extends RestController
 {

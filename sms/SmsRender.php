@@ -13,7 +13,7 @@ use yii\base\BaseObject;
 /**
  * 短信模板渲染器
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class SmsRender extends BaseObject
 {

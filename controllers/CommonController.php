@@ -12,7 +12,7 @@ use yii\web\Controller;
 /**
  * 网站控制器继承类
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 abstract class CommonController extends Controller
 {

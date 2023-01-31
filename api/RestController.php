@@ -18,7 +18,7 @@ use yii\filters\auth\CompositeAuth;
 /**
  * 接口继承类
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 abstract class RestController extends Controller
 {

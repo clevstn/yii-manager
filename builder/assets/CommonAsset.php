@@ -13,7 +13,7 @@ use yii\bootstrap\BootstrapPluginAsset;
 /**
  * 公共依赖包
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class CommonAsset extends BaseAsset
 {

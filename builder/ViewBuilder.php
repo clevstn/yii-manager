@@ -15,7 +15,7 @@ use yii\base\NotSupportedException;
  * @method \app\builder\table\Builder table(array $config = []) static 表格构建器方法
  * @method \app\builder\form\Builder form(array $config = []) static 表单构建器方法
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class ViewBuilder extends Component
 {

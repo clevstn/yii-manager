@@ -18,7 +18,7 @@ use Yii;
  * @property string $created_at 创建时间
  * @property string|null $updated_at 更新时间
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class AreaCode extends \app\builder\common\CommonActiveRecord
 {

@@ -12,7 +12,7 @@ use Yii;
 /**
  * 接口模块继承类
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 abstract class Module extends \yii\base\Module
 {

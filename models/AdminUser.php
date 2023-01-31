@@ -39,7 +39,7 @@ use app\models\AdminUserLoginLog as LoginLog;
  * @property string $updated_at 更新时间
  * @property-read string $authKey cookie认证密匙
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class AdminUser extends CommonActiveRecord implements IdentityInterface
 {

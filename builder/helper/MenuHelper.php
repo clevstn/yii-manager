@@ -12,7 +12,7 @@ use app\builder\widgets\Menu;
 /**
  * 菜单助手
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class MenuHelper
 {

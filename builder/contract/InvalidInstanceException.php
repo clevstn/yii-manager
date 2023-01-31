@@ -12,7 +12,7 @@ use yii\base\UserException;
 /**
  * 无效的实例
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class InvalidInstanceException extends UserException
 {

@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 /**
  * 分页组件
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class LinkPager extends \yii\widgets\LinkPager
 {

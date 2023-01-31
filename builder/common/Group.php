@@ -18,7 +18,7 @@ use app\builder\contract\ConfigureInterface;
  * @property array $config 配置项
  * @property array $group 分组
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 abstract class Group extends BaseObject implements ConfigureInterface
 {

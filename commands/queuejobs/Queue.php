@@ -12,7 +12,7 @@ use yii\console\Controller;
 /**
  * 队列进程
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 abstract class Queue extends Controller
 {

@@ -3,7 +3,7 @@
  * @copyright Copyright (c) 2020 cleverstone
  *
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 
 !function (win, YmApp) {

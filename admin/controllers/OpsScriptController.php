@@ -12,7 +12,7 @@ use app\builder\common\CommonController;
 /**
  * 运维脚本
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class OpsScriptController extends CommonController
 {

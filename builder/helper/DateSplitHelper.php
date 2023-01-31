@@ -12,7 +12,7 @@ use yii\base\InvalidArgumentException;
 /**
  * 日期分割处理助手
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 class DateSplitHelper
 {

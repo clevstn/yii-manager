@@ -13,7 +13,7 @@ use app\builder\assets\MainAsset;
 /**
  * admin模块静态资源包基础依赖
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 abstract class BaseAsset extends AssetBundle
 {

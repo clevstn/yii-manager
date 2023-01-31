@@ -12,7 +12,7 @@ use yii\base\BaseObject;
 /**
  * 设置选项继承类
  * @author cleverstone
- * @since 1.0
+ * @since ym1.0
  */
 abstract class BaseOptions extends BaseObject
 {
