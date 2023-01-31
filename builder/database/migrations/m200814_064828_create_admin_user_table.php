@@ -4,6 +4,8 @@ use yii\db\Migration;
 
 /**
  * Handles the creation of table `{{%admin_user}}`.
+ * @author cleverstone
+ * @since ym1.0
  */
 class m200814_064828_create_admin_user_table extends Migration
 {

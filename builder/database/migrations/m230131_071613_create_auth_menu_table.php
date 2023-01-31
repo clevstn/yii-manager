@@ -5,7 +5,10 @@ use app\components\RbacManager;
 use yii\base\InvalidConfigException;
 
 /**
+ * 菜单
  * Handles the creation of table `{{%auth_menu}}`.
+ * @author cleverstone
+ * @since ym1.0
  */
 class m230131_071613_create_auth_menu_table extends Migration
 {
@@ -37,6 +40,12 @@ class m230131_071613_create_auth_menu_table extends Migration
 
         $this->createTable($authManager->menuTable, [
             'id' => $this->primaryKey(),
+            'label' => $this->string(50)->defaultValue('')->notNull()->comment('菜单名称'),
+            'src' => $this->string(250)->unique()->notNull()->comment('源'),
+            'link_type' => $this->tinyInteger(2)->defaultValue(1)->notNull()->comment('链接类型：1、路由；2、外链'),
+            'icon' => $this->string(50)->defaultValue('')->notNull()->comment('图标，支持fontawesome-v4.0'),
+            'dump_way' => $this->string(50)->defaultValue('')->notNull()->comment('跳转方式：_self：内部，_blank：外部'),
+            
         ], $tableOptions);
     }
 

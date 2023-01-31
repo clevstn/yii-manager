@@ -28,6 +28,9 @@ class m201109_020328_create_email_record_table extends Migration
             'receive_email' => $this->string(100)->notNull()->defaultValue('')->comment('接收邮箱'),
             'send_time' => $this->dateTime()->notNull()->comment('发送时间'),
         ], $tableOptions);
+
+        // 复合索引，【接受邮箱、认证码】
+        $this->createIndex('index_complex_email_code', self::TABLE_NAME, ['receive_email', 'auth_code']);
     }
 
     /**

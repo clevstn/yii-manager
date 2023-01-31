@@ -28,6 +28,9 @@ class m201109_020241_create_short_msg_record_table extends Migration
             'receive_mobile' => $this->string(50)->notNull()->defaultValue('')->comment('接收手机号'),
             'send_time' => $this->dateTime()->notNull()->comment('发送时间'),
         ], $tableOptions);
+
+        // 复合索引，【接收手机号、认证码】
+        $this->createIndex('index_complex_mobile_code', self::TABLE_NAME, ['receive_mobile', 'auth_code']);
     }
 
     /**

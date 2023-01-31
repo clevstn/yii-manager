@@ -6,6 +6,8 @@ use yii\base\InvalidConfigException;
 
 /**
  * Handles the creation of table `{{%auth_relations}}`.
+ * @author cleverstone
+ * @since ym1.0
  */
 class m230131_071731_create_auth_relations_table extends Migration
 {
