@@ -59,7 +59,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         // RBAC组件
-        'authManager' => [
+        'rbacManager' => [
             'class' => 'app\components\RbacManager'
         ],
         'user' => [

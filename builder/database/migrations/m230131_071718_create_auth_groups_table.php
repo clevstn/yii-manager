@@ -11,12 +11,12 @@ class m230131_071718_create_auth_groups_table extends Migration
 {
     /**
      * RBAC组件对象
-     * @return null|\yii\rbac\ManagerInterface
+     * @return null|\app\components\RbacManager;
      * @throws InvalidConfigException
      */
     protected function getAuthManager()
     {
-        $authManager = Yii::$app->getAuthManager();
+        $authManager = Yii::$app->rbacManager;
         if (!$authManager instanceof RbacManager) {
             throw new InvalidConfigException('You should configure "authManager" component to use database before executing this migration.');
         }

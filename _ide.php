@@ -17,7 +17,7 @@ namespace yii\web {
      * @property-read User $adminUser The user component. This property is read-only.
      * @property-read \app\components\Uploads $uploads The upload component. This property is read-only.
      * @property-read \app\components\Sms $sms The sms component. This property is read-only.
-     * @property-read \app\components\RbacManager $authManager The rbac component. This property is read-only.
+     * @property-read \app\components\RbacManager $rbacManager The rbac component. This property is read-only.
      * @author cleverstone
      * @since ym1.0
      */
