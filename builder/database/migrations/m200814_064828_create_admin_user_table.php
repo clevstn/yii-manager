@@ -53,8 +53,8 @@ class m200814_064828_create_admin_user_table extends Migration
         $this->createIndex('index_created_at', self::TABLE_NAME, ['created_at']);
 
         $this->insert(self::TABLE_NAME, [
-            'username' => 'super',
-            'password' => encrypt_password('super666'),
+            'username' => 'superman',
+            'password' => encrypt_password('superman123456'),
             'email' => '',
             'mobile' => '',
             'auth_key' => random_string(),

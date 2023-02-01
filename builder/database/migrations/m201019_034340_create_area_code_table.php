@@ -42,6 +42,6 @@ class m201019_034340_create_area_code_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%area_code}}');
+        $this->dropTable(self::TABLE_NAME);
     }
 }

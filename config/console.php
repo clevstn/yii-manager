@@ -30,6 +30,10 @@ $config = [
         ],
     ],
     'components' => [
+        // RBAC组件
+        'rbacManager' => [
+            'class' => 'app\components\RbacManager'
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

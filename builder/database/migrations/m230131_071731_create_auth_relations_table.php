@@ -45,7 +45,7 @@ class m230131_071731_create_auth_relations_table extends Migration
             'updated_at' => $this->dateTime()->comment('更新时间'),
         ], $tableOptions);
 
-        $this->createIndex('index_group_menu', $authManager->groupsTable, ['group_id, menu_id']);
+        $this->createIndex('index_group_menu', $authManager->relationsTable, ['group_id', 'menu_id']);
     }
 
     /**
