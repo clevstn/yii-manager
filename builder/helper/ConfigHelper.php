@@ -104,6 +104,6 @@ class ConfigHelper
      */
     public static function map()
     {
-        return Yii::$app->params['group_config'];
+        return Yii::$app->params['admin_group_config'];
     }
 }

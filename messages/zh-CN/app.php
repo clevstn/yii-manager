@@ -114,6 +114,7 @@ return [
     'an undefined field exists in the request parameter' => '请求参数中存在未定义的字段。',
     'request parameter {param} is not defined' => '请求参数{param}未定义',
     'home' => '首页',
+    'this is an invalid file path' => '这是个无效的文件路径。',
 ];
 
 

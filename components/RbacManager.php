@@ -70,6 +70,15 @@ class RbacManager extends Component implements CheckAccessInterface
     public $cacheKey = 'rbac';
 
     /**
+     * 加载菜单项
+     * @return array
+     */
+    public function loadMenuItems()
+    {
+        return load_file(dirname(__DIR__) . '/admin/config/menu.php', true, false, true);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function checkAccess($userId, $permissionName, $params = [])

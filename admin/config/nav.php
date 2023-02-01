@@ -8,7 +8,7 @@
 use app\builder\helper\NavHelper;
 
 /**
- * 导航项配置
+ * 顶部导航
  * @see yii\bootstrap\Nav
  * @see app\builder\helper\NavHelper::getItems()
  * @since ym1.0

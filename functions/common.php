@@ -424,7 +424,7 @@ if (!function_exists('attach_url')) {
         }
 
         // 附件ID为空,返回默认附件路径
-        return into_full_url(Yii::$app->params['default_photo']);
+        return into_full_url(Yii::$app->params['admin_default_photo']);
     }
 }
 
@@ -547,7 +547,7 @@ if (!function_exists('xdiv')) {
 
         // 剩余除数累乘
         $total = xmul(...$params);
-        // 做精度减法运算,得出结果
+        // 做精度除法运算,得出结果
         return (float)bcdiv($dividend, $total, 12);
     }
 }
@@ -626,6 +626,52 @@ if (!function_exists('isset_return')) {
                     return $message ?: t('request parameter {param} is not defined', 'app', ['param' => $field]);
                 }
             }
+        }
+
+        return true;
+    }
+}
+
+if (!function_exists('load_file')) {
+
+    /**
+     * 加载文件
+     * @param string $filePath 文件正确路径
+     * @param bool $isReturn 是否返回结果
+     * @param bool $once 是否只引入一次
+     * @param bool $force 是否强制引入
+     * @return bool|mixed
+     */
+    function load_file($filePath, $isReturn = false, $once = false, $force = false)
+    {
+        if (!is_file($filePath)) {
+            throw new \http\Exception\InvalidArgumentException(t('this is an invalid file path'));
+        }
+
+        if ($once && $force) {
+            if ($isReturn) {
+                return require_once $filePath;
+            }
+
+            require_once $filePath;
+        } elseif ($once && !$force) {
+            if ($isReturn) {
+                return include_once $filePath;
+            }
+
+            include_once $filePath;
+        } elseif (!$once && $force) {
+            if ($isReturn) {
+                return require $filePath;
+            }
+
+            require $filePath;
+        } elseif (!$once && !$force) {
+            if ($isReturn) {
+                return include $filePath;
+            }
+
+            include $filePath;
         }
 
         return true;

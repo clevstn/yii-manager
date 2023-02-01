@@ -78,7 +78,8 @@ class NavHelper
      */
     protected function getItems()
     {
-        $navPath = Yii::$app->basePath . '/admin/nav.php';
-        return include($navPath);
+        $navPath = Yii::$app->basePath . '/admin/config/nav.php';
+
+        return load_file($navPath, true);
     }
 }
