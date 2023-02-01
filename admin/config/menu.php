@@ -3,11 +3,15 @@
  * @copyright Copyright (c) 2020 cleverstone
  */
 
+$coreNode = include \Yii::getAlias('@builder/database/menu/node.php');
+$coreWhiteList = include \Yii::getAlias('@builder/database/menu/whitelist.php');
+
 /**
  * 菜单
+ * @author cleverstone
  * @since ym1.0
  */
-return [
+$items = [
     // 配置需要RBAC授权访问的菜单项
     // 参数配置请结合`auth_menu`数据表和`rbacManager`组件
     // 该配置项会加载更新到数据表`auth_menu`
@@ -26,7 +30,6 @@ return [
             'label' => '首页',
             'src' => 'admin/index/index',
             'icon' => 'glyphicon glyphicon-home',
-            'sort' => 1,
         ],
         /*后台管理*/
         [
@@ -121,3 +124,15 @@ return [
         //['label' => '', 'src' => ''],
     ],
 ];
+
+// 合并节点
+if (!empty($coreNode)) {
+    $items['auth'] = array_merge($items['auth'], $coreNode);
+}
+
+// 合并白名单
+if (!empty($coreWhiteList)) {
+    $items['whiteLists'] = array_merge($items['whiteLists'], $coreWhiteList);
+}
+
+return $items;
