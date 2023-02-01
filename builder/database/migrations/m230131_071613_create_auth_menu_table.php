@@ -41,12 +41,22 @@ class m230131_071613_create_auth_menu_table extends Migration
         $this->createTable($authManager->menuTable, [
             'id' => $this->primaryKey(),
             'label' => $this->string(50)->defaultValue('')->notNull()->comment('菜单名称'),
+            'icon' => $this->string(50)->defaultValue('')->notNull()->comment('图标，支持fontawesome-v4.0'),
+            'label_type' => $this->tinyInteger(2)->defaultValue(1)->notNull()->comment('1、模块 2、菜单 3、功能'),
             'src' => $this->string(250)->unique()->notNull()->comment('源'),
             'link_type' => $this->tinyInteger(2)->defaultValue(1)->notNull()->comment('链接类型：1、路由；2、外链'),
-            'icon' => $this->string(50)->defaultValue('')->notNull()->comment('图标，支持fontawesome-v4.0'),
             'dump_way' => $this->string(50)->defaultValue('')->notNull()->comment('跳转方式：_self：内部，_blank：外部'),
-            
+            'desc' => $this->string(250)->defaultValue('')->notNull()->comment('备注'),
+            'pid' => $this->integer()->defaultValue(0)->notNull()->comment('父ID'),
+            'sort' => $this->integer()->defaultValue(0)->notNull()->comment('排序'),
+            'created_at' => $this->dateTime()->notNull()->comment('创建时间'),
+            'updated_at' => $this->dateTime()->comment('更新时间'),
         ], $tableOptions);
+
+        // 复合索引，【接受邮箱、认证码】
+        $this->createIndex('index_label_type', $authManager->menuTable, ['link_type']);
+        $this->createIndex('index_src', $authManager->menuTable, ['src']);
+        $this->createIndex('index_pid', $authManager->menuTable, ['pid']);
     }
 
     /**

@@ -10,7 +10,7 @@ require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
 $config = require __DIR__ . '/../config/web.php';
 
 $config['defaultRoute'] = 'site';
-$bindMap = YII_ENV_DEV ? ['debug', 'gii', 'basic'] : ['basic'];
+$bindMap = YII_ENV_DEV ? 'debug,gii,basic' : 'basic';
 defined('BIND_MODULE') or define('BIND_MODULE', $bindMap);
 
 (new yii\web\Application($config))->run();

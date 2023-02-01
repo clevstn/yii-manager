@@ -18,7 +18,7 @@ $config['modules']['v2'] = [
 ];
 
 $config['defaultRoute'] = 'v1';
-$bindMap = YII_ENV_DEV ? ['debug', 'gii', 'v1', 'v2'] : ['v1', 'v2'];
+$bindMap = YII_ENV_DEV ? 'debug,gii,v1,v2' : 'v1,v2';
 defined('BIND_MODULE') or define('BIND_MODULE', $bindMap);
 
 (new yii\web\Application($config))->run();

@@ -43,6 +43,10 @@ $config = [
                 //...
             ],
         ],
+        // RBAC组件
+        'rbacManager' => [
+            'class' => 'app\components\RbacManager'
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'XaAN1rnY43OVTxmc',
@@ -58,11 +62,8 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        // RBAC组件
-        'rbacManager' => [
-            'class' => 'app\components\RbacManager'
-        ],
         'user' => [
+            'class' => 'yii\web\User',
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity_front', 'httpOnly' => true],
@@ -75,6 +76,9 @@ $config = [
         ],
         'adminUser' => [
             'class' => 'yii\web\User',
+            // rbac认证
+            'accessChecker' => 'rbacManager',
+            // 身份认证
             'identityClass' => 'app\models\AdminUser',
             'enableAutoLogin' => true,
             'loginUrl' => ['admin/site/login'],

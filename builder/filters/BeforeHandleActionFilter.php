@@ -31,24 +31,20 @@ class BeforeHandleActionFilter extends Behavior
     /**
      * Before action listener
      * @param yii\base\ActionEvent $event
-     * @return bool
      */
     public function beforeHandleAction($event)
     {
         $mid = $event->action->controller->module->id;
         $bindMap = defined('BIND_MODULE') ? BIND_MODULE : null;
-        if (empty($bindMap)) {
-            return $event->isValid;
+        if (!empty($bindMap)) {
+            $bindMap = array_filter(explode(',', $bindMap));
+            if (!in_array($mid, $bindMap, true)) {
+                Yii::$app->getResponse()->redirect('@web/htm/404.html');
+                // 结束事件，并跳过剩余的事件处理程序
+                $event->handled = true;
+                // 停止访问动作
+                $event->isValid = false;
+            }
         }
-
-        $event->isValid = true;
-
-        $bindMap = (array) $bindMap;
-        if (!in_array($mid, $bindMap, true)) {
-            Yii::$app->getResponse()->redirect('@web/htm/404.html');
-            $event->isValid = false;
-        }
-
-        return $event->isValid;
     }
 }

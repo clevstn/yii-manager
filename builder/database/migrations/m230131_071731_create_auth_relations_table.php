@@ -39,8 +39,13 @@ class m230131_071731_create_auth_relations_table extends Migration
 
         $this->createTable($authManager->relationsTable, [
             'id' => $this->primaryKey(),
-
+            'group_id' => $this->integer()->notNull()->comment('管理组ID'),
+            'menu_id' => $this->integer()->notNull()->comment('菜单ID'),
+            'created_at' => $this->dateTime()->notNull()->comment('创建时间'),
+            'updated_at' => $this->dateTime()->comment('更新时间'),
         ], $tableOptions);
+
+        $this->createIndex('index_group_menu', $authManager->groupsTable, ['group_id, menu_id']);
     }
 
     /**

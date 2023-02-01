@@ -14,7 +14,7 @@ $config['modules']['admin'] = [
 ];
 
 $config['defaultRoute'] = 'admin';
-$bindMap = YII_ENV_DEV ? ['debug', 'gii', 'admin'] : ['admin'];
+$bindMap = YII_ENV_DEV ? 'debug,gii,admin' : 'admin';
 defined('BIND_MODULE') or define('BIND_MODULE', $bindMap);
 
 (new yii\web\Application($config))->run();
