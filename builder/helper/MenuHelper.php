@@ -7,6 +7,7 @@
 
 namespace app\builder\helper;
 
+use Yii;
 use app\builder\widgets\Menu;
 
 /**
@@ -20,7 +21,7 @@ class MenuHelper
     /**
      * 渲染菜单
      * @return string
-     * @throws \Exception
+     * @throws \Throwable
      */
     public static function render()
     {
@@ -59,6 +60,6 @@ class MenuHelper
      */
     public function getItems()
     {
-        return [];
+        return Yii::$app->rbacManager->getMenusByUserId(Yii::$app->adminUser->identity->id);
     }
 }

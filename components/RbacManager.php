@@ -5,8 +5,11 @@
 
 namespace app\components;
 
-use yii\base\Component;
+use Yii;
+use yii\db\Query;
+use yii\di\Instance;
 use yii\db\Connection;
+use yii\base\Component;
 use yii\caching\CacheInterface;
 use yii\rbac\CheckAccessInterface;
 
@@ -70,17 +73,83 @@ class RbacManager extends Component implements CheckAccessInterface
     public $cacheKey = 'rbac';
 
     /**
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function init()
+    {
+        parent::init();
+        $this->db = Instance::ensure($this->db, Connection::class);
+        if ($this->cache !== null) {
+            $this->cache = Instance::ensure($this->cache, 'yii\caching\CacheInterface');
+        }
+    }
+
+    /**
+     * 加载更新菜单
+     * @return true|string
+     * @throws \Exception
+     */
+    public function updateMenusItems()
+    {
+        $menuItems = $this->loadLocalMenuItems();
+        $transaction = $this->db->beginTransaction();
+
+        try {
+            $this->updateMenusItemsRecursive($menuItems);
+
+            $transaction->commit();
+            return true;
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            return $e->getMessage();
+        } catch (\Throwable $e) {
+            $transaction->rollBack();
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * 递归更新菜单项
+     * @param array $menuItems
+     * @return true
+     */
+    public function updateMenusItemsRecursive($menuItems)
+    {
+
+    }
+
+    /**
      * 加载本地菜单项
      * @return array
      */
-    public function loadMenuItems()
+    public function loadLocalMenuItems()
     {
-        return load_file(dirname(__DIR__) . '/admin/config/menu.php', true, false, true);
+        $menuItems = load_file(Yii::getAlias('@app/admin/config/menu.php'), true, false, true);
+
+        return $this->formatMenuItemsRecursive($menuItems['auth']);
+    }
+
+    /**
+     * 递归格式化本地菜单项
+     * @param array $menuItems 菜单项集合
+     * @return array
+     */
+    public function formatMenuItemsRecursive($menuItems)
+    {
+        foreach ($menuItems as &$item) {
+            if (!empty($item['items'])) {
+                $item['items'] = $this->formatMenuItemsRecursive($item['items']);
+            } else {
+                $item = $this->formatMenuItem($item);
+            }
+        }
+
+        return $menuItems;
     }
 
     /**
      * 格式化本地菜单项
-     * @param array $items 菜单项
+     * @param array $item 菜单项
      * - label      菜单名称
      * - src        源
      * - icon       图标
@@ -91,7 +160,7 @@ class RbacManager extends Component implements CheckAccessInterface
      * - sort       排序
      * @return array
      */
-    public function formatItem($items)
+    public function formatMenuItem($item)
     {
         $defaultItem = [
             'label' => '--',
@@ -105,7 +174,17 @@ class RbacManager extends Component implements CheckAccessInterface
             'items' => [],
         ];
 
-        return array_merge($defaultItem, $items);
+        return array_merge($defaultItem, $item);
+    }
+
+    /**
+     * 根据用户ID获取菜单
+     * @param int $userId 后台用户ID
+     * @return array
+     */
+    public function getMenusByUserId($userId)
+    {
+        return [];
     }
 
     /**
