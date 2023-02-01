@@ -10,9 +10,9 @@
 return [
     // 配置需要RBAC授权访问的菜单项
     // 参数配置请结合`auth_menu`数据表
-    // - label      菜单名
+    // - label      菜单名称
     // - icon       图标
-    // - label_type 菜单类型，1、模块 2、菜单 3、功能
+    // - label_type 类型，1、菜单 2、功能
     // - src        源
     // - link_type  链接类型：1、路由；2、外链
     // - dump_way   跳转方式：_self：内部，_blank：外部
