@@ -21,4 +21,7 @@ return [
     'has been sent' => '已发送',
     'due to too many password errors, your account has been suspended until {date}.' => '由于密码错误次数过多,您的账号已被封停,封停截止时间为{date}',
     'parameter error' => '参数错误',
+    'Personal Center' => '个人中心',
+    'empty' => '无',
+    'current login' => '当前登录',
 ];

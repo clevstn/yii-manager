@@ -55,12 +55,12 @@ class NavHelper
     public static function getMyBrand()
     {
         $adminUser = Yii::$app->adminUser;
-        $label = Html::tag('span', t('current') . ': ' . ($adminUser->isGuest ? t('empty') : $adminUser->identity->username), [
+        $label = Html::tag('span', t('current login', 'app.admin') . ': ' . ($adminUser->isGuest ? t('empty', 'app.admin') : $adminUser->identity->username), [
             'style' => ['margin-top' => '12px']
         ]);
         $headSrc = $adminUser->isGuest ? '@web/media/image/head.png' : attach_url($adminUser->identity->photo);
         $headContent = Html::img($headSrc, [
-            'style' => ['max-width' => '80%', 'height' => '70px'],
+            'style' => ['max-width' => '80%', 'height' => '66px', 'border-radius' => '50%',],
         ]);
 
         return Html::tag(
@@ -78,7 +78,7 @@ class NavHelper
      */
     protected function getItems()
     {
-        $navPath = Yii::$app->basePath . '/config/nav.php';
+        $navPath = Yii::$app->basePath . '/admin/nav.php';
         return include($navPath);
     }
 }

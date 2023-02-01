@@ -26,7 +26,7 @@ return [
             'items' => [
                 NavHelper::getMyBrand(),
                 '<li class="divider"></li>',
-                ['label' => '<i class="glyphicon glyphicon-edit"></i>&nbsp;' . t('Personal Settings'), 'url' => '#'],
+                ['label' => '<i class="glyphicon glyphicon-edit"></i>&nbsp;' . t('Personal Center', 'app.admin'), 'url' => '#'],
                 ['label' => '<i class="glyphicon glyphicon-off"></i>&nbsp;' . t('sign out', 'app.admin'), 'url' => '/admin/site/logout'],
             ],
         ],
