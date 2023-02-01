@@ -47,7 +47,7 @@ class MenuHelper
             // 'Products' menu item will be selected as long as the route is 'product/index'
             [
                 'label' => '后台管理',
-                'url' => '',
+                'url' => '/admin/manager/index',
                 'icon' => 'glyphicon glyphicon-blackboard',
                 'items' => [
                     [

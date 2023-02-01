@@ -19,24 +19,24 @@ use yii\helpers\ArrayHelper;
 class Menu extends \yii\widgets\Menu
 {
     /**
-     * @var string 菜单id
+     * @var string 节点ID
      */
-    public $menuId = 'ym';
+    public $nodeId = 'ym';
 
     /**
-     * @var string 菜单模块class
+     * @var string 父级Ui class
      */
-    public $menuModuleClass = 'ym-submenu';
+    public $parentUiClass = 'ym-submenu';
 
     /**
-     * @var string 菜单模块link模板
+     * @var string 父级link模板
      */
-    public $menuModuleLinkTemplate = '<a class="ym-submenu-module{collapsed}" data-toggle="collapse" href="{id}">{icon}{label}</a>';
+    public $parentLinkTemplate = '<a class="ym-submenu-module{collapsed}" data-toggle="collapse" href="{id}">{icon}{label}</a>';
 
     /**
-     * @var string 菜单项class
+     * @var string 菜单项Ui class
      */
-    public $menuItemClass = 'ym-menu-item';
+    public $itemUiClass = 'ym-menu-item';
 
     /**
      * {@inheritDoc}
@@ -83,7 +83,7 @@ class Menu extends \yii\widgets\Menu
         $lines = [];
         $targetId = ArrayHelper::remove($items, 'targetId');
         foreach ($items as $i => $item) {
-            $item['targetId'] = $targetId ? "{$targetId}_{$i}" : "{$this->menuId}_{$i}";
+            $item['targetId'] = $targetId ? "{$targetId}_{$i}" : "{$this->nodeId}_{$i}";
             $options = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
             $tag = ArrayHelper::remove($options, 'tag', 'li');
             $class = [];
@@ -103,7 +103,7 @@ class Menu extends \yii\widgets\Menu
 
             $menu = $this->renderItem($item);
             if (!empty($item['items'])) {
-                Html::addCssClass($options, [$this->menuModuleClass]);
+                Html::addCssClass($options, [$this->parentUiClass]);
                 $activeMap = ArrayHelper::getColumn($item['items'], 'active');
                 $activeSubmenu = false;
                 if (!empty($activeMap) && array_search(true, $activeMap) !== false) {
@@ -123,7 +123,7 @@ class Menu extends \yii\widgets\Menu
                     '{collapse}' => $collapseClass
                 ]);
             } else {
-                Html::addCssClass($options, [$this->menuItemClass]);
+                Html::addCssClass($options, [$this->itemUiClass]);
             }
 
             $lines[] = Html::tag($tag, $menu, $options);
@@ -146,7 +146,7 @@ class Menu extends \yii\widgets\Menu
         }
 
         if (isset($item['url']) || !empty($item['items'])) {
-            $linkTemplate = !empty($item['items']) ? $this->menuModuleLinkTemplate : $this->linkTemplate;
+            $linkTemplate = !empty($item['items']) ? $this->parentLinkTemplate : $this->linkTemplate;
             $template = ArrayHelper::getValue($item, 'template', $linkTemplate);
 
             return strtr($template, [
