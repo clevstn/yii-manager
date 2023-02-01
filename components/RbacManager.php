@@ -70,12 +70,42 @@ class RbacManager extends Component implements CheckAccessInterface
     public $cacheKey = 'rbac';
 
     /**
-     * 加载菜单项
+     * 加载本地菜单项
      * @return array
      */
     public function loadMenuItems()
     {
         return load_file(dirname(__DIR__) . '/admin/config/menu.php', true, false, true);
+    }
+
+    /**
+     * 格式化本地菜单项
+     * @param array $items 菜单项
+     * - label      菜单名称
+     * - src        源
+     * - icon       图标
+     * - label_type 类型，1、菜单 2、功能
+     * - link_type  链接类型：1、路由；2、外链
+     * - dump_way   跳转方式：_self：内部，_blank：外部
+     * - desc       备注
+     * - sort       排序
+     * @return array
+     */
+    public function formatItem($items)
+    {
+        $defaultItem = [
+            'label' => '--',
+            'src' => '--',
+            'icon' => '--',
+            'label_type' => 1,
+            'link_type' => 1,
+            'dump_way' => '_self',
+            'desc' => '',
+            'sort' => 0,
+            'items' => [],
+        ];
+
+        return array_merge($defaultItem, $items);
     }
 
     /**
