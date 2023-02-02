@@ -20,6 +20,8 @@ use yii\rbac\CheckAccessInterface;
  */
 class RbacManager extends Component implements CheckAccessInterface
 {
+    // 超管组ID
+    const ADMINISTRATOR_GROUP = 0;
     /**
      * @var Connection|array|string the DB connection object or the application component ID of the DB connection.
      * After the DbManager object is created, if you want to change this property, you should only assign it
@@ -44,6 +46,11 @@ class RbacManager extends Component implements CheckAccessInterface
      * @var string 用户表
      */
     public $adminUserTable = '{{%admin_user}}';
+
+    /**
+     * @var array 用户权限
+     */
+    public $assignment;
 
     /**
      * @var CacheInterface|array|string|null the cache used to improve RBAC performance. This can be one of the following:
@@ -85,7 +92,72 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 加载更新菜单
+     * 通过组ID获取组权限
+     * @param int $groupId 组ID
+     * @return array
+     */
+    public function getAssignmentByGroup($groupId)
+    {
+        $this->loadFromCache($groupId);
+        if ($this->assignment !== null) {
+            return $this->assignment;
+        }
+
+        return $this->getAssignmentByGroupFromDb($groupId);
+    }
+
+    /**
+     * 通过组ID从数据表中获取组权限
+     * @param int $groupId 组ID
+     * @return array
+     */
+    protected function getAssignmentByGroupFromDb($groupId)
+    {
+        if ($groupId === self::ADMINISTRATOR_GROUP) {
+            $data = (new Query())->from($this->menuTable)->all($this->db);
+        } else {
+            $data = (new Query())->from(['r' => $this->relationsTable])
+                ->leftJoin(['m' => $this->menuTable], 'r.menu_id=m.id')
+                ->select('m.*')
+                ->where(['group_id' => $groupId])
+                ->all();
+        }
+
+        return $data;
+    }
+
+
+    /**
+     * 从缓存中加载组权限
+     * @param int $groupId 组ID
+     */
+    protected function loadFromCache($groupId)
+    {
+        if ($this->assignment !== null || !$this->cache instanceof CacheInterface) {
+            return;
+        }
+
+        $data = $this->cache->get($this->cacheKey);
+        $cacheValues = [];
+        if (is_array($data)) {
+            if (isset($data[$groupId])) {
+                $this->assignment = $data[$groupId];
+                return;
+            }
+
+            $cacheValues = $data;
+        }
+
+        $assignment = $this->getAssignmentByGroupFromDb($groupId);
+
+        $this->assignment = $assignment;
+        $cacheValues[$groupId] = $assignment;
+
+        $this->cache->set($this->cacheKey, $cacheValues);
+    }
+
+    /**
+     * 加载并更新菜单
      * @return true|string
      * @throws \Exception
      */
@@ -96,8 +168,9 @@ class RbacManager extends Component implements CheckAccessInterface
 
         try {
             $this->updateMenuItemsRecursive($menuItems);
-
             $transaction->commit();
+
+            $this->invalidateCache();
             return true;
         } catch (\Exception $e) {
             $transaction->rollBack();
@@ -117,31 +190,48 @@ class RbacManager extends Component implements CheckAccessInterface
      */
     protected function updateMenuItemsRecursive($menuItems, $pid = 0, $sort = 1)
     {
-        foreach ($menuItems as $item) {
+        foreach ($menuItems as $i => $item) {
             if (empty($item['src'])) {
                 throw new \InvalidArgumentException(t('the parameter {param} is not defined', 'app.admin', ['param' => 'src']));
             }
 
             $row = (new Query())->from($this->menuTable)
                 ->where(['src' => $item['src']])
-                ->select(['pid', 'sort'])
+                ->select(['id', 'sort'])
                 ->one($this->db);
+
             $childItems = $item['items'];
             unset($item['items']);
+
             if ($row === false) {
                 $item['pid'] = $pid;
-                $item['sort'] = $sort;
+                $item['sort'] = $sort + $i;
                 $this->db->createCommand()->insert($this->menuTable, $item)->execute();
-                $row = (new Query())->from($this->menuTable)
-                    ->where(['src' => $item['src']])
-                    ->select(['pid', 'sort'])
-                    ->one($this->db);
             }
 
             if (!empty($childItems)) {
-                $this->updateMenuItemsRecursive($childItems, $row['pid'], $row['sort']++);
+                if ($row === false) {
+                    $row = (new Query())->from($this->menuTable)
+                        ->where(['src' => $item['src']])
+                        ->select(['id', 'sort'])
+                        ->one($this->db);
+                }
+
+                $this->updateMenuItemsRecursive($childItems, $row['id'], ++$row['sort']);
             }
         }
+    }
+
+    /**
+     * 缓存失效
+     */
+    protected function invalidateCache()
+    {
+        if ($this->cache !== null) {
+            $this->cache->delete($this->cacheKey);
+        }
+
+        $this->assignment = null;
     }
 
     /**
@@ -165,9 +255,9 @@ class RbacManager extends Component implements CheckAccessInterface
         foreach ($menuItems as &$item) {
             if (!empty($item['items'])) {
                 $item['items'] = $this->formatMenuItemsRecursive($item['items']);
-            } else {
-                $item = $this->formatMenuItem($item);
             }
+
+            $item = $this->formatMenuItem($item);
         }
 
         return $menuItems;
@@ -206,13 +296,19 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 根据用户ID获取菜单
-     * @param int $userId 后台用户ID
+     * 根据组ID获取菜单
+     * @param int $groupId 组ID
      * @return array
      */
-    public function getMenusByUserId($userId)
+    public function getMenusByGroup($groupId)
     {
-        return [];
+        $assignment = $this->getAssignmentByGroup($groupId);
+        $menusMap = [];
+        foreach ($assignment as $value) {
+            if ($value['pid'] == 0 && $value['label_type'] == 1) {
+
+            }
+        }
     }
 
     /**

@@ -60,7 +60,7 @@ class MenuHelper
      */
     public function getItems()
     {
-        $items = Yii::$app->rbacManager->getMenusByUserId(Yii::$app->adminUser->identity->id);
+        $items = Yii::$app->rbacManager->getMenusByGroup(Yii::$app->adminUser->identity->group);
         if (!empty($items)) {
             // 首页不用加入rbac
             $items = array_merge([
