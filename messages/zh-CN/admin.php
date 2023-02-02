@@ -25,4 +25,5 @@ return [
     'empty' => '无',
     'current login' => '当前登录',
     'the parameter {param} is not defined' => '参数{param}未定义。',
+    'Role-Based policies Access Control deny all' => '权限不足，禁止访问。',
 ];

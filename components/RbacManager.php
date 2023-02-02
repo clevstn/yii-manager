@@ -10,6 +10,8 @@ use yii\db\Query;
 use yii\di\Instance;
 use yii\db\Connection;
 use yii\base\Component;
+use app\models\AuthMenu;
+use app\models\AuthGroups;
 use yii\caching\CacheInterface;
 use yii\rbac\CheckAccessInterface;
 
@@ -20,17 +22,6 @@ use yii\rbac\CheckAccessInterface;
  */
 class RbacManager extends Component implements CheckAccessInterface
 {
-    // 超管组ID
-    const ADMINISTRATOR_GROUP = 0;
-
-    // 菜单类型：1、菜单 2、功能
-    const LABEL_TYPE_MENU = 1;
-    const LABEL_TYPE_FUNCTION = 2;
-
-    // 链接类型：1、路由；2、外链
-    const LINK_TYPE_ROUTE = 1;
-    const LINK_TYPE_URL = 2;
-
     /**
      * @var Connection|array|string the DB connection object or the application component ID of the DB connection.
      * After the DbManager object is created, if you want to change this property, you should only assign it
@@ -51,15 +42,11 @@ class RbacManager extends Component implements CheckAccessInterface
      * @var string 权限角色关系表
      */
     public $relationsTable = '{{%auth_relations}}';
-    /**
-     * @var string 用户表
-     */
-    public $adminUserTable = '{{%admin_user}}';
 
     /**
-     * @var array 用户权限
+     * @var array 组权限缓存
      */
-    public $assignment;
+    public $permissions;
 
     /**
      * @var CacheInterface|array|string|null the cache used to improve RBAC performance. This can be one of the following:
@@ -101,18 +88,18 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 通过组ID获取组权限
+     * 通过组ID(从数据表或缓存中)获取组权限
      * @param int $groupId 组ID
      * @return array
      */
-    public function getAssignmentByGroup($groupId)
+    public function getPermissionsByGroup($groupId)
     {
         $this->loadFromCache($groupId);
-        if ($this->assignment !== null) {
-            return $this->assignment;
+        if ($this->permissions !== null) {
+            return $this->permissions;
         }
 
-        return $this->getAssignmentByGroupFromDb($groupId);
+        return $this->getPermissionsByGroupFromDb($groupId);
     }
 
     /**
@@ -120,9 +107,9 @@ class RbacManager extends Component implements CheckAccessInterface
      * @param int $groupId 组ID
      * @return array
      */
-    protected function getAssignmentByGroupFromDb($groupId)
+    protected function getPermissionsByGroupFromDb($groupId)
     {
-        if ($groupId === self::ADMINISTRATOR_GROUP) {
+        if ($groupId === AuthGroups::ADMINISTRATOR_GROUP) {
             $data = (new Query())->from($this->menuTable)->all($this->db);
         } else {
             $data = (new Query())->from(['r' => $this->relationsTable])
@@ -142,7 +129,7 @@ class RbacManager extends Component implements CheckAccessInterface
      */
     protected function loadFromCache($groupId)
     {
-        if ($this->assignment !== null || !$this->cache instanceof CacheInterface) {
+        if ($this->permissions !== null || !$this->cache instanceof CacheInterface) {
             return;
         }
 
@@ -150,17 +137,17 @@ class RbacManager extends Component implements CheckAccessInterface
         $cacheValues = [];
         if (is_array($data)) {
             if (isset($data[$groupId])) {
-                $this->assignment = $data[$groupId];
+                $this->permissions = $data[$groupId];
                 return;
             }
 
             $cacheValues = $data;
         }
 
-        $assignment = $this->getAssignmentByGroupFromDb($groupId);
+        $permissions = $this->getPermissionsByGroupFromDb($groupId);
 
-        $this->assignment = $assignment;
-        $cacheValues[$groupId] = $assignment;
+        $this->permissions = $permissions;
+        $cacheValues[$groupId] = $permissions;
 
         $this->cache->set($this->cacheKey, $cacheValues);
     }
@@ -240,7 +227,7 @@ class RbacManager extends Component implements CheckAccessInterface
             $this->cache->delete($this->cacheKey);
         }
 
-        $this->assignment = null;
+        $this->permissions = null;
     }
 
     /**
@@ -305,39 +292,43 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 根据组ID获取菜单数据集合
+     * 根据组ID获取栏目数据集合
      * @param int $groupId 组ID
      * @return array
      */
-    public function getMenusByGroup($groupId)
+    public function getBannerByGroup($groupId)
     {
-        $assignments = $this->getAssignmentByGroup($groupId);
+        $permissions = $this->getPermissionsByGroup($groupId);
 
-        return $this->extractMenusForAssignments($assignments);
+        return $this->extractBannerFromPermissions($permissions);
     }
 
     /**
-     * 从指定权限中提取到菜单数据集合
-     * @param array $assignments 权限集合
+     * 从指定权限中提取到栏目数据集合
+     * @param array $permissions 权限集合
      * @param int $pid 父ID
-     * @param array $menusMap 菜单数据集合
+     * @param array $bannerMap 栏目数据集合
      * @return array
      */
-    protected function extractMenusForAssignments($assignments, $pid = 0, $menusMap = [])
+    protected function extractBannerFromPermissions($permissions, $pid = 0, $bannerMap = [])
     {
-        foreach ($assignments as $value) {
-            if ($value['pid'] == $pid && $value['label_type'] == self::LABEL_TYPE_MENU) {
-                $menusMap[] = [
+        foreach ($permissions as $value) {
+            if ($value['pid'] == $pid && $value['label_type'] == AuthMenu::LABEL_TYPE_MENU) {
+                $bannerMap[] = [
                     'label' => $value['label'],
-                    'url' => $value['link_type'] == self::LINK_TYPE_ROUTE ? ["/{$value['src']}"] : $value['src'],
+                    'url' => $value['link_type'] == AuthMenu::LINK_TYPE_ROUTE ? ["/{$value['src']}"] : $value['src'],
                     'src' => $value['src'],
                     'icon' => $value['icon'],
-                    'items' => $this->extractMenusForAssignments($assignments, $value['id']),
+                    'sort' => $value['sort'],
+                    'items' => $this->extractBannerFromPermissions($permissions, $value['id']),
                 ];
             }
         }
 
-        return $menusMap;
+        $sortMap = array_column($bannerMap, 'sort');
+        array_multisort($sortMap, SORT_ASC, $bannerMap);
+
+        return $bannerMap;
     }
 
     /**
@@ -345,6 +336,11 @@ class RbacManager extends Component implements CheckAccessInterface
      */
     public function checkAccess($userId, $permissionName, $params = [])
     {
-        return true;
+        $permissions = $this->getPermissionsByGroup(Yii::$app->adminUser->identity->group);
+        if (in_array($permissionName, array_column($permissions, 'src'), true)) {
+            return true;
+        }
+
+        return false;
     }
 }

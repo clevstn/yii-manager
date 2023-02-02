@@ -39,7 +39,7 @@ class RbacFilter extends Behavior
             $event->isValid = false;
             \Yii::$app->getResponse()->getHeaders()->set('X-DENY-ALL', 'No authorization');
 
-            throw new UnauthorizedHttpException('Role-Based policies Access Control deny all.');
+            throw new UnauthorizedHttpException(t('Role-Based policies Access Control deny all', 'app.admin'));
         }
 
         return $event->isValid;
