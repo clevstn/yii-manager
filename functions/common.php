@@ -678,6 +678,18 @@ if (!function_exists('load_file')) {
     }
 }
 
+if (!function_exists('vv')) {
+    /**
+     * 检查当前管理员是否允许视图渲染(用于视图)
+     * @param string $permissionName 权限
+     * @return bool
+     */
+    function vv($permissionName)
+    {
+        return Yii::$app->rbacManager->checkAccessForViewRender($permissionName);
+    }
+}
+
 // 包含用户自定义函数文件
 include __DIR__ . '/function.php';
 

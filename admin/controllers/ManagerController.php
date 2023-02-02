@@ -34,17 +34,6 @@ class ManagerController extends CommonController
     ];
 
     /**
-     * {@inheritdoc}
-     */
-    public $undetectedActions = [
-        'index',
-        'add-user',
-        'toggle',
-        'edit',
-        'group',
-    ];
-
-    /**
      * 管理员列表
      * @return string
      * @throws \ReflectionException

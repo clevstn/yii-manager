@@ -332,6 +332,22 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
+     * 检查当前管理员是否允许视图渲染（用于方法调用）
+     * @param string $permissionName 权限
+     * @return bool
+     */
+    public function checkAccessForViewRender($permissionName)
+    {
+        $permissions = $this->getPermissionsByGroup(Yii::$app->adminUser->identity->group);
+        if (in_array($permissionName, array_column($permissions, 'src'), true)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * 该检查用于行为中间件
      * {@inheritdoc}
      */
     public function checkAccess($userId, $permissionName, $params = [])

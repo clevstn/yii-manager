@@ -37,6 +37,28 @@ $items = [
                     'label' => '管理员',
                     'src' => 'admin/manager/index',
                     'icon' => 'glyphicon glyphicon-user',
+                    'items' => [
+                        [
+                            'label' => '新增',
+                            'src' => 'admin/manager/add-user',
+                            'icon' => 'fa fa-bars',
+                        ],
+                        [
+                            'label' => '编辑',
+                            'src' => 'admin/manager/edit',
+                            'icon' => 'fa fa-bars',
+                        ],
+                        [
+                            'label' => '封/解号',
+                            'src' => 'admin/manager/toggle',
+                            'icon' => 'fa fa-bars',
+                        ],
+                        [
+                            'label' => '更换管理组',
+                            'src' => 'admin/manager/group',
+                            'icon' => 'fa fa-bars',
+                        ],
+                    ],
                 ],
                 [
                     'label' => '菜单',
