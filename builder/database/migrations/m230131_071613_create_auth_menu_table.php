@@ -29,8 +29,9 @@ class m230131_071613_create_auth_menu_table extends Migration
 
     /**
      * {@inheritdoc}
+     * @throws \Exception
      */
-    public function safeUp()
+    public function up()
     {
         $authManager = $this->getAuthManager();
         $tableOptions = null;
@@ -56,6 +57,12 @@ class m230131_071613_create_auth_menu_table extends Migration
         // 复合索引，【接受邮箱、认证码】
         $this->createIndex('index_label_type', $authManager->menuTable, ['link_type']);
         $this->createIndex('index_pid', $authManager->menuTable, ['pid']);
+
+        // 填充数据
+        $result = $authManager->updateMenuItems();
+        if ($result !== true) {
+            throw new \Exception($result);
+        }
     }
 
     /**

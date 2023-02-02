@@ -235,7 +235,7 @@ class RbacManager extends Component implements CheckAccessInterface
      * 加载本地菜单项
      * @return array
      */
-    public function loadLocalMenuItems()
+    protected function loadLocalMenuItems()
     {
         $menuItems = load_file(Yii::getAlias('@app/admin/config/menu.php'), true, false, true);
 

@@ -3,6 +3,8 @@
  * @copyright Copyright (c) 2020 cleverstone
  */
 
+use app\models\AuthMenu;
+
 $coreNode = include \Yii::getAlias('@builder/database/menu/node.php');
 $coreWhiteList = include \Yii::getAlias('@builder/database/menu/whitelist.php');
 
@@ -24,7 +26,7 @@ $items = [
     // - link_type  链接类型：1、路由；2、外链 [默认1]
     // - dump_way   跳转方式：_self：内部，_blank：外部 [默认_self]
     // - desc       备注 [默认'']
-    // - sort       排序 [默认0]
+    // - sort       排序 [默认0]，注：更新时会自动生成
     // - items      子项 [默认[]]
     'auth' => [
         /*后台管理*/
@@ -39,24 +41,28 @@ $items = [
                     'icon' => 'glyphicon glyphicon-user',
                     'items' => [
                         [
-                            'label' => '新增',
+                            'label' => '新增用户',
                             'src' => 'admin/manager/add-user',
-                            'icon' => 'fa fa-bars',
+                            'icon' => 'fa fa-plus',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
                         ],
                         [
-                            'label' => '编辑',
+                            'label' => '基本编辑',
                             'src' => 'admin/manager/edit',
-                            'icon' => 'fa fa-bars',
+                            'icon' => 'fa fa-pencil-square-o',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
                         ],
                         [
                             'label' => '封/解号',
                             'src' => 'admin/manager/toggle',
-                            'icon' => 'fa fa-bars',
+                            'icon' => 'fa fa-unlock-alt',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
                         ],
                         [
                             'label' => '更换管理组',
                             'src' => 'admin/manager/group',
-                            'icon' => 'fa fa-bars',
+                            'icon' => 'fa fa-users',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
                         ],
                     ],
                 ],
