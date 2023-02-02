@@ -66,7 +66,10 @@ class MenuHelper
             $items = array_merge([
                 [
                     'label' => '首页',
+                    // 用于yii\widgets\Menu->isItemActive()
                     'url' => ['/admin/index/index'],
+                    // 用于视图外链
+                    'src' => 'admin/index/index',
                     'icon' => 'glyphicon glyphicon-home',
                 ]
             ], $items);

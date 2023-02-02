@@ -150,7 +150,7 @@ class Menu extends \yii\widgets\Menu
             $template = ArrayHelper::getValue($item, 'template', $linkTemplate);
 
             return strtr($template, [
-                '{url}' => isset($item['url']) ? Html::encode(Url::to($item['url'])) : '',
+                '{url}' => isset($item['url']) ? Html::encode(Url::to($item['src'], '')) : '',
                 '{label}' => $item['label'],
                 '{id}' => "#{$item['targetId']}",
                 '{icon}' => $icon,

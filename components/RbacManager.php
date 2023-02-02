@@ -22,6 +22,15 @@ class RbacManager extends Component implements CheckAccessInterface
 {
     // 超管组ID
     const ADMINISTRATOR_GROUP = 0;
+
+    // 菜单类型：1、菜单 2、功能
+    const LABEL_TYPE_MENU = 1;
+    const LABEL_TYPE_FUNCTION = 2;
+
+    // 链接类型：1、路由；2、外链
+    const LINK_TYPE_ROUTE = 1;
+    const LINK_TYPE_URL = 2;
+
     /**
      * @var Connection|array|string the DB connection object or the application component ID of the DB connection.
      * After the DbManager object is created, if you want to change this property, you should only assign it
@@ -296,19 +305,39 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 根据组ID获取菜单
+     * 根据组ID获取菜单数据集合
      * @param int $groupId 组ID
      * @return array
      */
     public function getMenusByGroup($groupId)
     {
-        $assignment = $this->getAssignmentByGroup($groupId);
-        $menusMap = [];
-        foreach ($assignment as $value) {
-            if ($value['pid'] == 0 && $value['label_type'] == 1) {
+        $assignments = $this->getAssignmentByGroup($groupId);
 
+        return $this->extractMenusForAssignments($assignments);
+    }
+
+    /**
+     * 从指定权限中提取到菜单数据集合
+     * @param array $assignments 权限集合
+     * @param int $pid 父ID
+     * @param array $menusMap 菜单数据集合
+     * @return array
+     */
+    protected function extractMenusForAssignments($assignments, $pid = 0, $menusMap = [])
+    {
+        foreach ($assignments as $value) {
+            if ($value['pid'] == $pid && $value['label_type'] == self::LABEL_TYPE_MENU) {
+                $menusMap[] = [
+                    'label' => $value['label'],
+                    'url' => $value['link_type'] == self::LINK_TYPE_ROUTE ? ["/{$value['src']}"] : $value['src'],
+                    'src' => $value['src'],
+                    'icon' => $value['icon'],
+                    'items' => $this->extractMenusForAssignments($assignments, $value['id']),
+                ];
             }
         }
+
+        return $menusMap;
     }
 
     /**
