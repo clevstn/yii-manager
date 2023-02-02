@@ -13,6 +13,7 @@ use yii\base\Component;
 use app\models\AuthMenu;
 use app\models\AuthGroups;
 use yii\caching\CacheInterface;
+use yii\helpers\ArrayHelper;
 use yii\rbac\CheckAccessInterface;
 
 /**
@@ -325,8 +326,7 @@ class RbacManager extends Component implements CheckAccessInterface
             }
         }
 
-        $sortMap = array_column($bannerMap, 'sort');
-        array_multisort($sortMap, SORT_ASC, $bannerMap);
+        ArrayHelper::multisort($bannerMap, 'sort', SORT_ASC, SORT_NUMERIC);
 
         return $bannerMap;
     }
@@ -334,13 +334,17 @@ class RbacManager extends Component implements CheckAccessInterface
     /**
      * 检查当前管理员是否允许视图渲染（用于方法调用）
      * @param string $permissionName 权限
-     * @return bool
+     * @return array|false
+     * @throws \Exception
      */
     public function checkAccessForViewRender($permissionName)
     {
-        $permissions = $this->getPermissionsByGroup(Yii::$app->adminUser->identity->group);
-        if (in_array($permissionName, array_column($permissions, 'src'), true)) {
-            return true;
+        $permissionsMap = $this->getPermissionsByGroup(Yii::$app->adminUser->identity->group);
+
+        $columnsMap = ArrayHelper::index($permissionsMap, 'src');
+
+        if (ArrayHelper::keyExists($permissionName, $columnsMap)) {
+            return ArrayHelper::getValue($columnsMap, $permissionName) ?: false;
         }
 
         return false;
@@ -353,7 +357,7 @@ class RbacManager extends Component implements CheckAccessInterface
     public function checkAccess($userId, $permissionName, $params = [])
     {
         $permissions = $this->getPermissionsByGroup(Yii::$app->adminUser->identity->group);
-        if (in_array($permissionName, array_column($permissions, 'src'), true)) {
+        if (in_array($permissionName, ArrayHelper::getColumn($permissions, 'src'), true)) {
             return true;
         }
 

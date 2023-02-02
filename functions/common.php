@@ -682,7 +682,8 @@ if (!function_exists('vv')) {
     /**
      * 检查当前管理员是否允许视图渲染(用于视图)
      * @param string $permissionName 权限
-     * @return bool
+     * @return array|false
+     * @throws \Exception
      */
     function vv($permissionName)
     {
