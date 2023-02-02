@@ -24,4 +24,5 @@ return [
     'Personal Center' => '个人中心',
     'empty' => '无',
     'current login' => '当前登录',
+    'the parameter {param} is not defined' => '参数{param}未定义。',
 ];

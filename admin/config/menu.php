@@ -15,8 +15,10 @@ $items = [
     // 配置需要rbac授权访问的菜单项
     // 参数配置请结合`auth_menu`数据表和`rbacManager`组件
     // 该配置项会加载更新到数据表`auth_menu`
-    // - label      菜单名称 [默认'']
+    // - label      菜单名称 [默认'--']
     // - src        源 [默认'']
+    // src必须是唯一的，一级栏目如果为目录，则需要自定义src，自定义格式为：固定字段(module)/模块ID/控制器ID
+    // 如果数据表中src被手动修改掉，则该文件src也需要同步修改
     // - icon       图标 [默认'']
     // - label_type 类型，1、菜单 2、功能 [默认1]
     // - link_type  链接类型：1、路由；2、外链 [默认1]
@@ -28,7 +30,7 @@ $items = [
         /*后台管理*/
         [
             'label' => '后台管理',
-            'src' => 'admin/manager/index',
+            'src' => 'module/admin/manager',
             'icon' => 'glyphicon glyphicon-blackboard',
             'items' => [
                 [

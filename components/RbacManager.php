@@ -89,13 +89,13 @@ class RbacManager extends Component implements CheckAccessInterface
      * @return true|string
      * @throws \Exception
      */
-    public function updateMenusItems()
+    public function updateMenuItems()
     {
         $menuItems = $this->loadLocalMenuItems();
         $transaction = $this->db->beginTransaction();
 
         try {
-            $this->updateMenusItemsRecursive($menuItems);
+            $this->updateMenuItemsRecursive($menuItems);
 
             $transaction->commit();
             return true;
@@ -111,11 +111,37 @@ class RbacManager extends Component implements CheckAccessInterface
     /**
      * 递归更新菜单项
      * @param array $menuItems
-     * @return true
+     * @param int $pid 父ID
+     * @param int $sort 排序
+     * @throws \yii\db\Exception
      */
-    public function updateMenusItemsRecursive($menuItems)
+    protected function updateMenuItemsRecursive($menuItems, $pid = 0, $sort = 1)
     {
+        foreach ($menuItems as $item) {
+            if (empty($item['src'])) {
+                throw new \InvalidArgumentException(t('the parameter {param} is not defined', 'app.admin', ['param' => 'src']));
+            }
 
+            $row = (new Query())->from($this->menuTable)
+                ->where(['src' => $item['src']])
+                ->select(['pid', 'sort'])
+                ->one($this->db);
+            $childItems = $item['items'];
+            unset($item['items']);
+            if ($row === false) {
+                $item['pid'] = $pid;
+                $item['sort'] = $sort;
+                $this->db->createCommand()->insert($this->menuTable, $item)->execute();
+                $row = (new Query())->from($this->menuTable)
+                    ->where(['src' => $item['src']])
+                    ->select(['pid', 'sort'])
+                    ->one($this->db);
+            }
+
+            if (!empty($childItems)) {
+                $this->updateMenuItemsRecursive($childItems, $row['pid'], $row['sort']++);
+            }
+        }
     }
 
     /**
@@ -134,7 +160,7 @@ class RbacManager extends Component implements CheckAccessInterface
      * @param array $menuItems 菜单项集合
      * @return array
      */
-    public function formatMenuItemsRecursive($menuItems)
+    protected function formatMenuItemsRecursive($menuItems)
     {
         foreach ($menuItems as &$item) {
             if (!empty($item['items'])) {
@@ -160,10 +186,10 @@ class RbacManager extends Component implements CheckAccessInterface
      * - sort       排序
      * @return array
      */
-    public function formatMenuItem($item)
+    protected function formatMenuItem($item)
     {
         $defaultItem = [
-            'label' => '',
+            'label' => '--',
             'src' => '',
             'icon' => '',
             'label_type' => 1,
@@ -171,6 +197,8 @@ class RbacManager extends Component implements CheckAccessInterface
             'dump_way' => '_self',
             'desc' => '',
             'sort' => 0,
+            'created_at' => now(),
+            'updated_at' => now(),
             'items' => [],
         ];
 
