@@ -163,9 +163,9 @@ class RbacManager extends Component implements CheckAccessInterface
     public function formatMenuItem($item)
     {
         $defaultItem = [
-            'label' => '--',
-            'src' => '--',
-            'icon' => '--',
+            'label' => '',
+            'src' => '',
+            'icon' => '',
             'label_type' => 1,
             'link_type' => 1,
             'dump_way' => '_self',

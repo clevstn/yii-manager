@@ -43,7 +43,7 @@ class m230131_071613_create_auth_menu_table extends Migration
             'label' => $this->string(50)->defaultValue('')->notNull()->comment('菜单名称'),
             'icon' => $this->string(50)->defaultValue('')->notNull()->comment('图标，支持fontawesome-v4.0'),
             'label_type' => $this->tinyInteger(2)->defaultValue(1)->notNull()->comment('类型：1、菜单 2、功能'),
-            'src' => $this->string(250)->defaultValue('')->notNull()->comment('源'),
+            'src' => $this->string(250)->unique()->notNull()->comment('源'),
             'link_type' => $this->tinyInteger(2)->defaultValue(1)->notNull()->comment('链接类型：1、路由；2、外链'),
             'dump_way' => $this->string(50)->defaultValue('')->notNull()->comment('跳转方式：_self：内部，_blank：外部'),
             'desc' => $this->string(250)->defaultValue('')->notNull()->comment('备注'),
@@ -55,7 +55,6 @@ class m230131_071613_create_auth_menu_table extends Migration
 
         // 复合索引，【接受邮箱、认证码】
         $this->createIndex('index_label_type', $authManager->menuTable, ['link_type']);
-        $this->createIndex('index_src', $authManager->menuTable, ['src']);
         $this->createIndex('index_pid', $authManager->menuTable, ['pid']);
     }
 

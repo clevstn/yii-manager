@@ -60,6 +60,18 @@ class MenuHelper
      */
     public function getItems()
     {
-        return Yii::$app->rbacManager->getMenusByUserId(Yii::$app->adminUser->identity->id);
+        $items = Yii::$app->rbacManager->getMenusByUserId(Yii::$app->adminUser->identity->id);
+        if (!empty($items)) {
+            // 首页不用加入rbac
+            $items = array_merge([
+                [
+                    'label' => '首页',
+                    'url' => ['/admin/index/index'],
+                    'icon' => 'glyphicon glyphicon-home',
+                ]
+            ], $items);
+        }
+
+        return $items;
     }
 }
