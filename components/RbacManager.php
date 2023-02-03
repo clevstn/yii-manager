@@ -358,6 +358,13 @@ class RbacManager extends Component implements CheckAccessInterface
      */
     public function checkAccessForViewRender($permissionName)
     {
+        $whiteList = $this->getLocalWhiteLists();
+        $whiteListColumnsMap = ArrayHelper::index($whiteList, 'src');
+
+        if (ArrayHelper::keyExists($permissionName, $whiteListColumnsMap)) {
+            return ArrayHelper::getValue($whiteListColumnsMap, $permissionName) ?: false;
+        }
+
         $permissionsMap = $this->getPermissionsByGroup(Yii::$app->adminUser->identity->group);
         $columnsMap = [];
         foreach ($permissionsMap as $value) {
@@ -369,15 +376,8 @@ class RbacManager extends Component implements CheckAccessInterface
             ];
         }
 
-        $whiteList = $this->getLocalWhiteLists();
-        $whiteListColumnsMap = ArrayHelper::index($whiteList, 'src');
-
         if (ArrayHelper::keyExists($permissionName, $columnsMap)) {
             return ArrayHelper::getValue($columnsMap, $permissionName) ?: false;
-        }
-
-        if (ArrayHelper::keyExists($permissionName, $whiteListColumnsMap)) {
-            return ArrayHelper::getValue($whiteListColumnsMap, $permissionName) ?: false;
         }
 
         return false;
