@@ -168,6 +168,16 @@
     };
 
     /**
+     * Js判断当前设备是否为移动端
+     * @returns {boolean}
+     */
+    YmAppConstructor.prototype.isMobile = function () {
+        var userAgent = global.navigator.userAgent.toLowerCase();
+
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry/gi.test(userAgent);
+    };
+
+    /**
      * type of
      * @param obj
      * @returns {*}

@@ -158,7 +158,7 @@
             };
             // 表格行操作-打开模态框
             var openModalOnRow = function (title, params, route, width, height) {
-                var closeBtn = 2;
+                var closeBtn = YmApp.isMobile() ? 1 : 2;
                 if (width === '100%') {
                     closeBtn = 1;
                 }
@@ -274,7 +274,7 @@
                     title: '筛选',
                     maxmin: false,
                     shadeClose: false,
-                    closeBtn: 2,
+                    closeBtn: (YmApp.isMobile() ? 1 : 2),
                     area: ['750px'],
                     btn: ['确定筛选', '清空'],
                     yes: function (index, layero) {
@@ -356,7 +356,7 @@
                             title: '导出',
                             maxmin: false,
                             shadeClose: false,
-                            closeBtn: 2,
+                            closeBtn: (YmApp.isMobile() ? 1 : 2),
                             area: ['500px', '550px'],
                             content: jQuery("#YmExportForm"),
                         });
@@ -399,7 +399,7 @@
             };
             // 自定义操作项-打开模态框
             var openModalOnToolbar = function (title, params, route, width, height) {
-                var closeBtn = 2;
+                var closeBtn = YmApp.isMobile() ? 1 : 2;
                 if (width === '100%') {
                     closeBtn = 1;
                 }
