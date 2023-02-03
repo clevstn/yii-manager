@@ -237,11 +237,11 @@ if (!function_exists('table_action_helper')) {
         if (isset($options['route']) && !empty($options['route'])) {
             $checkAccessResult = Yii::$app->rbacManager->checkAccessForViewRender($options['route']);
             if ($checkAccessResult !== false && is_array($checkAccessResult)) {
-                if (!empty($checkAccessResult['icon'])) {
+                if (!empty($checkAccessResult['icon']) && empty($options['icon'])) {
                     $options['icon'] = $checkAccessResult['icon'];
                 }
 
-                if (!empty($checkAccessResult['label'])) {
+                if (!empty($checkAccessResult['label']) && empty($options['title'])) {
                     $options['title'] = $checkAccessResult['label'];
                 }
 
@@ -309,11 +309,11 @@ if (!function_exists('table_toolbar_custom_helper')) {
         if (isset($options['route']) && !empty($options['route'])) {
             $checkAccessResult = Yii::$app->rbacManager->checkAccessForViewRender($options['route']);
             if ($checkAccessResult !== false && is_array($checkAccessResult)) {
-                if (!empty($checkAccessResult['icon'])) {
+                if (!empty($checkAccessResult['icon']) && empty($options['icon'])) {
                     $options['icon'] = $checkAccessResult['icon'];
                 }
 
-                if (!empty($checkAccessResult['label'])) {
+                if (!empty($checkAccessResult['label']) && empty($options['title'])) {
                     $options['title'] = $checkAccessResult['label'];
                 }
 
