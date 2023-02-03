@@ -40,7 +40,8 @@ class CommonActiveRecord extends ActiveRecord
     }
 
     /**
-     * 获取当前模型映射的ActiveQuery对象[模型调用关联查询，必须声明关联关系，否则附表结果通不过安全检查，字段结果无法显示]
+     * 获取当前模型映射的ActiveQuery对象[调用关联查询，必须声明关联关系，否则附表结果通不过安全检查，字段结果无法显示]
+     * 建议：简单查询使用该方法
      * @param array|string $select 查询字段
      * @return ActiveQuery
      */
@@ -50,7 +51,8 @@ class CommonActiveRecord extends ActiveRecord
     }
 
     /**
-     * 获取Query查询对象[模型调用关联查询，不用声明关联关系]
+     * 获取Query查询对象[调用关联查询，不用声明关联关系]
+     * 建议：关联查询使用该方法
      * @param array|string $select 查询字段
      * @param string 主表别名
      * @return Query
