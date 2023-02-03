@@ -131,8 +131,10 @@ $items = [
     // 参数
     // - label 名称
     // - src 路由，格式：module/controller/action
+    // - icon 图标
+    // - dump_way   跳转方式：_self：内部，_blank：外部 [默认_self]
     'whiteLists' => [
-        //['label' => '', 'src' => ''],
+        //['label' => '', 'src' => '', 'icon' => '', 'dump_way' => ''],
     ],
 ];
 

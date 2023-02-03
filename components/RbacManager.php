@@ -160,7 +160,7 @@ class RbacManager extends Component implements CheckAccessInterface
      */
     public function updateMenuItems()
     {
-        $menuItems = $this->loadLocalMenuItems();
+        $menuItems = $this->getLocalMenuItems();
         $transaction = $this->db->beginTransaction();
 
         try {
@@ -232,15 +232,34 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 加载本地菜单项
+     * 获取本地菜单项
      * @return array
      */
-    protected function loadLocalMenuItems()
+    protected function getLocalMenuItems()
     {
-        $menuItems = load_file(Yii::getAlias('@app/admin/config/menu.php'), true, false, true);
-
+        $menuItems = $this->loadLocalItems();
         return $this->formatMenuItemsRecursive($menuItems['auth']);
     }
+
+    /**
+     * 加载本地项
+     * @return array
+     */
+    protected function loadLocalItems()
+    {
+        return load_file(Yii::getAlias('@app/admin/config/menu.php'), true, false, true);
+    }
+
+    /**
+     * 获取本地白名单
+     * @return array
+     */
+    protected function getLocalWhiteLists()
+    {
+        $menuItems = $this->loadLocalItems();
+        return $menuItems['whiteLists'];
+    }
+
 
     /**
      * 递归格式化本地菜单项
@@ -340,11 +359,25 @@ class RbacManager extends Component implements CheckAccessInterface
     public function checkAccessForViewRender($permissionName)
     {
         $permissionsMap = $this->getPermissionsByGroup(Yii::$app->adminUser->identity->group);
+        $columnsMap = [];
+        foreach ($permissionsMap as $value) {
+            $columnsMap[$value['src']] = [
+                'label' => $value['label'],
+                'icon' => $value['icon'],
+                'src' => $value['src'],
+                'dump_way' => $value['dump_way'],
+            ];
+        }
 
-        $columnsMap = ArrayHelper::index($permissionsMap, 'src');
+        $whiteList = $this->getLocalWhiteLists();
+        $whiteListColumnsMap = ArrayHelper::index($whiteList, 'src');
 
         if (ArrayHelper::keyExists($permissionName, $columnsMap)) {
             return ArrayHelper::getValue($columnsMap, $permissionName) ?: false;
+        }
+
+        if (ArrayHelper::keyExists($permissionName, $whiteListColumnsMap)) {
+            return ArrayHelper::getValue($whiteListColumnsMap, $permissionName) ?: false;
         }
 
         return false;
