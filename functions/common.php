@@ -681,6 +681,14 @@ if (!function_exists('load_file')) {
 if (!function_exists('vv')) {
     /**
      * 检查当前管理员是否允许视图渲染(用于视图)
+     * - 如果使用ViewBuilder进行构建，如：增、删、改；ym已经内置视图功能控制。
+     * - 如果需要自定义开发视图，并需要加入rbac控制，则需要使用该方法把功能按钮进行包裹。
+     * - view.php
+     * ```php
+     * <?php if ($vv = vv('module/controller-id/action-id')) ?>
+     *  <a href="<?= $vv['src'] ?>" target="<?= $vv['dump_way'] ?>"><i class="<?= $vv['icon'] ?>"></i> <?= $vv['label'] ?></a>
+     * <?php endif; ?>
+     * ```
      * @param string $permissionName 权限
      * @return array|false
      * @throws \Exception
