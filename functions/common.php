@@ -230,10 +230,26 @@ if (!function_exists('table_action_helper')) {
      * - height 当前type为modal时有效，指定modal的高，默认500px
      *
      * @return array
-     * @throws \ReflectionException
+     * @throws \Exception
      */
     function table_action_helper($type, $options)
     {
+        if (isset($options['route']) && !empty($options['route'])) {
+            $checkAccessResult = Yii::$app->rbacManager->checkAccessForViewRender($options['route']);
+            if ($checkAccessResult !== false && is_array($checkAccessResult)) {
+                if (!empty($checkAccessResult['icon'])) {
+                    $options['icon'] = $checkAccessResult['icon'];
+                }
+
+                if (!empty($checkAccessResult['label'])) {
+                    $options['title'] = $checkAccessResult['label'];
+                }
+
+            } else {
+                return [];
+            }
+        }
+
         $optionsInstance = new \app\builder\table\RowActionOptions($options);
         return [
             'type' => $type,
@@ -286,10 +302,26 @@ if (!function_exists('table_toolbar_custom_helper')) {
      * - height string 当前type为modal时有效，指定modal的高，默认520px
      *
      * @return array
-     * @throws ReflectionException
+     * @throws \Exception
      */
     function table_toolbar_custom_helper($pos, $options = [])
     {
+        if (isset($options['route']) && !empty($options['route'])) {
+            $checkAccessResult = Yii::$app->rbacManager->checkAccessForViewRender($options['route']);
+            if ($checkAccessResult !== false && is_array($checkAccessResult)) {
+                if (!empty($checkAccessResult['icon'])) {
+                    $options['icon'] = $checkAccessResult['icon'];
+                }
+
+                if (!empty($checkAccessResult['label'])) {
+                    $options['title'] = $checkAccessResult['label'];
+                }
+
+            } else {
+                return [];
+            }
+        }
+
         $options['pos'] = $pos;
         $toolbarCustomOptions = new \app\builder\table\ToolbarCustomOptions($options);
 
@@ -430,7 +462,7 @@ if (!function_exists('attach_url')) {
 
 if (!function_exists('into_full_url')) {
     /**
-     * 绝对url转完整url
+     * 相对url转绝对url
      * @param string $url url路径
      * @return string
      */

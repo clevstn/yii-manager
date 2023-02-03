@@ -74,9 +74,9 @@ class ToolbarCustomOptions extends BaseOptions
     public function init()
     {
         if (!empty($this->route)) {
-            $this->route = Url::toRoute('/' . ltrim($this->route, '/'));
+            $this->route = Url::to(ltrim($this->route, '/'), '');
         } else {
-            $this->route = Url::toRoute('/' . Yii::$app->controller->route);
+            $this->route = Url::to(Yii::$app->controller->route, '');
         }
 
         $this->method = strtolower($this->method);

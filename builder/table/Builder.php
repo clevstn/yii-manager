@@ -548,7 +548,7 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function setRowActions(array $actions)
     {
-        $this->_rowActions = $actions;
+        $this->_rowActions = array_filter($actions); // 去掉空数组
         return $this;
     }
 
@@ -735,6 +735,9 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function setToolbarCustom(array $options)
     {
+        // 去除空数组
+        $options = array_filter($options);
+
         foreach ($options as $item) {
             $pos = ArrayHelper::remove($item, 'pos', 'left');
             $item['type'] = 'custom';
