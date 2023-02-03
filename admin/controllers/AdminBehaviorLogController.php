@@ -41,7 +41,7 @@ class AdminBehaviorLogController extends CommonController
         $table->title = '管理员操作日志';
         $table->query = function () use ($queryParams) {
             $query = OpLog::query([
-                'u.username',         // 管理员名称
+                'a.id',
                 'a.admin_user_id',    // 管理员ID
                 'a.function',         // 功能描述,如:新增管理员
                 'a.route',            // 路由
@@ -50,8 +50,8 @@ class AdminBehaviorLogController extends CommonController
                 'a.operate_info',     // 操作信息
                 'a.client_info',      // 客户端信息
                 'a.created_at',       // 操作时间
-            ])->alias('a')
-                ->leftJoin(['u' => AdminUser::tableName()], 'a.admin_user_id=u.id');
+                'u.username',         // 管理员名称
+            ], 'a')->leftJoin(['u' => AdminUser::tableName()], 'a.admin_user_id=u.id');
             if (!empty($queryParams)) {
                 $startAt = null;
                 $endAt = null;
@@ -82,11 +82,11 @@ class AdminBehaviorLogController extends CommonController
         ];
 
         $table->columns = [
-            'username' => table_column_helper('管理员', ['style' => ['min-width' => '150px']]),
-            'function' => table_column_helper('操作项', ['style' => ['min-width' => '135px']]),
-            'route' => table_column_helper('路由', ['style' => ['min-width' => '135px']]),
-            'ip' => table_column_helper('IP', ['style' => ['min-width' => '135px']]),
-            'operate_status' => table_column_helper('操作状态', ['style' => ['min-width' => '135px']], function ($item) {
+            'username' => table_column_helper('管理员', ['style' => ['min-width' => '140px']]),
+            'function' => table_column_helper('操作项', ['style' => ['min-width' => '140px']]),
+            'route' => table_column_helper('路由', ['style' => ['min-width' => '140px']]),
+            'ip' => table_column_helper('IP', ['style' => ['min-width' => '100px']]),
+            'operate_status' => table_column_helper('操作状态', ['style' => ['min-width' => '88px']], function ($item) {
                 return OpLog::getStatusLabel($item['operate_status']);
             }),
             'operate_info' => table_column_helper('操作信息'),

@@ -48,7 +48,7 @@ class ManagerController extends CommonController
         $table->title = '管理员';
         // 查询
         $table->query = function () use ($queryParams) {
-            $query = AdminUser::query([
+            $query = AdminUser::activeQuery([
                 'id',               // ID
                 'username',         // 用户名
                 'email',            // 邮箱
@@ -124,7 +124,7 @@ class ManagerController extends CommonController
             'identify_code' => table_column_helper('身份码', ['style' => ['min-width' => '130px']]),
             'pid' => table_column_helper('上级', ['style' => ['min-width' => '150px']], function ($item) {
                 if (!empty($item['pid'])) {
-                    $parentUserInfo = AdminUser::query(['username'])->where(['id' => $item['pid']])->one();
+                    $parentUserInfo = AdminUser::activeQuery(['username'])->where(['id' => $item['pid']])->one();
                     if (!empty($parentUserInfo)) {
                         return $parentUserInfo['username'];
                     }
@@ -435,7 +435,7 @@ class ManagerController extends CommonController
             }
 
             // 查询校验
-            $model = AdminUser::query(['id', 'username', 'password', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log'])->where(['id' => $bodyParams['id']])->one();
+            $model = AdminUser::activeQuery(['id', 'username', 'password', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log'])->where(['id' => $bodyParams['id']])->one();
             if (empty($model)) {
                 return $this->asFail('管理员不存在');
             }

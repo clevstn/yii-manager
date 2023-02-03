@@ -444,14 +444,14 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         $mobile = $this->{$attribute};
         if ($this->scenario == 'add') {
             // 场景`新增`
-            $result = self::query('id')->where(['an' => $an, 'mobile' => $mobile])->one();
+            $result = self::activeQuery('id')->where(['an' => $an, 'mobile' => $mobile])->one();
             if (!empty($result)) {
                 $this->addError($attribute, Yii::t('app', 'The cell phone number already exists'));
             }
         } elseif ($this->scenario == 'edit') {
             // 场景`编辑`
             $id = $this->id;
-            $result = self::query('id')->where(['and', ['an' => $an, 'mobile' => $mobile], ['<>', 'id', $id]])->one();
+            $result = self::activeQuery('id')->where(['and', ['an' => $an, 'mobile' => $mobile], ['<>', 'id', $id]])->one();
             if (!empty($result)) {
                 $this->addError($attribute, Yii::t('app', 'The cell phone number already exists'));
             }
@@ -503,7 +503,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      */
     public function getSafeWays($userId)
     {
-        $user = self::query('safe_auth')->where(['id' => $userId])->one();
+        $user = self::activeQuery('safe_auth')->where(['id' => $userId])->one();
         if (empty($user)) {
             return self::SAFE_AUTH_CLOSE;
         }
@@ -570,7 +570,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public function generateIdentifyCode()
     {
         $identifyCode = random_string(true, 10);
-        while (self::query('id')->where(['identify_code' => $identifyCode])->one()) {
+        while (self::activeQuery('id')->where(['identify_code' => $identifyCode])->one()) {
             $identifyCode = random_string(true, 10);
         }
 

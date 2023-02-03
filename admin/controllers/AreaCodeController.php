@@ -54,7 +54,7 @@ class AreaCodeController extends CommonController
         // Sql
         $table->query = function () {
             $queryParams = $this->get;
-            $query = AreaCode::query(['id', 'name', 'code', 'status', 'created_at', 'updated_at']);
+            $query = AreaCode::activeQuery(['id', 'name', 'code', 'status', 'created_at', 'updated_at']);
             if (!empty($queryParams)) {
                 $query->filterWhere([
                     'and',

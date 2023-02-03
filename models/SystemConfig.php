@@ -138,7 +138,7 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
     public static function get($param, $default = null)
     {
         @list($group, $code) = array_map('trim', explode('.', $param));
-        $result = self::query('value')->where(['group' => $group, 'code' => $code])->one();
+        $result = self::activeQuery('value')->where(['group' => $group, 'code' => $code])->one();
         if (empty($result)) {
             return $default;
         }
@@ -156,7 +156,7 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
     public static function set($param, $value)
     {
         @list($group, $code) = array_map('trim', explode('.', $param));
-        $model = self::query('value')->where(['group' => $group, 'code' => $code])->one();
+        $model = self::activeQuery('value')->where(['group' => $group, 'code' => $code])->one();
         if (empty($model)) {
             return false;
         }

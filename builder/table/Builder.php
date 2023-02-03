@@ -825,8 +825,12 @@ class Builder extends BaseObject implements BuilderInterface
         foreach ($all as $item) {
             if (empty($columns)) {
                 // empty
-                /* @var \yii\db\ActiveRecord $item */
-                array_push($dataMap, $item->toArray());
+                /* @var \yii\base\Model $item */
+                if ($item instanceof \yii\base\Model) {
+                    $item = $item->toArray();
+                }
+
+                array_push($dataMap, $item);
             } else {
                 // not empty
                 $tempMap = [];
@@ -864,7 +868,7 @@ class Builder extends BaseObject implements BuilderInterface
      * Ajax渲染
      * @param Controller $context
      * @return string
-     * @throws \Exception
+     * @throws \Throwable
      */
     protected function renderAjax(Controller $context)
     {
@@ -984,8 +988,11 @@ class Builder extends BaseObject implements BuilderInterface
         $this->_pagination = $pages;
 
         foreach ($models as $item) {
-            /* @var \yii\db\ActiveRecord $item */
-            $item = $item->toArray();
+            /* @var \yii\base\Model $item */
+            if ($item instanceof \yii\base\Model) {
+                $item = $item->toArray();
+            }
+
             foreach ($this->columns as $field => $options) {
                 if (!empty($options['callback']) && is_callable($options['callback'])) {
                     $value = call_user_func($options['callback'], $item);

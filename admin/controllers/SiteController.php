@@ -90,7 +90,7 @@ class SiteController extends CommonController
     {
         $usernameOrEmail = !empty($this->post['usernameOrEmail']) ? $this->post['usernameOrEmail'] : null;
         if ($usernameOrEmail) {
-            $userData = AdminUser::query(['id', 'photo'])->where(['username' => $usernameOrEmail])->orWhere(['email' => $usernameOrEmail])->one();
+            $userData = AdminUser::activeQuery(['id', 'photo'])->where(['username' => $usernameOrEmail])->orWhere(['email' => $usernameOrEmail])->one();
             if (!empty($userData)) {
                 $photoUrl = attach_url($userData['photo']);
                 return $this->asSuccess('success', [
@@ -332,7 +332,7 @@ class SiteController extends CommonController
         }
 
         // 获取用户信息
-        $userData = AdminUser::query(['email', 'an', 'mobile'])->where(['id' => $tempSessionUser['id']])->one();
+        $userData = AdminUser::activeQuery(['email', 'an', 'mobile'])->where(['id' => $tempSessionUser['id']])->one();
         if (empty($userData)) {
             return $this->asFail(t('the user does not exist', 'app.admin'));
         }

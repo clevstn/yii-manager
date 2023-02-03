@@ -77,4 +77,16 @@ class AdminUserOperationLog extends \app\builder\common\CommonActiveRecord
             'created_at' => Yii::t('app', 'the operating time'),
         ];
     }
+
+    /**
+     * 关联查询`admin_user`表定义
+     * @return \yii\db\ActiveQuery
+     * - hasOne参数
+     * 1：附表模型
+     * 2：key：附表ID  value：主表ID
+     */
+    /*public function getAdminUserModel()
+    {
+        return $this->hasOne(AdminUser::class, ['id' => 'admin_user_id']);
+    }*/
 }
