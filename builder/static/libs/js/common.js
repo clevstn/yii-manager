@@ -220,6 +220,307 @@
         return Math.floor(DateObj.getTime() / 1000);
     };
 
+    /**
+     * 字符串首字母大写
+     * @param str
+     * @return {string}
+     */
+    YmAppConstructor.prototype.firstUpperCase = function (str) {
+        return str.toString()[0].toUpperCase() + str.toString().slice(1);
+    };
+
+    /**
+     * 小驼峰转下划线
+     * @param str
+     * @param delimiter 分隔符
+     * @return {string}
+     */
+    YmAppConstructor.prototype.camelcaseToHyphen = function (str, delimiter) {
+        delimiter = delimiter || '_';
+        return (str.toString()[0].toLowerCase() + str.toString().slice(1)).replace(/([A-Z])/g, `${delimiter}$1`).toLowerCase();
+    };
+
+    /**
+     * 判断数组或对象中是否存在指定值
+     * @param value
+     * @param validList
+     * @return {boolean}
+     */
+    YmAppConstructor.prototype.oneOf = function (value, validList) {
+        var varType = Object.prototype.toString.call(validList);
+        if (varType === '[object Object]') {
+            for (var key in validList) {
+                if (validList[key] === value) {
+                    return true;
+                }
+            }
+
+            return false;
+        } else if (varType === '[object Array]') {
+            for (var i = 0; i < validList.length; i++) {
+                if (value === validList[i]) {
+                    return true;
+                }
+            }
+
+            return false;
+        } else {
+            throw 'Argument [validList] type error.';
+        }
+    };
+
+    /**
+     * clone数据
+     * @param _deepCopy
+     * @return {*}
+     */
+    YmAppConstructor.prototype.deepCopy = function (_deepCopy) {
+        function deepCopy() {
+            return _deepCopy.apply(this, arguments);
+        }
+
+        deepCopy.toString = function () {
+            return _deepCopy.toString();
+        };
+
+        return deepCopy;
+    }(function (data) {
+        var t = this.typeOf(data);
+        var o = void 0;
+
+        if (t === 'array') {
+            o = [];
+        } else if (t === 'object') {
+            o = {};
+        } else {
+            return data;
+        }
+
+        if (t === 'array') {
+            for (var i = 0; i < data.length; i++) {
+                o.push(this.deepCopy(data[i]));
+            }
+        } else if (t === 'object') {
+            for (var _i in data) {
+                o[_i] = this.deepCopy(data[_i]);
+            }
+        }
+
+        return o;
+    });
+
+    /**
+     * 向上取整保留n位
+     * @param n
+     * @param precision
+     * @returns {number}
+     */
+    YmAppConstructor.prototype.xceil = function (n, precision) {
+        precision = precision || 2;
+        var multiplier = Math.pow(10, precision);
+
+        return Math.ceil(this.numberMul(n, multiplier)) / multiplier;
+    };
+
+    /**
+     * 向下取整保留n位
+     * @param n
+     * @param precision
+     * @returns {number}
+     */
+    YmAppConstructor.prototype.xfloor = function (n, precision) {
+        precision = precision || 2;
+        var multiplier = Math.pow(10, precision);
+
+        return Math.floor(this.numberMul(n, multiplier)) / multiplier;
+    };
+
+    /**
+     * 四舍五入取整保留n位
+     * @param n
+     * @param precision
+     * @returns {number}
+     */
+    YmAppConstructor.prototype.xround = function (n, precision) {
+        precision = precision || 2;
+        var multiplier = Math.pow(10, precision);
+        return Math.round(this.numberMul(n, multiplier)) / multiplier;
+    };
+
+    /**
+     * 高精度加法
+     * @param n1
+     * @param n2
+     * @return {number}
+     */
+    YmAppConstructor.prototype.numberAdd = function (n1, n2) {
+        var r1 = void 0,
+            r2 = void 0,
+            m = void 0;
+        try {
+            r1 = n1.toString().split('.')[1].length;
+        } catch (e) {
+            r1 = 0;
+        }
+
+        try {
+            r2 = n2.toString().split('.')[1].length;
+        } catch (e) {
+            r2 = 0;
+        }
+
+        m = Math.pow(10, Math.max(r1, r2));
+        var a = parseInt(n1 * m);
+        var b = parseInt(n2 * m);
+
+        return (a + b) / m;
+    };
+
+    /**
+     * 高精度减法
+     * @param n1
+     * @param n2
+     * @return {*|number}
+     */
+      YmAppConstructor.prototype.numberSub = function (n1, n2) {
+        return this.numberAdd(n1, -n2);
+    };
+
+    /**
+     * 高精度乘法
+     * @param n1
+     * @param n2
+     * @return {number}
+     */
+    YmAppConstructor.prototype.numberMul = function (n1, n2) {
+        var m = 0,
+            s1 = n1.toString(),
+            s2 = n2.toString();
+        try {
+            m += s1.split('.')[1].length;
+        } catch (e) {}
+
+        try {
+            // m是累加结果
+            m += s2.split('.')[1].length;
+        } catch (e) {}
+
+        return Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m);
+    };
+
+    /**
+     * 高精度除法
+     * @param n1
+     * @param n2
+     * @return {number}
+     */
+    YmAppConstructor.prototype.numberDiv = function (n1, n2) {
+        var r1 = void 0,
+            r2 = void 0,
+            m = void 0;
+        try {
+            r1 = n1.toString().split('.')[1].length;
+        } catch (e) {
+            r1 = 0;
+        }
+
+        try {
+            r2 = n2.toString().split('.')[1].length;
+        } catch (e) {
+            r2 = 0;
+        }
+
+        m = Math.pow(10, Math.max(r1, r2));
+        var a = parseInt(n1 * m);
+        var b = parseInt(n2 * m);
+
+        return a / b;
+    };
+
+    /**
+     * 数据单位转换
+     * @param number
+     * @return {*}
+     */
+    YmAppConstructor.prototype.unitInto = function (number) {
+        if (!number) return '--';
+        var value = isNaN(Number(number)) ? 0 : Number(number);
+
+        var z = 10000,  // 万
+            y = 100000000,  // 亿
+            q = 100000000000, // 千亿
+            w = 1000000000000; // 万亿
+        if (value >= z && value < y) {
+            value = this.xfloor(this.numberDiv(value, z)) + '万';
+        } else if (value >= y && value < q) {
+            value = this.xfloor(this.numberDiv(value, y)) + '亿';
+        } else if (value >= q && value < w) {
+            value = this.xfloor(this.numberDiv(value, q)) + '千亿';
+        } else if (value >= w) {
+            value = this.xfloor(this.numberDiv(value, w)) + '万亿';
+        }
+
+        return value;
+    };
+
+    /**
+     * 滚动到顶部(动画效果)
+     * @param el
+     * @param from
+     * @param to
+     * @param duration
+     * @param endCallback
+     */
+    YmAppConstructor.prototype.scrollTop = function (el) {
+        var from = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+        var to = arguments[2];
+        var duration = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 500;
+        var endCallback = arguments[4];
+
+        if (!window.requestAnimationFrame) {
+            window.requestAnimationFrame = window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
+                return window.setTimeout(callback, 1000 / 60);
+            };
+        }
+        var difference = Math.abs(from - to);
+        var step = Math.ceil(difference / duration * 50);
+
+        function scroll(start, end, step) {
+            if (start === end) {
+                endCallback && endCallback();
+                return;
+            }
+
+            var d = start + step > end ? end : start + step;
+            if (start > end) {
+                d = start - step < end ? end : start - step;
+            }
+
+            if (el === window) {
+                window.scrollTo(d, d);
+            } else {
+                el.scrollTop = d;
+            }
+
+            window.requestAnimationFrame(function () {
+                return scroll(d, end, step);
+            });
+        }
+
+        scroll(from, to, step);
+    };
+
+    /**
+     * 解析js脚本
+     * @param script
+     * @return {never}
+     */
+    YmAppConstructor.prototype.evalScript = function (script) {
+        var fn = new Function("return " + script);
+
+        return fn();
+    };
+
     // Run
     YmAppConstructor.prototype.run = function () {
         this.toggleSideBar();
