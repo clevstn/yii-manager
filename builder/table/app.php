@@ -158,11 +158,7 @@
             };
             // 表格行操作-打开模态框
             var openModalOnRow = function (title, params, route, width, height) {
-                var closeBtn = YmApp.isMobile() ? 1 : 2;
-                if (width === '100%') {
-                    closeBtn = 1;
-                }
-
+                var layerParams = YmApp.layerParseParams(width);
                 var u = YmApp.keys(params).length ? (route + '?' + jQuery.param(params)) : route;
                 layer.open({
                     type: 2,
@@ -171,8 +167,8 @@
                     title: title,
                     maxmin: false,
                     shadeClose: false,
-                    closeBtn: closeBtn,
-                    area: [width, height],
+                    closeBtn: layerParams.closeBtn,
+                    area: [layerParams.width, height],
                     content: u,
                 });
             };
@@ -267,6 +263,8 @@
             // ------ 工具栏 start ------
             // 表格筛选
             $scope.ymTableFilterMethod = function () {
+                var layerParams = YmApp.layerParseParams('750px');
+
                 layer.open({
                     type: 1,
                     shade: 0.3,
@@ -274,8 +272,8 @@
                     title: '筛选',
                     maxmin: false,
                     shadeClose: false,
-                    closeBtn: (YmApp.isMobile() ? 1 : 2),
-                    area: ['750px'],
+                    closeBtn: layerParams.closeBtn,
+                    area: [layerParams.width],
                     btn: ['确定筛选', '清空'],
                     yes: function (index, layero) {
                         var param = $scope.ymTableFilter;
@@ -348,6 +346,7 @@
                         });
 
                         $scope.ymTableExportMap = tempMap;
+                        var layerParams = YmApp.layerParseParams('500px');
 
                         layer.open({
                             type: 1,
@@ -356,8 +355,8 @@
                             title: '导出',
                             maxmin: false,
                             shadeClose: false,
-                            closeBtn: (YmApp.isMobile() ? 1 : 2),
-                            area: ['500px', '550px'],
+                            closeBtn: layerParams.closeBtn,
+                            area: [layerParams.width, '550px'],
                             content: jQuery("#YmExportForm"),
                         });
                     } else {
@@ -397,13 +396,10 @@
 
                 return to;
             };
+
             // 自定义操作项-打开模态框
             var openModalOnToolbar = function (title, params, route, width, height) {
-                var closeBtn = YmApp.isMobile() ? 1 : 2;
-                if (width === '100%') {
-                    closeBtn = 1;
-                }
-
+                var layerParams = YmApp.layerParseParams(width);
                 var u = YmApp.keys(params).length ? (route + '?' + jQuery.param(params)) : route;
                 layer.open({
                     type: 2,
@@ -412,8 +408,8 @@
                     title: title,
                     maxmin: false,
                     shadeClose: false,
-                    closeBtn: closeBtn,
-                    area: [width, height],
+                    closeBtn: layerParams.closeBtn,
+                    area: [layerParams.width, height],
                     content: u,
                 });
             };

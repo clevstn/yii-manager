@@ -152,7 +152,6 @@
             radioClass: 'iradio_minimal-blue',
             increaseArea: '20%' // optional
         });
-
     };
 
     // Refresh page
@@ -165,6 +164,23 @@
             }
         });
 
+    };
+
+    /**
+     * layer兼容移动端参数处理
+     * @param width
+     * @returns {{width: string, closeBtn: number}}
+     */
+    YmAppConstructor.prototype.layerParseParams = function (width) {
+        var isMobile = this.isMobile();
+        var closeBtn = isMobile ? 1 : 2;
+        width = isMobile ? '100%' : width;
+
+        if (width === '100%') {
+            closeBtn = 1;
+        }
+
+        return {width: width, closeBtn: closeBtn};
     };
 
     /**
