@@ -197,7 +197,7 @@ class ManagerController extends CommonController
         $table->toolbarCustom = [
             // 新增管理员
             table_toolbar_custom_helper('left', [
-                'title' => '新增管理员',
+                'title' => '新增',
                 'icon' => 'fa fa-plus',
                 'option' => 'modal',
                 'route' => 'admin/manager/add-user',

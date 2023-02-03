@@ -19,6 +19,25 @@ use Yii;
  */
 class AdminUserOperationLog extends \app\builder\common\CommonActiveRecord
 {
+    // operate_status 操作状态,0:失败 1:成功
+    const STATUS_OK = 1;
+    const STATUS_FAIL = 0;
+
+    /**
+     * 获取操作状态标签
+     * @param int $status 状态值
+     * @return string
+     */
+    public static function getStatusLabel($status)
+    {
+        switch ($status) {
+            case self::STATUS_OK:
+                return t('operate successfully', 'app.admin');
+            default:
+                return t('operation failure', 'app.admin');
+        }
+    }
+
     /**
      * {@inheritdoc}
      */

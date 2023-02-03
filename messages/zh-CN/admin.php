@@ -26,4 +26,6 @@ return [
     'current login' => '当前登录',
     'the parameter {param} is not defined' => '参数{param}未定义。',
     'Role-Based policies Access Control deny all' => '权限不足，禁止访问。',
+    'operate successfully' => '操作成功',
+    'operation failure' => '操作失败',
 ];
