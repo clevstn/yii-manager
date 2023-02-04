@@ -33,15 +33,16 @@ class AdminUserLoginLog extends \app\builder\common\CommonActiveRecord
     /**
      * 获取尝试状态标签
      * @param int $attemptStatus 尝试状态
+     * @param boolean $toHtml 是否转html
      * @return string
      */
-    public static function getAttemptStatusLabel($attemptStatus)
+    public static function getAttemptStatusLabel($attemptStatus, $toHtml = true)
     {
         switch ($attemptStatus) {
             case self::ATTEMPT_SUCCESS:
-                return t('login successful', 'app.admin');
+                return to_label(t('login successful', 'app.admin'), $toHtml);
             case self::ATTEMPT_FAILED:
-                return t('login failed', 'app.admin');
+                return to_label(t('login failed', 'app.admin'), $toHtml, 'default');
         }
 
         return '--';

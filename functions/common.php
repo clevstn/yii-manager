@@ -37,6 +37,31 @@ if (!function_exists('export_str')) {
     }
 }
 
+if (!function_exists('to_label')) {
+    /**
+     * 字符串转（html）label
+     * @param string $str 输入字符串
+     * @param bool $toHtml 是否转html
+     * @param string $labelType html label类型
+     * - success
+     * - default
+     * - danger
+     * - info
+     * - primary
+     * - helper
+     * - warning
+     * @return string
+     */
+    function to_label($str, $toHtml = true, $labelType = 'success')
+    {
+        if ($toHtml) {
+            return '<label class="label label-' . $labelType . '">' . $str . '</label>';
+        }
+
+        return $str;
+    }
+}
+
 if (!function_exists('encrypt_password')) {
     /**
      * 密码加密

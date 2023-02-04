@@ -26,16 +26,19 @@ class AdminUserOperationLog extends \app\builder\common\CommonActiveRecord
     /**
      * 获取操作状态标签
      * @param int $status 状态值
+     * @param boolean $toHtml 是否转html
      * @return string
      */
-    public static function getStatusLabel($status)
+    public static function getStatusLabel($status, $toHtml = true)
     {
         switch ($status) {
             case self::STATUS_OK:
-                return t('operate successfully', 'app.admin');
-            default:
-                return t('operation failure', 'app.admin');
+                return to_label(t('operate successfully', 'app.admin'), $toHtml);
+            case self::STATUS_FAIL:
+                return to_label(t('operation failure', 'app.admin'), $toHtml, 'default');
         }
+
+        return '--';
     }
 
     /**

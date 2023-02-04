@@ -81,10 +81,13 @@ class AdminBehaviorLogController extends CommonController
             'a.id' => SORT_DESC,
         ];
 
+        $table->hideCheckbox = true;
         $table->columns = [
             'username' => table_column_helper('管理员', ['style' => ['min-width' => '140px']]),
             'function' => table_column_helper('操作项', ['style' => ['min-width' => '140px']]),
-            'route' => table_column_helper('路由', ['style' => ['min-width' => '140px']]),
+            'route' => table_column_helper('路由', ['style' => ['min-width' => '140px']], function ($item) {
+                return to_label($item['route'], true, 'primary');
+            }),
             'ip' => table_column_helper('IP', ['style' => ['min-width' => '100px']]),
             'operate_status' => table_column_helper('操作状态', ['style' => ['min-width' => '88px']], function ($item) {
                 return OpLog::getStatusLabel($item['operate_status']);

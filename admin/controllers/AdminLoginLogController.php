@@ -7,11 +7,12 @@
 
 namespace app\admin\controllers;
 
-use app\builder\helper\DateSplitHelper;
-use app\builder\table\ToolbarFilterOptions;
 use app\models\AdminUser;
+use yii\helpers\VarDumper;
 use app\builder\ViewBuilder;
+use app\builder\helper\DateSplitHelper;
 use app\builder\common\CommonController;
+use app\builder\table\ToolbarFilterOptions;
 use app\models\AdminUserLoginLog as AdLoginLog;
 
 /**
@@ -81,13 +82,16 @@ class AdminLoginLogController extends CommonController
             'a.id' => SORT_DESC,
         ];
 
+        $table->hideCheckbox = true;
         $table->columns = [
             'username' => table_column_helper('管理员', ['style' => ['min-width' => '100px']]),
             'identify_type' => table_column_helper('认证类型', ['style' => ['min-width' => '88px']], function ($item) {
                 return AdLoginLog::getIdentifyLabel($item['identify_type']);
             }),
             'client_info' => table_column_helper('客户端信息', ['style' => ['min-width' => '150px']]),
-            'attempt_info' => table_column_helper('尝试信息', ['style' => ['min-width' => '140px']]),
+            'attempt_info' => table_column_helper('尝试信息', ['style' => ['min-width' => '140px']], function ($item) {
+                return str_replace(['\\\'', '\'[', ']\''], ['\'', '[', ']'], VarDumper::dumpAsString($item['attempt_info'], 10, true));
+            }),
             'attempt_status' => table_column_helper('操作状态', ['style' => ['min-width' => '88px']], function ($item) {
                 return AdLoginLog::getAttemptStatusLabel($item['attempt_status']);
             }),
