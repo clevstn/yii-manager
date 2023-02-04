@@ -131,7 +131,7 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .addon-fix {display: inline-block !important;width: 130px !important;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .icheck-control {}
 .label-helper {display: inline-block;vertical-align: middle;margin-left: 4px;user-select: none;-webkit-user-select: none;}
-.label-primary {background-color: #4974b7 !important;}
+.label-primary {background-color: #008ab7 !important;}
 .text-red {color: red !important;}
 .sup {top: 0 !important;font-size: 13px !important;}
 .YmWangEditor {}
