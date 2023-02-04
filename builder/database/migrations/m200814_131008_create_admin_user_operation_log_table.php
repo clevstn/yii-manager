@@ -26,7 +26,7 @@ class m200814_131008_create_admin_user_operation_log_table extends Migration
             'route' => $this->string()->defaultValue('')->notNull()->comment('路由,如:admin/user/add'),
             'ip' => $this->string()->defaultValue('')->notNull()->comment('IP'),
             'operate_status' => $this->boolean()->defaultValue(0)->notNull()->comment('操作状态,0:失败 1:成功'),
-            'operate_info' => $this->string()->defaultValue('')->notNull()->comment('操作信息'),
+            'operate_info' => $this->text()->comment('操作信息'),
             'client_info' => $this->text()->comment('客户端信息'),
             'created_at' => $this->dateTime()->notNull()->comment('操作时间'),
         ], $tableOptions);

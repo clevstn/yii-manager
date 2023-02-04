@@ -60,21 +60,25 @@ class MenuHelper
      */
     public function getItems()
     {
-        $items = Yii::$app->rbacManager->getBannerByGroup(Yii::$app->adminUser->identity->group);
-        if (!empty($items)) {
-            // 首页不用加入rbac
-            $items = array_merge([
-                [
-                    'label' => '首页',
-                    // 用于yii\widgets\Menu->isItemActive()
-                    'url' => ['/admin/index/index'],
-                    // 用于视图外链
-                    'src' => 'admin/index/index',
-                    'icon' => 'glyphicon glyphicon-home',
-                ]
-            ], $items);
+        if ($identify = get_admin_user_identify()) {
+            $items = Yii::$app->rbacManager->getBannerByGroup($identify->group);
+            if (!empty($items)) {
+                // 首页不用加入rbac
+                $items = array_merge([
+                    [
+                        'label' => '首页',
+                        // 用于yii\widgets\Menu->isItemActive()
+                        'url' => ['/admin/index/index'],
+                        // 用于视图外链
+                        'src' => 'admin/index/index',
+                        'icon' => 'glyphicon glyphicon-home',
+                    ]
+                ], $items);
+            }
+
+            return $items;
         }
 
-        return $items;
+        return [];
     }
 }

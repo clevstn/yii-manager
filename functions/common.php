@@ -756,6 +756,17 @@ if (!function_exists('vv')) {
     }
 }
 
+if (!function_exists('get_admin_user_identify')) {
+    /**
+     * 获取admin模块中的身份认证类实例
+     * @return app\models\AdminUser|yii\web\IdentityInterface|null
+     */
+    function get_admin_user_identify()
+    {
+        return Yii::$app->adminUser->identity ?: null;
+    }
+}
+
 // 包含用户自定义函数文件
 include __DIR__ . '/function.php';
 

@@ -365,33 +365,58 @@ class RbacManager extends Component implements CheckAccessInterface
             return ArrayHelper::getValue($whiteListColumnsMap, $permissionName) ?: false;
         }
 
-        $permissionsMap = $this->getPermissionsByGroup(Yii::$app->adminUser->identity->group);
-        $columnsMap = [];
-        foreach ($permissionsMap as $value) {
-            $columnsMap[$value['src']] = [
-                'label' => $value['label'],
-                'icon' => $value['icon'],
-                'src' => $value['src'],
-                'dump_way' => $value['dump_way'],
-            ];
-        }
+        if ($identify = get_admin_user_identify()) {
+            $permissionsMap = $this->getPermissionsByGroup($identify->group);
+            $columnsMap = [];
+            foreach ($permissionsMap as $value) {
+                $columnsMap[$value['src']] = [
+                    'label' => $value['label'],
+                    'icon' => $value['icon'],
+                    'src' => $value['src'],
+                    'dump_way' => $value['dump_way'],
+                    'desc' => $value['desc'],
+                ];
+            }
 
-        if (ArrayHelper::keyExists($permissionName, $columnsMap)) {
-            return ArrayHelper::getValue($columnsMap, $permissionName) ?: false;
+            if (ArrayHelper::keyExists($permissionName, $columnsMap)) {
+                return ArrayHelper::getValue($columnsMap, $permissionName) ?: false;
+            }
         }
 
         return false;
     }
 
     /**
-     * 该检查用于行为中间件
+     * 根据路由权限获取指定节点中的行为描述（用于行为记录）
+     * @param string $permissionName 权限名
+     * @return string
+     * @throws \Exception
+     */
+    public function getBehaviorsDesc($permissionName)
+    {
+        $map = $this->checkAccessForViewRender($permissionName);
+        if ($map) {
+            foreach ($map as $item) {
+                if (isset($item[$permissionName]) && !empty($item[$permissionName])) {
+                    return $item[$permissionName]['desc'];
+                }
+            }
+        }
+
+        return '';
+    }
+
+    /**
+     * RBAC检查
      * {@inheritdoc}
      */
     public function checkAccess($userId, $permissionName, $params = [])
     {
-        $permissions = $this->getPermissionsByGroup(Yii::$app->adminUser->identity->group);
-        if (in_array($permissionName, ArrayHelper::getColumn($permissions, 'src'), true)) {
-            return true;
+        if ($identify = get_admin_user_identify()) {
+            $permissions = $this->getPermissionsByGroup($identify->group);
+            if (in_array($permissionName, ArrayHelper::getColumn($permissions, 'src'), true)) {
+                return true;
+            }
         }
 
         return false;

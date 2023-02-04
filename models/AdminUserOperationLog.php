@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use app\behaviors\DatetimeBehavior;
+use app\builder\common\CommonActiveRecord;
 
 /**
  * This is the model class for table "{{%admin_user_operation_log}}".
@@ -13,7 +15,7 @@ use Yii;
  * @property string $route 路由,如:admin/user/add
  * @property string $ip IP
  * @property int $operate_status 操作状态,0:失败 1:成功
- * @property string $operate_info 操作信息
+ * @property string|null $operate_info 操作信息
  * @property string|null $client_info 客户端信息
  * @property string $created_at 操作时间
  */
@@ -44,6 +46,22 @@ class AdminUserOperationLog extends \app\builder\common\CommonActiveRecord
     /**
      * {@inheritdoc}
      */
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['timestampBehavior'] = [
+            'class' => DatetimeBehavior::class,
+            'attributes' => [
+                CommonActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+            ],
+        ];
+
+        return $behaviors;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function tableName()
     {
         return '{{%admin_user_operation_log}}';
@@ -56,10 +74,8 @@ class AdminUserOperationLog extends \app\builder\common\CommonActiveRecord
     {
         return [
             [['admin_user_id', 'operate_status'], 'integer'],
-            [['client_info'], 'string'],
-            [['created_at'], 'required'],
-            [['created_at'], 'safe'],
-            [['function', 'route', 'ip', 'operate_info'], 'string', 'max' => 255],
+            [['client_info', 'operate_info'], 'string'],
+            [['function', 'route', 'ip'], 'string', 'max' => 255],
         ];
     }
 

@@ -8,6 +8,8 @@
 namespace app\admin;
 
 use Yii;
+use yii\base\Event;
+use yii\web\Response;
 
 /**
  * 后台管理模块
@@ -36,7 +38,21 @@ class Module extends \yii\base\Module
     public function init()
     {
         parent::init();
+
         $this->setErrorHandler();
+
+        $this->setEventHandler();
+    }
+
+    /**
+     * 绑定模块事件处理器
+     *
+     * 注：两种为组件绑定事件处理器的方法，第一种比第二种运行提前。
+     */
+    public function setEventHandler()
+    {
+        Yii::$app->response->on(Response::EVENT_AFTER_SEND, ['app\eventhandlers\AdminBehaviorRecordHandler', 'handleClick'], null, false);
+        //Event::on(Response::className(), Response::EVENT_AFTER_SEND, ['app\eventhandlers\AdminBehaviorRecordHandler', 'handleClick'], null, false);
     }
 
     /**
