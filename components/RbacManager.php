@@ -396,11 +396,7 @@ class RbacManager extends Component implements CheckAccessInterface
     {
         $map = $this->checkAccessForViewRender($permissionName);
         if ($map) {
-            foreach ($map as $item) {
-                if (isset($item[$permissionName]) && !empty($item[$permissionName])) {
-                    return $item[$permissionName]['desc'];
-                }
-            }
+            return $map['desc'];
         }
 
         return '';
