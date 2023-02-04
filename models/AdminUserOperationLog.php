@@ -67,14 +67,14 @@ class AdminUserOperationLog extends \app\builder\common\CommonActiveRecord
     {
         return [
             'id' => 'ID',
-            'admin_user_id' => Yii::t('app', 'the administrator ID'),
-            'function' => Yii::t('app', 'the functional description'),
-            'route' => Yii::t('app', 'the routing'),
+            'admin_user_id' => Yii::t('app.admin', 'the administrator ID'),
+            'function' => Yii::t('app.admin', 'the functional description'),
+            'route' => Yii::t('app.admin', 'the routing'),
             'ip' => 'IP',
-            'operate_status' => Yii::t('app', 'the operating state'),
-            'operate_info' => Yii::t('app', 'the operational information'),
-            'client_info' => Yii::t('app', 'the client information'),
-            'created_at' => Yii::t('app', 'the operating time'),
+            'operate_status' => Yii::t('app.admin', 'the operating state'),
+            'operate_info' => Yii::t('app.admin', 'the operational information'),
+            'client_info' => Yii::t('app.admin', 'the client information'),
+            'created_at' => Yii::t('app.admin', 'the operating time'),
         ];
     }
 

@@ -114,8 +114,8 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public static function statusMap()
     {
         return [
-            self::STATUS_DENY => Yii::t('app', 'closure'),
-            self::STATUS_NORMAL => Yii::t('app', 'normal'),
+            self::STATUS_DENY => Yii::t('app.admin', 'closure'),
+            self::STATUS_NORMAL => Yii::t('app.admin', 'normal'),
         ];
     }
 
@@ -126,11 +126,11 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public static function safeMap()
     {
         return [
-            self::SAFE_AUTH_CLOSE => Yii::t('app', 'close'),
-            self::SAFE_AUTH_FOLLOW_SYSTEM => Yii::t('app', 'follow the system'),
-            self::SAFE_AUTH_EMAIL => Yii::t('app', 'email authentication'),
-            self::SAFE_AUTH_MESSAGE => Yii::t('app', 'SMS authentication'),
-            self::SAFE_AUTH_OTP => Yii::t('app', 'OTP authentication'),
+            self::SAFE_AUTH_CLOSE => Yii::t('app.admin', 'close'),
+            self::SAFE_AUTH_FOLLOW_SYSTEM => Yii::t('app.admin', 'follow the system'),
+            self::SAFE_AUTH_EMAIL => Yii::t('app.admin', 'email authentication'),
+            self::SAFE_AUTH_MESSAGE => Yii::t('app.admin', 'SMS authentication'),
+            self::SAFE_AUTH_OTP => Yii::t('app.admin', 'OTP authentication'),
         ];
     }
 
@@ -141,9 +141,9 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public static function operationMap()
     {
         return [
-            self::OPERATE_LOG_CLOSE => Yii::t('app', 'close'),
-            self::OPERATE_LOG_FOLLOW => Yii::t('app', 'follow the system'),
-            self::OPERATE_LOG_OPEN => Yii::t('app', 'open'),
+            self::OPERATE_LOG_CLOSE => Yii::t('app.admin', 'close'),
+            self::OPERATE_LOG_FOLLOW => Yii::t('app.admin', 'follow the system'),
+            self::OPERATE_LOG_OPEN => Yii::t('app.admin', 'open'),
         ];
     }
 
@@ -154,9 +154,9 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public static function loginMap()
     {
         return [
-            self::LOGIN_LOG_CLOSE => Yii::t('app', 'close'),
-            self::LOGIN_LOG_FOLLOW => Yii::t('app', 'follow the system'),
-            self::LOGIN_LOG_OPEN => Yii::t('app', 'open'),
+            self::LOGIN_LOG_CLOSE => Yii::t('app.admin', 'close'),
+            self::LOGIN_LOG_FOLLOW => Yii::t('app.admin', 'follow the system'),
+            self::LOGIN_LOG_OPEN => Yii::t('app.admin', 'open'),
         ];
     }
 
@@ -170,21 +170,21 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         switch ($status) {
             case self::STATUS_DENY:
-                $label = Yii::t('app', 'disable');
+                $label = Yii::t('app.admin', 'disable');
                 if ($isHtml) {
                     return '<span class="label label-danger">' . $label . '</span>';
                 }
 
                 return $label;
             case self::STATUS_NORMAL:
-                $label = Yii::t('app', 'normal');
+                $label = Yii::t('app.admin', 'normal');
                 if ($isHtml) {
                     return '<span class="label label-success">' . $label . '</span>';
                 }
 
                 return $label;
             default:
-                $label = Yii::t('app', 'unknown');
+                $label = Yii::t('app.admin', 'unknown');
                 if ($isHtml) {
                     return '<span class="label label-default">' . $label . '</span>';
                 }
@@ -202,17 +202,17 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         switch ($safeAuth) {
             case self::SAFE_AUTH_CLOSE:
-                return Yii::t('app', 'close');
+                return Yii::t('app.admin', 'close');
             case self::SAFE_AUTH_FOLLOW_SYSTEM:
-                return Yii::t('app', 'follow the system');
+                return Yii::t('app.admin', 'follow the system');
             case self::SAFE_AUTH_EMAIL:
-                return Yii::t('app', 'email authentication');
+                return Yii::t('app.admin', 'email authentication');
             case self::SAFE_AUTH_MESSAGE:
-                return Yii::t('app', 'SMS authentication');
+                return Yii::t('app.admin', 'SMS authentication');
             case self::SAFE_AUTH_OTP:
-                return Yii::t('app', 'OTP authentication');
+                return Yii::t('app.admin', 'OTP authentication');
             default:
-                return Yii::t('app', 'unknown');
+                return Yii::t('app.admin', 'unknown');
         }
     }
 
@@ -225,13 +225,13 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         switch ($isOpenOperateLog) {
             case self::OPERATE_LOG_CLOSE:
-                return Yii::t('app', 'close');
+                return Yii::t('app.admin', 'close');
             case self::OPERATE_LOG_FOLLOW:
-                return Yii::t('app', 'follow the system');
+                return Yii::t('app.admin', 'follow the system');
             case self::OPERATE_LOG_OPEN:
-                return Yii::t('app', 'open');
+                return Yii::t('app.admin', 'open');
             default:
-                return Yii::t('app', 'unknown');
+                return Yii::t('app.admin', 'unknown');
         }
     }
 
@@ -244,13 +244,13 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         switch ($isOpenLoginLog) {
             case self::LOGIN_LOG_CLOSE:
-                return Yii::t('app', 'close');
+                return Yii::t('app.admin', 'close');
             case self::LOGIN_LOG_FOLLOW:
-                return Yii::t('app', 'follow the system');
+                return Yii::t('app.admin', 'follow the system');
             case self::LOGIN_LOG_OPEN:
-                return Yii::t('app', 'open');
+                return Yii::t('app.admin', 'open');
             default:
-                return Yii::t('app', 'unknown');
+                return Yii::t('app.admin', 'unknown');
         }
     }
 
@@ -367,20 +367,20 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ID',
-            'action' => Yii::t('app', 'the action items'),
-            'parent' => Yii::t('app', 'my supervisor'),
-            'username' => Yii::t('app', 'user name'),
-            'password' => Yii::t('app', 'the password'),
-            'repassword' => Yii::t('app', 'the repeat password'),
-            'email' => Yii::t('app', 'the email'),
-            'an' => Yii::t('app', 'the mobile area number'),
-            'mobile' => Yii::t('app', 'the mobile'),
-            'safe_auth' => Yii::t('app', 'whether to enable security authentication'),
-            'open_operate_log' => Yii::t('app', 'whether to turn on the operation log'),
-            'open_login_log' => Yii::t('app', 'whether log on or not'),
-            'group' => Yii::t('app', 'the management group'),
-            'deny_end_time' => Yii::t('app', 'the closing time'),
-            'usernameOrEmail' => Yii::t('app', 'the email/username'),
+            'action' => Yii::t('app.admin', 'the action items'),
+            'parent' => Yii::t('app.admin', 'my supervisor'),
+            'username' => Yii::t('app.admin', 'user name'),
+            'password' => Yii::t('app.admin', 'the password'),
+            'repassword' => Yii::t('app.admin', 'the repeat password'),
+            'email' => Yii::t('app.admin', 'the email'),
+            'an' => Yii::t('app.admin', 'the mobile area number'),
+            'mobile' => Yii::t('app.admin', 'the mobile'),
+            'safe_auth' => Yii::t('app.admin', 'whether to enable security authentication'),
+            'open_operate_log' => Yii::t('app.admin', 'whether to turn on the operation log'),
+            'open_login_log' => Yii::t('app.admin', 'whether log on or not'),
+            'group' => Yii::t('app.admin', 'the management group'),
+            'deny_end_time' => Yii::t('app.admin', 'the closing time'),
+            'usernameOrEmail' => Yii::t('app.admin', 'the email/username'),
         ];
     }
 
@@ -393,7 +393,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         return [
             ['id', 'required'],
             ['action', 'required'],
-            ['action', 'in', 'range' => ['disabled', 'enabled'], 'message' => Yii::t('app', 'the operation item is not correct')],
+            ['action', 'in', 'range' => ['disabled', 'enabled'], 'message' => Yii::t('app.admin', 'the operation item is not correct')],
             ['parent', 'string', 'min' => 2, 'max' => 250],
             ['username', 'required'],
             ['username', 'string', 'min' => 2, 'max' => 20],

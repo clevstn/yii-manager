@@ -114,17 +114,17 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
     public function attributeLabels()
     {
         return [
-            'code' => Yii::t('app', 'code'),
-            'value' => Yii::t('app', 'value'),
-            'control' => Yii::t('app', 'control types'),
-            'options' => Yii::t('app', 'options'),
-            'name' => Yii::t('app', 'the name'),
-            'desc' => Yii::t('app', 'the field'),
-            'tips' => Yii::t('app', 'form prompt'),
-            'type' => Yii::t('app', 'types'),
-            'group' => Yii::t('app', 'subordinate to the group'),
-            'created_at' => Yii::t('app', 'the creation time'),
-            'updated_at' => Yii::t('app', 'the update time'),
+            'code' => Yii::t('app.admin', 'code'),
+            'value' => Yii::t('app.admin', 'value'),
+            'control' => Yii::t('app.admin', 'control types'),
+            'options' => Yii::t('app.admin', 'options'),
+            'name' => Yii::t('app.admin', 'the name'),
+            'desc' => Yii::t('app.admin', 'the field'),
+            'tips' => Yii::t('app.admin', 'form prompt'),
+            'type' => Yii::t('app.admin', 'types'),
+            'group' => Yii::t('app.admin', 'subordinate to the group'),
+            'created_at' => Yii::t('app.admin', 'the creation time'),
+            'updated_at' => Yii::t('app.admin', 'the update time'),
         ];
     }
 

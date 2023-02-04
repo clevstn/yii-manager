@@ -26,6 +26,10 @@ use yii\web\Response;
  */
 trait Http
 {
+    // 响应码定义
+    public $responseSuccessCode = 200;
+    public $responseFailureCode = 500;
+    public $responseUnauthorizedCode = 401;
 
     /**
      * @var bool By call this attributes `get` `post`, this is effective.

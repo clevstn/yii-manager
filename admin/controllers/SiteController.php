@@ -8,6 +8,7 @@
 namespace app\admin\controllers;
 
 use Yii;
+use yii\db\Exception;
 use yii\web\Response;
 use app\models\AdminUser;
 use yii\base\UserException;
@@ -107,6 +108,7 @@ class SiteController extends CommonController
      * @param \yii\base\Action $action
      * @param mixed $result
      * @return mixed
+     * @throws Exception
      */
     public function afterAction($action, $result)
     {
@@ -121,15 +123,19 @@ class SiteController extends CommonController
             // 获取闪存数据
             $flashData = Yii::$app->session->getFlash($this->loginBaseFlashIdentify, null);
             // 记录登录日志
-            LoginLog::in([
+            $loginLog = new LoginLog();
+            $loginLog->setAttributes([
                 'admin_user_id' => empty($flashData) ? 0 : $flashData['id'],
                 'identify_type' => LoginLog::IDENTIFY_TYPE_BASE,
                 'client_info' => $this->request->userAgent ?: '',
                 'attempt_info' => export_str($this->post),
-                'attempt_status' => !empty($data['code']) && $data['code'] == 200 ? LoginLog::ATTEMPT_SUCCESS : LoginLog::ATTEMPT_FAILED,
+                'attempt_status' => !empty($data['code']) && $data['code'] == $this->responseSuccessCode ? LoginLog::ATTEMPT_SUCCESS : LoginLog::ATTEMPT_FAILED,
                 'error_type' => !empty($data['msg']) ? $data['msg'] : '',
                 'login_ip' => $this->request->userIP ?: '',
             ]);
+            if (($logResult = $loginLog->save()) !== true) {
+                throw new Exception(t('description Failed to record the login log', 'app.admin'));
+            }
         }
 
         // 登录-安全认证,记录登录日志
@@ -144,15 +150,19 @@ class SiteController extends CommonController
                 }
 
                 // 记录登录日志
-                LoginLog::in([
+                $loginLog = new LoginLog();
+                $loginLog->setAttributes([
                     'admin_user_id' => $flashData['id'],
                     'identify_type' => AdminUser::getLoginLogIdentifyType($flashData['safeWay']),
                     'client_info' => $this->request->userAgent ?: '',
                     'attempt_info' => export_str($this->post),
-                    'attempt_status' => !empty($data['code']) && $data['code'] == 200 ? LoginLog::ATTEMPT_SUCCESS : LoginLog::ATTEMPT_FAILED,
+                    'attempt_status' => !empty($data['code']) && $data['code'] == $this->responseSuccessCode ? LoginLog::ATTEMPT_SUCCESS : LoginLog::ATTEMPT_FAILED,
                     'error_type' => !empty($data['msg']) ? $data['msg'] : '',
                     'login_ip' => $this->request->userIP ?: '',
                 ]);
+                if (($logResult = $loginLog->save()) !== true) {
+                    throw new Exception(t('description Failed to record the login log', 'app.admin'));
+                }
             }
         }
 

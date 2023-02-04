@@ -22,7 +22,7 @@ return [
     'right' => [
         // 个人中心
         [
-            'label' => '<i class="glyphicon glyphicon-home"></i>&nbsp;' . t('My'),
+            'label' => '<i class="glyphicon glyphicon-home"></i>&nbsp;' . t('My', 'app.admin'),
             'items' => [
                 NavHelper::getMyBrand(),
                 '<li class="divider"></li>',

@@ -34,8 +34,8 @@ class AreaCode extends \app\builder\common\CommonActiveRecord
     public static function statusMap()
     {
         return [
-            self::STATUS_DENY => Yii::t('app', 'disable'),
-            self::STATUS_NORMAL => Yii::t('app', 'normal'),
+            self::STATUS_DENY => Yii::t('app.admin', 'disable'),
+            self::STATUS_NORMAL => Yii::t('app.admin', 'normal'),
         ];
     }
 
@@ -78,11 +78,11 @@ class AreaCode extends \app\builder\common\CommonActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => Yii::t('app', 'geographical names'),
-            'code' => Yii::t('app', 'telephone area code'),
-            'status' => Yii::t('app', 'the status'),
-            'created_at' => Yii::t('app', 'the creation time'),
-            'updated_at' => Yii::t('app', 'the update time'),
+            'name' => Yii::t('app.admin', 'geographical names'),
+            'code' => Yii::t('app.admin', 'telephone area code'),
+            'status' => Yii::t('app.admin', 'the status'),
+            'created_at' => Yii::t('app.admin', 'the creation time'),
+            'updated_at' => Yii::t('app.admin', 'the update time'),
         ];
     }
 
@@ -99,13 +99,13 @@ class AreaCode extends \app\builder\common\CommonActiveRecord
         } else {
             switch ($status) {
                 case self::STATUS_NORMAL:  // 正常
-                    $label = Yii::t('app', 'normal');
+                    $label = Yii::t('app.admin', 'normal');
                     return '<span class="label label-success">' . $label . '</span>';
                 case self::STATUS_DENY:    // 禁用
-                    $label = Yii::t('app', 'disable');
+                    $label = Yii::t('app.admin', 'disable');
                     return '<span class="label label-danger">' . $label . '</span>';
                 default:                   // 未知
-                    $label = Yii::t('app', 'unknown');
+                    $label = Yii::t('app.admin', 'unknown');
                     return '<span class="label label-default">' . $label . '</span>';
             }
         }

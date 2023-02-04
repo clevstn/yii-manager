@@ -21,38 +21,50 @@ use app\builder\common\CommonActiveRecord;
  */
 class AdminUserLoginLog extends \app\builder\common\CommonActiveRecord
 {
-    // 基本认证
-    const IDENTIFY_TYPE_BASE = 0;
-    // 邮箱认证
-    const IDENTIFY_TYPE_EMAIL = 1;
-    // 短信认证
-    const IDENTIFY_TYPE_SMS = 2;
-    // MFA认证
-    const IDENTIFY_TYPE_MFA = 3;
 
-    // 尝试状态:成功
-    const ATTEMPT_SUCCESS = 1;
-    // 尝试状态:失败
-    const ATTEMPT_FAILED = 0;
+    const IDENTIFY_TYPE_BASE = 0;  // 基本认证
+    const IDENTIFY_TYPE_EMAIL = 1; // 邮箱认证
+    const IDENTIFY_TYPE_SMS = 2;   // 短信认证
+    const IDENTIFY_TYPE_MFA = 3;   // MFA认证
+
+    const ATTEMPT_SUCCESS = 1;      // 尝试状态:成功
+    const ATTEMPT_FAILED = 0;       // 尝试状态:失败
 
     /**
-     * 获取认证标签
+     * 获取尝试状态标签
+     * @param int $attemptStatus 尝试状态
+     * @return string
+     */
+    public static function getAttemptStatusLabel($attemptStatus)
+    {
+        switch ($attemptStatus) {
+            case self::ATTEMPT_SUCCESS:
+                return t('login successful', 'app.admin');
+            case self::ATTEMPT_FAILED:
+                return t('login failed', 'app.admin');
+        }
+
+        return '--';
+    }
+
+    /**
+     * 获取访问认证类型标签
      * @param int $type 认证类型码
      * @return string
      */
-    public static function identifyLabel($type)
+    public static function getIdentifyLabel($type)
     {
         switch ($type) {
             case self::IDENTIFY_TYPE_BASE:
-                return t('basic authentication');
+                return t('basic authentication', 'app.admin');
             case self::IDENTIFY_TYPE_EMAIL:
-                return t('email authentication');
+                return t('email authentication', 'app.admin');
             case self::IDENTIFY_TYPE_SMS:
-                return t('SMS authentication');
+                return t('SMS authentication', 'app.admin');
             case self::IDENTIFY_TYPE_MFA:
-                return t('OTP authentication');
+                return t('OTP authentication', 'app.admin');
             default:
-                return t('unknown authentication method');
+                return t('unknown authentication method', 'app.admin');
         }
     }
 
@@ -99,31 +111,14 @@ class AdminUserLoginLog extends \app\builder\common\CommonActiveRecord
     {
         return [
             'id' => 'ID',
-            'admin_user_id' => Yii::t('app', 'the administrator ID'),
-            'identify_type' => Yii::t('app', 'the authentication type'),
-            'client_info' => Yii::t('app', 'the client information'),
-            'attempt_info' => Yii::t('app', 'try to information'),
-            'attempt_status' => Yii::t('app', 'the status'),
-            'error_type' => Yii::t('app', 'custom error types'),
-            'login_ip' => Yii::t('app', 'the login IP'),
-            'created_at' => Yii::t('app', 'the creation time'),
+            'admin_user_id' => Yii::t('app.admin', 'the administrator ID'),
+            'identify_type' => Yii::t('app.admin', 'the authentication type'),
+            'client_info' => Yii::t('app.admin', 'the client information'),
+            'attempt_info' => Yii::t('app.admin', 'try to information'),
+            'attempt_status' => Yii::t('app.admin', 'the status'),
+            'error_type' => Yii::t('app.admin', 'custom error types'),
+            'login_ip' => Yii::t('app.admin', 'the login IP'),
+            'created_at' => Yii::t('app.admin', 'the creation time'),
         ];
-    }
-
-    /**
-     * 记录登录日志
-     * @param array $data 需要记录的数据
-     * @return true|string
-     */
-    public static function in($data)
-    {
-        $model = new static();
-        $model->setAttributes($data);
-        $result = $model->save();
-        if ($result) {
-            return true;
-        }
-
-        return $model->error;
     }
 }

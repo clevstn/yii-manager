@@ -45,11 +45,11 @@ class EmailRecord extends \app\builder\common\CommonActiveRecord
     {
         return [
             'id' => 'ID',
-            'service_name' => Yii::t('app', 'the service name'),
-            'email_content' => Yii::t('app', 'email content'),
-            'send_user' => Yii::t('app', 'the sender'),
-            'receive_email' => Yii::t('app', 'to receive your email'),
-            'send_time' => Yii::t('app', 'the send time'),
+            'service_name' => Yii::t('app.admin', 'the service name'),
+            'email_content' => Yii::t('app.admin', 'email content'),
+            'send_user' => Yii::t('app.admin', 'the sender'),
+            'receive_email' => Yii::t('app.admin', 'to receive your email'),
+            'send_time' => Yii::t('app.admin', 'the send time'),
         ];
     }
 }

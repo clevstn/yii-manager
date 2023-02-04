@@ -47,10 +47,10 @@ class LinkPager extends \yii\widgets\LinkPager
             return $this->pageRowsMap;
         } else {
             return [
-                '20' => t('{number} lines per page', 'app', ['number' => 20]),
-                '100' => t('{number} lines per page', 'app', ['number' => 100]),
-                '300' => t('{number} lines per page', 'app', ['number' => 300]),
-                '500' => t('{number} lines per page', 'app', ['number' => 500]),
+                '20' => t('{number} lines per page', 'app.admin', ['number' => 20]),
+                '100' => t('{number} lines per page', 'app.admin', ['number' => 100]),
+                '300' => t('{number} lines per page', 'app.admin', ['number' => 300]),
+                '500' => t('{number} lines per page', 'app.admin', ['number' => 500]),
             ];
         }
     }
@@ -77,7 +77,7 @@ class LinkPager extends \yii\widgets\LinkPager
         $currentPage = $this->pagination->getPage() + 1;
         $items[] = Html::tag(
             'li',
-            "<span>" . t('until') . "</span>\n" . Html::tag(
+            "<span>" . t('until', 'app.admin') . "</span>\n" . Html::tag(
                 'span',
                 Html::input(
                     'number',
@@ -90,13 +90,13 @@ class LinkPager extends \yii\widgets\LinkPager
                     ]
                 ),
                 ['class' => 'page-dump-control']
-            ) . "\n<span>" . t('pages') . "</span>\n" . Html::a(t('confirm'), '#', [
+            ) . "\n<span>" . t('pages', 'app.admin') . "</span>\n" . Html::a(t('confirm', 'app.admin'), '#', [
                 'class' => 'btn btn-sm btn-default',
                 'ng-click' => 'ymTableDumpSpecialPage(' . $this->pagination->limit . ')',
             ])
         );
 
-        $items[] = Html::tag('li', "<span>" . t('total') . "{$this->pagination->totalCount}" . t('rows') . "</span>");
+        $items[] = Html::tag('li', "<span>" . t('total', 'app.admin') . "{$this->pagination->totalCount}" . t('rows', 'app.admin') . "</span>");
         $items[] = Html::tag(
             'li',
             Html::tag(

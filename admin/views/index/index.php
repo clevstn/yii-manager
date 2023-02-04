@@ -10,7 +10,7 @@ use app\admin\assets\IndexAsset;
 /* @var $this \yii\web\View */
 /* @var $param */
 IndexAsset::register($this);
-$this->title = t('home');
+$this->title = t('home', 'app.admin');
 ?>
 <div class="panel panel-default" ng-controller="indexCtrl">
     <div class="panel-body">

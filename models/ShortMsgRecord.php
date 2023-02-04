@@ -46,11 +46,11 @@ class ShortMsgRecord extends \app\builder\common\CommonActiveRecord
     {
         return [
             'id' => 'ID',
-            'service_name' => Yii::t('app', 'the service name'),
-            'msg_content' => Yii::t('app', 'message content'),
-            'send_user' => Yii::t('app', 'the sender'),
-            'receive_mobile' => Yii::t('app', 'receive cell phone number'),
-            'send_time' => Yii::t('app', 'the send time'),
+            'service_name' => Yii::t('app.admin', 'the service name'),
+            'msg_content' => Yii::t('app.admin', 'message content'),
+            'send_user' => Yii::t('app.admin', 'the sender'),
+            'receive_mobile' => Yii::t('app.admin', 'receive cell phone number'),
+            'send_time' => Yii::t('app.admin', 'the send time'),
         ];
     }
 }
