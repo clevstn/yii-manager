@@ -39,7 +39,7 @@ class ErrorLogController extends CommonController
     {
         $queryParams = $this->get;
         $table = ViewBuilder::table();
-        $table->title = '应用日志';
+        $table->title = '系统错误日志';
         $table->query = function () use ($queryParams) {
             $query = SystemLog::activeQuery([
                 'id',

@@ -102,7 +102,7 @@ $items = [
                     'desc' => '查看计划任务监控列表',
                 ],
                 [
-                    'label' => '错误日志',
+                    'label' => '系统错误日志',
                     'src' => 'admin/error-log/index',
                     'icon' => 'fa fa-exclamation-triangle',
                     'desc' => '查看错误日志列表',
