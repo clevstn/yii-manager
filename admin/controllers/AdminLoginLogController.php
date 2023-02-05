@@ -88,10 +88,11 @@ class AdminLoginLogController extends CommonController
             'identify_type' => table_column_helper('认证类型', ['style' => ['min-width' => '88px']], function ($item) {
                 return AdLoginLog::getIdentifyLabel($item['identify_type']);
             }),
-            'client_info' => table_column_helper('客户端信息', ['style' => ['min-width' => '150px']]),
             'attempt_info' => table_column_helper('尝试信息', ['style' => ['min-width' => '140px']], function ($item) {
-                return str_replace(['\\\'', '\'[', ']\''], ['\'', '[', ']'], VarDumper::dumpAsString($item['attempt_info'], 10, true));
+                $info = str_replace(['\\\'', '\'[', ']\''], ['\'', '[', ']'], VarDumper::dumpAsString($item['attempt_info'], 10, true));
+                return html_modal($info);
             }),
+            'client_info' => table_column_helper('客户端信息', ['style' => ['min-width' => '150px']]),
             'attempt_status' => table_column_helper('操作状态', ['style' => ['min-width' => '88px']], function ($item) {
                 return AdLoginLog::getAttemptStatusLabel($item['attempt_status']);
             }),
