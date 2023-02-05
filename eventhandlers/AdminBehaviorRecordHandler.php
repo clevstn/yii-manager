@@ -77,10 +77,9 @@ INFO;
                     'operate_info' => $opInfo,
                     'client_info' => $request->userAgent ?: '',
                 ]);
-
                 if (!$model->save()) {
                     // 保存失败，记录系统日志。
-                    Yii::error($model->error);
+                    system_log($model->error, '记录行为日志');
                 }
             }
         }

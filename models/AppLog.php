@@ -49,7 +49,6 @@ class AppLog extends \app\builder\common\CommonActiveRecord
     {
         return [
             [['params_content', 'result_content'], 'string'],
-            [['created_at'], 'required'],
             [['created_at'], 'safe'],
             [['subject'], 'string', 'max' => 50],
             [['log_level'], 'string', 'max' => 30],
