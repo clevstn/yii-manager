@@ -94,7 +94,7 @@ class AdminBehaviorLogController extends CommonController
             }),
             'ip' => table_column_helper('IP', ['style' => ['min-width' => '100px']]),
             'operate_info' => table_column_helper('操作信息', [], function ($item) {
-                return html_popover($item['operate_info']);
+                return html_modal(x_highlight_string($item['operate_info']));
             }),
             'client_info' => table_column_helper('客户端信息'),
         ];

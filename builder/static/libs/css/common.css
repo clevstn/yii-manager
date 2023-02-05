@@ -157,4 +157,4 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .ym-inner-container:after, .ym-aside-menu > .ym-brand-wrap:after {display: block;clear: both;content: "";visibility: hidden;height: 0}
 .ym-show {display: block !important;}
 .popover {max-width: 320px !important; word-break: break-all!important; white-space: pre-wrap!important;}
-.active-modal-detail {word-break: break-all !important; white-space: pre-wrap !important;}
+.active-modal-detail {word-break: break-all !important;}

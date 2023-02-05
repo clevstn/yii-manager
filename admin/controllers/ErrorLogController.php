@@ -53,7 +53,7 @@ class ErrorLogController extends CommonController
                 $startAt = null;
                 $endAt = null;
                 if (isset($queryParams['log_time'])) {
-                    list($startAt, $endAt) = DateSplitHelper::create($queryParams['created_at'])->timestamp()->toArray();
+                    list($startAt, $endAt) = DateSplitHelper::create($queryParams['log_time'])->timestamp()->toArray();
                 }
 
                 $query->filterWhere([

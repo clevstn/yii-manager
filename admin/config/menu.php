@@ -130,6 +130,29 @@ $items = [
                     'src' => 'admin/area-code/index',
                     'icon' => 'glyphicon glyphicon-phone-alt',
                     'desc' => '查看手机区号管理列表',
+                    'items' => [
+                        [
+                            'label' => '新增',
+                            'src' => 'admin/area-code/add',
+                            'icon' => 'fa fa-plus',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '新增区号',
+                        ],
+                        [
+                            'label' => '基本编辑',
+                            'src' => 'admin/area-code/edit',
+                            'icon' => 'fa fa-pencil-square-o',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '编辑区号',
+                        ],
+                        [
+                            'label' => '禁用/启用',
+                            'src' => 'admin/area-code/toggle',
+                            'icon' => 'fa fa-pencil-square-o',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '禁/启用区号',
+                        ],
+                    ],
                 ],
                 [
                     'label' => '系统设置',

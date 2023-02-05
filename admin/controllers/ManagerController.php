@@ -308,7 +308,7 @@ class ManagerController extends CommonController
                     'label' => '电话区号',
                     'placeholder' => '请选择电话区号',
                     'default' => '86',
-                    'options' => AreaCode::areaCodes(),
+                    'options' => AreaCode::areaCodes(AreaCode::STATUS_NORMAL),
                 ]),
                 'mobile' => form_fields_helper(FieldsOptions::CONTROL_NUMBER, [
                     'label' => '手机号',

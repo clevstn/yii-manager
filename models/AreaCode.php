@@ -8,11 +8,13 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "{{%area_code}}".
  * @property int $id
  * @property string $name 地域名称
+ * @property string $name_en 英文地域名称
  * @property string $code 电话区号
  * @property int|null $status 状态，0：禁用 1：正常
  * @property string $created_at 创建时间
@@ -26,6 +28,12 @@ class AreaCode extends \app\builder\common\CommonActiveRecord
     const STATUS_DENY = 0;
     // 状态 - 正常
     const STATUS_NORMAL = 1;
+
+    /**
+     * disabled|enabled
+     * @var string
+     */
+    public $action;
 
     /**
      * 状态集合
@@ -53,22 +61,45 @@ class AreaCode extends \app\builder\common\CommonActiveRecord
     public function rules()
     {
         return [
-            [['name', 'code', 'created_at'], 'required'],
+            [['name', 'name_en', 'code', 'status', 'id', 'action'], 'required'],
             [['status'], 'integer'],
+            [['status'], 'in', 'range' => [0, 1]],
+            [['action'], 'in', 'range' => ['disabled', 'enabled']],
             [['created_at', 'updated_at'], 'safe'],
-            [['name', 'code'], 'string', 'max' => 50],
-            [['name'], 'unique'],
+            [['name', 'name_en', 'code'], 'string', 'max' => 50],
+            [['name', 'name_en'], 'unique', 'on' => ['add']],
+            [['name', 'name_en'], 'unique', 'filter' => function ($query) {
+                /* @var Query $query */
+                $query->andWhere(['<>', 'id', $this->id]);
+            }, 'on' => ['edit']],
         ];
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function scenarios()
+    {
+        $scenario = parent::scenarios();
+        // 新增
+        $scenario['add'] = ['name', 'name_en', 'code'];
+        // 编辑
+        $scenario['edit'] = ['name', 'name_en', 'code'];
+        // 禁用启用
+        $scenario['toggle'] = ['id', 'action'];
+
+        return $scenario;
+    }
+
+    /**
      * 区号列表
+     * @param string|null $status 状态
      * @return array
      */
-    public static function areaCodes()
+    public static function areaCodes($status = null)
     {
         $selectColumn = Yii::$app->language === 'zh-CN' ? 'name' : 'name_en AS name';
-        return self::find()->select($selectColumn)->indexBy('code')->column();
+        return self::find()->filterWhere(['status' => $status])->select($selectColumn)->indexBy('code')->column();
     }
 
     /**
