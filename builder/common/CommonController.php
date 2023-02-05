@@ -41,21 +41,27 @@ class CommonController extends Controller
     public $actionVerbs = [];
 
     /**
-     * 只有游客可以访问的方法。
+     * 只有游客可以访问的action-id。
      * @var array Define actions that don't require authorization.
      */
     public $guestActions = [];
 
-    /**** 属性：$guestActions、$publicActions都不定义action-id，则是只有认证用户可以访问的方法 ****/
+    /**** 属性：$guestActions、$publicActions都不定义action-id，则是只有认证用户可以访问的action-id ****/
 
     /**
-     * 游客和认证用户都可以访问的方法。
+     * 游客和认证用户都可以访问的action-id。
      * @var array The guest and authenticated users can access current action.
      */
     public $publicActions = [];
 
     /**
-     * 只有认证用户可以访问但不需要RBAC限制的方法。
+     * 只有认证用户可以访问但不需要RBAC限制的action-id。
+     * 注：
+     *  因为视图无法检查到该配置项。
+     *  因此，
+     *  如果使用`ViewBuilder`进行视图组件构建，必须加入admin/config/menu.php下的whiteList配置项；
+     *  如果自定义页面，可以不加入admin/config/menu.php下的whiteList配置项；
+     *  建议两种情况都加入（可以用于行为记录）。
      * @var array Register undetected action ids for RBAC.
      */
     public $undetectedActions = [];

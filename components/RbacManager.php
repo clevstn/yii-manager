@@ -387,7 +387,7 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 根据路由权限获取指定节点中的行为描述（用于行为记录）
+     * 根据路由获取指定节点中的行为描述（用于行为记录）
      * @param string $permissionName 权限名
      * @return string
      * @throws \Exception
