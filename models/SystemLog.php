@@ -16,12 +16,15 @@ use Yii;
  */
 class SystemLog extends \app\builder\common\CommonActiveRecord
 {
+    // 表格名
+    const TABLE_NAME = '{{%system_log}}';
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return '{{%system_log}}';
+        return self::TABLE_NAME;
     }
 
     /**

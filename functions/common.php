@@ -829,6 +829,19 @@ if (!function_exists('get_admin_user_identify')) {
     }
 }
 
+if (!function_exists('x_highlight_string')) {
+    /**
+     * 高亮字符串
+     * @param string $str 字符串
+     * @return null|string|string[]
+     */
+    function x_highlight_string($str)
+    {
+        $result = highlight_string("<?php\n" . $str, true);
+        return preg_replace('/&lt;\\?php<br \\/>/', '', $result, 1) ?: '';
+    }
+}
+
 // 包含用户自定义函数文件
 include __DIR__ . '/function.php';
 

@@ -7,6 +7,7 @@
 
 namespace app\admin\controllers;
 
+use yii\helpers\VarDumper;
 use yii\log\Logger;
 use app\models\SystemLog;
 use app\builder\ViewBuilder;
@@ -82,7 +83,7 @@ class ErrorLogController extends CommonController
                 return $item['prefix'];
             }),
             'message' => table_column_helper('内容消息', [], function ($item) {
-                return html_popover($item['message']);
+                return html_modal(x_highlight_string($item['message']));
             }),
         ];
         // 刷新

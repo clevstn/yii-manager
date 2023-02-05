@@ -95,8 +95,7 @@ class AdminLoginLogController extends CommonController
             'error_type' => table_column_helper('错误类型', ['style' => ['min-width' => '130px']]),
             'login_ip' => table_column_helper('login_ip', ['style' => ['min-width' => '100px']]),
             'attempt_info' => table_column_helper('尝试信息', ['style' => ['min-width' => '140px']], function ($item) {
-                $info = str_replace(['\\\'', '\'[', ']\''], ['\'', '[', ']'], VarDumper::dumpAsString($item['attempt_info'], 10, true));
-                return html_modal($info);
+                return html_modal(x_highlight_string($item['attempt_info']));
             }),
             'client_info' => table_column_helper('客户端信息', ['style' => ['min-width' => '150px']]),
         ];

@@ -142,8 +142,7 @@ $config = [
             'targets' => [
                 [
                     //'class' => 'yii\log\FileTarget',
-                    'class' => 'yii\log\DbTarget',
-                    'logTable' => \app\models\SystemLog::tableName(),
+                    'class' => 'app\components\LogDbTarget',
                     'levels' => ['warning', 'error'],
                 ],
             ],
