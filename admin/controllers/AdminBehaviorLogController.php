@@ -83,20 +83,20 @@ class AdminBehaviorLogController extends CommonController
 
         $table->hideCheckbox = true;
         $table->columns = [
+            'created_at' => table_column_helper('操作时间', ['style' => ['min-width' => '150px']]),
             'username' => table_column_helper('管理员', ['style' => ['min-width' => '140px']]),
             'function' => table_column_helper('操作项', ['style' => ['min-width' => '140px']]),
             'route' => table_column_helper('路由', ['style' => ['min-width' => '140px']], function ($item) {
-                return to_label($item['route'], true, 'primary');
+                return html_label($item['route'], true, 'primary');
             }),
-            'ip' => table_column_helper('IP', ['style' => ['min-width' => '100px']]),
             'operate_status' => table_column_helper('操作状态', ['style' => ['min-width' => '88px']], function ($item) {
                 return OpLog::getStatusLabel($item['operate_status']);
             }),
+            'ip' => table_column_helper('IP', ['style' => ['min-width' => '100px']]),
             'operate_info' => table_column_helper('操作信息', [], function ($item) {
                 return html_popover($item['operate_info']);
             }),
             'client_info' => table_column_helper('客户端信息'),
-            'created_at' => table_column_helper('操作时间', ['style' => ['min-width' => '150px']]),
         ];
         // 刷新
         $table->toolbarRefresh = [];

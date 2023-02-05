@@ -40,9 +40,9 @@ class AdminUserLoginLog extends \app\builder\common\CommonActiveRecord
     {
         switch ($attemptStatus) {
             case self::ATTEMPT_SUCCESS:
-                return to_label(t('login successful', 'app.admin'), $toHtml);
+                return html_label(t('login successful', 'app.admin'), $toHtml);
             case self::ATTEMPT_FAILED:
-                return to_label(t('login failed', 'app.admin'), $toHtml, 'default');
+                return html_label(t('login failed', 'app.admin'), $toHtml, 'default');
         }
 
         return '--';

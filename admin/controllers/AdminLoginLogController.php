@@ -84,21 +84,21 @@ class AdminLoginLogController extends CommonController
 
         $table->hideCheckbox = true;
         $table->columns = [
+            'created_at' => table_column_helper('登录时间', ['style' => ['min-width' => '150px']]),
             'username' => table_column_helper('管理员', ['style' => ['min-width' => '100px']]),
             'identify_type' => table_column_helper('认证类型', ['style' => ['min-width' => '88px']], function ($item) {
                 return AdLoginLog::getIdentifyLabel($item['identify_type']);
             }),
+            'attempt_status' => table_column_helper('登录状态', ['style' => ['min-width' => '88px']], function ($item) {
+                return AdLoginLog::getAttemptStatusLabel($item['attempt_status']);
+            }),
+            'error_type' => table_column_helper('错误类型', ['style' => ['min-width' => '130px']]),
+            'login_ip' => table_column_helper('login_ip', ['style' => ['min-width' => '100px']]),
             'attempt_info' => table_column_helper('尝试信息', ['style' => ['min-width' => '140px']], function ($item) {
                 $info = str_replace(['\\\'', '\'[', ']\''], ['\'', '[', ']'], VarDumper::dumpAsString($item['attempt_info'], 10, true));
                 return html_modal($info);
             }),
             'client_info' => table_column_helper('客户端信息', ['style' => ['min-width' => '150px']]),
-            'attempt_status' => table_column_helper('操作状态', ['style' => ['min-width' => '88px']], function ($item) {
-                return AdLoginLog::getAttemptStatusLabel($item['attempt_status']);
-            }),
-            'error_type' => table_column_helper('错误类型', ['style' => ['min-width' => '130px']]),
-            'login_ip' => table_column_helper('login_ip', ['style' => ['min-width' => '100px']]),
-            'created_at' => table_column_helper('操作时间', ['style' => ['min-width' => '150px']]),
         ];
         // 刷新
         $table->toolbarRefresh = [];

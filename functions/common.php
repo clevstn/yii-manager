@@ -37,7 +37,7 @@ if (!function_exists('export_str')) {
     }
 }
 
-if (!function_exists('to_label')) {
+if (!function_exists('html_label')) {
     /**
      * 字符串转（html）label
      * @param string $str 输入字符串
@@ -52,7 +52,7 @@ if (!function_exists('to_label')) {
      * - warning
      * @return string
      */
-    function to_label($str, $toHtml = true, $labelType = 'success')
+    function html_label($str, $toHtml = true, $labelType = 'success')
     {
         if ($toHtml) {
             return '<label class="label label-' . $labelType . '">' . $str . '</label>';

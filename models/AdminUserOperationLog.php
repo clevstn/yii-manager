@@ -35,9 +35,9 @@ class AdminUserOperationLog extends \app\builder\common\CommonActiveRecord
     {
         switch ($status) {
             case self::STATUS_OK:
-                return to_label(t('operate successfully', 'app.admin'), $toHtml);
+                return html_label(t('operate successfully', 'app.admin'), $toHtml);
             case self::STATUS_FAIL:
-                return to_label(t('operation failure', 'app.admin'), $toHtml, 'default');
+                return html_label(t('operation failure', 'app.admin'), $toHtml, 'default');
         }
 
         return '--';
