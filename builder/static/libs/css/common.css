@@ -63,7 +63,7 @@ ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .table > tfoot > tr > th,
 .table > thead > tr > td,
 .table > tbody > tr > td,
-.table > tfoot > tr > td {min-width: 50px;}
+.table > tfoot > tr > td {min-width: 50px; vertical-align :middle;}
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th {border-bottom: 1px solid #ddd;font-size: 14px;}
@@ -98,6 +98,7 @@ ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .py-3 {padding-top: 3px;padding-bottom: 3px;}
 .bg-light {background-color: #f2f2f2;}
 .text-dark {color: #626675 !important;}
+.text-gray {color: #999999 !important;}
 .overflow-x {overflow-x: auto !important;overflow-y: visible !important;-webkit-overflow-scrolling: touch;}
 .dropup, .dropdown {position: static;}
 .dropdown-menu {top: auto;left: auto;}
@@ -155,3 +156,5 @@ input[type="checkbox"] {margin-top: 2px !important;}
 @media (min-width: 768px) { .ym-navbar-custom {left: 200px;}  .ym-navbar-custom .ym-brand-mobile {display: none;}  .ym-aside-menu > .ym-brand-wrap .ym-asidebar-close {display: none;}  .ym-aside-menu {width: 200px;display: block;}  .ym-content {padding-left: 200px;}  .ym-footer {left: 200px;} }
 .ym-inner-container:after, .ym-aside-menu > .ym-brand-wrap:after {display: block;clear: both;content: "";visibility: hidden;height: 0}
 .ym-show {display: block !important;}
+.popover {max-width: 320px !important; word-break: break-all!important; white-space: pre-wrap!important;}
+.active-modal-detail {word-break: break-all !important; white-space: pre-wrap !important;}

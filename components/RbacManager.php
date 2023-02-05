@@ -154,7 +154,7 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 加载并更新菜单
+     * 加载并更新授权菜单
      * @return true|string
      * @throws \Exception
      */
@@ -179,7 +179,7 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 递归更新菜单项
+     * 递归更新授权菜单项
      * @param array $menuItems
      * @param int $pid 父ID
      * @param int $sort 排序
@@ -232,7 +232,7 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 获取本地菜单项
+     * 获取本地授权菜单项
      * @return array
      */
     protected function getLocalMenuItems()
@@ -242,7 +242,7 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 加载本地项
+     * 加载本地节点项
      * @return array
      */
     protected function loadLocalItems()
@@ -251,7 +251,7 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 获取本地白名单
+     * 获取本地白名单节点列表
      * @return array
      */
     protected function getLocalWhiteLists()
@@ -262,7 +262,7 @@ class RbacManager extends Component implements CheckAccessInterface
 
 
     /**
-     * 递归格式化本地菜单项
+     * 递归格式化本地授权菜单项
      * @param array $menuItems 菜单项集合
      * @return array
      */
@@ -280,7 +280,7 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 格式化本地菜单项
+     * 格式化本地授权菜单项
      * @param array $item 菜单项
      * - label      菜单名称
      * - src        源
@@ -312,7 +312,7 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 根据组ID获取栏目数据集合
+     * 根据组ID获取指定组权限中的栏目数据
      * @param int $groupId 组ID
      * @return array
      */
@@ -324,10 +324,10 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 从指定权限中提取到栏目数据集合
-     * @param array $permissions 权限集合
+     * 从指定的组权限中提取到栏目数据
+     * @param array $permissions 权限列表
      * @param int $pid 父ID
-     * @param array $bannerMap 栏目数据集合
+     * @param array $bannerMap 栏目数据
      * @return array
      */
     protected function extractBannerFromPermissions($permissions, $pid = 0, $bannerMap = [])
@@ -351,8 +351,8 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 检查当前管理员是否允许视图渲染（用于方法调用）
-     * @param string $permissionName 权限
+     * 检查当前视图是否允许被渲染（用于方法调用）
+     * @param string $permissionName 权限名
      * @return array|false
      * @throws \Exception
      */
@@ -389,17 +389,12 @@ class RbacManager extends Component implements CheckAccessInterface
     /**
      * 根据路由获取指定节点中的行为描述（用于行为记录）
      * @param string $permissionName 权限名
-     * @return string
+     * @return array
      * @throws \Exception
      */
     public function getBehaviorsDesc($permissionName)
     {
-        $map = $this->checkAccessForViewRender($permissionName);
-        if ($map) {
-            return $map['desc'];
-        }
-
-        return '';
+        return $this->checkAccessForViewRender($permissionName);
     }
 
     /**

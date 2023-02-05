@@ -152,6 +152,15 @@
             radioClass: 'iradio_minimal-blue',
             increaseArea: '20%' // optional
         });
+
+        // 初始化Bootstrap Popover
+        jQuery(global.document).on('click', '[data-toggle="popover"]', function (e) {
+            if (!jQuery(window.document.body).attr('popover-plugins-init')) {
+                jQuery(window.document.body).attr('popover-plugins-init', true);
+                jQuery('[data-toggle="popover"]').popover();
+                jQuery(this).click();
+            }
+        });
     };
 
     // Refresh page

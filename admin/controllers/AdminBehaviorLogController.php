@@ -92,7 +92,9 @@ class AdminBehaviorLogController extends CommonController
             'operate_status' => table_column_helper('操作状态', ['style' => ['min-width' => '88px']], function ($item) {
                 return OpLog::getStatusLabel($item['operate_status']);
             }),
-            'operate_info' => table_column_helper('操作信息'),
+            'operate_info' => table_column_helper('操作信息', [], function ($item) {
+                return html_modal($item['operate_info']);
+            }),
             'client_info' => table_column_helper('客户端信息'),
             'created_at' => table_column_helper('操作时间', ['style' => ['min-width' => '150px']]),
         ];

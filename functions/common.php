@@ -217,6 +217,68 @@ if (!function_exists('html_escape')) {
     }
 }
 
+if (!function_exists('html_popover')) {
+    /**
+     * HTML弹出框
+     * @param string $content 内容
+     * @param string $title 标题
+     * @param string $button 按钮名
+     * @return string
+     * @see https://v3.bootcss.com/javascript/#popovers
+     */
+    function html_popover($content, $title = '内容详情', $button = '查看详情')
+    {
+        $content = strtr($content, '"', '\'');
+return <<<HTML
+<button type="button"
+   class="btn btn-sm btn-default"
+   data-toggle="popover" 
+   data-container="body"
+   data-placement="right"
+   data-content="{$content}">
+{$title}
+</button>
+HTML;
+    }
+}
+
+if (!function_exists('html_modal')) {
+    /**
+     * HTML模态框
+     * @param string $content 内容
+     * @param string $title 标题
+     * @param string $button 按钮名
+     * @return string
+     */
+    function html_modal($content, $title = '内容详情', $button = '查看详情')
+    {
+        $id = order_number('modal');
+        return <<<HTML
+<!-- Button trigger modal -->
+<a type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#{$id}">
+  {$button}
+</a>
+<!-- Modal -->
+<div class="modal" id="{$id}" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h5 class="panel-title">{$title}</h5>
+          </div>
+          <div class="panel-body active-modal-detail p-24">
+            {$content}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+          </div>
+        </div>
+    </div>
+</div>
+HTML;
+    }
+}
+
 if (!function_exists('table_column_helper')) {
     /**
      * 快捷设置表格列

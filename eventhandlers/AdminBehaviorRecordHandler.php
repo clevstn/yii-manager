@@ -26,43 +26,63 @@ class AdminBehaviorRecordHandler
         // 查看后台是否开启行为日志记录。
 
 
-        $request = Yii::$app->request;
-        $response = Yii::$app->response;
         /* @var \app\builder\common\CommonController $controller */
         $controller = Yii::$app->controller;
         $route = $controller->getRoute();
+        $nodeItems = Yii::$app->rbacManager->getBehaviorsDesc($route);
 
-        $status = AUOLog::STATUS_OK;
-        $responseStr = 'HTML TEXT';
-        if ($response->format === Response::FORMAT_JSON) {
-            $data = $response->data;
-            if (!empty($data) && isset($data['code'])) {
-                $status = $data['code'] == $controller->responseSuccessCode ? AUOLog::STATUS_OK : AUOLog::STATUS_FAIL;
-                $responseStr = $data['msg'];
+        if ($nodeItems) {
+            $request = Yii::$app->request;
+
+            if (
+                $request->isPost
+                || $request->isDelete
+                || $request->isPut
+                || $request->isPatch
+            ) {
+                $response = Yii::$app->response;
+
+                $status = $response->statusCode == 200 ? AUOLog::STATUS_OK : AUOLog::STATUS_FAIL;
+                $responseStr = $response->statusCode == 200 ? 'HTML TEXT' : $response->statusText;
+                if ($response->format === Response::FORMAT_JSON) {
+                    $data = $response->data;
+                    if (!empty($data) && isset($data['code'])) {
+                        $status = $data['code'] == $controller->responseSuccessCode ? AUOLog::STATUS_OK : AUOLog::STATUS_FAIL;
+                        $responseStr = $data['msg'];
+                    }
+                }
+
+                $requestMethod = $request->method;
+
+                $queryParams = $request->queryParams;
+                $queryParams = $queryParams ? json_encode($queryParams, JSON_UNESCAPED_UNICODE) : t('empty', 'app.admin');
+
+                $bodyParams = $request->bodyParams;
+                $bodyParams = $bodyParams ? json_encode($bodyParams, JSON_UNESCAPED_UNICODE) : t('empty', 'app.admin');
+                $opInfo = <<<INFO
+请求动作：{$requestMethod}
+GET参数： {$queryParams}               
+POST参数： {$bodyParams}       
+响应结果： {$responseStr}                     
+INFO;
+                $model = new AUOLog();
+                // 该方法里的字段除事件调用写入外，其他字段必须被方法rules定义。否则无法DB写入。
+                $identify = get_admin_user_identify();
+                $model->setAttributes([
+                    'admin_user_id' => $identify ? $identify->id : 0,
+                    'function' => $nodeItems['desc'],
+                    'route' => $route,
+                    'ip' => $request->getUserIP() ?: '',
+                    'operate_status' => $status,
+                    'operate_info' => $opInfo,
+                    'client_info' => $request->userAgent ?: '',
+                ]);
+
+                if (!$model->save()) {
+                    // 保存失败，记录系统日志。
+                    Yii::error($model->error);
+                }
             }
-        }
-
-        $params = $request->isGet ? $request->queryParams : $request->bodyParams;
-        $requestParam = $params ? json_encode($params, JSON_UNESCAPED_UNICODE) : '';
-
-        $opInfo = "请求参数：\n" .  $requestParam . "\n响应结果：\n" . $responseStr;
-
-        $model = new AUOLog();
-        // 该方法里的字段除事件调用写入外，其他字段必须被方法rules定义。否则无法DB写入。
-        $identify = get_admin_user_identify();
-        $model->setAttributes([
-            'admin_user_id' => $identify ? $identify->id : 0,
-            'function' => Yii::$app->rbacManager->getBehaviorsDesc($route) ?: '',
-            'route' => $route,
-            'ip' => $request->getUserIP() ?: '',
-            'operate_status' => $status,
-            'operate_info' => $opInfo,
-            'client_info' => $request->userAgent ?: '',
-        ]);
-
-        if (!$model->save()) {
-            // 记录失败，系统日志。
-            Yii::error($model->error);
         }
     }
 }
