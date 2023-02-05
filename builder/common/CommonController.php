@@ -29,26 +29,33 @@ class CommonController extends Controller
     public $homeUrl = '/admin/index/index';
 
     /**
+     * 视图继承定义
      * @var string Yii-manager layouts.
      */
     public $layout = '@builder/layouts/layout.php';
 
     /**
+     * 请求动作定义
      * @var array Verbs to specify the actions.
      */
     public $actionVerbs = [];
 
     /**
+     * 只有游客可以访问的方法。
      * @var array Define actions that don't require authorization.
      */
     public $guestActions = [];
 
+    /**** 属性：$guestActions、$publicActions都不定义action-id，则是只有认证用户可以访问的方法 ****/
+
     /**
+     * 游客和认证用户都可以访问的方法。
      * @var array The guest and authenticated users can access current action.
      */
     public $publicActions = [];
 
     /**
+     * 只有认证用户可以访问但不需要RBAC限制的方法。
      * @var array Register undetected action ids for RBAC.
      */
     public $undetectedActions = [];
