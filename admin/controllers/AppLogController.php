@@ -28,7 +28,7 @@ class AppLogController extends CommonController
     ];
 
     /**
-     * 应用日志列表
+     * 应用日志列表（即端业务日志）
      * @return string
      * @throws \ReflectionException
      * @throws \Throwable

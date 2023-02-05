@@ -71,11 +71,11 @@ class m141106_185632_log_init extends Migration
 
             $this->createTable($target->logTable, [
                 'id' => $this->bigPrimaryKey(),
-                'level' => $this->integer(),
-                'category' => $this->string(),
-                'log_time' => $this->double(),
-                'prefix' => $this->text(),
-                'message' => $this->text(),
+                'level' => $this->integer()->comment('日志等级'),
+                'category' => $this->string()->comment('种类'),
+                'log_time' => $this->double()->comment('日志时间'),
+                'prefix' => $this->text()->comment('请求主体'),
+                'message' => $this->text()->comment('内容消息'),
             ], $tableOptions);
 
             $this->createIndex('idx_log_level', $target->logTable, 'level');
