@@ -29,7 +29,7 @@ class AuthRelations extends \app\builder\common\CommonActiveRecord
     public function rules()
     {
         return [
-            [['group_id', 'menu_id', 'created_at'], 'required'],
+            [['group_id', 'menu_id'], 'required'],
             [['group_id', 'menu_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
         ];
@@ -47,5 +47,49 @@ class AuthRelations extends \app\builder\common\CommonActiveRecord
             'created_at' => Yii::t('app', '创建时间'),
             'updated_at' => Yii::t('app', '更新时间'),
         ];
+    }
+
+    /**
+     * 获取带有已拥有标记的管理组权限树
+     * @param array $systemPers 系统权限数据
+     * @param array $ownedPers 已拥有的权限(菜单)ID
+     * @param int $id 父ID
+     * @return array
+     */
+    public static function getMarkOwnedPermissionTrees($systemPers, $ownedPers, $id = 0)
+    {
+        $data = [];
+        foreach ($systemPers as $item) {
+            if ($item['pid'] == $id) {
+                $one = [
+                    'title' => $item['label'], // 菜单名称
+                    'id' => $item['id'],       // ID
+                    'spread' => false,          // 打开树节点
+                    'children' => self::getMarkOwnedPermissionTrees($systemPers, $ownedPers, $item['id']), // 子节点数组
+                ];
+                // 添加图标
+                if (!empty($item['icon'])) {
+                    $titleStr = '<span style="color:#1E9FFF">';
+                    $titleStr .= '<i class="' . $item['icon'] . '"></i>';
+                    $titleStr .= '&nbsp;<b>' . $item['label'] . '</b>';
+                    $titleStr .= '</span>';
+                    $one['title'] = $titleStr;
+                }
+
+                // 添加选中状态
+                if (in_array($item['id'], $ownedPers)) {
+                    $authMenu = AuthMenu::findOne(['pid' => $item['id']]);
+                    if (!$authMenu) {
+                        $one['checked'] = true;
+                    }
+
+                    $one['spread'] = true;
+                }
+
+                array_push($data, $one);
+            }
+        }
+
+        return $data;
     }
 }

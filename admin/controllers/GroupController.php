@@ -15,6 +15,7 @@ use app\builder\table\ToolbarFilterOptions;
 use app\builder\ViewBuilder;
 use app\models\AuthGroups;
 use app\models\AuthRelations;
+use yii\helpers\Json;
 
 /**
  * 管理组
@@ -160,7 +161,9 @@ class GroupController extends CommonController
                 'title' => '分配权限',
                 'icon' => 'fa fa-users',
                 'route' => 'admin/group/dispatch',
-                'width' => '700px',
+                'width' => '100%',
+                'height' => '100%',
+                'params' => ['id'],
             ]),
         ];
 
@@ -306,11 +309,56 @@ class GroupController extends CommonController
         return $this->asFail(t('request parameter loading failed', 'app.admin'));
     }
 
-
-    public function actionDispatch()
+    /**
+     * 管理组权限分配
+     * @param int $id 组ID
+     * @return string
+     */
+    public function actionDispatch($id)
     {
-        // 获取系统权限列表
-        $permissions = Yii::$app->rbacManager->getPermissionsByGroupFromDb(AuthGroups::ADMINISTRATOR_GROUP);
+        if ($this->isPost) {
+            $bodyParams = $this->post;
+            if (empty($bodyParams['menuIds'])) {
+                return $this->asFail(t('data is empty', 'app.admin'));
+            }
 
+            if (!is_array($bodyParams['menuIds'])) {
+                return $this->asFail(t('parameter type error', 'app.admin'));
+            }
+
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                // 先删除所有权限
+                AuthRelations::deleteAll(['group_id' => $id]);
+
+                // 重新添加权限
+                foreach ($bodyParams['menuIds'] as $menuId) {
+                    $model = new AuthRelations();
+                    $model->group_id = $id;
+                    $model->menu_id = $menuId;
+                    if (!$model->save()) {
+                        $transaction->rollBack();
+                        return $this->asFail($model->error);
+                    }
+                }
+
+                $transaction->commit();
+                return $this->asSuccess();
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                return $this->asFail($e->getMessage());
+            }
+
+        } else {
+            // 获取系统权限列表
+            $permissions = Yii::$app->rbacManager->getPermissionsByGroupFromDb(AuthGroups::ADMINISTRATOR_GROUP);
+            // 获取指定角色可以访问的菜单ID
+            $ownedPers = AuthRelations::activeQuery(['menu_id'])->where(['group_id' => $id])->asArray()->column();
+            // Permission Trees
+            $permissionTrees = AuthRelations::getMarkOwnedPermissionTrees($permissions, $ownedPers);
+            $this->setLayoutViewPath();
+
+            return $this->render('dispatch', ['data' => Json::encode($permissionTrees)]);
+        }
     }
 }

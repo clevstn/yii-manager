@@ -158,3 +158,5 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .ym-show {display: block !important;}
 .popover {max-width: 320px !important; word-break: break-all!important; white-space: pre-wrap!important;}
 .active-modal-detail {word-break: break-all !important;}
+.layui-tree-line .layui-tree-set:before {border-left: 1px solid #c0c4cc !important;}
+.layui-tree-entry,.layui-tree-icon {box-sizing: initial !important;}

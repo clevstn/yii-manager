@@ -178,4 +178,13 @@ class CommonController extends Controller
             return [];
         }
     }
+
+    /**
+     * 设置视图继承路径
+     * @param string $layoutPath 视图继承路径
+     */
+    public function setLayoutViewPath($layoutPath = '')
+    {
+        $this->layout = $layoutPath ?: '@builder/layouts/partial.php';
+    }
 }

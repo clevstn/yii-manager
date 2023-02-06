@@ -272,7 +272,7 @@ class Builder extends BaseObject implements BuilderInterface
     private $_exportOptions = [];
 
     /**
-     * @var string 局部视图路径
+     * @var string 独立视图路径
      * @see $partial
      * @see render()
      */

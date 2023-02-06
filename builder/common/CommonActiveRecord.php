@@ -64,7 +64,7 @@ class CommonActiveRecord extends ActiveRecord
         $query = Yii::createObject(Query::className());
 
         if (empty($alias)) {
-            return $query->from(static::className())->select($select);
+            return $query->from(static::tableName())->select($select);
         }
 
         return $query->from([$alias => static::tableName()])->select($select);

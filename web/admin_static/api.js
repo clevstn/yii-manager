@@ -10,7 +10,7 @@
     "use strict";
 
     // 定义[admin]模块api接口
-    YmApp.$adminApi = {
+    var api = {
         /* ------------- 登录 - 基本验证 ------------- */
 
         // 检查用户名是否存在
@@ -28,4 +28,6 @@
         // 安全认证提交
         safeSubmit: '/admin/site/safe-validate'
     };
+
+    YmApp.$adminApi = api;
 }(window, window.YmApp);

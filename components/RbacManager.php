@@ -111,12 +111,13 @@ class RbacManager extends Component implements CheckAccessInterface
     public function getPermissionsByGroupFromDb($groupId)
     {
         if ($groupId === AuthGroups::ADMINISTRATOR_GROUP) {
-            $data = (new Query())->from($this->menuTable)->all($this->db);
+            $data = (new Query())->from($this->menuTable)->orderBy(['sort' => SORT_ASC])->all($this->db);
         } else {
             $data = (new Query())->from(['r' => $this->relationsTable])
                 ->leftJoin(['m' => $this->menuTable], 'r.menu_id=m.id')
                 ->select('m.*')
-                ->where(['group_id' => $groupId])
+                ->where(['r.group_id' => $groupId])
+                ->orderBy(['m.sort' => SORT_ASC])
                 ->all();
         }
 
