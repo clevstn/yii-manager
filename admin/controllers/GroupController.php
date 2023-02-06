@@ -7,11 +7,14 @@
 
 namespace app\admin\controllers;
 
+use Yii;
 use app\builder\common\CommonController;
+use app\builder\form\FieldsOptions;
 use app\builder\helper\DateSplitHelper;
 use app\builder\table\ToolbarFilterOptions;
 use app\builder\ViewBuilder;
 use app\models\AuthGroups;
+use app\models\AuthRelations;
 
 /**
  * 管理组
@@ -81,6 +84,9 @@ class GroupController extends CommonController
             'is_enabled' => table_column_helper('角色状态', ['style' => ['min-width' => '120px']], function ($item) {
                 return AuthGroups::getStatusLabel($item['is_enabled']);
             }),
+            'is_dispatched' => table_column_helper('是否分配权限', ['style' => ['min-width' => '130px']], function ($item) {
+                return AuthRelations::findOne(['group_id' => $item['id']]) ? html_label('已分配') : html_label('未分配', true, 'default');
+            }),
             'created_at' => table_column_helper('注册时间', ['style' => ['min-width' => '150px']]),
             'updated_at' => table_column_helper('更新时间', ['style' => ['min-width' => '150px']]),
         ];
@@ -99,8 +105,8 @@ class GroupController extends CommonController
                     'label' => '角色状态',
                     'placeholder' => '请选择角色状态',
                     'options' => [
-                        AuthGroups::STATUS_DISABLED => '已禁用',
-                        AuthGroups::STATUS_ENABLED => '正常',
+                        AuthGroups::STATUS_DENY => '已禁用',
+                        AuthGroups::STATUS_NORMAL => '正常',
                     ],
                 ]),
                 'created_at' => table_toolbar_filter_helper([
@@ -120,20 +126,20 @@ class GroupController extends CommonController
                 'option' => 'modal',
                 'route' => 'admin/group/add',
                 'width' => '550px',
-                'height' => '350px',
+                'height' => '300px',
             ]),
-            // 封停
+            // 禁用
             table_toolbar_custom_helper('left', [
-                'title' => '封停',
+                'title' => '禁用',
                 'icon' => 'fa fa-lock',
                 'option' => 'ajax',
                 'method' => 'post',
                 'route' => 'admin/group/toggle',
                 'params' => ['id', 'action' => 'disabled'],
             ]),
-            // 解封
+            // 启用
             table_toolbar_custom_helper('left', [
-                'title' => '解封',
+                'title' => '启用',
                 'icon' => 'fa fa-unlock',
                 'option' => 'ajax',
                 'method' => 'post',
@@ -148,7 +154,7 @@ class GroupController extends CommonController
                 'icon' => 'fa fa-pencil-square-o',
                 'route' => 'admin/group/edit',
                 'width' => '550px',
-                'height' => '350px',
+                'height' => '300px',
             ]),
             table_action_helper('modal', [
                 'title' => '分配权限',
@@ -161,23 +167,150 @@ class GroupController extends CommonController
         return $table->render($this);
     }
 
+    /**
+     * 新增管理组
+     * @return string
+     * @throws \ReflectionException
+     * @throws \Throwable
+     */
     public function actionAdd()
     {
-        
+        $this->emptyStrToNull = false;
+
+        if ($this->isPost) {
+            $model = new AuthGroups();
+            $model->setScenario('add');
+            if ($model->load($this->post)) {
+                if ($model->save()) {
+                    return $this->asSuccess(t('submitted successfully', 'app.admin'));
+                }
+
+                return $this->asFail($model->error);
+            }
+
+            return $this->asFail(t('request parameter loading failed', 'app.admin'));
+        } else {
+            $form = ViewBuilder::form();
+            $form->partial = true;
+            $form->backBtn = false;
+            $form->fields = [
+                'name' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                    'label' => '角色名',
+                    'placeholder' => '请填写角色名',
+                    'required' => true,
+                ]),
+                'desc' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                    'label' => '备注',
+                    'placeholder' => '请填写备注',
+                    'required' => false,
+                ]),
+            ];
+
+            return $form->render($this);
+        }
     }
 
-    public function actionEdit()
+    /**
+     * 编辑
+     * @param string $id 主键ID
+     * @return string
+     * @throws \ReflectionException
+     * @throws \Throwable
+     */
+    public function actionEdit($id)
     {
+        $this->emptyStrToNull = false;
+        if ($this->isGet) {
+            $model = AuthGroups::findOne($id);
+            if (empty($model)) {
+                return $this->asFail(t('data is empty', 'app.admin'));
+            }
 
+            // 渲染表单
+            $form = ViewBuilder::form();
+            $form->partial = true;
+            $form->backBtn = false;
+            $form->fields = [
+                'id' => form_fields_helper(FieldsOptions::CONTROL_HIDDEN, [
+                    'default' => $model->id,
+                ]),
+                'name' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                    'label' => '角色名',
+                    'placeholder' => '请填写角色名',
+                    'default' => $model->name,
+                    'required' => true,
+                ]),
+                'desc' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                    'label' => '备注',
+                    'placeholder' => '请填写备注',
+                    'default' => $model->desc,
+                    'required' => false,
+                ]),
+            ];
+
+            return $form->render($this);
+        } else {
+            // 提交编辑
+            $bodyParams = $this->post;
+            // 参数校验
+            if (empty($bodyParams['id'])) {
+                return $this->asFail(t('parameter error', 'app.admin'));
+            }
+
+            // 查询校验
+            /* @var AuthGroups|null $model */
+            $model = AuthGroups::activeQuery(['id', 'name', 'desc'])->where(['id' => $bodyParams['id']])->one();
+            if (empty($model)) {
+                return $this->asFail(t('data is empty', 'app.admin'));
+            }
+
+            // 设置验证场景
+            $model->setScenario('edit');
+            // 数据校验
+            if ($model->load($bodyParams)) {
+                if ($model->save()) {
+                    return $this->asSuccess(t('submitted successfully', 'app.admin'));
+                }
+
+                return $this->asFail($model->error);
+            }
+
+            return $this->asFail(t('request parameter loading failed', 'app.admin'));
+        }
     }
 
+    /**
+     * 禁用/启用
+     * @return string
+     */
     public function actionToggle()
     {
+        // `enabled`和`disabled`提交表单
+        $bodyParam = $this->post;
+        $model = new AuthGroups();
+        $model->setScenario('toggle');
+        if ($model->load($bodyParam)) {
+            if ($model->validate()) {
+                $status = $model->action == 'disabled' ? AuthGroups::STATUS_DENY : AuthGroups::STATUS_NORMAL;
+                AuthGroups::updateAll([
+                    'is_enabled' => $status,
+                    'updated_at' => now(),
+                ], ['in', 'id', explode(',', $model->id)]);
 
+                return $this->asSuccess(t('submitted successfully', 'app.admin'));
+            }
+
+            return $this->asFail($model->error);
+        }
+
+        return $this->asFail(t('request parameter loading failed', 'app.admin'));
     }
+
 
     public function actionDispatch()
     {
+        // 获取系统权限列表
+        $permissions = Yii::$app->rbacManager->getPermissionsByGroupFromDb(AuthGroups::ADMINISTRATOR_GROUP);
 
     }
 }

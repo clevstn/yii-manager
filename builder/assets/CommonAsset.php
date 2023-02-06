@@ -30,8 +30,9 @@ class CommonAsset extends BaseAsset
         FontAwesomeAsset::class,        // FontAwesome
         SweetAlert2::class,             // SweetAlert2
         IcheckAsset::class,             // Icheck
-        LaydateAsset::class,            // Laydate
-        LayerAsset::class,              // Layer
+        //LaydateAsset::class,            // Laydate
+        //LayerAsset::class,              // Layer
+        LayuiAsset::class,              // Layui
         WangEditorAsset::class,         // WangEditor
         AngularAsset::class,            // Angular 1.7.5
         AngularSelect2::class,          // Angular select2 archive

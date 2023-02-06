@@ -21,8 +21,14 @@ class AuthGroups extends \app\builder\common\CommonActiveRecord
     const ADMINISTRATOR_GROUP = 0;
 
     // 是否开启，0：禁用 1：正常
-    const STATUS_DISABLED = 0;
-    const STATUS_ENABLED = 1;
+    const STATUS_DENY = 0;
+    const STATUS_NORMAL = 1;
+
+    /**
+     * 禁用/启用标识
+     * @var string
+     */
+    public $action;
 
     /**
      * 获取角色状态标签
@@ -33,9 +39,9 @@ class AuthGroups extends \app\builder\common\CommonActiveRecord
     public static function getStatusLabel($status, $toHtml = true)
     {
         switch ($status) {
-            case self::STATUS_DISABLED:
+            case self::STATUS_DENY:
                 return html_label(t('disabled', 'app.admin'), $toHtml, 'default');
-            case self::STATUS_ENABLED:
+            case self::STATUS_NORMAL:
                 return html_label(t('enabled', 'app.admin'), $toHtml);
         }
 
@@ -56,13 +62,31 @@ class AuthGroups extends \app\builder\common\CommonActiveRecord
     public function rules()
     {
         return [
-            [['name', 'created_at'], 'required'],
+            [['name', 'id', 'action'], 'required'],
+            ['action', 'in', 'range' => ['disabled', 'enabled']],
             [['is_enabled'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 50],
             [['desc'], 'string', 'max' => 250],
             [['name'], 'unique'],
         ];
+    }
+
+    /**
+     * 验证场景定义
+     * @return array
+     */
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        // 新增
+        $scenarios['add'] = ['name', 'desc'];
+        // 编辑
+        $scenarios['edit'] = ['name', 'desc'];
+        // 禁用/启用
+        $scenarios['toggle'] = ['id', 'action'];
+
+        return $scenarios;
     }
 
     /**

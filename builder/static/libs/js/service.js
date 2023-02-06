@@ -35,10 +35,13 @@
         return global.Swal;
     }).factory("laydate", function () {
         // Laydate
-        return global.laydate;
+        return global.layui.laydate;
     }).factory("layer", function () {
         // Layer
-        return global.layer;
+        return global.layui.layer;
+    }).factory("layui", function () {
+        // LayUI
+        return global.layui;
     }).factory("wangEditor", function () {
         // wangEditor
         return global.wangEditor;

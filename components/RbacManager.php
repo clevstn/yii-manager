@@ -108,7 +108,7 @@ class RbacManager extends Component implements CheckAccessInterface
      * @param int $groupId 组ID
      * @return array
      */
-    protected function getPermissionsByGroupFromDb($groupId)
+    public function getPermissionsByGroupFromDb($groupId)
     {
         if ($groupId === AuthGroups::ADMINISTRATOR_GROUP) {
             $data = (new Query())->from($this->menuTable)->all($this->db);

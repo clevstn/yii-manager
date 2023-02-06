@@ -23,7 +23,7 @@ use app\builder\form\FieldsOptions;
      */
     !function (window, _EasyApp) {
         "use strict";
-        _EasyApp.controller('_formCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "wangEditor", "Upload", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, wangEditor, Upload) {
+        _EasyApp.controller('_formCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "wangEditor", "Upload", "layui", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, wangEditor, Upload, layui) {
             // 封装Layer插件
             var parentLayer = window.parent.layer;
             var tips = function (msg, title, icon, callback) {
