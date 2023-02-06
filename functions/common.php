@@ -838,7 +838,7 @@ if (!function_exists('x_highlight_string')) {
     function x_highlight_string($str)
     {
         $result = highlight_string("<?php\n" . $str, true);
-        return preg_replace('/&lt;\\?php<br \\/>/', '', $result, 1) ?: '';
+        return preg_replace('/&lt;\\?php<br \\/>/', '', $result, 1) ?: $str;
     }
 }
 

@@ -119,4 +119,7 @@ return [
     'request parameter loading failed' => '请求参数加载失败！',
     'submitted successfully' => '提交成功',
     'data is empty' => '数据为空!',
+    'invalid parameter {param}' => '无效的参数{param}',
+    'disabled' => '禁用',
+    'enabled' => '正常',
 ];

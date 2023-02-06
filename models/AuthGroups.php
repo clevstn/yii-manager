@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\base\InvalidArgumentException;
 
 /**
  * This is the model class for table "{{%auth_groups}}".
@@ -18,6 +19,28 @@ class AuthGroups extends \app\builder\common\CommonActiveRecord
 {
     // 超管组ID
     const ADMINISTRATOR_GROUP = 0;
+
+    // 是否开启，0：禁用 1：正常
+    const STATUS_DISABLED = 0;
+    const STATUS_ENABLED = 1;
+
+    /**
+     * 获取角色状态标签
+     * @param string $status 状态值
+     * @param bool $toHtml 是否转html
+     * @return string
+     */
+    public static function getStatusLabel($status, $toHtml = true)
+    {
+        switch ($status) {
+            case self::STATUS_DISABLED:
+                return html_label(t('disabled', 'app.admin'), $toHtml, 'default');
+            case self::STATUS_ENABLED:
+                return html_label(t('enabled', 'app.admin'), $toHtml);
+        }
+
+        throw new InvalidArgumentException(t('invalid parameter {param}', 'app.admin', ['param' => 'status']));
+    }
 
     /**
      * {@inheritdoc}

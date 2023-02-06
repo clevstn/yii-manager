@@ -82,6 +82,36 @@ $items = [
                     'src' => 'admin/group/index',
                     'icon' => 'fa fa-list-alt',
                     'desc' => '查看管理组列表',
+                    'items' => [
+                        [
+                            'label' => '新增',
+                            'src' => 'admin/group/add',
+                            'icon' => 'fa fa-plus',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '新增管理组',
+                        ],
+                        [
+                            'label' => '基本编辑',
+                            'src' => 'admin/group/edit',
+                            'icon' => 'fa fa-pencil-square-o',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '编辑管理组',
+                        ],
+                        [
+                            'label' => '禁/启用',
+                            'src' => 'admin/group/toggle',
+                            'icon' => 'fa fa-unlock-alt',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '禁/启用管理组',
+                        ],
+                        [
+                            'label' => '分配权限',
+                            'src' => 'admin/group/dispatch',
+                            'icon' => 'glyphicon glyphicon-random',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '分配管理组权限',
+                        ],
+                    ],
                 ],
                 [
                     'label' => '运维脚本',
