@@ -7,7 +7,6 @@
 
 namespace app\admin\controllers;
 
-use yii\helpers\VarDumper;
 use yii\log\Logger;
 use app\models\SystemLog;
 use app\builder\ViewBuilder;
@@ -20,7 +19,7 @@ use app\builder\table\ToolbarFilterOptions;
  * @author cleverstone
  * @since ym1.0
  */
-class ErrorLogController extends CommonController
+class SystemLogController extends CommonController
 {
     /**
      * {@inheritdoc}
@@ -39,7 +38,7 @@ class ErrorLogController extends CommonController
     {
         $queryParams = $this->get;
         $table = ViewBuilder::table();
-        $table->title = '系统错误日志';
+        $table->title = '系统日志';
         $table->query = function () use ($queryParams) {
             $query = SystemLog::activeQuery([
                 'id',
