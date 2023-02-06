@@ -78,8 +78,7 @@ class AuthRelations extends \app\builder\common\CommonActiveRecord
 
                 // 添加选中状态
                 if (in_array($item['id'], $ownedPers)) {
-                    $authMenu = AuthMenu::findOne(['pid' => $item['id']]);
-                    if (!$authMenu) {
+                    if (empty(self::getMarkOwnedPermissionTrees($systemPers, [], $item['id']))) {
                         $one['checked'] = true;
                     }
 
