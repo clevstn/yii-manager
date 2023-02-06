@@ -346,7 +346,9 @@ class RbacManager extends Component implements CheckAccessInterface
             }
         }
 
-        ArrayHelper::multisort($bannerMap, 'sort', SORT_ASC, SORT_NUMERIC);
+        if (!empty($bannerMap)) {
+            ArrayHelper::multisort($bannerMap, 'sort', SORT_ASC, SORT_NUMERIC);
+        }
 
         return $bannerMap;
     }

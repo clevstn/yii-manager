@@ -155,7 +155,7 @@ class GroupController extends CommonController
                 'icon' => 'fa fa-pencil-square-o',
                 'route' => 'admin/group/edit',
                 'width' => '550px',
-                'height' => '300px',
+                'height' => '330px',
             ]),
             table_action_helper('modal', [
                 'title' => '分配权限',

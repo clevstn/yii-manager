@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use http\Exception\InvalidArgumentException;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%auth_menu}}".
@@ -31,6 +33,40 @@ class AuthMenu extends \app\builder\common\CommonActiveRecord
     const LINK_TYPE_URL = 2;
 
     /**
+     * 获取菜单类型标签
+     * @param int $labelType
+     * @return string
+     */
+    public static function getLabelTypeStr($labelType)
+    {
+        switch ($labelType) {
+            case self::LABEL_TYPE_MENU:
+                return html_label('菜单');
+            case self::LABEL_TYPE_FUNCTION:
+                return html_label('功能', true, 'default');
+        }
+
+        throw new InvalidArgumentException(t('parameter error', 'app.admin'));
+    }
+
+    /**
+     * 获取链接类型标签
+     * @param int $linkType
+     * @return string
+     */
+    public static function getLinkTypeStr($linkType)
+    {
+        switch ($linkType) {
+            case self::LINK_TYPE_ROUTE:
+                return html_label('路由', true, 'primary');
+            case self::LINK_TYPE_URL:
+                return html_label('外链', true, 'primary');
+        }
+
+        throw new InvalidArgumentException(t('parameter error', 'app.admin'));
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -45,12 +81,20 @@ class AuthMenu extends \app\builder\common\CommonActiveRecord
     {
         return [
             [['label_type', 'link_type', 'pid', 'sort'], 'integer'],
-            [['src', 'created_at'], 'required'],
+            [['src'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['label', 'icon', 'dump_way'], 'string', 'max' => 50],
             [['src', 'desc'], 'string', 'max' => 250],
             [['src'], 'unique'],
         ];
+    }
+
+    public function scenarios()
+    {
+        $scenario = parent::scenarios();
+        $scenario['edit'] = ['sort', 'desc'];
+
+        return $scenario;
     }
 
     /**
@@ -72,5 +116,35 @@ class AuthMenu extends \app\builder\common\CommonActiveRecord
             'created_at' => Yii::t('app', '创建时间'),
             'updated_at' => Yii::t('app', '更新时间'),
         ];
+    }
+
+
+    /**
+     * 格式化菜单数据
+     * @param array $data 数据
+     * @param int $id PID
+     * @param string $prefix 字符串标识
+     * @return array
+     */
+    public static function getFormatData(array $data, $id = 0, $prefix = '&nbsp;')
+    {
+        $map = [];
+        if ($id != 0) {
+            $prefix .= '|------';
+        }
+
+        foreach ($data as $value) {
+            if ($value['pid'] == $id) {
+                $value['_prefix'] = $prefix;
+                $map[] = $value;
+
+                $children = self::getFormatData($data, $value['id'], $prefix);
+                if (!empty($children)) {
+                    $map = array_merge($map, $children);
+                }
+            }
+        }
+
+        return $map;
     }
 }

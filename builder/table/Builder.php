@@ -798,7 +798,6 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 数据导出
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     protected function exportData()
     {
@@ -874,11 +873,19 @@ class Builder extends BaseObject implements BuilderInterface
     {
         $this->resolveQuery();
 
+        $page = '';
+        if (
+            $this->page
+            && is_object($this->_pagination)
+            && $this->_pagination instanceof \yii\web\Linkable
+        ) {
+            $page = LinkPager::widget([
+                'pagination' => $this->_pagination,
+            ]);
+        }
         return Json::encode([
             'data' => $this->_data,
-            'page' => $this->page ? LinkPager::widget([
-                'pagination' => $this->_pagination,
-            ]) : '',
+            'page' => $page,
         ]);
     }
 
@@ -979,10 +986,20 @@ class Builder extends BaseObject implements BuilderInterface
         /* @var \yii\db\QueryInterface $query */
         $query = call_user_func($this->query);
         if ($this->page === true) {
-            @list($pages, $models) = resolve_pages($query, $this->orderBy);
+            if (is_object($query) && $query instanceof \yii\db\QueryInterface) {
+                @list($pages, $models) = resolve_pages($query, $this->orderBy);
+            } else {
+                $pages = null;
+                $models = $query;
+            }
+
         } else {
             $pages = null;
-            $models = $query->orderBy($this->orderBy)->all();
+            if (is_object($query) && $query instanceof \yii\db\QueryInterface) {
+                $models = $query->orderBy($this->orderBy)->all();
+            } else {
+                $models = $query;
+            }
         }
 
         $this->_pagination = $pages;

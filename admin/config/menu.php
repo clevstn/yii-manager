@@ -76,6 +76,22 @@ $items = [
                     'src' => 'admin/menu/index',
                     'icon' => 'fa fa-bars',
                     'desc' => '查看菜单列表',
+                    'items' => [
+                        [
+                            'label' => '更新菜单',
+                            'src' => 'admin/menu/update',
+                            'icon' => 'glyphicon glyphicon-open',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '更新获取新的菜单',
+                        ],
+                        [
+                            'label' => '编辑',
+                            'src' => 'admin/menu/edit',
+                            'icon' => 'glyphicon glyphicon-edit',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '编辑菜单',
+                        ],
+                    ],
                 ],
                 [
                     'label' => '管理组',
