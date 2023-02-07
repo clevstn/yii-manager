@@ -11,7 +11,7 @@ use Yii;
 use app\builder\common\CommonController;
 
 /**
- * 后台文件上传
+ * 文件上传
  * @author cleverstone
  * @since ym1.0
  */

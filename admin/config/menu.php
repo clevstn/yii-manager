@@ -222,7 +222,7 @@ $items = [
     // - dump_way   跳转方式：_self：内部，_blank：外部 [默认_self]
     // - desc 备注   注：用于行为日志记录，建议填写
     'whiteLists' => [
-        //['label' => '', 'src' => '', 'icon' => '', 'dump_way' => '', 'desc' => ''],
+        ['label' => '个人中心', 'src' => 'admin/home/index', 'icon' => 'glyphicon glyphicon-user', 'dump_way' => '_self', 'desc' => '个人中心设置'],
     ],
 ];
 

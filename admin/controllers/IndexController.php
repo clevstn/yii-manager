@@ -10,7 +10,7 @@ namespace app\admin\controllers;
 use app\builder\common\CommonController;
 
 /**
- * 后台默认控制器
+ * 首页仪表盘
  * @author cleverstone
  * @since ym1.0
  */

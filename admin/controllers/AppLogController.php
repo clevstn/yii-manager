@@ -14,7 +14,7 @@ use app\builder\ViewBuilder;
 use app\models\AppLog;
 
 /**
- * 应用日志记录
+ * 应用日志
  * @author cleverstone
  * @since ym1.0
  */

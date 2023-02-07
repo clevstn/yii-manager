@@ -15,7 +15,7 @@ use app\builder\common\CommonController;
 use app\builder\table\ToolbarFilterOptions;
 
 /**
- * 系统错误日志记录
+ * 系统日志
  * @author cleverstone
  * @since ym1.0
  */
