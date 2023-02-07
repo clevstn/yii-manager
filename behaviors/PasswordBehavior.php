@@ -63,22 +63,25 @@ class PasswordBehavior extends AttributeBehavior
             $owner = $this->owner;
             $value = $owner->$attribute;
 
-            if (empty($value)) {
-                if ($event->name == BaseActiveRecord::EVENT_BEFORE_UPDATE) {
-                    // Update
-                    $oldPassword = $owner->getOldAttribute($attribute);
-                    if (empty($oldPassword)) {
-                        throw new UserException('The field `password` must be queried. ');
-                    } else {
-                        return $oldPassword;
-                    }
-                } else {
-                    // Insert
-                    throw new UserException('The field `password` must not be empty. ');
+            if ($event->name == BaseActiveRecord::EVENT_BEFORE_UPDATE) {
+                // 更新
+                $oldPassword = $owner->getOldAttribute($attribute);
+                if (empty($oldPassword)) {
+                    throw new UserException('The field `password` must be queried. ');
+                }
+
+                if (!empty($value) && strcmp($value, $oldPassword) !== 0) {
+                    return encrypt_password($value);
+                }
+
+                // 新值为空或没更新
+                return $oldPassword;
+            } else {
+                // 新增
+                if (!empty($value)) {
+                    return encrypt_password($value);
                 }
             }
-
-            return encrypt_password($value);
         }
 
         return parent::getValue($event);
