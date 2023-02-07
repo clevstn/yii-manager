@@ -11,7 +11,6 @@ use Yii;
 use yii\web\Response;
 use app\models\AdminUser;
 use yii\base\UserException;
-use app\models\SystemConfig;
 use app\builder\common\CommonController;
 use app\models\AdminUserLoginLog as LoginLog;
 
@@ -24,7 +23,7 @@ class SiteController extends CommonController
 {
 
     const MAX_ATTEMPT_SIZE = 10;   // 最大尝试登陆次数
-    const FREEZE_TIME = 1200;      // 超出最大尝试次数之后,封停时间(秒)
+    const FREEZE_TIME = 1200;      // 超出最大尝试次数之后, 封停时间(秒)
 
     // 消息场景
     const MESSAGE_SCENARIO_SMS = 'message';
@@ -58,25 +57,11 @@ class SiteController extends CommonController
         'logout'
     ];
 
-    /**
-     * @var string 用户临时会话记录标识
-     */
-    protected $tempSessionIdentify = '_user_temp_session';
-
-    /**
-     * @var string 尝试登陆次数记录标识
-     */
-    protected $attemptLoginIdentify = '_attempt_login_size';
-
-    /**
-     * @var string 用户基本认证信息闪存标识
-     */
-    protected $loginBaseFlashIdentify = '_user_login_base_tmp_session';
-
-    /**
-     * @var string 用户安全认证信息闪存标识
-     */
-    protected $loginSafeFlashIdentify = '_user_login_safe_tmp_session';
+    protected $tempSessionIdentify = '__admin_user_temp_session';   // 用户临时会话记录标识
+    protected $attemptLoginIdentify = '__admin_user_attempt_login_size'; // 尝试登陆次数记录标识
+    protected $loginBaseFlashIdentify = '__admin_user_login_base_tmp_session'; // 用户基本认证信息闪存标识
+    protected $loginSafeFlashIdentify = '__admin_user_login_safe_tmp_session'; // 用户安全认证信息闪存标识
+    public static $accessTokenIdentify = '__admin_user_access_token'; // 用户访问令牌记录标识
 
     /**
      * {@inheritdoc}
@@ -176,7 +161,7 @@ class SiteController extends CommonController
             $loginLog = new LoginLog();
             $loginLog->setAttributes($prepare);
 
-            if ($loginLog->save()) {
+            if (!$loginLog->save()) {
                 system_log_error($loginLog->error, t('description Failed to record the login log', 'app.admin'));
             }
         }
@@ -205,6 +190,7 @@ class SiteController extends CommonController
                 $usernameOrEmail = $this->post['usernameOrEmail'];
                 $password = $this->post['password'];
 
+                /* @var AdminUser $userData */
                 $userData = AdminUser::find()->where(['username' => $usernameOrEmail])->orWhere(['email' => $usernameOrEmail])->one();
                 // 校验用户是否存在
                 if (empty($userData)) {
@@ -266,15 +252,26 @@ class SiteController extends CommonController
 
                 // 仅仅基本认证
                 if ($safeWays == AdminUser::SAFE_AUTH_CLOSE) {
-                    /* @var \yii\web\IdentityInterface $userData */
-                    // 自动登录过期设置三天
-                    $isUser = Yii::$app->adminUser->login($userData, 3 * 86400);
+                    $userData->setScenario('access-token');
+                    $userData->access_token = $userData['id'] . random_string();
 
-                    if ($isUser) {
-                        return $this->asSuccess(t('login successful', 'app.admin'), $this->homeUrl);
+                    if ($userData->save()) {
+                        /* @var \yii\web\IdentityInterface $userData */
+                        // 自动登录过期设置三天
+                        $isUser = Yii::$app->adminUser->login($userData, 3 * 86400);
+
+                        if ($isUser) {
+                            // 访问令牌加入会话
+                            Yii::$app->session->set(self::$accessTokenIdentify, $userData->access_token);
+
+                            return $this->asSuccess(t('login successful', 'app.admin'), $this->homeUrl);
+                        }
+
+                        return $this->asFail(t('login failed', 'app.admin'));
+                    } else {
+                        return $this->asFail($userData->error);
                     }
 
-                    return $this->asFail(t('login failed', 'app.admin'));
                 } else {
                     // 使用安全认证
                     Yii::$app->getSession()->set($this->tempSessionIdentify, [
@@ -291,8 +288,9 @@ class SiteController extends CommonController
     }
 
     /**
-     * 登录 - 安全认证
+     * 登录 - 2FA
      * @return string|Response
+     * @throws \yii\base\Exception
      */
     public function actionSafeValidate()
     {
@@ -323,13 +321,25 @@ class SiteController extends CommonController
             $result = $model->verifySafeAuth($tempSessionUser['id'], $tempSessionUser['safeWay'], $safeCode);
 
             if (true === $result) {
-                $isUser = Yii::$app->adminUser->login(AdminUser::findOne($tempSessionUser['id']), 3 * 86400);
-                if ($isUser) {
-                    // 删除临时会话数据
-                    Yii::$app->session->remove($this->tempSessionIdentify);
-                    return $this->asSuccess(t('authentication success', 'app.admin'));
+                $one = AdminUser::findOne($tempSessionUser['id']);
+                $one->setScenario('access-token');
+                $one->access_token = $tempSessionUser['id'] . random_string();
+
+                if ($one->save()) {
+                    $isUser = Yii::$app->adminUser->login($one, 3 * 86400);
+
+                    if ($isUser) {
+                        // 访问令牌加入会话
+                        Yii::$app->session->set(self::$accessTokenIdentify, $one->access_token);
+
+                        // 删除临时会话数据
+                        Yii::$app->session->remove($this->tempSessionIdentify);
+                        return $this->asSuccess(t('authentication success', 'app.admin'));
+                    } else {
+                        return $this->asFail(t('login failed', 'app.admin'));
+                    }
                 } else {
-                    return $this->asFail(t('login failed', 'app.admin'));
+                    return $this->asFail($one->error);
                 }
 
             } else {

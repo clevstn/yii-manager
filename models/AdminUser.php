@@ -286,6 +286,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             ['group', 'integer'],
             ['deny_end_time', 'default', 'value' => null],
             ['deny_end_time', 'datetime', 'format' => 'php:Y-m-d H:i:s'],
+            ['access_token', 'safe'],
         ];
     }
 
@@ -329,6 +330,8 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         $scenarios['edit'] = ['password', 'repassword', 'email', 'an', 'mobile'];
         // 登录 - 基本校验
         $scenarios['login-base'] = ['usernameOrEmail', 'password'];
+        // 登录 - 生成访问令牌
+        $scenarios['access-token'] = ['access_token'];
 
         return $scenarios;
     }

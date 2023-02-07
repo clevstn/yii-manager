@@ -62,6 +62,7 @@ class PasswordBehavior extends AttributeBehavior
             /* @var \yii\db\ActiveRecord $owner */
             $owner = $this->owner;
             $value = $owner->$attribute;
+
             if (empty($value)) {
                 if ($event->name == BaseActiveRecord::EVENT_BEFORE_UPDATE) {
                     // Update
