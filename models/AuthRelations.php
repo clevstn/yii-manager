@@ -7,7 +7,6 @@ use Yii;
 /**
  * This is the model class for table "{{%auth_relations}}".
  *
- * @property int $id
  * @property int $group_id 管理组ID
  * @property int $menu_id 菜单ID
  * @property string $created_at 创建时间
@@ -32,6 +31,7 @@ class AuthRelations extends \app\builder\common\CommonActiveRecord
             [['group_id', 'menu_id'], 'required'],
             [['group_id', 'menu_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
+            [['group_id', 'menu_id'], 'unique', 'targetAttribute' => ['group_id', 'menu_id']],
         ];
     }
 

@@ -96,8 +96,8 @@ class RbacManager extends Component implements CheckAccessInterface
     public function getPermissionsByGroup($groupId)
     {
         $this->loadFromCache($groupId);
-        if ($this->permissions !== null) {
-            return $this->permissions;
+        if ($this->permissions !== null && isset($this->permissions[$groupId])) {
+            return $this->permissions[$groupId];
         }
 
         return $this->getPermissionsByGroupFromDb($groupId);
@@ -131,7 +131,7 @@ class RbacManager extends Component implements CheckAccessInterface
      */
     protected function loadFromCache($groupId)
     {
-        if ($this->permissions !== null || !$this->cache instanceof CacheInterface) {
+        if (($this->permissions !== null && isset($this->permissions[$groupId])) || !$this->cache instanceof CacheInterface) {
             return;
         }
 
@@ -139,17 +139,17 @@ class RbacManager extends Component implements CheckAccessInterface
         $cacheValues = [];
         if (is_array($data)) {
             if (isset($data[$groupId])) {
-                $this->permissions = $data[$groupId];
+                $this->permissions = $data;
                 return;
             }
 
             $cacheValues = $data;
         }
 
-        $permissions = $this->getPermissionsByGroupFromDb($groupId);
+        $specialPermission = $this->getPermissionsByGroupFromDb($groupId);
+        $cacheValues[$groupId] = $specialPermission;
 
-        $this->permissions = $permissions;
-        $cacheValues[$groupId] = $permissions;
+        $this->permissions = $cacheValues;
 
         $this->cache->set($this->cacheKey, $cacheValues);
     }
@@ -221,7 +221,7 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 缓存失效
+     * 清除所有权限缓存
      */
     protected function invalidateCache()
     {
@@ -230,6 +230,26 @@ class RbacManager extends Component implements CheckAccessInterface
         }
 
         $this->permissions = null;
+    }
+
+    /**
+     * 清楚指定组权限缓存
+     * @param int $groupId 组ID
+     */
+    public function invalidateSpecialCache($groupId)
+    {
+        if ($this->cache !== null) {
+            $data = $this->cache->get($this->cacheKey);
+            if (isset($data[$groupId])) {
+                unset($data[$groupId]);
+            }
+
+            $this->cache->set($this->cacheKey, $data);
+        }
+
+        if ($this->permissions !== null && isset($this->permissions[$groupId])) {
+            unset($this->permissions[$groupId]);
+        }
     }
 
     /**

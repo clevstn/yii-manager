@@ -343,6 +343,10 @@ class GroupController extends CommonController
                 }
 
                 $transaction->commit();
+
+                /* 清楚指定组权限缓存 */
+                Yii::$app->rbacManager->invalidateSpecialCache($id);
+
                 return $this->asSuccess();
             } catch (\Exception $e) {
                 $transaction->rollBack();
