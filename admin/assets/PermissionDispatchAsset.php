@@ -6,7 +6,7 @@
 namespace app\admin\assets;
 
 /**
- * 后台权限包
+ * 权限分配
  * @author cleverstone
  * @since ym1.0
  */

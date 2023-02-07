@@ -24,7 +24,7 @@ return [
     'due to too many password errors, your account has been suspended until {date}.' => '由于密码错误次数过多,您的账号已被封停,封停截止时间为{date}',
     'parameter error' => '参数错误',
     'parameter type error' => '参数类型错误',
-    'Personal Center' => '个人中心',
+    'Personal Setting' => '个人设置',
     'empty' => '无',
     'current login' => '当前登录',
     'the parameter {param} is not defined' => '参数{param}未定义。',
@@ -122,4 +122,5 @@ return [
     'disabled' => '禁用',
     'enabled' => '正常',
     'the password must contain both numbers and letters' => '密码必须包含数字和字母',
+    'OTP binding' => 'OTP绑定',
 ];

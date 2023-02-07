@@ -24,9 +24,18 @@ use app\builder\ViewBuilder;
 class HomeController extends CommonController
 {
     /**
+     * 访问动作设置
+     * @var array
+     */
+    public $actionVerbs = [
+        'index' => ['get', 'post'],
+        'bind' => ['get'],
+    ];
+
+    /**
      * @var array 过滤掉RBAC的action id
      */
-    public $undetectedActions = ['index'];
+    public $undetectedActions = ['index', 'bind'];
 
     /**
      * 个人设置
@@ -127,5 +136,14 @@ class HomeController extends CommonController
 
             return $this->asFail(t('request parameter loading failed', 'app.admin'));
         }
+    }
+
+    /**
+     * OTP绑定
+     * @return string
+     */
+    public function actionBind()
+    {
+        return $this->render('otp_bind');
     }
 }
