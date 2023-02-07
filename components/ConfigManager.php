@@ -97,7 +97,7 @@ class ConfigManager extends Component
         } elseif (empty($code)) {
             return ArrayHelper::getValue($items, $group) ?: $default;
         } else {
-            $result = ArrayHelper::getValue($items, "{$group}.{$code}");
+            $result = ArrayHelper::getValue($items, "{$group}.{$code}.value");
             if (
                 $result === ''
                 || $result === null
@@ -139,7 +139,7 @@ class ConfigManager extends Component
         if ($key && ($pos = strrpos($key, '.')) !== false) {
             $a = substr($key, 0, $pos);
             $b = substr($key, $pos + 1);
-            if ($b == '*') {
+            if ($b == '*' || $b === false || trim($b) === '') {
                 $b = null;
             }
         } elseif ($key) {
