@@ -54,6 +54,7 @@ class m200814_064828_create_admin_user_table extends Migration
             'password' => encrypt_password('root170104'),
             'email' => '',
             'mobile' => '',
+            'google_key' => \app\extend\Extend::googleAuth()->createSecret(),
             'auth_key' => random_string(),
             'identify_code' => random_string(true, 10),
             'path' => \app\models\AdminUser::makePath(0, ''),

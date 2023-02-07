@@ -286,7 +286,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             ['group', 'integer'],
             ['deny_end_time', 'default', 'value' => null],
             ['deny_end_time', 'datetime', 'format' => 'php:Y-m-d H:i:s'],
-            ['access_token', 'safe'],
+            [['access_token', 'google_key'], 'safe'],
         ];
     }
 
@@ -323,7 +323,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         $scenarios = parent::scenarios();
         // 场景`新增`
-        $scenarios['add'] = ['parent', 'username', 'password', 'repassword', 'email', 'an', 'mobile', 'group'];
+        $scenarios['add'] = ['parent', 'username', 'password', 'repassword', 'email', 'an', 'mobile', 'group', 'google_key'];
         // 场景`解封和封停`
         $scenarios['status-action'] = ['id', 'action', 'deny_end_time'];
         // 场景`编辑`

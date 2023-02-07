@@ -245,6 +245,7 @@ class ManagerController extends CommonController
                 }
 
                 $model->identify_code = $model->generateIdentifyCode();
+                $model->google_key = \app\extend\Extend::googleAuth()->createSecret();
                 $model->pid = $pid;
                 $model->path = AdminUser::makePath($pid, $parentPath);
 
