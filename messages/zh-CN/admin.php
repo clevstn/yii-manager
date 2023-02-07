@@ -123,4 +123,5 @@ return [
     'enabled' => '正常',
     'the password must contain both numbers and letters' => '密码必须包含数字和字母',
     'OTP binding' => 'OTP绑定',
+    'The verification code is incorrect' => '验证码不正确！',
 ];

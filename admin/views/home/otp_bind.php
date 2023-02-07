@@ -9,6 +9,7 @@ use app\admin\assets\OtpBindAsset;
 
 /* @var $this \yii\web\View */
 /* @var $param */
+/* @var string $qrcodeUrl */
 OtpBindAsset::register($this);
 
 $this->title = 'OTP绑定';
@@ -18,6 +19,6 @@ $this->title = 'OTP绑定';
         <h4 class="f-13">OTP绑定</h4>
     </div>
     <div class="panel-body">
-
+        <img src="<?= $qrcodeUrl ?>" alt>
     </div>
 </div>

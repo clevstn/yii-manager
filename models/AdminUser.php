@@ -7,6 +7,7 @@
 
 namespace app\models;
 
+use app\extend\Extend;
 use Yii;
 use yii\db\Query;
 use yii\web\IdentityInterface;
@@ -406,13 +407,22 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
 
     /**
      * 验证安全码
-     * @param int $uid 用户ID
+     * @param AdminUser $user AdminUser
      * @param int $way 认证方式
      * @param string $code 认证码
      * @return true|string
      */
-    public function verifySafeAuth($uid, $way, $code)
+    public function verifySafeAuth($user, $way, $code)
     {
-        return true;
+        switch ($way) {
+            case self::SAFE_AUTH_EMAIL: // 邮件
+                return true;
+            case self::SAFE_AUTH_MESSAGE: // 短信
+                return true;
+            case self::SAFE_AUTH_OTP: // MFA
+                return Extend::googleAuth()->verifyCode($user->google_key, $code) ?: t('The verification code is incorrect', 'app.admin');
+        }
+
+        return t('unknown authentication method', 'app.admin');
     }
 }

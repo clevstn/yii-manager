@@ -8,6 +8,7 @@
 namespace app\admin\controllers;
 
 use app\components\Uploads;
+use app\extend\Extend;
 use app\models\AreaCode;
 use app\models\AuthGroups;
 use Yii;
@@ -144,6 +145,14 @@ class HomeController extends CommonController
      */
     public function actionBind()
     {
-        return $this->render('otp_bind');
+        /* @var AdminUser $identify */
+        $identify = Yii::$app->adminUser->identity;
+        $qrcodeUrl = Extend::googleAuth()->getQRCodeGoogleUrl(
+            Yii::$app->params['admin_title_en'] . ':' . $identify->username,
+            $identify->google_key,
+            Yii::$app->params['admin_title']
+        );
+
+        return $this->render('otp_bind', ['qrcodeUrl' => $qrcodeUrl]);
     }
 }

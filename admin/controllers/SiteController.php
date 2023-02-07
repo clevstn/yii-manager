@@ -321,11 +321,14 @@ class SiteController extends CommonController
             $safeCode = !empty($bodyParams['safe_code']) ? $bodyParams['safe_code'] : null;
 
             // 验证认证码
-            $model = new AdminUser();
-            $result = $model->verifySafeAuth($tempSessionUser['id'], $tempSessionUser['safeWay'], $safeCode);
+            $one = AdminUser::findOne($tempSessionUser['id']);
+            if (empty($one)) {
+                return $this->asFail(t('the user does not exist', 'app.admin'));
+            }
+
+            $result = $one->verifySafeAuth($one, $tempSessionUser['safeWay'], $safeCode);
 
             if (true === $result) {
-                $one = AdminUser::findOne($tempSessionUser['id']);
                 $one->setScenario('access-token');
                 $one->access_token = $tempSessionUser['id'] . random_string();
 
