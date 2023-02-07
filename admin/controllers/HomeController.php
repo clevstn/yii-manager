@@ -147,12 +147,18 @@ class HomeController extends CommonController
     {
         /* @var AdminUser $identify */
         $identify = Yii::$app->adminUser->identity;
+
+        $accountName = Yii::$app->params['admin_title_en'] . ':' . $identify->username;
         $qrcodeUrl = Extend::googleAuth()->getQRCodeGoogleUrl(
-            Yii::$app->params['admin_title_en'] . ':' . $identify->username,
+            $accountName,
             $identify->google_key,
             Yii::$app->params['admin_title']
         );
 
-        return $this->render('otp_bind', ['qrcodeUrl' => $qrcodeUrl]);
+        return $this->render('otp_bind', [
+            'qrcodeUrl' => $qrcodeUrl,
+            'accountName' => $accountName,
+            'googleKey' => $identify->google_key,
+        ]);
     }
 }
