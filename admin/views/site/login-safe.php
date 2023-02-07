@@ -28,7 +28,7 @@ $safeWay = $this->params['ways'];
                         <div class="item-group-row">
                             <span class="item-label"><?= t('authentication methods', 'app.admin') ?></span>
                             <div class="item-body">
-                                <span><?= AdminUser::getIsSafeAuthLabel($safeWay) ?></span>
+                                <span><?= AdminUser::safeAuthLabelMap($safeWay) ?></span>
                             </div>
                         </div>
                         <?php switch ($safeWay): case AdminUser::SAFE_AUTH_EMAIL: // 邮箱认证?>

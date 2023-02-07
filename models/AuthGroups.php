@@ -31,6 +31,25 @@ class AuthGroups extends \app\builder\common\CommonActiveRecord
     public $action;
 
     /**
+     * 获取管理组名
+     * @param int $id 组ID
+     * @return string
+     */
+    public static function getGroupName($id)
+    {
+        if ($id === self::ADMINISTRATOR_GROUP) {
+            return '超级管理员';
+        }
+
+        $one = AuthGroups::findOne($id);
+        if ($one) {
+            return $one->name;
+        }
+
+        return '--';
+    }
+
+    /**
      * 获取角色状态标签
      * @param string $status 状态值
      * @param bool $toHtml 是否转html

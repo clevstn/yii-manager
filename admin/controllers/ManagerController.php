@@ -7,6 +7,7 @@
 
 namespace app\admin\controllers;
 
+use app\models\AuthGroups;
 use app\models\AreaCode;
 use app\models\AdminUser;
 use app\builder\ViewBuilder;
@@ -54,14 +55,9 @@ class ManagerController extends CommonController
                 'email',            // 邮箱
                 'an',               // 区号
                 'mobile',           // 电话号
-                'safe_auth',        // 是否开启安全认证, 0:不开启 1:跟随系统 2:邮箱认证 3:短信认证 4:MFA认证
-                'open_operate_log', // 是否开启操作日志, 0:关闭 1:跟随系统 2:开启
-                'open_login_log',   // 是否开启登录日志, 0:关闭 1:跟随系统 2:开启
                 'status',           // 账号状态,0:已封停 1:正常
                 'deny_end_time',    // 封停结束时间，null为无限制
                 'group',            // 管理组ID, 0为系统管理员
-                'identify_code',    // 身份代码
-                'pid',              // 父ID
                 'created_at',       // 注册时间
                 'updated_at',       // 更新时间
             ]);
@@ -99,15 +95,6 @@ class ManagerController extends CommonController
             'an_mobile' => table_column_helper('电话号', ['style' => ['min-width' => '130px']], function ($item) {
                 return '+' . $item['an'] . ' ' . $item['mobile'];
             }),
-            'safe_auth' => table_column_helper('是否开启安全认证', ['style' => ['min-width' => '135px']], function ($item) {
-                return AdminUser::getIsSafeAuthLabel($item['safe_auth']);
-            }),
-            'open_operate_log' => table_column_helper('是否开启操作日志', ['style' => ['min-width' => '135px']], function ($item) {
-                return AdminUser::getIsOpenOperateLabel($item['open_operate_log']);
-            }),
-            'open_login_log' => table_column_helper('是否开启登录日志', ['style' => ['min-width' => '135px']], function ($item) {
-                return AdminUser::getIsOpenLoginLogLabel($item['open_login_log']);
-            }),
             'status_label' => table_column_helper('账户状态', [], function ($item) {
                 return AdminUser::getStatusLabel($item['status'], true);
             }),
@@ -119,18 +106,7 @@ class ManagerController extends CommonController
                 }
             }),
             'group' => table_column_helper('管理组', ['style' => ['min-width' => '120px']], function ($item) {
-                return '超级管理员';
-            }),
-            'identify_code' => table_column_helper('身份码', ['style' => ['min-width' => '130px']]),
-            'pid' => table_column_helper('上级', ['style' => ['min-width' => '150px']], function ($item) {
-                if (!empty($item['pid'])) {
-                    $parentUserInfo = AdminUser::activeQuery(['username'])->where(['id' => $item['pid']])->one();
-                    if (!empty($parentUserInfo)) {
-                        return $parentUserInfo['username'];
-                    }
-                }
-
-                return '无';
+                return AuthGroups::getGroupName($item['group']);
             }),
             'created_at' => table_column_helper('注册时间', ['style' => ['min-width' => '150px']]),
             'updated_at' => table_column_helper('更新时间', ['style' => ['min-width' => '150px']]),
@@ -164,8 +140,8 @@ class ManagerController extends CommonController
         ];
         // 导出
         $table->toolbarExport = [
-            'heads' => ['ID', '用户名', '邮箱', '电话区号', '电话号码', '账号状态', '封停截止时间', '管理组', '身份代码', '我的上级', '注册时间'],
-            'fields' => ['id', 'username', 'email', 'an', 'mobile', 'status', 'deny_end_time', 'group', 'identify_code', 'pid', 'created_at'],
+            'heads' => ['ID', '用户名', '邮箱', '电话区号', '电话号码', '账号状态', '封停截止时间', '管理组', '注册时间'],
+            'fields' => ['id', 'username', 'email', 'an', 'mobile', 'status', 'deny_end_time', 'group', 'created_at'],
             'columns' => [
                 'id',
                 'username',
@@ -183,11 +159,7 @@ class ManagerController extends CommonController
                     }
                 },
                 'group' => function ($item) {
-                    return '超级管理员';
-                },
-                'identify_code',
-                'pid' => function ($item) {
-                    return '无';
+                    return AuthGroups::getGroupName($item['group']);
                 },
                 'created_at',
             ],
@@ -201,8 +173,8 @@ class ManagerController extends CommonController
                 'icon' => 'fa fa-plus',
                 'option' => 'modal',
                 'route' => 'admin/manager/add-user',
-                'width' => '800px',
-                'height' => '750px',
+                'width' => '700px',
+                'height' => '550px',
             ]),
             // 封停
             table_toolbar_custom_helper('left', [
@@ -230,15 +202,15 @@ class ManagerController extends CommonController
                 'title' => '基本编辑',
                 'icon' => 'fa fa-pencil-square-o',
                 'route' => 'admin/manager/edit',
-                'width' => '800px',
-                'height' => '700px',
+                'width' => '700px',
+                'height' => '550px',
             ]),
             table_action_helper('modal', [
                 'title' => '更改管理组',
                 'icon' => 'fa fa-users',
                 'route' => 'admin/manager/group',
                 'width' => '700px',
-                'height' => '500px',
+                'height' => '550px',
             ]),
         ];
 
@@ -257,9 +229,11 @@ class ManagerController extends CommonController
         if ($this->isPost) {
             $model = new AdminUser();
             $model->setScenario('add');
+
             if ($model->load($this->post) && $model->validate()) {
                 $pid = 0;
                 $parentPath = '';
+
                 if (!empty($model->parent)) {
                     $parentInstance = AdminUser::findByUsername($model->parent);
                     if (empty($parentInstance)) {
@@ -283,11 +257,11 @@ class ManagerController extends CommonController
             $form->partial = true;
             $form->backBtn = false;
             $form->fields = [
-                'parent' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
-                    'label' => '我的上级',
-                    'placeholder' => '请填写我的上级用户名',
-                    'required' => false,
-                ]),
+                //'parent' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                //    'label' => '我的上级',
+                //    'placeholder' => '请填写我的上级用户名',
+                //    'required' => false,
+                //]),
                 'username' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
                     'label' => '用户名',
                     'placeholder' => '请填写用户名',
@@ -314,30 +288,10 @@ class ManagerController extends CommonController
                     'label' => '手机号',
                     'placeholder' => '请填写手机号',
                 ]),
-                'safe_auth' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
-                    'label' => '是否开启安全认证',
-                    'default' => AdminUser::SAFE_AUTH_FOLLOW_SYSTEM,
-                    'options' => AdminUser::safeMap(),
-                    'comment' => '开启OTP认证后，请前往【我的】绑定Google Authenticator。',
-                ]),
-                'open_operate_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
-                    'label' => '是否开启操作日志',
-                    'default' => AdminUser::OPERATE_LOG_FOLLOW,
-                    'options' => AdminUser::operationMap(),
-                ]),
-                'open_login_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
-                    'label' => '是否开启登录日志',
-                    'default' => AdminUser::LOGIN_LOG_FOLLOW,
-                    'options' => AdminUser::loginMap(),
-                ]),
                 'group' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
                     'label' => '管理组',
                     'placeholder' => '请选择管理组',
-                    'options' => [
-                        '0' => '超级管理员',
-                        '1' => '普通管理员',
-                        '2' => '市场调查员',
-                    ],
+                    'options' => AuthGroups::query('name')->indexBy('id')->column(),
                 ]),
             ];
 
@@ -407,22 +361,6 @@ class ManagerController extends CommonController
                     'placeholder' => '请填写手机号',
                     'default' => $identify->mobile,
                 ]),
-                'safe_auth' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
-                    'label' => '是否开启安全认证',
-                    'default' => $identify->safe_auth,
-                    'options' => AdminUser::safeMap(),
-                    'comment' => '开启OTP认证后，请前往【我的】绑定Google Authenticator。',
-                ]),
-                'open_operate_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
-                    'label' => '是否开启操作日志',
-                    'default' => $identify->open_operate_log,
-                    'options' => AdminUser::operationMap(),
-                ]),
-                'open_login_log' => form_fields_helper(FieldsOptions::CONTROL_RADIO, [
-                    'label' => '是否开启登录日志',
-                    'default' => $identify->open_login_log,
-                    'options' => AdminUser::loginMap(),
-                ]),
             ];
 
             return $form->render($this);
@@ -435,7 +373,7 @@ class ManagerController extends CommonController
             }
 
             // 查询校验
-            $model = AdminUser::activeQuery(['id', 'username', 'password', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log'])->where(['id' => $bodyParams['id']])->one();
+            $model = AdminUser::activeQuery(['id', 'username', 'password', 'email', 'an', 'mobile'])->where(['id' => $bodyParams['id']])->one();
             if (empty($model)) {
                 return $this->asFail('管理员不存在');
             }

@@ -8,10 +8,10 @@
 namespace app\admin\controllers;
 
 use Yii;
-use yii\db\Exception;
 use yii\web\Response;
 use app\models\AdminUser;
 use yii\base\UserException;
+use app\models\SystemConfig;
 use app\builder\common\CommonController;
 use app\models\AdminUserLoginLog as LoginLog;
 
@@ -22,10 +22,10 @@ use app\models\AdminUserLoginLog as LoginLog;
  */
 class SiteController extends CommonController
 {
-    // 最大尝试登陆次数
-    const MAX_ATTEMPT_SIZE = 10;
-    // 超出最大尝试次数之后,封停时间(秒)
-    const FREEZE_TIME = 1200;
+
+    const MAX_ATTEMPT_SIZE = 10;   // 最大尝试登陆次数
+    const FREEZE_TIME = 1200;      // 超出最大尝试次数之后,封停时间(秒)
+
     // 消息场景
     const MESSAGE_SCENARIO_SMS = 'message';
     const MESSAGE_SCENARIO_EMAIL = 'email';
@@ -61,22 +61,22 @@ class SiteController extends CommonController
     /**
      * @var string 用户临时会话记录标识
      */
-    protected $tempSessionIdentify = '__user_temp_session';
+    protected $tempSessionIdentify = '_user_temp_session';
 
     /**
      * @var string 尝试登陆次数记录标识
      */
-    protected $attemptLoginIdentify = '__attempt_login_size';
+    protected $attemptLoginIdentify = '_attempt_login_size';
 
     /**
      * @var string 用户基本认证信息闪存标识
      */
-    protected $loginBaseFlashIdentify = '__user_login_base_tmp_session';
+    protected $loginBaseFlashIdentify = '_user_login_base_tmp_session';
 
     /**
      * @var string 用户安全认证信息闪存标识
      */
-    protected $loginSafeFlashIdentify = '__user_login_safe_tmp_session';
+    protected $loginSafeFlashIdentify = '_user_login_safe_tmp_session';
 
     /**
      * {@inheritdoc}
@@ -90,8 +90,13 @@ class SiteController extends CommonController
     public function actionCheckUser()
     {
         $usernameOrEmail = !empty($this->post['usernameOrEmail']) ? $this->post['usernameOrEmail'] : null;
+
         if ($usernameOrEmail) {
-            $userData = AdminUser::activeQuery(['id', 'photo'])->where(['username' => $usernameOrEmail])->orWhere(['email' => $usernameOrEmail])->one();
+            $userData = AdminUser::activeQuery(['id', 'photo'])
+                ->where(['username' => $usernameOrEmail])
+                ->orWhere(['email' => $usernameOrEmail])
+                ->one();
+
             if (!empty($userData)) {
                 $photoUrl = attach_url($userData['photo']);
                 return $this->asSuccess('success', [
@@ -108,61 +113,71 @@ class SiteController extends CommonController
      * @param \yii\base\Action $action
      * @param mixed $result
      * @return mixed
-     * @throws Exception
      */
     public function afterAction($action, $result)
     {
-        // 登录-基本认证,记录登录日志
-        if ($action->id == 'login' && $this->isPost) {
+        // 记录登录日志
+        if (
+            (
+                $action->id == 'login'
+                || $action->id == 'safe-validate'
+            )
+            && $this->isPost
+        ) {
+            $session = Yii::$app->session;
+
+            // 返回结果
             if ($result instanceof Response) {
                 $data = $result->data;
             } else {
                 $data = $result;
             }
 
-            // 获取闪存数据
-            $flashData = Yii::$app->session->getFlash($this->loginBaseFlashIdentify, null);
+            // 闪存的登录数据
+            $flashData = [];
+            switch ($action->id) {
+                case 'login': // 基本认证
+                    $flashData = $session->getFlash($this->loginBaseFlashIdentify, null);
+                    break;
+                case 'safe-validate': // 二次认证
+                    $flashData = $session->getFlash($this->loginSafeFlashIdentify, null);
+                    break;
+            }
+
+            // 管理员ID
+            $adminId = isset($flashData['id']) ? $flashData['id'] : 0;
+            // 认证方式
+            $identifyType = isset($flashData['safeWay']) ? AdminUser::getLoginLogIdentifyType($flashData['safeWay']) : LoginLog::IDENTIFY_TYPE_BASE;
+            // 客户端信息
+            $clientInfo = $this->request->userAgent ?: '';
+            // 尝试信息
+            $attemptInfo = export_str($this->post);
+            // 尝试结果
+            $attemptStatus = LoginLog::ATTEMPT_FAILED;
+            if (isset($data['code']) && $data['code'] == $this->responseSuccessCode) {
+                $attemptStatus = LoginLog::ATTEMPT_SUCCESS;
+            }
+
+            // 错误类型
+            $errorType = !empty($data['msg']) ? $data['msg'] : '';
+            $loginIp = $this->request->userIP ?: '';
+
+            $prepare = [
+                'admin_user_id' => $adminId,        // 管理员ID
+                'identify_type' => $identifyType,   // 认证类型
+                'client_info' => $clientInfo,       // 客户端信息
+                'attempt_info' => $attemptInfo,     // 尝试信息
+                'attempt_status' => $attemptStatus, // 尝试结果
+                'error_type' => $errorType,         // 错误类型
+                'login_ip' => $loginIp,             // 登录IP
+            ];
+
             // 记录登录日志
             $loginLog = new LoginLog();
-            $loginLog->setAttributes([
-                'admin_user_id' => empty($flashData) ? 0 : $flashData['id'],
-                'identify_type' => LoginLog::IDENTIFY_TYPE_BASE,
-                'client_info' => $this->request->userAgent ?: '',
-                'attempt_info' => export_str($this->post),
-                'attempt_status' => !empty($data['code']) && $data['code'] == $this->responseSuccessCode ? LoginLog::ATTEMPT_SUCCESS : LoginLog::ATTEMPT_FAILED,
-                'error_type' => !empty($data['msg']) ? $data['msg'] : '',
-                'login_ip' => $this->request->userIP ?: '',
-            ]);
-            if (($logResult = $loginLog->save()) !== true) {
-                throw new Exception(t('description Failed to record the login log', 'app.admin'));
-            }
-        }
+            $loginLog->setAttributes($prepare);
 
-        // 登录-安全认证,记录登录日志
-        if ($action->id == 'safe-validate' && $this->isPost) {
-            // 获取闪存数据
-            $flashData = Yii::$app->session->getFlash($this->loginSafeFlashIdentify, null);
-            if (!empty($flashData)) {
-                if ($result instanceof Response) {
-                    $data = $result->data;
-                } else {
-                    $data = $result;
-                }
-
-                // 记录登录日志
-                $loginLog = new LoginLog();
-                $loginLog->setAttributes([
-                    'admin_user_id' => $flashData['id'],
-                    'identify_type' => AdminUser::getLoginLogIdentifyType($flashData['safeWay']),
-                    'client_info' => $this->request->userAgent ?: '',
-                    'attempt_info' => export_str($this->post),
-                    'attempt_status' => !empty($data['code']) && $data['code'] == $this->responseSuccessCode ? LoginLog::ATTEMPT_SUCCESS : LoginLog::ATTEMPT_FAILED,
-                    'error_type' => !empty($data['msg']) ? $data['msg'] : '',
-                    'login_ip' => $this->request->userIP ?: '',
-                ]);
-                if (($logResult = $loginLog->save()) !== true) {
-                    throw new Exception(t('description Failed to record the login log', 'app.admin'));
-                }
+            if ($loginLog->save()) {
+                system_log_error($loginLog->error, t('description Failed to record the login log', 'app.admin'));
             }
         }
 
@@ -172,7 +187,7 @@ class SiteController extends CommonController
     /**
      * 登录 - 基本校验
      * @return string
-     * @throws \yii\db\Exception
+     * @throws \Exception
      */
     public function actionLogin()
     {
@@ -185,9 +200,11 @@ class SiteController extends CommonController
         } else {
             $adminUser = new AdminUser();
             $adminUser->setScenario('login-base');
+
             if ($adminUser->load($this->post) && $adminUser->validate()) {
                 $usernameOrEmail = $this->post['usernameOrEmail'];
                 $password = $this->post['password'];
+
                 $userData = AdminUser::find()->where(['username' => $usernameOrEmail])->orWhere(['email' => $usernameOrEmail])->one();
                 // 校验用户是否存在
                 if (empty($userData)) {
@@ -195,16 +212,20 @@ class SiteController extends CommonController
                 }
 
                 // 闪存用户信息
-                Yii::$app->session->setFlash($this->loginBaseFlashIdentify, $userData);
+                Yii::$app->session->setFlash($this->loginBaseFlashIdentify, [
+                    'id' => $userData['id'],
+                    'safeWay' => AdminUser::SAFE_AUTH_CLOSE,
+                ]);
 
                 // 检查最大登陆次数
                 $attemptSize = $size = Yii::$app->cache->get($this->attemptLoginIdentify);
                 if ($attemptSize && $attemptSize >= self::MAX_ATTEMPT_SIZE) {
                     // 封停当前登陆管理员
                     $freezeUntilDate = date('Y-m-d H:i:s', time() + self::FREEZE_TIME);
-                    AdminUser::freezeUser($userData['id'], $freezeUntilDate);
+                    AdminUser::banUser($userData['id'], $freezeUntilDate);
                     // 初始化尝试次数
                     Yii::$app->cache->delete($this->attemptLoginIdentify);
+
                     // 返回冻结信息
                     return $this->asFail(
                         t('due to too many password errors, your account has been suspended until {date}.', 'app.admin', ['date' => $freezeUntilDate])
@@ -240,13 +261,15 @@ class SiteController extends CommonController
                 // 基本校验成功,初始化尝试登陆次数
                 Yii::$app->cache->delete($this->attemptLoginIdentify);
 
-                // 获取登录管理员安全认证方式
-                $safeWays = $adminUser->getSafeWays($userData['id']);
+                // 获取2FA
+                $safeWays = SystemConfig::get('ADMIN_GROUP.ADMIN_CCEE', AdminUser::SAFE_AUTH_CLOSE);
 
                 // 仅仅基本认证
                 if ($safeWays == AdminUser::SAFE_AUTH_CLOSE) {
                     /* @var \yii\web\IdentityInterface $userData */
+                    // 自动登录过期设置三天
                     $isUser = Yii::$app->adminUser->login($userData, 3 * 86400);
+
                     if ($isUser) {
                         return $this->asSuccess(t('login successful', 'app.admin'), $this->homeUrl);
                     }
@@ -258,6 +281,7 @@ class SiteController extends CommonController
                         'id' => $userData['id'],
                         'safeWay' => $safeWays,
                     ]);
+
                     return $this->asSuccess(t('authentication success', 'app.admin'), '/admin/site/safe-validate');
                 }
             }

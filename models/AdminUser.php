@@ -24,9 +24,6 @@ use app\models\AdminUserLoginLog as LoginLog;
  * @property string $an 电话区号
  * @property string $mobile 电话号码
  * @property string $google_key 谷歌令牌
- * @property int $safe_auth 是否开启安全认证, 0:不开启 1:跟随系统 2:邮箱认证 3:短信认证 4:MFA认证
- * @property int $open_operate_log 是否开启操作日志, 0:关闭 1:跟随系统 2:开启
- * @property int $open_login_log 是否开启登录日志, 0:关闭 1:跟随系统 2:开启
  * @property string $auth_key cookie认证密匙
  * @property string $access_token 访问令牌
  * @property int $status 账号状态,0:已封停 1:正常
@@ -43,38 +40,16 @@ use app\models\AdminUserLoginLog as LoginLog;
  */
 class AdminUser extends CommonActiveRecord implements IdentityInterface
 {
-    // 路由分割符号
-    const PATH_SPLIT_SYMBOL = '-';
 
-    // 禁用
-    const STATUS_DENY = 0;
-    // 正常
-    const STATUS_NORMAL = 1;
+    const PATH_SPLIT_SYMBOL = '-'; // 路由分割符号
 
-    // 关闭安全认证
-    const SAFE_AUTH_CLOSE = 0;
-    // 安全认证跟随系统设置
-    const SAFE_AUTH_FOLLOW_SYSTEM = 1;
-    // 邮箱认证
-    const SAFE_AUTH_EMAIL = 2;
-    // 短信认证
-    const SAFE_AUTH_MESSAGE = 3;
-    // MFA认证
-    const SAFE_AUTH_OTP = 4;
+    const STATUS_DENY = 0;   // 禁用
+    const STATUS_NORMAL = 1; // 正常
 
-    // 关闭操作日志
-    const OPERATE_LOG_CLOSE = 0;
-    // 操作日志设置跟随系统
-    const OPERATE_LOG_FOLLOW = 1;
-    // 开启操作日志
-    const OPERATE_LOG_OPEN = 2;
-
-    // 关闭登录日志
-    const LOGIN_LOG_CLOSE = 0;
-    // 登录日志设置跟随系统
-    const LOGIN_LOG_FOLLOW = 1;
-    // 开启登录日志
-    const LOGIN_LOG_OPEN = 2;
+    const SAFE_AUTH_CLOSE = 0;   // 关闭安全认证
+    const SAFE_AUTH_EMAIL = 1;   // 邮箱认证
+    const SAFE_AUTH_MESSAGE = 2; // 短信认证
+    const SAFE_AUTH_OTP = 3;     // MFA认证
 
     /**
      * @var string 我的上级
@@ -108,59 +83,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     }
 
     /**
-     * 获取状态集合
-     * @return array
-     */
-    public static function statusMap()
-    {
-        return [
-            self::STATUS_DENY => Yii::t('app.admin', 'closure'),
-            self::STATUS_NORMAL => Yii::t('app.admin', 'normal'),
-        ];
-    }
-
-    /**
-     * 获取安全认证选项集合
-     * @return array
-     */
-    public static function safeMap()
-    {
-        return [
-            self::SAFE_AUTH_CLOSE => Yii::t('app.admin', 'close'),
-            self::SAFE_AUTH_FOLLOW_SYSTEM => Yii::t('app.admin', 'follow the system'),
-            self::SAFE_AUTH_EMAIL => Yii::t('app.admin', 'email authentication'),
-            self::SAFE_AUTH_MESSAGE => Yii::t('app.admin', 'SMS authentication'),
-            self::SAFE_AUTH_OTP => Yii::t('app.admin', 'OTP authentication'),
-        ];
-    }
-
-    /**
-     * 获取操作日志,操作项集合
-     * @return array
-     */
-    public static function operationMap()
-    {
-        return [
-            self::OPERATE_LOG_CLOSE => Yii::t('app.admin', 'close'),
-            self::OPERATE_LOG_FOLLOW => Yii::t('app.admin', 'follow the system'),
-            self::OPERATE_LOG_OPEN => Yii::t('app.admin', 'open'),
-        ];
-    }
-
-    /**
-     * 获取登陆日志,操作项集合
-     * @return array
-     */
-    public static function loginMap()
-    {
-        return [
-            self::LOGIN_LOG_CLOSE => Yii::t('app.admin', 'close'),
-            self::LOGIN_LOG_FOLLOW => Yii::t('app.admin', 'follow the system'),
-            self::LOGIN_LOG_OPEN => Yii::t('app.admin', 'open'),
-        ];
-    }
-
-    /**
      * 获取状态标签
      * @param int $status 状态
      * @param boolean $isHtml 是否是html
@@ -168,90 +90,36 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      */
     public static function getStatusLabel($status, $isHtml = false)
     {
-        switch ($status) {
-            case self::STATUS_DENY:
-                $label = Yii::t('app.admin', 'disable');
-                if ($isHtml) {
-                    return '<span class="label label-danger">' . $label . '</span>';
-                }
-
-                return $label;
-            case self::STATUS_NORMAL:
-                $label = Yii::t('app.admin', 'normal');
-                if ($isHtml) {
-                    return '<span class="label label-success">' . $label . '</span>';
-                }
-
-                return $label;
-            default:
-                $label = Yii::t('app.admin', 'unknown');
-                if ($isHtml) {
-                    return '<span class="label label-default">' . $label . '</span>';
-                }
-
-                return $label;
+        $map = [
+            self::STATUS_DENY => Yii::t('app.admin', 'closure'),
+            self::STATUS_NORMAL => Yii::t('app.admin', 'normal'),
+        ];
+        if (isset($map[$status])) {
+            return html_label(Yii::t('app.admin', $map[$status]), $isHtml, $status == self::STATUS_DENY ? 'danger' : 'success');
         }
+
+        return html_label(Yii::t('app.admin', 'unknown'), $isHtml, 'default');
     }
 
     /**
-     * 获取是否开启安全认证标签
-     * @param int $safeAuth 是否开启安全认证
+     * 获取安全认证标签
+     * @param int $safeAuth 是否开启安全认证标识值
      * @return string
      */
-    public static function getIsSafeAuthLabel($safeAuth)
+    public static function safeAuthLabelMap($safeAuth)
     {
-        switch ($safeAuth) {
-            case self::SAFE_AUTH_CLOSE:
-                return Yii::t('app.admin', 'close');
-            case self::SAFE_AUTH_FOLLOW_SYSTEM:
-                return Yii::t('app.admin', 'follow the system');
-            case self::SAFE_AUTH_EMAIL:
-                return Yii::t('app.admin', 'email authentication');
-            case self::SAFE_AUTH_MESSAGE:
-                return Yii::t('app.admin', 'SMS authentication');
-            case self::SAFE_AUTH_OTP:
-                return Yii::t('app.admin', 'OTP authentication');
-            default:
-                return Yii::t('app.admin', 'unknown');
-        }
-    }
+        $map = [
+            self::SAFE_AUTH_CLOSE => Yii::t('app.admin', 'close'),
+            self::SAFE_AUTH_EMAIL => Yii::t('app.admin', 'email authentication'),
+            self::SAFE_AUTH_MESSAGE => Yii::t('app.admin', 'SMS authentication'),
+            self::SAFE_AUTH_OTP => Yii::t('app.admin', 'OTP authentication'),
+        ];
 
-    /**
-     * 获取是否开启操作日志标签
-     * @param int $isOpenOperateLog 是否开启操作日志
-     * @return string
-     */
-    public static function getIsOpenOperateLabel($isOpenOperateLog)
-    {
-        switch ($isOpenOperateLog) {
-            case self::OPERATE_LOG_CLOSE:
-                return Yii::t('app.admin', 'close');
-            case self::OPERATE_LOG_FOLLOW:
-                return Yii::t('app.admin', 'follow the system');
-            case self::OPERATE_LOG_OPEN:
-                return Yii::t('app.admin', 'open');
-            default:
-                return Yii::t('app.admin', 'unknown');
+        if (isset($map[$safeAuth])) {
+            return $map[$safeAuth];
         }
-    }
 
-    /**
-     * 获取是否开启登录日志标签
-     * @param $isOpenLoginLog
-     * @return string
-     */
-    public static function getIsOpenLoginLogLabel($isOpenLoginLog)
-    {
-        switch ($isOpenLoginLog) {
-            case self::LOGIN_LOG_CLOSE:
-                return Yii::t('app.admin', 'close');
-            case self::LOGIN_LOG_FOLLOW:
-                return Yii::t('app.admin', 'follow the system');
-            case self::LOGIN_LOG_OPEN:
-                return Yii::t('app.admin', 'open');
-            default:
-                return Yii::t('app.admin', 'unknown');
-        }
+        return Yii::t('app.admin', 'unknown');
     }
 
     /**
@@ -318,6 +186,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
                     'deny_end_time' => null,
                     'updated_at' => now(),
                 ], 'id=:adminId', ['adminId' => $adminId])->execute();
+
                 return false;
             }
         }
@@ -330,13 +199,14 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
      * @return true
      * @throws \yii\db\Exception
      */
-    public static function freezeUser($adminId, $expireData = null)
+    public static function banUser($adminId, $expireData = null)
     {
         self::getDb()->createCommand()->update(self::tableName(), [
             'status' => self::STATUS_DENY,
             'deny_end_time' => $expireData,
             'updated_at' => now(),
         ], 'id=:adminId', ['adminId' => $adminId])->execute();
+
         return true;
     }
 
@@ -348,11 +218,13 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public static function getLoginLogIdentifyType($safeWay)
     {
         switch ($safeWay) {
-            case self::SAFE_AUTH_EMAIL: // 邮箱认证
+            case self::SAFE_AUTH_CLOSE:     // 基本认证
+                return LoginLog::IDENTIFY_TYPE_BASE;
+            case self::SAFE_AUTH_EMAIL:     // 邮箱认证
                 return LoginLog::IDENTIFY_TYPE_EMAIL;
-            case self::SAFE_AUTH_MESSAGE:
+            case self::SAFE_AUTH_MESSAGE:   // 短信认证
                 return LoginLog::IDENTIFY_TYPE_SMS;
-            case self::SAFE_AUTH_OTP:
+            case self::SAFE_AUTH_OTP:       // 2FA认证
                 return LoginLog::IDENTIFY_TYPE_MFA;
             default:
                 return 250;
@@ -375,9 +247,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             'email' => Yii::t('app.admin', 'the email'),
             'an' => Yii::t('app.admin', 'the mobile area number'),
             'mobile' => Yii::t('app.admin', 'the mobile'),
-            'safe_auth' => Yii::t('app.admin', 'whether to enable security authentication'),
-            'open_operate_log' => Yii::t('app.admin', 'whether to turn on the operation log'),
-            'open_login_log' => Yii::t('app.admin', 'whether log on or not'),
             'group' => Yii::t('app.admin', 'the management group'),
             'deny_end_time' => Yii::t('app.admin', 'the closing time'),
             'usernameOrEmail' => Yii::t('app.admin', 'the email/username'),
@@ -391,42 +260,29 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['id', 'required'],
-            ['action', 'required'],
+            [['id', 'action', 'username', 'usernameOrEmail', 'email', 'an', 'mobile', 'group'], 'required'],
             ['action', 'in', 'range' => ['disabled', 'enabled'], 'message' => Yii::t('app.admin', 'the operation item is not correct')],
             ['parent', 'string', 'min' => 2, 'max' => 250],
-            ['username', 'required'],
             ['username', 'string', 'min' => 2, 'max' => 20],
             ['username', 'unique', 'on' => ['add']],
-            ['usernameOrEmail', 'required'],
             ['password', 'required', 'on' => ['add', 'login-base']],
             ['password', 'string', 'min' => 6, 'max' => 25],
-            ['password', 'match', 'pattern' => '/^[1-9a-z][1-9a-z_\-+.*!@#$%&=|~]{5,24}$/i'],
+            ['password', 'match', 'pattern' => '/^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]{6,25}$/i', 'message' => t('the password must contain both numbers and letters', 'app.admin')],
             ['repassword', 'required', 'when' => function ($model) {
                 /* @var AdminUser $model */
                 // 当验证场景是`新增`或者场景是`编辑`并且[[密码]]非空时验证必填。
                 return $model->scenario == 'add' || ($model->scenario == 'edit' && !empty($model->password));
             }],
             ['repassword', 'compare', 'compareAttribute' => 'password'],
-            ['email', 'required'],
             ['email', 'email'],
             ['email', 'unique', 'on' => ['add']],
             ['email', 'unique', 'filter' => function ($query) {
                 /* @var Query $query */
                 $query->andWhere(['<>', 'id', $this->id]);
             }, 'on' => ['edit']],
-            ['an', 'required'],
             ['an', 'number'],
-            ['mobile', 'required'],
             ['mobile', 'string', 'min' => 5, 'max' => 11],
             ['mobile', 'validateMobileIsUnique'],
-            ['safe_auth', 'required'],
-            ['safe_auth', 'in', 'range' => array_keys(self::safeMap())],
-            ['open_operate_log', 'required'],
-            ['open_operate_log', 'in', 'range' => array_keys(self::operationMap())],
-            ['open_login_log', 'required'],
-            ['open_login_log', 'in', 'range' => array_keys(self::loginMap())],
-            ['group', 'required'],
             ['group', 'integer'],
             ['deny_end_time', 'default', 'value' => null],
             ['deny_end_time', 'datetime', 'format' => 'php:Y-m-d H:i:s'],
@@ -466,11 +322,11 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         $scenarios = parent::scenarios();
         // 场景`新增`
-        $scenarios['add'] = ['parent', 'username', 'password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log', 'group'];
+        $scenarios['add'] = ['parent', 'username', 'password', 'repassword', 'email', 'an', 'mobile', 'group'];
         // 场景`解封和封停`
         $scenarios['status-action'] = ['id', 'action', 'deny_end_time'];
         // 场景`编辑`
-        $scenarios['edit'] = ['password', 'repassword', 'email', 'an', 'mobile', 'safe_auth', 'open_operate_log', 'open_login_log'];
+        $scenarios['edit'] = ['password', 'repassword', 'email', 'an', 'mobile'];
         // 登录 - 基本校验
         $scenarios['login-base'] = ['usernameOrEmail', 'password'];
 
@@ -494,38 +350,6 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         ];
 
         return $parentBehaviors;
-    }
-
-    /**
-     * 获取用户的安全认证方式
-     * @param int $userId 用户ID
-     * @return int|mixed
-     */
-    public function getSafeWays($userId)
-    {
-        $user = self::activeQuery('safe_auth')->where(['id' => $userId])->one();
-        if (empty($user)) {
-            return self::SAFE_AUTH_CLOSE;
-        }
-
-        switch ($user['safe_auth']) {
-            case self::SAFE_AUTH_FOLLOW_SYSTEM: // 跟随系统
-                $value = SystemConfig::get('ADMIN_GROUP.ADMIN_CCEE', self::SAFE_AUTH_CLOSE);
-                switch ($value) {
-                    case 1: // 邮箱认证
-                        return self::SAFE_AUTH_EMAIL;
-                    case 2: // 短信认证
-                        return self::SAFE_AUTH_MESSAGE;
-                    case 3: // MFA认证
-                        return self::SAFE_AUTH_OTP;
-                    case 0: // 关闭安全认证
-                    default:
-                        return self::SAFE_AUTH_CLOSE;
-                }
-                break;
-            default:
-                return $user['safe_auth'];
-        }
     }
 
     /**

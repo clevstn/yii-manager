@@ -85,8 +85,6 @@ return [
     'closure' => '封停',
     'normal' => '正常',
     'close' => '关闭',
-    'follow the system' => '跟随系统',
-    'open' => '开启',
     'OTP authentication' => 'OTP认证',
     'disable' => '禁用',
     'unknown' => '未知',
@@ -123,4 +121,5 @@ return [
     'invalid parameter {param}' => '无效的参数{param}',
     'disabled' => '禁用',
     'enabled' => '正常',
+    'the password must contain both numbers and letters' => '密码必须包含数字和字母',
 ];

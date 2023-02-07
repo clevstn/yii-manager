@@ -30,9 +30,6 @@ class m200814_064828_create_admin_user_table extends Migration
             'an' => $this->string(10)->defaultValue('86')->notNull()->comment('电话区号'),
             'mobile' => $this->string(20)->defaultValue('')->notNull()->comment('电话号码'),
             'google_key' => $this->string()->defaultValue('')->notNull()->comment('谷歌令牌'),
-            'safe_auth' => $this->boolean()->defaultValue(1)->notNull()->comment('是否开启安全认证, 0:不开启 1:跟随系统 2:邮箱认证 3:短信认证 4:MFA认证'),
-            'open_operate_log' => $this->boolean()->defaultValue(1)->notNull()->comment('是否开启操作日志, 0:关闭 1:跟随系统 2:开启'),
-            'open_login_log' => $this->boolean()->defaultValue(1)->notNull()->comment('是否开启登录日志, 0:关闭 1:跟随系统 2:开启'),
             'auth_key' => $this->string(100)->defaultValue('')->notNull()->comment('cookie认证密匙'),
             'access_token' => $this->string(100)->defaultValue('')->notNull()->comment('访问令牌'),
             'status' => $this->boolean()->defaultValue(1)->notNull()->comment('账号状态,0:已封停 1:正常'),
@@ -53,8 +50,8 @@ class m200814_064828_create_admin_user_table extends Migration
         $this->createIndex('index_created_at', self::TABLE_NAME, ['created_at']);
 
         $this->insert(self::TABLE_NAME, [
-            'username' => 'superman',
-            'password' => encrypt_password('superman123456'),
+            'username' => 'root',
+            'password' => encrypt_password('root170104'),
             'email' => '',
             'mobile' => '',
             'auth_key' => random_string(),
