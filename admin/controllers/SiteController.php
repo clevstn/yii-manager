@@ -262,7 +262,7 @@ class SiteController extends CommonController
                 Yii::$app->cache->delete($this->attemptLoginIdentify);
 
                 // 获取2FA
-                $safeWays = SystemConfig::get('ADMIN_GROUP.ADMIN_CCEE', AdminUser::SAFE_AUTH_CLOSE);
+                $safeWays = Yii::$app->config->get('ADMIN_GROUP.ADMIN_CCEE', AdminUser::SAFE_AUTH_CLOSE);
 
                 // 仅仅基本认证
                 if ($safeWays == AdminUser::SAFE_AUTH_CLOSE) {

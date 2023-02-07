@@ -25,7 +25,12 @@ $config = [
     ],
     'as beforeHandleAction' => BeforeHandleActionFilter::class,
     'components' => [
-        // 文件上传组件
+        // 应用配置管理器
+        'config' => [
+            'class' => 'app\components\ConfigManager',
+            'cache' => 'cache',
+        ],
+        // 文件上传管理器
         'uploads' => [
             'class' => 'app\components\Uploads',
             'type' => function () {
@@ -36,14 +41,14 @@ $config = [
                 'rootPath' => '@webroot' . DIRECTORY_SEPARATOR . 'upload', // 上传地址
             ],
         ],
-        // 短信发送组件
+        // 短信发送管理器
         'sms' => [
             'class' => 'app\components\Sms',
             'configs' => [
                 //...
             ],
         ],
-        // RBAC组件
+        // RBAC管理器
         'rbacManager' => [
             'class' => 'app\components\RbacManager',
             'cache' => 'cache',

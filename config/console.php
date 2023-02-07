@@ -30,6 +30,18 @@ $config = [
         ],
     ],
     'components' => [
+        // 应用配置管理器
+        'config' => [
+            'class' => 'app\components\ConfigManager',
+            'cache' => 'cache',
+        ],
+        // 短信发送组件
+        'sms' => [
+            'class' => 'app\components\Sms',
+            'configs' => [
+                //...
+            ],
+        ],
         // RBAC组件
         'rbacManager' => [
             'class' => 'app\components\RbacManager',

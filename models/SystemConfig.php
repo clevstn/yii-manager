@@ -27,6 +27,10 @@ use Yii;
  */
 class SystemConfig extends \app\builder\common\CommonActiveRecord
 {
+    // 类型, 1:分组 2:配置
+    const TYPE_GROUP = 1;
+    const TYPE_CONFIG = 2;
+
     /**
      * 支持的控件选项如下:
      * -- text[文本]: 无
@@ -98,7 +102,7 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
     public function rules()
     {
         return [
-            [['code', 'created_at'], 'required'],
+            [['code'], 'required'],
             [['value'], 'string'],
             [['type'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
@@ -126,42 +130,5 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
             'created_at' => Yii::t('app.admin', 'the creation time'),
             'updated_at' => Yii::t('app.admin', 'the update time'),
         ];
-    }
-
-    /**
-     * 获取配置项
-     * @param string $param 配置代码
-     * - 组成[分组].[代码]
-     * @param null $default 默认值
-     * @return mixed|null
-     */
-    public static function get($param, $default = null)
-    {
-        @list($group, $code) = array_map('trim', explode('.', $param));
-        $result = self::activeQuery('value')->where(['group' => $group, 'code' => $code])->one();
-        if (empty($result)) {
-            return $default;
-        }
-
-        return $result['value'];
-    }
-
-    /**
-     * 设置配置项
-     * @param string $param 配置代码
-     * - 组成[分组].[代码]
-     * @param mixed $value 值
-     * @return bool
-     */
-    public static function set($param, $value)
-    {
-        @list($group, $code) = array_map('trim', explode('.', $param));
-        $model = self::activeQuery('value')->where(['group' => $group, 'code' => $code])->one();
-        if (empty($model)) {
-            return false;
-        }
-
-        $model->value = $value;
-        return $model->save(false);
     }
 }

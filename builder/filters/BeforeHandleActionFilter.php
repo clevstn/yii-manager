@@ -24,7 +24,7 @@ class BeforeHandleActionFilter extends Behavior
     public function events()
     {
         return [
-            Application::EVENT_BEFORE_ACTION => 'beforeHandleAction',
+            Application::EVENT_BEFORE_ACTION => 'beforeAction',
         ];
     }
 
@@ -32,7 +32,7 @@ class BeforeHandleActionFilter extends Behavior
      * Before action listener
      * @param yii\base\ActionEvent $event
      */
-    public function beforeHandleAction($event)
+    public function beforeAction($event)
     {
         $mid = $event->action->controller->module->id;
         $bindMap = defined('BIND_MODULE') ? BIND_MODULE : null;

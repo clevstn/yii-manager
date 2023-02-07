@@ -36,7 +36,5 @@ class BeforeResponseFilter extends Behavior
         /* @var Response $owner */
         $owner = $this->owner;
         $owner->headers->set('X-Powered-By', 'ym/1.0');
-
-        return;
     }
 }

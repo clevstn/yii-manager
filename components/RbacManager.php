@@ -100,7 +100,10 @@ class RbacManager extends Component implements CheckAccessInterface
             return $this->permissions[$groupId];
         }
 
-        return $this->getPermissionsByGroupFromDb($groupId);
+        $permissions = $this->getPermissionsByGroupFromDb($groupId);
+        $this->permissions[$groupId] = $permissions;
+
+        return $permissions;
     }
 
     /**
