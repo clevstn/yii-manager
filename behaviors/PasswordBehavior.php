@@ -81,6 +81,8 @@ class PasswordBehavior extends AttributeBehavior
                 if (!empty($value)) {
                     return encrypt_password($value);
                 }
+
+                throw new UserException('The field `password` must be required. ');
             }
         }
 

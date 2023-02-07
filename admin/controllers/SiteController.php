@@ -62,6 +62,7 @@ class SiteController extends CommonController
     protected $loginBaseFlashIdentify = '__admin_user_login_base_tmp_session'; // 用户基本认证信息闪存标识
     protected $loginSafeFlashIdentify = '__admin_user_login_safe_tmp_session'; // 用户安全认证信息闪存标识
     public static $accessTokenIdentify = '__admin_user_access_token'; // 用户访问令牌记录标识
+    public static $flashErrorIdentify = '__admin_user_flash_error'; // 用户重定向登录返回的错误信息
 
     /**
      * {@inheritdoc}
@@ -181,7 +182,10 @@ class SiteController extends CommonController
                 Yii::$app->session->remove($this->tempSessionIdentify);
             }
 
-            return $this->render('login-base');
+            $flashError = Yii::$app->session->getFlash(self::$flashErrorIdentify, null);
+            return $this->render('login-base', [
+                'errorMsg' => $flashError,
+            ]);
         } else {
             $adminUser = new AdminUser();
             $adminUser->setScenario('login-base');

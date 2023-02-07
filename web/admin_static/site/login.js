@@ -16,7 +16,7 @@
         // 初始化脚本
         var initedScript = function () {
             // 登录错误信息
-            $scope.loginErr = '';
+            $scope.loginErr = window.YmData._loginErrorMsg || '';
             // 登录头像
             $scope.loginPhoto = defaultPhoto;
         };

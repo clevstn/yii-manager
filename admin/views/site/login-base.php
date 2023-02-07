@@ -12,6 +12,11 @@ use app\admin\assets\SiteAsset;
 $this->title = t('sign in', 'app.admin');
 SiteAsset::register($this);
 ?>
+<script>
+    var _ymData = window.YmData || {};
+    _ymData._loginErrorMsg = "<?= !empty($errorMsg) ? $errorMsg : '' ?>";
+    window.YmData = _ymData;
+</script>
 <div class="ym-login" ng-controller="_loginBaseCtrl" ng-cloak>
     <div class="login-wrap">
         <div class="panel-body">
