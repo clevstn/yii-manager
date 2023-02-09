@@ -24,7 +24,10 @@ class AdminBehaviorRecordHandler
     public static function handleClick($event)
     {
         // 查看后台是否开启行为日志记录。
-
+        $isRecord = Yii::$app->config->get('ADMIN_GROUP.ADMIN_OPERATE_LOG', 1);
+        if (!$isRecord) {
+            return;
+        }
 
         /* @var \app\builder\common\CommonController $controller */
         $controller = Yii::$app->controller;

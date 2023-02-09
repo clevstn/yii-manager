@@ -102,6 +102,7 @@ class SiteController extends CommonController
      */
     public function afterAction($action, $result)
     {
+        $isRecord = Yii::$app->config->get('ADMIN_GROUP.ADMIN_LOGIN_LOG', 1);
         // 记录登录日志
         if (
             (
@@ -109,6 +110,7 @@ class SiteController extends CommonController
                 || $action->id == 'safe-validate'
             )
             && $this->isPost
+            && $isRecord == 1
         ) {
             $session = Yii::$app->session;
 
