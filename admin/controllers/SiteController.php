@@ -399,11 +399,11 @@ class SiteController extends CommonController
                 // ...
                 break;
             case self::MESSAGE_SCENARIO_SMS: // 短信
-                $key = $userData['an'] . ' ' . $userData['mobile'];
+                $key = $userData['mobile'];
                 // 发送消息
-                $sendResult = Yii::$app->sms->send($key, '登录安全认证', [
+                $sendResult = Yii::$app->sms->send($key, [
                     'template' => 'default',
-                    'use' => '登录安全认证',
+                    'use' => '登录校验',
                     'code' => random_number(),
                 ]);
                 break;

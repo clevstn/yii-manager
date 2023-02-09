@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $service_name 服务名称
  * @property string|null $msg_content 短信内容
+ * @property string auth_code 短信码
  * @property int $send_user 发送人, 0:系统
  * @property string $receive_mobile 接收手机号
  * @property string $send_time 发送时间
@@ -30,11 +31,11 @@ class ShortMsgRecord extends \app\builder\common\CommonActiveRecord
     public function rules()
     {
         return [
+            [['msg_content', 'receive_mobile'], 'required'],
             [['msg_content'], 'string'],
             [['send_user'], 'integer'],
-            [['send_time'], 'required'],
             [['send_time'], 'safe'],
-            [['service_name'], 'string', 'max' => 100],
+            [['service_name', 'auth_code'], 'string', 'max' => 100],
             [['receive_mobile'], 'string', 'max' => 50],
         ];
     }
@@ -52,5 +53,17 @@ class ShortMsgRecord extends \app\builder\common\CommonActiveRecord
             'receive_mobile' => Yii::t('app.admin', 'receive cell phone number'),
             'send_time' => Yii::t('app.admin', 'the send time'),
         ];
+    }
+
+    /**
+     * 定义行为
+     * @return array
+     */
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        unset($behaviors['timestampBehavior']);
+
+        return $behaviors;
     }
 }

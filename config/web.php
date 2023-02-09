@@ -45,7 +45,16 @@ $config = [
         'sms' => [
             'class' => 'app\components\Sms',
             'configs' => [
-                //...
+                // `key` 是该接口的方法名
+                'feiGe' => [
+                    // 是否使用该接口
+                    'enabled' => true,
+                    // 接口自定义参数
+                    'apiUrl' => 'https://api.4321.sh/sms/send',
+                    'apiKey' => 'N909493562',
+                    'secret' => '90949011bea77f48',
+                    'signId' => '170407',
+                ],
             ],
         ],
         // RBAC管理器

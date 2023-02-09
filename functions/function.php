@@ -16,7 +16,8 @@ if (!function_exists('is_function')) {
      * @param string|object $func 变量
      * @return bool
      */
-    function is_function($func) {
+    function is_function($func)
+    {
         return (is_string($func) && function_exists($func)) || (is_object($func) && ($func instanceof \Closure));
     }
 }
@@ -120,5 +121,119 @@ if (!function_exists('system_log_info')) {
         foreach ($tempMessage as $message) {
             $logger->messages[] = $message;
         }
+    }
+}
+
+if (!function_exists('xml_to_array')) {
+    /**
+     * XML转数组
+     * @param string $xmlStr XML字符串
+     * @return mixed
+     */
+    function xml_to_array($xmlStr)
+    {
+        $object = simplexml_load_string($xmlStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $json = \yii\helpers\Json::encode($object);
+        $array = \yii\helpers\Json::decode($json);
+
+        return $array;
+    }
+}
+
+if (!function_exists('data_to_xml')) {
+    /**
+     * 数组或对象转XML
+     * @param array|object $data
+     * @return string
+     */
+    function data_to_xml($data)
+    {
+        if (is_object($data)) {
+            $data = get_object_vars($data);
+        }
+
+        $xml = '';
+        foreach ($data as $key => $val) {
+            if (is_null($val)) {
+                $xml .= "<$key/>" . PHP_EOL;
+            } else {
+                if (!is_numeric($key)) {
+                    $xml .= "<$key>";
+                }
+
+                $xml .= (is_array($val) || is_object($val)) ? data_to_xml($val) : $val;
+                if (!is_numeric($key)) {
+                    $xml .= "</$key>" . PHP_EOL;
+                }
+            }
+        }
+
+        return '<xml>' . PHP_EOL . $xml . '</xml>';
+    }
+}
+
+if (!function_exists('curl_request')) {
+    /**
+     * CURL
+     * @param string $url URL
+     * @param string $method 请求动作
+     * @param string $contentType 内容类型
+     * @param array $data 传输数据
+     * @param int $timeOut 设置cURL允许执行的最长秒数
+     * @return array
+     */
+    function curl_request($url, $method = 'get', $contentType = '', array $data = [], $timeOut = 20)
+    {
+        $method = strtolower($method);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        switch ($method) {
+            case 'post':
+                switch ($contentType) {
+                    case 'multipart':
+                        $head = 'Content-Type: multipart/form-data; charset=UTF-8';
+                        $param = $data;
+                        break;
+                    case 'xml':
+                        $head = 'Content-Type: text/xml; charset=UTF-8';
+                        $param = data_to_XML($data);
+                        break;
+                    case 'json':
+                        $head = 'Content-Type: application/json; charset=UTF-8';
+                        $param = \yii\helpers\Json::encode($data);
+                        break;
+                    case 'urlencoded':
+                    default:
+                        $head = 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8';
+                        $param = http_build_query($data);
+                }
+
+                curl_setopt($ch, CURLOPT_HTTPHEADER, [$head]);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+                break;
+            case 'get':
+            default:
+                ;
+        }
+
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeOut);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            $error = curl_error($ch);
+            curl_close($ch);
+
+            return ['code' => 500, 'result' => $error];
+        }
+
+        curl_close($ch);
+        return ['code' => 200, 'result' => $result];
     }
 }
