@@ -39,15 +39,16 @@ $config = [
         'sms' => [
             'class' => 'app\components\Sms',
             'configs' => [
+                // 飞鸽传书接口
                 // `key` 是该接口的方法名
                 'feiGe' => [
                     // 是否使用该接口
-                    'enabled' => true,
+                    'enabled' => false,
                     // 接口自定义参数
                     'apiUrl' => 'https://api.4321.sh/sms/send',
-                    'apiKey' => 'N909493562',
-                    'secret' => '90949011bea77f48',
-                    'signId' => '170407',
+                    'apiKey' => '',
+                    'secret' => '',
+                    'signId' => '',
                 ],
             ],
         ],
@@ -55,9 +56,6 @@ $config = [
         'rbacManager' => [
             'class' => 'app\components\RbacManager',
             'cache' => 'cache',
-        ],
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
         ],
         // 邮件管理器
         'mailManager' => [
@@ -75,8 +73,8 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.163.com',
-                'username' => 'yang_hui_lei@163.com',
-                'password' => 'cuicaijuan521',
+                'username' => '',
+                'password' => '',
                 'port' => '994',
                 'encryption' => 'ssl',
             ],
@@ -85,13 +83,16 @@ $config = [
              */
             'messageConfig' => [
                 'charset' => 'UTF-8',
-                'from' => 'yang_hui_lei@163.com',
+                //'from' => '',
                 // 'replyTo' => '',
                 // 'cc' => '',
                 // 'bcc' => '',
                 // 'subject' => '',
                 // 'headers' => [],
             ],
+        ],
+        'cache' => [
+            'class' => 'yii\caching\FileCache',
         ],
         'log' => [
             'targets' => [

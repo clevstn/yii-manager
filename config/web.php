@@ -45,15 +45,16 @@ $config = [
         'sms' => [
             'class' => 'app\components\Sms',
             'configs' => [
+                // 飞鸽传书接口
                 // `key` 是该接口的方法名
                 'feiGe' => [
                     // 是否使用该接口
-                    'enabled' => true,
+                    'enabled' => false,
                     // 接口自定义参数
                     'apiUrl' => 'https://api.4321.sh/sms/send',
-                    'apiKey' => 'N909493562',
-                    'secret' => '90949011bea77f48',
-                    'signId' => '170407',
+                    'apiKey' => '',
+                    'secret' => '',
+                    'signId' => '',
                 ],
             ],
         ],
@@ -120,12 +121,12 @@ $config = [
             // for the mailer to send real emails.
             // 当`true`时：开启调试模式，邮件不真正发送，只是保存到`@runtime/mail`。
             // `false`时：想要真正发送，需要配置`transport`参数。
-            'useFileTransport' => false,
+            'useFileTransport' => true,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.163.com',
-                'username' => 'yang_hui_lei@163.com',
-                'password' => 'cuicaijuan521',
+                'username' => '',
+                'password' => '',
                 'port' => '994',
                 'encryption' => 'ssl',
             ],
@@ -134,12 +135,12 @@ $config = [
              */
             'messageConfig' => [
                 'charset' => 'UTF-8',
-                'from' => 'yang_hui_lei@163.com',
-               // 'replyTo' => '',
-               // 'cc' => '',
-               // 'bcc' => '',
-               // 'subject' => '',
-               // 'headers' => [],
+                //'from' => '',
+                //'replyTo' => '',
+                //'cc' => '',
+                //'bcc' => '',
+                //'subject' => '',
+                //'headers' => [],
             ],
         ],
         'i18n' => [

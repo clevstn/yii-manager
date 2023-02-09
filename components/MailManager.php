@@ -72,9 +72,17 @@ class MailManager extends Component
      */
     public function sendHtml($receiveEmail, array $params)
     {
+        if (empty($receiveEmail)) {
+            return t('{param} can not be empty', 'app.admin', ['param' => 'email']);
+        }
+
+        /* @var \yii\mail\MessageInterface $messageManager */
         $messageManager = $this->sender->compose($params['template'], $params);
+        /* @var \Swift_SmtpTransport $transport */
+        $transport = $this->sender->transport;
 
         $result = $messageManager
+            ->setFrom([$transport->getUsername() => \Yii::$app->params['admin_team_name']])
             ->setTo($receiveEmail)
             ->setSubject($params['use'])
             ->send();

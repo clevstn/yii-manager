@@ -68,6 +68,10 @@ class Sms extends Component
      */
     public function send($mobile, array $params)
     {
+        if (empty($mobile)) {
+            return t('{param} can not be empty', 'app.admin', ['param' => 'mobile']);
+        }
+
         if (!empty($params['template'])) {
             $smsRender = new SmsRender([
                 'viewName' => $params['template'],
@@ -131,7 +135,7 @@ class Sms extends Component
         }
 
         system_log_error(t('No interface is available', 'app.admin'), __METHOD__);
-        return false;
+        return t('No interface is available', 'app.admin');
     }
 
     /**
