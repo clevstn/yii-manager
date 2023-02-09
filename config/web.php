@@ -126,8 +126,8 @@ $config = [
                 'host' => 'smtp.163.com',
                 'username' => 'yang_hui_lei@163.com',
                 'password' => 'cuicaijuan521',
-                'port' => '465',
-                'encryption' => 'tls',
+                'port' => '994',
+                'encryption' => 'ssl',
             ],
             /**
              * @see yii\swiftmailer\Message

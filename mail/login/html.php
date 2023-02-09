@@ -4,7 +4,7 @@
  */
 /* @var $this \yii\web\View view component instance */
 ?>
-<table width="700" border="0" align="center" cellspacing="0" style="width:700px; font-size:14px;white-space:normal;word-wrap:break-word;min-height:100px">
+<table width="700" border="0" align="center" cellspacing="0" style="width:700px; font-size:14px;white-space:normal;word-wrap:break-word;min-height:100px; margin-top:35px;">
     <tbody>
     <tr>
         <td style="font-family:arial,verdana,sans-serif;line-height:1.666;">
