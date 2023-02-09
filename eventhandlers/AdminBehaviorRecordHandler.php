@@ -79,7 +79,7 @@ INFO;
                 ]);
                 if (!$model->save()) {
                     // 保存失败，记录系统日志。
-                    system_log_error($model->error, '记录行为日志');
+                    system_log_error($model->error, __METHOD__);
                 }
             }
         }

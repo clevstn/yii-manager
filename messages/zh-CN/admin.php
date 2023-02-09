@@ -31,7 +31,6 @@ return [
     'Role-Based policies Access Control deny all' => '权限不足，禁止访问。',
     'operate successfully' => '操作成功',
     'operation failure' => '操作失败',
-    'description Failed to record the login log' => '记录登录日志失败。',
     'basic authentication' => '基本认证',
     'email authentication' => '邮箱认证',
     'SMS authentication' => '短信认证',

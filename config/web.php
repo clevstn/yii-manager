@@ -145,7 +145,7 @@ $config = [
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
-                [
+                'db' => [
                     //'class' => 'yii\log\FileTarget',
                     'class' => 'app\components\LogDbTarget',
                     'levels' => ['warning', 'error'],

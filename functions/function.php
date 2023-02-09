@@ -65,7 +65,7 @@ if (!function_exists('system_log_error')) {
      */
     function system_log_error($error, $category)
     {
-        Yii::error($error, '[system] ' . $category);
+        Yii::error($error, '[admin]' . $category);
     }
 }
 
@@ -77,9 +77,48 @@ if (!function_exists('system_log_info')) {
      *
      * @param array|string $info
      * @param string $category 日志种类
+     * @throws \yii\base\InvalidConfigException
      */
     function system_log_info($info, $category)
     {
-        Yii::info($info, '[system] ' . $category);
+        $logger = Yii::getLogger();
+        $messages = $logger->messages;
+        $logger->messages = [];
+
+        $targets = Yii::$app->log->targets;
+        // 要更改levels的target
+        $targetKeys = ['db'];
+
+        $originLevels = [];
+        foreach ($targets as $key => $target) {
+            if (in_array($key, $targetKeys)) {
+                $levels = $target->getLevels();
+
+                if ($levels && !($levels & \yii\log\Logger::LEVEL_INFO)) {
+                    $originLevels[$key] = $levels;
+                    $levels |= \yii\log\Logger::LEVEL_INFO;
+
+                    $target->setLevels($levels);
+                }
+            }
+        }
+
+        Yii::info($info, '[admin]' . $category);
+
+        if (!empty($originLevels)) {
+            Yii::getLogger()->flush();
+
+            foreach ($targets as $key => $target) {
+                if (in_array($key, $targetKeys) && isset($originLevels[$key])) {
+                    $target->setLevels($originLevels[$key]);
+                }
+            }
+        }
+
+        $tempMessage = $logger->messages;
+        $logger->messages = $messages;
+        foreach ($tempMessage as $message) {
+            $logger->messages[] = $message;
+        }
     }
 }

@@ -52,7 +52,7 @@ $config = [
         ],
         'log' => [
             'targets' => [
-                [
+                'db' => [
                     //'class' => 'yii\log\FileTarget',
                     'class' => 'app\components\LogDbTarget',
                     'levels' => ['error', 'warning'],

@@ -163,7 +163,7 @@ class SiteController extends CommonController
             $loginLog->setAttributes($prepare);
 
             if (!$loginLog->save()) {
-                system_log_error($loginLog->error, t('description Failed to record the login log', 'app.admin'));
+                system_log_error($loginLog->error, __METHOD__);
             }
         }
 
