@@ -12,6 +12,7 @@ use Yii;
  * @property string|null $email_content 邮件内容
  * @property int $send_user 发送人, 0:系统
  * @property string $receive_email 接收邮箱
+ * @property string $auth_code 验证码
  * @property string $send_time 发送时间
  */
 class EmailRecord extends \app\builder\common\CommonActiveRecord
@@ -32,9 +33,8 @@ class EmailRecord extends \app\builder\common\CommonActiveRecord
         return [
             [['email_content'], 'string'],
             [['send_user'], 'integer'],
-            [['send_time'], 'required'],
             [['send_time'], 'safe'],
-            [['service_name', 'receive_email'], 'string', 'max' => 100],
+            [['service_name', 'receive_email', 'auth_code'], 'string', 'max' => 100],
         ];
     }
 
@@ -51,5 +51,17 @@ class EmailRecord extends \app\builder\common\CommonActiveRecord
             'receive_email' => Yii::t('app.admin', 'to receive your email'),
             'send_time' => Yii::t('app.admin', 'the send time'),
         ];
+    }
+
+    /**
+     * 定义行为
+     * @return array
+     */
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        unset($behaviors['timestampBehavior']);
+
+        return $behaviors;
     }
 }

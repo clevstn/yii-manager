@@ -30,6 +30,8 @@ return [
     'admin_title' => 'YII MANAGER CRM',
     // 后台站点英文名，用于后台OPT名字
     'admin_title_en' => 'Yii Manager CRM',
+    // 系统管理团队名称，用于邮件发送签名、短信签名
+    'admin_team_name' => 'YM开发团队',
     // 后台默认附件，当前获取的附件不存在时返回。
     'admin_default_photo' => '/media/image/admin_static/default-0.jpg',
     // 后台分组配置，用于应用配置

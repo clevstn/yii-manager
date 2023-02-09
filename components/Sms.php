@@ -27,6 +27,31 @@ class Sms extends Component
     public $configs;
 
     /**
+     * 验证校验码
+     * @param string $mobile 手机号
+     * @param int $code 校验码
+     * @param int $expireTime 过期时间（s）
+     * @return bool
+     */
+    public function verifyCode($mobile, $code, $expireTime = 300)
+    {
+        $one = ShortMsgRecord::query(['send_time', 'id'])
+            ->where(['receive_mobile' => $mobile, 'auth_code' => $code])
+            ->one();
+
+        if (empty($one)) {
+            return false;
+        }
+
+        $sendTime = strtotime($one['send_time']);
+        if ($sendTime + $expireTime >= time()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * 发送短信
      * @param string $mobile 手机号
      * @param array $params 参数
@@ -35,7 +60,7 @@ class Sms extends Component
      * - [[template]] string|null 本地自定义短信模板名称，如：default，[[template]]和[[smsContent]]二选其一，其优先级大于[[smsContent]]
      * - [[use]] string 服务名称，如：登录认证
      *
-     * ------ 非必填参数，用于短信模板或其他
+     * ------ 非必填参数，用于短信模板和短信记录
      * - [[code]] number|null 验证码
      * - [[sendUser]] int 发送人ID，即管理员ID
      * - 其他参数
@@ -67,6 +92,13 @@ class Sms extends Component
      * 记录日志
      * @param string $mobile 手机号
      * @param array $params 其他参数
+     * ----- 必填参数
+     * - [[smsContent]] string|null 短信内容
+     * - [[use]] string 服务名称，如：登录认证
+     *
+     * ------ 非必填参数
+     * - [[code]] number|null 验证码
+     * - [[sendUser]] int 发送人ID，即管理员ID
      */
     protected function recordLog($mobile, $params)
     {
@@ -110,7 +142,7 @@ class Sms extends Component
      */
     protected function feiGe($mobile, array $params)
     {
-        $config = $this->configs['feige'];
+        $config = $this->configs['feiGe'];
 
         $requestData = [
             'apikey'  =>  $config['apiKey'],

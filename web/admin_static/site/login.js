@@ -163,7 +163,7 @@
                 return;
             }
 
-            var index = layer.load(2, {time: 10 * 1000});
+            var index = layer.load(2, {time: 60 * 1000});
             $http.post(YmApp.$adminApi.sendCodeUrl, {
                 scenario: 'email',
             }).then(function (result) {
@@ -189,7 +189,7 @@
                 return;
             }
 
-            var index = layer.load(2, {time: 10 * 1000});
+            var index = layer.load(2, {time: 60 * 1000});
             $http.post(YmApp.$adminApi.sendCodeUrl, {
                 scenario: 'message',
             }).then(function (result) {

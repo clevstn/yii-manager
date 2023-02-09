@@ -127,4 +127,5 @@ return [
     'Administrator does not exist' => '管理员不存在!',
     'The super administrator cannot be changed' => '禁止更新超级管理员！',
     'No interface is available' => '没有可以使用的接口',
+    'Email sending failure error unknown' => '邮件发送失败，错误未知！',
 ];

@@ -418,9 +418,9 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
     {
         switch ($way) {
             case self::SAFE_AUTH_EMAIL: // 邮件
-                return true;
+                return Yii::$app->mailManager->verifyCode($user->email, $code) ?: t('The verification code is incorrect', 'app.admin');
             case self::SAFE_AUTH_MESSAGE: // 短信
-                return true;
+                return Yii::$app->sms->verifyCode($user->mobile, $code) ?: t('The verification code is incorrect', 'app.admin');
             case self::SAFE_AUTH_OTP: // MFA
                 return Extend::googleAuth()->verifyCode($user->google_key, $code) ?: t('The verification code is incorrect', 'app.admin');
         }

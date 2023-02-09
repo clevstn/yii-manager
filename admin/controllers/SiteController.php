@@ -2,7 +2,7 @@
 /**
  *
  * @copyright Copyright (c) 2020 cleverstone
- * 
+ *
  */
 
 namespace app\admin\controllers;
@@ -390,13 +390,15 @@ class SiteController extends CommonController
             return $this->asFail(t('the user does not exist', 'app.admin'));
         }
 
-        // 获取[[key]]
-        $sendResult = false;
         switch ($bodyParams['scenario']) {
             case self::MESSAGE_SCENARIO_EMAIL:   // 邮件
                 $key = $userData['email'];
                 // 发送邮件
-                // ...
+                $sendResult = Yii::$app->mailManager->sendHtml($key, [
+                    'template' => 'login/html',
+                    'use' => '登录校验',
+                    'code' => random_number(),
+                ]);
                 break;
             case self::MESSAGE_SCENARIO_SMS: // 短信
                 $key = $userData['mobile'];

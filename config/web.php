@@ -108,6 +108,11 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'error/error',
         ],
+        // 邮件管理器
+        'mailManager' => [
+            'class' => 'app\components\MailManager',
+            'sender' => 'mailer',
+        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
@@ -115,21 +120,21 @@ $config = [
             // for the mailer to send real emails.
             // 当`true`时：开启调试模式，邮件不真正发送，只是保存到`@runtime/mail`。
             // `false`时：想要真正发送，需要配置`transport`参数。
-            'useFileTransport' => true,
+            'useFileTransport' => false,
             'transport' => [
-               // 'class' => 'Swift_SmtpTransport',
-               // 'host' => 'localhost',
-               // 'username' => 'username',
-               // 'password' => 'password',
-               // 'port' => '587',
-               // 'encryption' => 'tls',
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.163.com',
+                'username' => 'yang_hui_lei@163.com',
+                'password' => 'cuicaijuan521',
+                'port' => '465',
+                'encryption' => 'tls',
             ],
             /**
              * @see yii\swiftmailer\Message
              */
             'messageConfig' => [
-               // 'charset' => 'UTF-8',
-               // 'from' => 'noreply@mydomain.com',
+                'charset' => 'UTF-8',
+                'from' => 'yang_hui_lei@163.com',
                // 'replyTo' => '',
                // 'cc' => '',
                // 'bcc' => '',

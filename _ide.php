@@ -19,6 +19,7 @@ namespace yii\web {
      * @property-read \app\components\Sms $sms The sms component. This property is read-only.
      * @property-read \app\components\RbacManager $rbacManager The rbac component. This property is read-only.
      * @property-read \app\components\ConfigManager $config The config component. This property is read-only.
+     * @property-read \app\components\MailManager $mailManager The mail manager component. This property is read-only.
      * @author cleverstone
      * @since ym1.0
      */
