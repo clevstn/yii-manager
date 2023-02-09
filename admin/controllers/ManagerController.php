@@ -15,6 +15,7 @@ use app\builder\form\FieldsOptions;
 use app\builder\helper\DateSplitHelper;
 use app\builder\common\CommonController;
 use app\builder\table\ToolbarFilterOptions;
+use yii\helpers\ArrayHelper;
 
 /**
  * 管理员
@@ -209,8 +210,8 @@ class ManagerController extends CommonController
                 'title' => '更改管理组',
                 'icon' => 'fa fa-users',
                 'route' => 'admin/manager/group',
-                'width' => '700px',
-                'height' => '550px',
+                'width' => '550px',
+                'height' => '350px',
             ]),
         ];
 
@@ -436,11 +437,18 @@ class ManagerController extends CommonController
             $model = new AdminUser();
             $model->setScenario('status-action');
             if ($model->load($bodyParam) && $model->validate()) {
+                $idMap = explode(',', $model->id);
+
+                $groupMap = AdminUser::query('group')->where(['in', 'id', $idMap])->column();
+                if (ArrayHelper::isIn(AuthGroups::ADMINISTRATOR_GROUP, $groupMap)) {
+                    return $this->asFail(t('Disable the super administrator', 'app.admin'));
+                }
+
                 $result = AdminUser::updateAll([
                     'status' => $model->action == 'disabled' ? AdminUser::STATUS_DENY : AdminUser::STATUS_NORMAL,
                     'deny_end_time' => $model->action == 'disabled' ? $model->deny_end_time : null,
-                ], ['in', 'id', explode(',', $model->id)]);
-                return $result ? $this->asSuccess('操作成功') : $this->asSuccess('操作失败');
+                ], ['in', 'id', $idMap]);
+                return $result ? $this->asSuccess(t('operate successfully', 'app.admin')) : $this->asSuccess(t('operation failure', 'app.admin'));
             } else {
                 return $this->asFail($model->error);
             }
@@ -449,10 +457,63 @@ class ManagerController extends CommonController
 
     /**
      * 更改管理组
+     * @param int $id
      * @return string
+     * @throws \ReflectionException
+     * @throws \Throwable
      */
-    public function actionGroup()
+    public function actionGroup($id)
     {
-        return '';
+        if ($this->isGet) {
+            $identify = AdminUser::findIdentity($id);
+            if (empty($identify)) {
+                return $this->asFail(t('Administrator does not exist', 'app.admin'));
+            }
+
+            $form = ViewBuilder::form();
+            $form->partial = true;
+            $form->backBtn = false;
+            $form->fields = [
+                'id' => form_fields_helper(FieldsOptions::CONTROL_HIDDEN, [
+                    'default' => $identify->id,
+                ]),
+                'username' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                    'label' => '管理员名称',
+                    'default' => $identify->username,
+                    'required' => false,
+                    'attribute' => ['disabled' => true],
+                ]),
+                'group' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [
+                    'label' => '管理组',
+                    'placeholder' => '请选择管理组',
+                    'default' => $identify->group,
+                    'options' => AuthGroups::query('name')->indexBy('id')->column(),
+                ]),
+            ];
+
+            return $form->render($this);
+        } else {
+            $bodyParams = $this->post;
+            /* @var AdminUser $model */
+            $model = AdminUser::activeQuery(['id', 'group', 'password'])->where(['id' => $bodyParams['id']])->one();
+            if (empty($model)) {
+                return $this->asFail(t('Administrator does not exist', 'app.admin'));
+            }
+
+            if ($model->group === AuthGroups::ADMINISTRATOR_GROUP) {
+                return $this->asFail(t('The super administrator cannot be changed', 'app.admin'));
+            }
+
+            $model->setScenario('update-group');
+            if ($model->load($bodyParams)) {
+                if ($model->save()) {
+                    return $this->asSuccess(t('submitted successfully', 'app.admin'));
+                }
+
+                return $this->asFail($model->error);
+            }
+
+            return $this->asFail(t('request parameter loading failed', 'app.admin'));
+        }
     }
 }

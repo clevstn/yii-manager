@@ -124,4 +124,7 @@ return [
     'the password must contain both numbers and letters' => '密码必须包含数字和字母',
     'OTP binding' => 'OTP绑定',
     'The verification code is incorrect' => '验证码不正确！',
+    'Disable the super administrator' => '禁止封停超级管理员账号!',
+    'Administrator does not exist' => '管理员不存在!',
+    'The super administrator cannot be changed' => '禁止更新超级管理员！',
 ];

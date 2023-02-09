@@ -333,6 +333,8 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         $scenarios['login-base'] = ['usernameOrEmail', 'password'];
         // 登录 - 生成访问令牌
         $scenarios['access-token'] = ['access_token'];
+        // 场景：更换管理组
+        $scenarios['update-group'] = ['group'];
 
         return $scenarios;
     }
