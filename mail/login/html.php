@@ -14,14 +14,14 @@
                 </table>
             </div>
             <div style="width:680px;padding:0 10px;margin:0 auto;">
-                <div style="line-height:1.5;font-size:14px;margin-bottom:25px;color:#4d4d4d;">
+                <div style="line-height:1.5;font-size:28px;margin-bottom:25px;color:#4d4d4d;">
                     <strong style="display:block;margin-bottom:15px;">尊敬的用户：<span style="color:#f60;font-size: 16px;"></span>您好！</strong>
                     <strong style="display:block;margin-bottom:15px;">
-                        您正在进行<span style="color: red"><?= $use ?></span>操作，请在验证码输入框中输入：<span style="color:#f60;font-size: 24px"><?= $code ?></span>，以完成操作。
+                        您正在进行<span style="color: red"><?= $use ?></span>操作，请在验证码输入框中输入：<span style="color:#f60;font-size: 42px"><?= $code ?></span>，以完成操作。
                     </strong>
                 </div>
                 <div style="margin-bottom:30px;">
-                    <small style="display:block;margin-bottom:20px;font-size:12px;">
+                    <small style="display:block;margin-bottom:20px;font-size:22px;">
                         <p style="color:#747474;">
                             注意：此操作可能会修改您的密码、登录邮箱或绑定手机。如非本人操作，请及时登录并修改密码以保证帐户安全
                             <br>（工作人员不会向你索取此验证码，请勿泄漏！)
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div style="width:700px;margin:0 auto;">
-                <div style="padding:10px 10px 0;border-top:1px solid #ccc;color:#747474;margin-bottom:20px;line-height:1.3em;font-size:12px;">
+                <div style="padding:10px 10px 0;border-top:1px solid #ccc;color:#747474;margin-bottom:20px;line-height:1.3em;font-size:22px;">
                     <p>此为系统邮件，请勿回复<br>
                         请保管好您的邮箱，避免账号被他人盗用
                     </p>
