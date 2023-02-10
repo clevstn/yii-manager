@@ -12,21 +12,23 @@ QuickSettingAsset::register($this);
 $this->title = '快捷操作设置';
 ?>
 
-<div class="panel panel-white">
+<div class="panel panel-white" ng-controller="_quickSettingCtrl">
     <table class="table table-hover">
         <tbody>
         <?php foreach ($allowQuickActions as $item): ?>
             <tr class="text-center">
-                <td>
-                    <form class="layui-form">
-                        <?php if($item['_is_action'] == 1): ?>
-                            <input type="checkbox" name="quickActionItem" title="加入首页" checked>
-                        <?php else: ?>
-                            <input type="checkbox" name="quickActionItem" title="加入首页">
-                        <?php endif; ?>
-                    </form>
+                <td class="border-none">
+                    <div class="layui-form">
+                        <div class="layui-form-item">
+                            <?php if($item['_is_action'] == 1): ?>
+                                <input type="checkbox" name="quickActionItem" value="<?= $item['id'] ?>" lay-filter="inQuickItemFilter" title="加入快捷项" checked>
+                            <?php else: ?>
+                                <input type="checkbox" name="quickActionItem" value="<?= $item['id'] ?>" lay-filter="inQuickItemFilter" title="加入快捷项">
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 </td>
-                <td style="display:flex;justify-content:center;align-items:center;">
+                <td class="border-none" style="display:flex;justify-content:center;align-items:center;">
                     <div class="panel panel-white pt-6" style="width:140px;">
                         <div class="panel-body f-32 text-center text-primary pb-0">
                             <?php if(!empty($item['icon'])): ?>

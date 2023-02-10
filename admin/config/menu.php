@@ -284,6 +284,14 @@ $items = [
             'desc' => '设置快捷操作项',
             'is_quick' => 0,
         ],
+        [
+            'label' => '快捷菜单',
+            'src' => 'admin/index/quick-list',
+            'icon' => '',
+            'dump_way' => '_self',
+            'desc' => '获取快捷菜单列表',
+            'is_quick' => 0,
+        ],
     ],
 ];
 

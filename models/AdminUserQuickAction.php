@@ -16,6 +16,11 @@ use Yii;
 class AdminUserQuickAction extends \app\builder\common\CommonActiveRecord
 {
     /**
+     * 是否选中快捷项
+     * @var int
+     */
+    public $isChecked;
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -29,7 +34,8 @@ class AdminUserQuickAction extends \app\builder\common\CommonActiveRecord
     public function rules()
     {
         return [
-            [['admin_id', 'menu_id'], 'required'],
+            [['admin_id', 'menu_id', 'isChecked'], 'required'],
+            [['isChecked'], 'in', 'range' => [1, 2]],
             [['admin_id', 'menu_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
         ];
@@ -41,7 +47,7 @@ class AdminUserQuickAction extends \app\builder\common\CommonActiveRecord
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['add'] = ['admin_id', 'menu_id'];
+        $scenarios['one-add'] = ['admin_id', 'menu_id', 'isChecked'];
 
         return $scenarios;
     }

@@ -28,7 +28,10 @@
 
         /* -------------- 首页 ---------------------   */
         homeUrl: '/admin/index/index',
+        // 设置快捷项
         indexQuickActionUrl: '/admin/index/quick-setting',
+        // 快捷菜单列表
+        indexQuickActionListUrl: '/admin/index/quick-list',
     };
 
     YmApp.$adminApi = api;

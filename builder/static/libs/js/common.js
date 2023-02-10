@@ -163,6 +163,24 @@
         });
     };
 
+    // 封装Layer弹窗插件
+    YmAppConstructor.prototype._layerTip = function (msg, title, icon, callback) {
+        var parentLayer = window.parent.layer;
+
+        msg = msg || '';
+        title = title || '通知';
+        icon = icon || 1;
+        callback = callback || (new Function());
+        parentLayer.alert(msg, {
+            closeBtn: 0,
+            title: title,
+            icon: icon
+        }, function (index) {
+            parentLayer.close(index);
+            callback();
+        });
+    };
+
     // Refresh page
     YmAppConstructor.prototype.refresh = function () {
         jQuery(document).on('click', '#ym_script_refresh', function (e) {

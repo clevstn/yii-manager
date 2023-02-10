@@ -74,6 +74,12 @@ class CommonController extends Controller
         parent::init();
         /* 定义后台首页路径 */
         Yii::$app->homeUrl = $this->homeUrl;
+
+        // 如果没有使用视图构建器构建页面，则需要兼容[快捷操作]功能中，页面视图继承问题。
+        $__partial__ = Yii::$app->request->get('__partial__');
+        if ($__partial__) {
+            $this->setLayoutViewPath();
+        }
     }
 
     /**

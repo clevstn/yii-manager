@@ -21,6 +21,7 @@ class CommonAsset extends BaseAsset
      * @var array 注册依赖包
      */
     public $depends = [
+        LayuiCssAsset::class,           // Layui Css
         PromiseAsset::class,            // Es6 Promise
         BootstrapPluginAsset::class,    // Bootstrap3
         Toastr2::class,                 // ToaStr2
@@ -32,7 +33,7 @@ class CommonAsset extends BaseAsset
         IcheckAsset::class,             // Icheck
         //LaydateAsset::class,            // Laydate
         //LayerAsset::class,              // Layer
-        LayuiAsset::class,              // Layui
+        LayuiJsAsset::class,              // Layui Js
         WangEditorAsset::class,         // WangEditor
         AngularAsset::class,            // Angular 1.7.5
         AngularSelect2::class,          // Angular select2 archive

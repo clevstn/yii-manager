@@ -5,20 +5,18 @@
 
 namespace app\builder\assets;
 
-
-class LayuiAsset extends BaseAsset
+/**
+ * Layui Css包
+ * @author cleverstone
+ * @since ym1.0
+ */
+class LayuiCssAsset extends BaseAsset
 {
     /**
+     * 主UI是bootstrap，所以要置顶Layui中的css
      * @var array
      */
     public $css = [
         'libs/layui-2.7.6/css/layui.css',
-    ];
-
-    /**
-     * @var array
-     */
-    public $js = [
-        'libs/layui-2.7.6/layui.js',
     ];
 }
