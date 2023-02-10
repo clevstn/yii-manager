@@ -52,9 +52,9 @@ $config = [
                     'enabled' => false,
                     // 接口自定义参数
                     'apiUrl' => 'https://api.4321.sh/sms/send',
-                    'apiKey' => '',
-                    'secret' => '',
-                    'signId' => '',
+                    'apiKey' => 'demoKey',
+                    'secret' => 'demoSecret',
+                    'signId' => 'demoSignId',
                 ],
             ],
         ],
@@ -125,8 +125,8 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.163.com',
-                'username' => '',
-                'password' => '',
+                'username' => 'demo@163.com',
+                'password' => 'demoPassword',
                 'port' => '994',
                 'encryption' => 'ssl',
             ],

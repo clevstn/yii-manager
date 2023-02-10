@@ -27,7 +27,7 @@ return [
                 NavHelper::getMyBrand(),
                 '<li class="divider"></li>',
                 ['label' => '<i class="glyphicon glyphicon-user"></i>&nbsp;' . t('Personal Setting', 'app.admin'), 'url' => '/admin/home/index'],
-                ['label' => '<i class="fa fa-vcard"></i>&nbsp;' . t('OTP binding', 'app.admin'), 'url' => '/admin/home/bind'],
+                ['label' => '<i class="fa fa-vcard"></i>&nbsp;' . t('MFA binding', 'app.admin'), 'url' => '/admin/home/bind'],
                 '<li class="divider"></li>',
                 ['label' => '<i class="glyphicon glyphicon-off"></i>&nbsp;' . t('sign out', 'app.admin'), 'url' => '/admin/site/logout'],
             ],

@@ -61,7 +61,7 @@ class MailManager extends Component
      * @param string $receiveEmail 接受邮件地址
      * @param array $params 参数
      * ----- 必填参数
-     * - [[template]] string 本地自定义邮件模板名称，如：login/html
+     * - [[template]] string 本地自定义邮件模板名称，如：default/html
      * - [[use]] string 服务名称，如：登录认证
      *
      * ------ 非必填参数，用于邮件模板和邮件记录
@@ -72,6 +72,10 @@ class MailManager extends Component
      */
     public function sendHtml($receiveEmail, array $params)
     {
+        if ($this->sender->useFileTransport && YII_ENV_PROD) {
+            return t('The mail function is unavailable, Please check the Mailer configuration information', 'app.admin');
+        }
+
         if (empty($receiveEmail)) {
             return t('{param} can not be empty', 'app.admin', ['param' => 'email']);
         }

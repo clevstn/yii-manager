@@ -7,6 +7,9 @@
 
 namespace app\admin\controllers;
 
+use Yii;
+use app\extend\Extend;
+use yii\helpers\ArrayHelper;
 use app\models\AuthGroups;
 use app\models\AreaCode;
 use app\models\AdminUser;
@@ -15,7 +18,6 @@ use app\builder\form\FieldsOptions;
 use app\builder\helper\DateSplitHelper;
 use app\builder\common\CommonController;
 use app\builder\table\ToolbarFilterOptions;
-use yii\helpers\ArrayHelper;
 
 /**
  * 管理员
@@ -29,6 +31,7 @@ class ManagerController extends CommonController
      */
     public $actionVerbs = [
         'index'     => ['get'],
+        'mfa-bind'     => ['get'],
         'add-user'  => ['get', 'post'],
         'toggle'    => ['get', 'post'],
         'edit'      => ['get', 'post'],
@@ -212,6 +215,14 @@ class ManagerController extends CommonController
                 'route' => 'admin/manager/group',
                 'width' => '550px',
                 'height' => '350px',
+            ]),
+            table_action_helper('modal', [
+                'title' => 'MFA绑定',
+                'icon' => 'fa fa-google-plus',
+                'route' => 'admin/manager/mfa-bind',
+                'width' => '780px',
+                'height' => '650px',
+                'params' => ['id']
             ]),
         ];
 
@@ -515,5 +526,32 @@ class ManagerController extends CommonController
 
             return $this->asFail(t('request parameter loading failed', 'app.admin'));
         }
+    }
+
+    /**
+     * 管理员MFA绑定
+     * @param int $id 管理员ID
+     * @return string
+     */
+    public function actionMfaBind($id)
+    {
+        /* @var AdminUser $identify */
+        $identify = AdminUser::findOne($id);
+
+        $accountName = Yii::$app->params['admin_title_en'] . ':' . $identify->username;
+        $qrcodeUrl = Extend::googleAuth()->getQRCodeGoogleUrl(
+            $accountName,
+            $identify->google_key,
+            Yii::$app->params['admin_title']
+        );
+
+        $this->setLayoutViewPath();
+
+        return $this->render('/home/mfa_bind', [
+            'titleName' => null,
+            'qrcodeUrl' => $qrcodeUrl,
+            'accountName' => $accountName,
+            'googleKey' => $identify->google_key,
+        ]);
     }
 }

@@ -57,7 +57,7 @@ if (!function_exists('app_log')) {
 
 if (!function_exists('system_log_error')) {
     /**
-     * 记录类型为错误系统日志（即yii框架和后台日志）
+     * 记录类型为错误的系统日志（即yii框架和后台日志）
      * 注：
      *  config/web.php 中 `log`组件配置。
      *

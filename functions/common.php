@@ -248,10 +248,18 @@ if (!function_exists('html_modal')) {
      * @param string $content 内容
      * @param string $title 标题
      * @param string $button 按钮名
+     * @param string $modalSize 模态框大小
+     * - modal-lg 大
+     * - modal-sm 小
+     * - 空       中  注：默认
      * @return string
      */
-    function html_modal($content, $title = '内容详情', $button = '查看详情')
+    function html_modal($content, $title = '内容详情', $button = '查看详情', $modalSize = '')
     {
+        if (!empty($modalSize)) {
+            $modalSize = " " . trim($modalSize);
+        }
+
         $id = order_number('modal');
         return <<<HTML
 <!-- Button trigger modal -->
@@ -260,13 +268,13 @@ if (!function_exists('html_modal')) {
 </a>
 <!-- Modal -->
 <div class="modal" id="{$id}" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog{$modalSize}" role="document">
       <div class="panel panel-default">
           <div class="panel-heading">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h5 class="panel-title">{$title}</h5>
           </div>
-          <div class="panel-body active-modal-detail p-24">
+          <div class="panel-body active-modal-detail p-24" style="overflow:auto;">
             {$content}
           </div>
           <div class="modal-footer">

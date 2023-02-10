@@ -69,6 +69,13 @@ $items = [
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
                             'desc' => '为管理员更换管理组',
                         ],
+                        [
+                            'label' => 'MFA绑定',
+                            'src' => 'admin/manager/mfa-bind',
+                            'icon' => 'fa fa-google-plus',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '为管理员绑定MFA',
+                        ],
                     ],
                 ],
                 [
@@ -170,6 +177,18 @@ $items = [
                     'src' => 'admin/admin-behavior-log/index',
                     'icon' => 'glyphicon glyphicon-calendar',
                     'desc' => '查看管理员操作日志列表',
+                ],
+                [
+                    'label' => '邮件记录',
+                    'src' => 'admin/email-record/index',
+                    'icon' => 'fa fa-envelope-open-o',
+                    'desc' => '查看邮件记录',
+                ],
+                [
+                    'label' => '短信记录',
+                    'src' => 'admin/sms-record/index',
+                    'icon' => 'fa fa-commenting-o',
+                    'desc' => '查看短信记录',
                 ],
                 [
                     'label' => '手机区号管理',

@@ -395,7 +395,7 @@ class SiteController extends CommonController
                 $key = $userData['email'];
                 // 发送邮件
                 $sendResult = Yii::$app->mailManager->sendHtml($key, [
-                    'template' => 'login/html',
+                    'template' => 'default/html',
                     'use' => '登录校验',
                     'code' => random_number(),
                 ]);

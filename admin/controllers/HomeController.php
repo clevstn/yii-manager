@@ -140,7 +140,7 @@ class HomeController extends CommonController
     }
 
     /**
-     * OTP绑定
+     * MFA绑定
      * @return string
      */
     public function actionBind()
@@ -155,7 +155,8 @@ class HomeController extends CommonController
             Yii::$app->params['admin_title']
         );
 
-        return $this->render('otp_bind', [
+        return $this->render('mfa_bind', [
+            'titleName' => 'MFA绑定',
             'qrcodeUrl' => $qrcodeUrl,
             'accountName' => $accountName,
             'googleKey' => $identify->google_key,

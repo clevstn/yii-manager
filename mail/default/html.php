@@ -3,6 +3,8 @@
  * @copyright Copyright (c) 2020 cleverstone
  */
 /* @var $this \yii\web\View view component instance */
+/* @var string $use 服务名称 */
+/* @var int $code 认证码 */
 ?>
 <table width="700" border="0" align="center" cellspacing="0" style="width:700px; font-size:14px;white-space:normal;word-wrap:break-word;min-height:100px; margin-top:35px;">
     <tbody>

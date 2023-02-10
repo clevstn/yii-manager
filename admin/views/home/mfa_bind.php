@@ -9,17 +9,20 @@ use app\admin\assets\OtpBindAsset;
 
 /* @var $this \yii\web\View */
 /* @var array $param 视图参数*/
+/* @var string $titleName 标题*/
 /* @var string $qrcodeUrl 二维码链接*/
 /* @var string $accountName 账号名*/
 /* @var string $googleKey 密匙*/
 OtpBindAsset::register($this);
 
-$this->title = 'OTP绑定';
+$this->title = 'MFA绑定';
 ?>
 <div class="panel panel-default" ng-controller="_otpBindCtrl">
+    <?php if(!empty($titleName)): ?>
     <div class="panel-heading border-bottom clearfix">
-        <h4 class="f-13">OTP绑定</h4>
+        <h4 class="f-13"><?= $titleName ?></h4>
     </div>
+    <?php endif; ?>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-2 col-md-offset-3 pt-16">

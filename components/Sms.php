@@ -134,8 +134,8 @@ class Sms extends Component
             }
         }
 
-        system_log_error(t('No interface is available', 'app.admin'), __METHOD__);
-        return t('No interface is available', 'app.admin');
+        system_log_error(t('No {param} interface is available', 'app.admin', ['param' => 'SMS']), __METHOD__);
+        return t('No {param} interface is available', 'app.admin', ['param' => 'SMS']);
     }
 
     /**

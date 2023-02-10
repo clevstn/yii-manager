@@ -10,6 +10,7 @@ namespace app\models;
 use app\extend\Extend;
 use Yii;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 use app\behaviors\PasswordBehavior;
 use app\builder\common\CommonActiveRecord;
@@ -263,8 +264,11 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         return [
             [['id', 'action', 'username', 'usernameOrEmail', 'email', 'an', 'mobile', 'group'], 'required'],
             ['action', 'in', 'range' => ['disabled', 'enabled'], 'message' => Yii::t('app.admin', 'the operation item is not correct')],
+            [['username', 'email', 'usernameOrEmail', 'mobile'], 'trim'],
             ['parent', 'string', 'min' => 2, 'max' => 250],
             ['username', 'string', 'min' => 2, 'max' => 20],
+            ['username', 'validateNotInRange'],
+            ['username', 'match', 'pattern' => '/^[\x{4e00}-\x{9fa5}a-zA-Z0-9]{2,20}$/u'],
             ['username', 'unique', 'on' => ['add']],
             ['password', 'required', 'on' => ['add', 'login-base']],
             ['password', 'string', 'min' => 6, 'max' => 25],
@@ -289,6 +293,21 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
             ['deny_end_time', 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['access_token', 'google_key'], 'safe'],
         ];
+    }
+
+    /**
+     * 自定义验证器 - 限制用户名取名范围
+     * @param $attribute
+     * @param $params
+     */
+    public function validateNotInRange($attribute, $params)
+    {
+        $username = $this->{$attribute};
+        $range = ['system', '系统', '系统管理员', '管理系统', '系统管理', 'app', 'application', '应用'];
+
+        if (ArrayHelper::isIn(strtolower(trim($username)), $range)) {
+            $this->addError($attribute, Yii::t('app.admin', 'The user name cannot be sensitive character'));
+        }
     }
 
     /**
