@@ -19,6 +19,7 @@ use yii\helpers\ArrayHelper;
  * @property string $desc 备注
  * @property int $pid 父ID
  * @property int $sort 排序
+ * @property int $is_quick 是否允许设置为快捷操作，0：不可以 1：可以；默认：0 注意：快捷操作为get请求，不可动态传参请求，请根据功能实际情况进行设置。
  * @property string $created_at 创建时间
  * @property string|null $updated_at 更新时间
  */
@@ -31,6 +32,24 @@ class AuthMenu extends \app\builder\common\CommonActiveRecord
     // 链接类型：1、路由；2、外链
     const LINK_TYPE_ROUTE = 1;
     const LINK_TYPE_URL = 2;
+
+    // 是否允许设置为快捷操作
+    const QUICK_NO = 0;
+    const QUICK_YES = 1;
+
+    /**
+     * 获取是否允许设置为快捷操作标签
+     * @param int $isQuick
+     * @return string
+     */
+    public static function getQuickStatusLabel($isQuick)
+    {
+        if ($isQuick == self::QUICK_YES) {
+            return html_label('是', true, 'success');
+        }
+
+        return html_label('否', true, 'default');
+    }
 
     /**
      * 获取菜单类型标签
@@ -80,7 +99,7 @@ class AuthMenu extends \app\builder\common\CommonActiveRecord
     public function rules()
     {
         return [
-            [['label_type', 'link_type', 'pid', 'sort'], 'integer'],
+            [['label_type', 'link_type', 'pid', 'sort', 'is_quick'], 'integer'],
             [['src'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['label', 'icon', 'dump_way'], 'string', 'max' => 50],
@@ -113,6 +132,7 @@ class AuthMenu extends \app\builder\common\CommonActiveRecord
             'desc' => Yii::t('app', '备注'),
             'pid' => Yii::t('app', '父ID'),
             'sort' => Yii::t('app', '排序'),
+            'is_quick' => Yii::t('app', '是否可以设置快捷操作'),
             'created_at' => Yii::t('app', '创建时间'),
             'updated_at' => Yii::t('app', '更新时间'),
         ];

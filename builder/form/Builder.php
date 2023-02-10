@@ -16,7 +16,7 @@ use app\builder\contract\BuilderInterface;
 /**
  * 表单构建器
  * @property string $title      表单标题
- * @property boolean $partial   是否独立布局
+ * @property boolean $partial   是否独立布局；该配置也可通过get参数__partial__进行设置
  * @property array $fields      表单字段
  * @property bool $backBtn      返回按钮
  * @property bool $autoBack     是否自动返回
@@ -261,8 +261,14 @@ class Builder extends BaseObject implements BuilderInterface
             // 独立布局
             $context->layout = $this->layoutPartial;
         } else {
-            // 默认布局
-            $context->layout = $this->layoutPath;
+            $partial = Yii::$app->request->get('__partial__', 0);
+            if ($partial) {
+                // 独立布局
+                $context->layout = $this->layoutPartial;
+            } else {
+                // 默认布局
+                $context->layout = $this->layoutPath;
+            }
         }
 
         $viewBody = $this->renderHtml($context);

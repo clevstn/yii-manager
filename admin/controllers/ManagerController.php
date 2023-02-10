@@ -104,7 +104,7 @@ class ManagerController extends CommonController
             }),
             'deny_end_time' => table_column_helper('封停时间', ['style' => ['min-width' => '150px']], function ($item) {
                 if ($item['status'] == AdminUser::STATUS_NORMAL) {
-                    return '空';
+                    return '--';
                 } else {
                     return $item['deny_end_time'] ?: '无限制';
                 }

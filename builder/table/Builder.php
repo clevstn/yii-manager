@@ -27,25 +27,25 @@ use app\builder\contract\NotFoundAttributeException;
 
 /**
  * 表格构建器
- * @property string $title
- * @property boolean $page
- * @property array $columns
- * @property \Closure $query
- * @property-write array $js
- * @property-write array $css
- * @property boolean $partial
- * @property array $rowActions
- * @property-read array $toolbars
- * @property string|Widget $widget
- * @property array|string $orderBy
- * @property boolean $hideCheckbox
- * @property array $checkboxOptions
- * @property-write array $assetBundle
- * @property array|string $primaryKey
- * @property-write array $toolbarRefresh
- * @property-write array $toolbarFilter
- * @property-write array $toolbarExport
- * @property-write array $toolbarCustom
+ * @property string $title   表格头部标题
+ * @property boolean $page   是否设置分页
+ * @property array $columns  表格列
+ * @property \Closure $query 查询器实例或数据数组
+ * @property-write array $js 设置额外的Js代码
+ * @property-write array $css 设置额外的Css代码
+ * @property boolean $partial 是否独立布局；该配置也可通过get参数__partial__进行设置
+ * @property array $rowActions 设置行操作项
+ * @property-read array $toolbars 设置工具栏
+ * @property string|Widget $widget 自定义组件
+ * @property array|string $orderBy 数据排序
+ * @property boolean $hideCheckbox 是否隐藏多选框
+ * @property array $checkboxOptions 定义多选选项Css样式
+ * @property-write array $assetBundle 设置额外的Asset包
+ * @property array|string $primaryKey 定义表格主键
+ * @property-write array $toolbarRefresh 定义表格工具项刷新
+ * @property-write array $toolbarFilter  定义表格工具项筛选
+ * @property-write array $toolbarExport  定义表格工具项调出
+ * @property-write array $toolbarCustom  自定义表格工具项
  * @author cleverstone
  * @since ym1.0
  */
@@ -76,7 +76,7 @@ class Builder extends BaseObject implements BuilderInterface
     private $_columns = [];
 
     /**
-     * @var \Closure 查询器实例
+     * @var \Closure|array 查询器实例或数据数组
      * @see $query
      * @see setQuery()
      */
@@ -784,8 +784,14 @@ class Builder extends BaseObject implements BuilderInterface
                     // 独立布局
                     $context->layout = $this->layoutPartial;
                 } else {
-                    // 默认布局
-                    $context->layout = $this->layoutPath;
+                    $partial = Yii::$app->request->get('__partial__', 0);
+                    if ($partial) {
+                        // 独立布局
+                        $context->layout = $this->layoutPartial;
+                    } else {
+                        // 默认布局
+                        $context->layout = $this->layoutPath;
+                    }
                 }
 
                 $viewBody = $this->renderHtml($context);

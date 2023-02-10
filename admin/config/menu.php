@@ -27,6 +27,7 @@ $items = [
     // - dump_way   跳转方式：_self：内部，_blank：外部 [默认_self]
     // - desc       备注 [默认'']  注：用于行为日志记录，建议填写
     // - sort       排序 [默认0]，注：更新时会自动生成
+    // - is_quick   是否允许设置为快捷操作，0：不可以 1：可以；默认：0 注意：快捷操作为get请求，不可动态传参请求，请根据功能实际情况进行设置。
     // - items      子项 [默认[]]
     'auth' => [
         /*后台管理*/
@@ -36,31 +37,33 @@ $items = [
             'icon' => 'glyphicon glyphicon-blackboard',
             'items' => [
                 [
-                    'label' => '管理员',
+                    'label' => '管理员管理',
                     'src' => 'admin/manager/index',
                     'icon' => 'glyphicon glyphicon-user',
                     'desc' => '查看管理员列表',
+                    'is_quick' => 1,
                     'items' => [
                         [
-                            'label' => '新增用户',
+                            'label' => '新增管理员',
                             'src' => 'admin/manager/add-user',
                             'icon' => 'fa fa-plus',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
                             'desc' => '新增管理员',
+                            'is_quick' => 1,
                         ],
                         [
-                            'label' => '基本编辑',
+                            'label' => '管理员编辑',
                             'src' => 'admin/manager/edit',
                             'icon' => 'fa fa-pencil-square-o',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
                             'desc' => '编辑管理员',
                         ],
                         [
-                            'label' => '封/解号',
+                            'label' => '封/解管理员账号',
                             'src' => 'admin/manager/toggle',
                             'icon' => 'fa fa-unlock-alt',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
-                            'desc' => '解、封管理员账号',
+                            'desc' => '解/封管理员账号',
                         ],
                         [
                             'label' => '更换管理组',
@@ -79,10 +82,11 @@ $items = [
                     ],
                 ],
                 [
-                    'label' => '菜单',
+                    'label' => '菜单管理',
                     'src' => 'admin/menu/index',
                     'icon' => 'fa fa-bars',
                     'desc' => '查看菜单列表',
+                    'is_quick' => 1,
                     'items' => [
                         [
                             'label' => '从本地更新菜单',
@@ -92,7 +96,7 @@ $items = [
                             'desc' => '从本地更新菜单列表',
                         ],
                         [
-                            'label' => '编辑',
+                            'label' => '编辑菜单',
                             'src' => 'admin/menu/edit',
                             'icon' => 'glyphicon glyphicon-edit',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
@@ -101,34 +105,36 @@ $items = [
                     ],
                 ],
                 [
-                    'label' => '管理组',
+                    'label' => '管理组管理',
                     'src' => 'admin/group/index',
                     'icon' => 'fa fa-list-alt',
                     'desc' => '查看管理组列表',
+                    'is_quick' => 1,
                     'items' => [
                         [
-                            'label' => '新增',
+                            'label' => '新增管理组',
                             'src' => 'admin/group/add',
                             'icon' => 'fa fa-plus',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
                             'desc' => '新增管理组',
+                            'is_quick' => 1,
                         ],
                         [
-                            'label' => '基本编辑',
+                            'label' => '管理组编辑',
                             'src' => 'admin/group/edit',
                             'icon' => 'fa fa-pencil-square-o',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
                             'desc' => '编辑管理组',
                         ],
                         [
-                            'label' => '禁/启用',
+                            'label' => '禁/启用管理组',
                             'src' => 'admin/group/toggle',
                             'icon' => 'fa fa-unlock-alt',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
                             'desc' => '禁/启用管理组',
                         ],
                         [
-                            'label' => '分配权限',
+                            'label' => '分配管理组权限',
                             'src' => 'admin/group/dispatch',
                             'icon' => 'glyphicon glyphicon-random',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
@@ -140,78 +146,89 @@ $items = [
                     'label' => '运维脚本',
                     'src' => 'admin/ops-script/index',
                     'icon' => 'glyphicon glyphicon-flash',
-                    'desc' => '查看运维脚本列表',
+                    'desc' => '查看运维脚本',
+                    'is_quick' => 1,
                 ],
                 [
                     'label' => '队列监控',
                     'src' => 'admin/ops-queue/index',
                     'icon' => 'fa fa-line-chart',
-                    'desc' => '查看队列监控列表',
+                    'desc' => '查看队列监控',
+                    'is_quick' => 1,
                 ],
                 [
                     'label' => '计划任务监控',
                     'src' => 'admin/ops-cron/index',
                     'icon' => 'fa fa-tasks',
-                    'desc' => '查看计划任务监控列表',
+                    'desc' => '查看计划任务监控',
+                    'is_quick' => 1,
                 ],
                 [
                     'label' => '系统日志',
                     'src' => 'admin/system-log/index',
                     'icon' => 'fa fa-exclamation-triangle',
-                    'desc' => '查看错误日志列表',
+                    'desc' => '查看错误日志',
+                    'is_quick' => 1,
                 ],
                 [
                     'label' => '应用日志',
                     'src' => 'admin/app-log/index',
                     'icon' => 'glyphicon glyphicon-phone',
-                    'desc' => '查看应用日志列表',
+                    'desc' => '查看应用日志',
+                    'is_quick' => 1,
                 ],
                 [
                     'label' => '管理员登录日志',
                     'src' => 'admin/admin-login-log/index',
                     'icon' => 'glyphicon glyphicon-cloud',
-                    'desc' => '查看管理员登录日志列表',
+                    'desc' => '查看管理员登录日志',
+                    'is_quick' => 1,
                 ],
                 [
                     'label' => '管理员操作日志',
                     'src' => 'admin/admin-behavior-log/index',
                     'icon' => 'glyphicon glyphicon-calendar',
-                    'desc' => '查看管理员操作日志列表',
+                    'desc' => '查看管理员操作日志',
+                    'is_quick' => 1,
                 ],
                 [
-                    'label' => '邮件记录',
+                    'label' => '邮件记录列表',
                     'src' => 'admin/email-record/index',
                     'icon' => 'fa fa-envelope-open-o',
-                    'desc' => '查看邮件记录',
+                    'desc' => '查看邮件记录列表',
+                    'is_quick' => 1,
                 ],
                 [
-                    'label' => '短信记录',
+                    'label' => '短信记录列表',
                     'src' => 'admin/sms-record/index',
                     'icon' => 'fa fa-commenting-o',
-                    'desc' => '查看短信记录',
+                    'desc' => '查看短信记录列表',
+                    'is_quick' => 1,
                 ],
                 [
                     'label' => '手机区号管理',
                     'src' => 'admin/area-code/index',
                     'icon' => 'glyphicon glyphicon-phone-alt',
                     'desc' => '查看手机区号管理列表',
+                    'is_quick' => 1,
                     'items' => [
                         [
-                            'label' => '新增',
+                            'label' => '新增区号',
                             'src' => 'admin/area-code/add',
                             'icon' => 'fa fa-plus',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
                             'desc' => '新增区号',
+                            'is_quick' => 1,
                         ],
                         [
-                            'label' => '基本编辑',
+                            'label' => '编辑区号',
                             'src' => 'admin/area-code/edit',
                             'icon' => 'fa fa-pencil-square-o',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
                             'desc' => '编辑区号',
                         ],
                         [
-                            'label' => '禁用/启用',
+                            'label' => '禁/启用区号',
                             'src' => 'admin/area-code/toggle',
                             'icon' => 'fa fa-pencil-square-o',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
@@ -223,7 +240,8 @@ $items = [
                     'label' => '系统设置',
                     'src' => 'admin/system-setting/index',
                     'icon' => 'glyphicon glyphicon-cog',
-                    'desc' => '查看系统设置列表',
+                    'desc' => '查看系统设置项',
+                    'is_quick' => 1,
                 ],
             ],
         ],
@@ -240,8 +258,24 @@ $items = [
     // - icon 图标
     // - dump_way   跳转方式：_self：内部，_blank：外部 [默认_self]
     // - desc 备注   注：用于行为日志记录，建议填写
+    // - is_quick 是否允许设置为快捷操作，0：不可以 1：可以；注意：快捷操作为get请求，不可动态传参请求，请根据功能实际情况进行设置。
     'whiteLists' => [
-        ['label' => '个人中心', 'src' => 'admin/home/index', 'icon' => 'glyphicon glyphicon-user', 'dump_way' => '_self', 'desc' => '个人中心设置'],
+        [
+            'label' => '个人中心',
+            'src' => 'admin/home/index',
+            'icon' => 'glyphicon glyphicon-user',
+            'dump_way' => '_self',
+            'desc' => '个人中心设置',
+            'is_quick' => 0
+        ],
+        [
+            'label' => '首页',
+            'src' => 'admin/index/index',
+            'icon' => 'glyphicon glyphicon-home',
+            'dump_way' => '_self',
+            'desc' => '查看首页汇总统计',
+            'is_quick' => 0
+        ],
     ],
 ];
 

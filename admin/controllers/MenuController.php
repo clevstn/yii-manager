@@ -49,21 +49,25 @@ class MenuController extends CommonController
         };
         $table->columns = [
             'sort' => table_column_helper('排序', ['style' => ['max-width' => '88px']]),
-            'id' => table_column_helper('ID', ['style' => ['max-width' => '88px']]),
-            'pid' => table_column_helper('PID', ['style' => ['max-width' => '88px']]),
             'label' => table_column_helper('名称', ['style' => ['min-width' => '200px']], function ($item) {
                 return AuthMenu::getLabelTypeStr($item['label_type']) .
                     $item['_prefix'] .
                     (!empty($item['icon']) ? '<i class="' . $item['icon'] . '"></i>&nbsp;' : '') .
                     $item['label'];
             }),
+            'idAndPid' => table_column_helper('ID/PID', ['style' => ['max-width' => '88px']], function ($item) {
+                return "【{$item['id']}】【{$item['pid']}】";
+            }),
             'src' => table_column_helper('路由', ['style' => ['min-width' => '88px']]),
             'dump_way' => table_column_helper('打开方式', ['style' => ['min-width' => '88px']]),
             'link_type' => table_column_helper('链接类型', ['style' => ['min-width' => '88px']], function ($item) {
                 return AuthMenu::getLinkTypeStr($item['link_type']);
             }),
+            'is_quick' => table_column_helper('快捷方式', ['style' => ['min-width' => '88px']], function ($item) {
+                return AuthMenu::getQuickStatusLabel($item['is_quick']);
+            }),
             'desc' => table_column_helper('备注', ['style' => ['min-width' => '150px']]),
-            'created_at' => table_column_helper('注册时间', ['style' => ['min-width' => '150px']]),
+            'created_at' => table_column_helper('添加时间', ['style' => ['min-width' => '150px']]),
             'updated_at' => table_column_helper('更新时间', ['style' => ['min-width' => '150px']]),
         ];
         // 刷新

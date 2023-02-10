@@ -236,7 +236,7 @@ class RbacManager extends Component implements CheckAccessInterface
     }
 
     /**
-     * 清楚指定组权限缓存
+     * 清除指定组权限缓存
      * @param int $groupId 组ID
      */
     public function invalidateSpecialCache($groupId)
@@ -314,6 +314,7 @@ class RbacManager extends Component implements CheckAccessInterface
      * - dump_way   跳转方式：_self：内部，_blank：外部
      * - desc       备注
      * - sort       排序
+     * - is_quick   是否允许设置为快捷操作，0：不可以 1：可以；注意：快捷操作为get请求，不可动态传参请求，请根据功能实际情况进行设置。
      * @return array
      */
     protected function formatMenuItem($item)
@@ -327,6 +328,7 @@ class RbacManager extends Component implements CheckAccessInterface
             'dump_way' => '_self',
             'desc' => '',
             'sort' => 0,
+            'is_quick' => 0,
             'created_at' => now(),
             'updated_at' => now(),
             'items' => [],
