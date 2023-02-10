@@ -278,7 +278,7 @@ class RbacManager extends Component implements CheckAccessInterface
      * 获取本地白名单节点列表
      * @return array
      */
-    protected function getLocalWhiteLists()
+    public function getLocalWhiteLists()
     {
         $menuItems = $this->loadLocalItems();
         return $menuItems['whiteLists'];

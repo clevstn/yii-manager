@@ -146,7 +146,10 @@ class IndexController extends CommonController
         }
     }
 
-
+    /**
+     * 获取快捷项列表
+     * @return string
+     */
     public function actionQuickList()
     {
         /* @var AdminUser $identify */
@@ -155,7 +158,21 @@ class IndexController extends CommonController
             return $this->asSuccess(t('Request successful', 'app.admin'));
         }
 
-        $list = AdminUserQuickAction::query([
+        $whiteData = Yii::$app->rbacManager->getLocalWhiteLists();
+        $whiteQuickList = [];
+        foreach ($whiteData as $key => $value) {
+            if (isset($value['is_quick']) && $value['is_quick'] == AuthMenu::QUICK_YES) {
+                $whiteQuickList[] = [
+                    'id' => "_ID{$key}",
+                    'label' => $value['label'],
+                    'icon' => $value['icon'],
+                    'src' => $value['src'],
+                    'url' => Url::to(['/' . trim($value['src'], '/'), '__partial__' => 1], ''),
+                ];
+            }
+        }
+
+        $authQuickList = AdminUserQuickAction::query([
             'm.id',
             'm.label',
             'm.icon',
@@ -165,14 +182,16 @@ class IndexController extends CommonController
             ->where(['a.admin_id' => $identify->id])
             ->all();
 
-        foreach ($list as &$item) {
+        foreach ($authQuickList as &$item) {
             if ($item['link_type'] == AuthMenu::LINK_TYPE_ROUTE) {
                 $item['url'] = Url::to(['/' . trim($item['src'], '/'), '__partial__' => 1], '');
             } else {
                 $item['url'] = $item['src'];
             }
+
+            unset($item['link_type']);
         }
 
-        return $this->asSuccess(t('Request successful', 'app.admin'), $list);
+        return $this->asSuccess(t('Request successful', 'app.admin'), array_merge($whiteQuickList, $authQuickList));
     }
 }
