@@ -95,7 +95,7 @@ class MenuController extends CommonController
     }
 
     /**
-     * 更新菜单列表
+     * 从本地更新菜单列表
      * @return string
      * @throws \Exception
      */
@@ -122,6 +122,9 @@ class MenuController extends CommonController
             $model->setScenario('edit');
             if ($model->load($this->post)) {
                 if ($model->save()) {
+                    // 清空缓存
+                    Yii::$app->rbacManager->invalidateCache();
+
                     return $this->asSuccess(t('submitted successfully', 'app.admin'));
                 }
 
@@ -142,7 +145,7 @@ class MenuController extends CommonController
                 'id' => form_fields_helper(FieldsOptions::CONTROL_HIDDEN, [
                     'default' => $model->id,
                 ]),
-                'sort' => form_fields_helper(FieldsOptions::CONTROL_TEXT, [
+                'sort' => form_fields_helper(FieldsOptions::CONTROL_NUMBER, [
                     'label' => '排序',
                     'placeholder' => '请排序',
                     'default' => $model->sort,

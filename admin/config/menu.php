@@ -85,11 +85,11 @@ $items = [
                     'desc' => '查看菜单列表',
                     'items' => [
                         [
-                            'label' => '更新菜单',
+                            'label' => '从本地更新菜单',
                             'src' => 'admin/menu/update',
                             'icon' => 'glyphicon glyphicon-open',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
-                            'desc' => '更新获取新的菜单',
+                            'desc' => '从本地更新菜单列表',
                         ],
                         [
                             'label' => '编辑',

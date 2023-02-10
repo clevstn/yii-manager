@@ -226,7 +226,7 @@ class RbacManager extends Component implements CheckAccessInterface
     /**
      * 清除所有权限缓存
      */
-    protected function invalidateCache()
+    public function invalidateCache()
     {
         if ($this->cache !== null) {
             $this->cache->delete($this->cacheKey);
