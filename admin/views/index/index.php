@@ -64,7 +64,7 @@ $this->title = t('home', 'app.admin');
                     点击设置
                 </button>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" style="min-height:360px;">
                 <div class="col-md-3" ng-repeat="xxx in ymQuickActionList track by xxx.id">
                     <div class="panel panel-white hover-light cp" ng-click="hrefTarget(xxx.url, xxx.label)">
                         <div class="panel-body">
@@ -87,7 +87,7 @@ $this->title = t('home', 'app.admin');
             <div class="panel-heading border-bottom">
                 <span class="f-14">消息</span>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" style="min-height:360px;">
 
             </div>
         </div>
