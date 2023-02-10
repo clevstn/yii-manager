@@ -52,14 +52,17 @@ $this->title = t('home', 'app.admin');
         </div>
     </div>
 </div>
-
+<!-------------------------------------------------------------------------------------------->
 <div class="row">
     <!--快捷操作-->
     <div class="col-md-6">
         <div class="panel panel-default" ng-controller="_quickOpCtrl">
             <div class="panel-heading border-bottom clearfix">
                 <span class="f-14">快捷操作</span>
-                <button type="button" class="layui-btn layui-btn-sm layui-btn-primary pull-right">点击设置</button>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-primary pull-right" ng-click="quickActionsShow()">
+                    <i class="glyphicon glyphicon-cog"></i>
+                    点击设置
+                </button>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -72,6 +75,7 @@ $this->title = t('home', 'app.admin');
             </div>
         </div>
     </div>
+    <!-------------------------------------------------------------------------------------------->
     <!--消息-->
     <div class="col-md-6">
         <div class="panel panel-default" ng-controller="_messageCtrl">

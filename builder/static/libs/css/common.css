@@ -161,7 +161,10 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .layui-tree-line .layui-tree-set:before {border-left: 1px solid #c0c4cc !important;}
 .layui-tree-entry,.layui-tree-icon {box-sizing: initial !important;}
 .panel-white {border-color: #ddd;}
-.panel-white > .panel-heading {color: #555555;background-color: #fff;border-color: #ddd;}
+.panel-white > .panel-heading {color: #555555;background-color: #fff !important;border-color: #ddd;}
 .panel-white > .panel-heading + .panel-collapse > .panel-body {border-top-color: #ddd;}
 .panel-white > .panel-heading .badge {color: #f5f5f5;background-color: #333333;}
 .panel-white > .panel-footer + .panel-collapse > .panel-body {border-bottom-color: #ddd;}
+.f-48 {font-size: 48px !important;}
+.f-68 {font-size: 68px !important;}
+

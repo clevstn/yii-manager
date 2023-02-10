@@ -19,14 +19,16 @@
         loginSubmit: '/admin/site/login',
 
         /* ------------- 登录 - 安全认证 ------------- */
-        // 首页
-        homeUrl: '/admin/index/index',
         // 登录页
         loginUrl: '/admin/site/login',
         // 发送邮箱验证码/短信验证码
         sendCodeUrl: '/admin/site/send',
         // 安全认证提交
-        safeSubmit: '/admin/site/safe-validate'
+        safeSubmit: '/admin/site/safe-validate',
+
+        /* -------------- 首页 ---------------------   */
+        homeUrl: '/admin/index/index',
+        indexQuickActionUrl: '/admin/index/quick-setting',
     };
 
     YmApp.$adminApi = api;

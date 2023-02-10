@@ -266,7 +266,7 @@ $items = [
             'icon' => 'glyphicon glyphicon-user',
             'dump_way' => '_self',
             'desc' => '个人中心设置',
-            'is_quick' => 0
+            'is_quick' => 0,
         ],
         [
             'label' => '首页',
@@ -274,7 +274,15 @@ $items = [
             'icon' => 'glyphicon glyphicon-home',
             'dump_way' => '_self',
             'desc' => '查看首页汇总统计',
-            'is_quick' => 0
+            'is_quick' => 0,
+        ],
+        [
+            'label' => '点击设置',
+            'src' => 'admin/index/quick-setting',
+            'icon' => 'glyphicon glyphicon-cog',
+            'dump_way' => '_self',
+            'desc' => '设置快捷操作项',
+            'is_quick' => 0,
         ],
     ],
 ];
