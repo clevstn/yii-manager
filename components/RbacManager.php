@@ -314,7 +314,7 @@ class RbacManager extends Component implements CheckAccessInterface
      * - dump_way   跳转方式：_self：内部，_blank：外部
      * - desc       备注
      * - sort       排序
-     * - is_quick   是否允许设置为快捷操作，0：不可以 1：可以；注意：快捷操作为get请求，不可动态传参请求，请根据功能实际情况进行设置。
+     * - is_quick   是否允许设置为快捷操作，0：不可以 1：可以；注意：快捷操作为get请求，不可动态传参请求，只能打开独立窗口，请根据功能实际情况进行设置。
      * @return array
      */
     protected function formatMenuItem($item)

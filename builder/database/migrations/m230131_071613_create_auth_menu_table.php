@@ -50,7 +50,7 @@ class m230131_071613_create_auth_menu_table extends Migration
             'desc' => $this->string(250)->defaultValue('')->notNull()->comment('备注'),
             'pid' => $this->integer()->defaultValue(0)->notNull()->comment('父ID'),
             'sort' => $this->integer()->defaultValue(0)->notNull()->comment('排序'),
-            'is_quick' => $this->tinyInteger(1)->defaultValue(0)->notNull()->comment('是否允许设置为快捷操作，0：不可以 1：可以；默认：0 注意：快捷操作为get请求，不可动态传参请求，请根据功能实际情况进行设置。'),
+            'is_quick' => $this->tinyInteger(1)->defaultValue(0)->notNull()->comment('是否允许设置为快捷操作，0：不可以 1：可以；默认：0 注意：快捷操作为get请求，不可动态传参请求，只能打开独立窗口，请根据功能实际情况进行设置。'),
             'created_at' => $this->dateTime()->notNull()->comment('创建时间'),
             'updated_at' => $this->dateTime()->comment('更新时间'),
         ], $tableOptions);
