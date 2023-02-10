@@ -7,6 +7,12 @@
 
 namespace app\admin\controllers;
 
+use app\builder\helper\DateSplitHelper;
+use app\builder\table\ToolbarFilterOptions;
+use app\builder\ViewBuilder;
+use app\models\AdminUser;
+use app\models\ShortMsgRecord;
+
 /**
  * 短信记录
  * @author cleverstone
@@ -21,19 +27,25 @@ class SmsRecordController extends \app\builder\common\CommonController
         'index' => ['get'],
     ];
 
+    /**
+     * 短信记录列表
+     * @return string
+     * @throws \ReflectionException
+     * @throws \Throwable
+     */
     public function actionIndex()
     {
         $queryParams = $this->get;
         $table = ViewBuilder::table();
-        $table->title = '邮件记录';
+        $table->title = '短信记录';
         $table->query = function () use ($queryParams) {
-            $query = EmailRecord::query([
+            $query = ShortMsgRecord::query([
                 'id',
                 'service_name',      // 服务名称
-                'email_content',     // 内容
+                'msg_content',       // 内容
                 'auth_code',         // 认证码
                 'send_user',         // 发送人
-                'receive_email',     // 接收邮箱
+                'receive_mobile',    // 接收手机号
                 'send_time',         // 发送时间
             ]);
             if (!empty($queryParams)) {
@@ -50,7 +62,7 @@ class SmsRecordController extends \app\builder\common\CommonController
                         'or',
                         ['like', 'service_name', isset($queryParams['keyword']) ? $queryParams['keyword'] : null],
                         ['like', 'send_user', isset($queryParams['keyword']) ? $queryParams['keyword'] : null],
-                        ['like', 'receive_email', isset($queryParams['keyword']) ? $queryParams['keyword'] : null],
+                        ['like', 'receive_mobile', isset($queryParams['keyword']) ? $queryParams['keyword'] : null],
                     ],
                     // 发送时间筛选
                     ['between', 'send_time', $startAt, $endAt],
@@ -76,12 +88,12 @@ class SmsRecordController extends \app\builder\common\CommonController
 
                 return "[{$one['username']}][{$one['email']}][{$one['mobile']}]";
             }),
-            'receive_email' => table_column_helper('收件人', ['style' => ['min-width' => '100px']]),
+            'receive_mobile' => table_column_helper('接收手机号', ['style' => ['min-width' => '100px']]),
             'auth_code' => table_column_helper('认证码', ['style' => ['min-width' => '80px']], function ($item) {
                 return $item['auth_code'] ?: '--';
             }),
-            'email_content' => table_column_helper('邮件内容', [], function ($item) {
-                return html_modal($item['email_content'], '内容详情', '查看详情', 'modal-lg');
+            'msg_content' => table_column_helper('短信内容', [], function ($item) {
+                return html_popover($item['msg_content'], '内容详情', '查看详情');
             }),
             'send_time' => table_column_helper('发送时间', ['style' => ['min-width' => '150px']]),
         ];
@@ -93,7 +105,7 @@ class SmsRecordController extends \app\builder\common\CommonController
                 'keyword' => table_toolbar_filter_helper([
                     'control' => ToolbarFilterOptions::CONTROL_TEXT,
                     'label' => '关键词',
-                    'placeholder' => '请输入服务名称/发件人/收件人',
+                    'placeholder' => '请输入服务名称/发送人/接收手机号',
                 ]),
                 'send_time' => table_toolbar_filter_helper([
                     'control' => ToolbarFilterOptions::CONTROL_DATE,

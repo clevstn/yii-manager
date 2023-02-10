@@ -233,10 +233,10 @@ return <<<HTML
 <button type="button"
    class="btn btn-sm btn-default"
    data-toggle="popover" 
-   data-container="body"
+   title="{$title}"
    data-placement="right"
    data-content="{$content}">
-{$title}
+{$button}
 </button>
 HTML;
     }
