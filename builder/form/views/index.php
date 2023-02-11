@@ -12,7 +12,7 @@ use app\builder\form\FieldsOptions;
 /* @var boolean $_backBtn       是否设置返回按钮 */
 ?>
 
-<div class="panel panel-default" ng-controller="_formCtrl">
+<div class="panel panel-default" ng-controller="_EasyApp_FormCtrl">
     <!--页面标题-->
     <?php if (!empty($this->title) || $_backBtn): ?>
     <div class="panel-heading border-bottom clearfix">
@@ -24,7 +24,7 @@ use app\builder\form\FieldsOptions;
         
         <?php if ($_backBtn): ?>
         <div class="pull-right">
-            <a class="form-header-btn" type="button" href="#" ng-click="ymFormGoBack()">
+            <a class="form-header-btn" type="button" href="#" ng-click="triggerGoBack()">
                 <i class="glyphicon glyphicon-arrow-left"></i>
                 <span><?= t('back', 'app.admin') ?></span>
             </a>
@@ -48,7 +48,7 @@ use app\builder\form\FieldsOptions;
                             <?= $options['label'] ?>
                         </span>
                     </div>
-                    <input type="text" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                    <input type="text" autocomplete="off" ng-model="formFieldsData['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
                 <?php if (!empty($options['comment'])): ?>
                 <div class="form-comment"><?= t('note', 'app.admin') ?>: <?= $options['comment'] ?></div>
@@ -65,7 +65,7 @@ use app\builder\form\FieldsOptions;
                             <?= $options['label'] ?>
                         </span>
                     </div>
-                    <input type="number" autocomplete="off" string-to-number ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                    <input type="number" autocomplete="off" string-to-number ng-model="formFieldsData['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
                 <?php if (!empty($options['comment'])): ?>
                     <div class="form-comment"><?= t('note', 'app.admin') ?>: <?= $options['comment'] ?></div>
@@ -82,7 +82,7 @@ use app\builder\form\FieldsOptions;
                             <?= $options['label'] ?>
                         </span>
                     </div>
-                    <input type="password" autocomplete="new-password" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                    <input type="password" autocomplete="new-password" ng-model="formFieldsData['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> class="form-control" placeholder="<?= $options['placeholder'] ?>">
                 </div>
                 <?php if (!empty($options['comment'])): ?>
                     <div class="form-comment"><?= t('note', 'app.admin') ?>: <?= $options['comment'] ?></div>
@@ -151,7 +151,7 @@ use app\builder\form\FieldsOptions;
                             <?= $options['label'] ?>
                         </span>
                     </div>
-                    <input id="ymFormDate_<?= $field ?>" class="ymFormDates form-control" type="text" data-type="<?= $options['control'] ?>" data-range="<?= $options['range'] ?>" autocomplete="off" ng-model="ymFormFields['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> placeholder="<?= $options['placeholder'] ?>" readonly>
+                    <input id="ymFormDate_<?= $field ?>" class="ymFormDates form-control" type="text" data-type="<?= $options['control'] ?>" data-range="<?= $options['range'] ?>" autocomplete="off" ng-model="formFieldsData['<?= $field ?>']" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> placeholder="<?= $options['placeholder'] ?>" readonly>
                 </div>
                 <?php if (!empty($options['comment'])): ?>
                     <div class="form-comment"><?= t('note', 'app.admin') ?>: <?= $options['comment'] ?></div>
@@ -168,7 +168,7 @@ use app\builder\form\FieldsOptions;
                             <?= $options['label'] ?>
                         </span>
                     </div>
-                    <select id="ymFormSelect2_<?= $field ?>"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ui-select2="{width:'100%'}" ng-model="ymFormFields['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>">
+                    <select id="ymFormSelect2_<?= $field ?>"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ui-select2="{width:'100%'}" ng-model="formFieldsData['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>">
                         <option value=""><?= $options['placeholder'] ?></option>
                         <?php foreach ($options['options'] as $value => $label): ?>
                             <option value="<?= $value ?>"><?= $label ?></option>
@@ -180,7 +180,7 @@ use app\builder\form\FieldsOptions;
                 <?php endif; ?>
             </div>
             <?php break;case FieldsOptions::CONTROL_HIDDEN: // 隐藏 ?>
-            <input type="hidden" ng-model="ymFormFields['<?= $field ?>']">
+            <input type="hidden" ng-model="formFieldsData['<?= $field ?>']">
             <?php break;case FieldsOptions::CONTROL_TEXTAREA: // 文本域 ?>
             <div class="form-group col-md-<?= $options['layouts'] ?>">
                 <div class="input-group">
@@ -192,7 +192,7 @@ use app\builder\form\FieldsOptions;
                             <?= $options['label'] ?>
                         </span>
                     </div>
-                    <textarea ng-model="ymFormFields['<?= $field ?>']" rows="<?= $options['rows'] ?>" class="form-control" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> placeholder="<?= $options['placeholder'] ?>"></textarea>
+                    <textarea ng-model="formFieldsData['<?= $field ?>']" rows="<?= $options['rows'] ?>" class="form-control" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> placeholder="<?= $options['placeholder'] ?>"></textarea>
                 </div>
                 <?php if (!empty($options['comment'])): ?>
                     <div class="form-comment"><?= t('note', 'app.admin') ?>: <?= $options['comment'] ?></div>
@@ -229,18 +229,18 @@ use app\builder\form\FieldsOptions;
                     <div class="form-upload-group">
                         <?php for ($i = 0; $i < $options['number']; $i++): ?>
                         <div class="inline-block">
-                            <div class="form-upload-control" ngf-select="ymFormUploadImage($file, '<?= $options['saveDirectory'] ?>', '<?= $options['pathPrefix'] ?>', '<?= $options['fileScenario'] ?>', '<?= $field ?>', <?= $i ?>)">
-                                <div class="form-upload-item" ng-init="ymFormFileLoading<?= $field . $i ?>=false" ng-hide="ymFormFileLoading<?= $field . $i ?>">
-                                    <i ng-hide="ymFormFileLink<?= $field . $i ?>" class="fa fa-file-image-o f-32 text-dark"></i>
-                                    <img ng-show="ymFormFileLink<?= $field . $i ?>" class="form-upload-img" ng-src="{{ymFormFileLink<?= $field . $i ?>}}" alt>
+                            <div class="form-upload-control" ngf-select="triggerSelectImage($file, '<?= $options['saveDirectory'] ?>', '<?= $options['pathPrefix'] ?>', '<?= $options['fileScenario'] ?>', '<?= $field ?>', <?= $i ?>)">
+                                <div class="form-upload-item" ng-init="formFileLoadingIsShow<?= $field . $i ?>=false" ng-hide="formFileLoadingIsShow<?= $field . $i ?>">
+                                    <i ng-hide="formFileLink<?= $field . $i ?>" class="fa fa-file-image-o f-32 text-dark"></i>
+                                    <img ng-show="formFileLink<?= $field . $i ?>" class="form-upload-img" ng-src="{{formFileLink<?= $field . $i ?>}}" alt>
                                 </div>
-                                <div class="form-upload-item" ng-show="ymFormFileLoading<?= $field . $i ?>">
-                                    <p class="p-0 m-0 text-success" ng-bind="'进度' + ymFormFileLoadingProcess<?= $field . $i ?> + '%'"></p>
+                                <div class="form-upload-item" ng-show="formFileLoadingIsShow<?= $field . $i ?>">
+                                    <p class="p-0 m-0 text-success" ng-bind="'进度' + formFileLoadingProcess<?= $field . $i ?> + '%'"></p>
                                 </div>
                             </div>
                         </div>
                         <?php endfor; ?>
-                        <input type="hidden" ng-model="ymFormFields['<?= $field ?>']">
+                        <input type="hidden" ng-model="formFieldsData['<?= $field ?>']">
                     </div>
                 </div>
                 <?php if (!empty($options['comment'])): ?>
@@ -255,9 +255,9 @@ use app\builder\form\FieldsOptions;
             <!--表单尾部-->
             <div class="form-group col-md-12">
                 <div class="addon-fix"></div>
-                <button type="button" class="btn btn-sm btn-default" ng-click="ymFormClearForm()"><?= t('clear', 'app.admin') ?></button>
-                <button type="button" class="btn btn-sm btn-default" ng-click="ymFormResetForm()"><?= t('reset', 'app.admin') ?></button>
-                <button type="button" class="btn btn-sm btn-primary" ng-click="ymFormSubmitForm()"><?= t('submit', 'app.admin') ?></button>
+                <button type="button" class="btn btn-sm btn-default" ng-click="triggerClearForm()"><?= t('clear', 'app.admin') ?></button>
+                <button type="button" class="btn btn-sm btn-default" ng-click="triggerResetForm()"><?= t('reset', 'app.admin') ?></button>
+                <button type="button" class="btn btn-sm btn-primary" ng-click="triggerSubmitForm()"><?= t('submit', 'app.admin') ?></button>
             </div>
         </form>
     </div>

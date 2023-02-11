@@ -62,7 +62,7 @@
                                 // 在iframe中,先得到当前iframe层的索引,再执行关闭
                                 window.parent.layer.close(window.parent.layer.getFrameIndex(window.name));
                                 // 刷新父窗口
-                                var mountedMethods = window.parent._EasyFrameModalSuccessCallback;
+                                var mountedMethods = window.parent._EasyApp_ParentTableRefresh;
                                 if (typeof mountedMethods !== "undefined") {
                                     for (var i in mountedMethods) {
                                         if (mountedMethods.hasOwnProperty(i) && typeof mountedMethods[i] == "function") {

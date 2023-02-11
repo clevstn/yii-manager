@@ -85,14 +85,14 @@ class LinkPager extends \yii\widgets\LinkPager
                     $currentPage,
                     [
                         'min' => 1,
-                        'ng-model' => 'ymTableCurrentPage',
-                        'ng-init' => 'ymTableCurrentPage=' . $currentPage,
+                        'ng-model' => 'tableCurrentPage',
+                        'ng-init' => 'tableCurrentPage=' . $currentPage,
                     ]
                 ),
                 ['class' => 'page-dump-control']
             ) . "\n<span>" . t('pages', 'app.admin') . "</span>\n" . Html::a(t('confirm', 'app.admin'), '#', [
                 'class' => 'btn btn-sm btn-default',
-                'ng-click' => 'ymTableDumpSpecialPage(' . $this->pagination->limit . ')',
+                'ng-click' => 'triggerTableDumpSpecialPage(' . $this->pagination->limit . ')',
             ])
         );
 
@@ -141,7 +141,7 @@ class LinkPager extends \yii\widgets\LinkPager
         }
 
         $linkOptions = $this->linkOptions;
-        $linkOptions['ng-click'] = 'ymTableDumpPage(' . ($page + 1) . ', ' . $this->pagination->limit . ')';
+        $linkOptions['ng-click'] = 'triggerTableDumpPage(' . ($page + 1) . ', ' . $this->pagination->limit . ')';
 
         return Html::tag($linkWrapTag, Html::a($label, '#', $linkOptions), $options);
     }

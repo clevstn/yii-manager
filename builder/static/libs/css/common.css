@@ -82,6 +82,7 @@ ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .m-0 {margin: 0px !important;}
 .ml-3 {margin-left: 3px !important;}
 .mt-50 {margin-top: 50px !important;}
+.mb-15 {margin-bottom: 15px!important;}
 .mb-30 {margin-bottom: 30px;}
 .p-0 {padding: 0px !important;}
 .p-24 {padding: 24px !important;}
@@ -114,10 +115,16 @@ ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .page-block .page-select-control {padding: 0;}
 .page-block .page-dump-control input {width: 50px;height: 27px;text-align: center;vertical-align: middle;border-radius: 4px;border: 1px solid #ddd;outline: 0;}
 .page-block .page-select-control select {height: 27px;padding: 0 6px;vertical-align: middle;cursor: pointer;user-select: none;-webkit-user-select: none;border-radius: 4px;border: 1px solid #ddd;outline: 0;}
-.f-32 {font-size: 32px;}
-.f-15 {font-size: 15px;}
-.f-14 {font-size: 14px;}
-.f-13 {font-size: 13px;}
+.f-68 {font-size: 68px !important;}
+.f-48 {font-size: 48px !important;}
+.f-42 {font-size: 42px !important;}
+.f-36 {font-size: 36px !important;}
+.f-32 {font-size: 32px !important;}
+.f-26 {font-size: 26px !important;}
+.f-22 {font-size: 22px !important;}
+.f-15 {font-size: 15px !important;}
+.f-14 {font-size: 14px !important;}
+.f-13 {font-size: 13px !important;}
 .font-bold {font-weight:700;}
 .min-300 {min-width: 300px;}
 .border-none {border: none !important;}
@@ -165,9 +172,8 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .panel-white > .panel-heading + .panel-collapse > .panel-body {border-top-color: #ddd;}
 .panel-white > .panel-heading .badge {color: #f5f5f5;background-color: #333333;}
 .panel-white > .panel-footer + .panel-collapse > .panel-body {border-bottom-color: #ddd;}
-.f-48 {font-size: 48px !important;}
-.f-68 {font-size: 68px !important;}
 .layui-icon {box-sizing:content-box!important; -webkit-box-sizing: content-box!important; -moz-box-sizing: content-box !important;}
 .cp {cursor: pointer !important;}
 .hover-light:hover {background-color:#f5f5f5 !important;}
+@media (min-width: 992px) { .col-md-136px {width: 136px!important;} }
 

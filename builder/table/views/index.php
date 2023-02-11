@@ -20,7 +20,7 @@ use app\builder\table\ToolbarFilterOptions;
 /* @var boolean $exportFlag     是否导出 */
 ?>
 
-<div class="panel panel-default" ng-controller="_tableCtrl">
+<div class="panel panel-default" ng-controller="_EasyApp_tableCtrl">
     <!--页面标题-->
     <?php if(!empty($this->title)): ?>
         <div class="panel-heading border-bottom">
@@ -41,7 +41,7 @@ use app\builder\table\ToolbarFilterOptions;
                     <div class="btn-group btn-group-sm pull-left">
                         <!--自定义-->
                         <?php foreach ($toolbars['left'] as $item): ?>
-                            <a href="#" type="button" class="btn btn-default" ng-click="ymTableCustomMethod(<?= html_escape(Json::encode($item)) ?>)">
+                            <a href="#" type="button" class="btn btn-default" ng-click="triggerTableCustomMethod(<?= html_escape(Json::encode($item)) ?>)">
                                 <i class="<?= !empty($item['icon']) ? $item['icon'] : '' ?>" aria-hidden="true"></i>
                                 <span><?= !empty($item['title']) ? $item['title'] : '' ?></span>
                             </a>
@@ -63,19 +63,19 @@ use app\builder\table\ToolbarFilterOptions;
                                 </a>
                                 <?php break; case 'filter': // filter ?>
                                 <!--筛选-->
-                                <a href="#" type="button" class="btn btn-default" ng-click="ymTableFilterMethod()" title="筛选">
+                                <a href="#" type="button" class="btn btn-default" ng-click="triggerTableFilterMethod()" title="筛选">
                                     <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-filter' ?>" aria-hidden="true"></i>
                                     <span><?= !empty($item['title']) ? $item['title'] : '' // 筛选 ?></span>
                                 </a>
                                 <?php break; case 'export': // export ?>
                                 <!--导出-->
-                                <a href="#" type="button" class="btn btn-default" ng-click="ymTableExportMethod()" title="导出">
+                                <a href="#" type="button" class="btn btn-default" ng-click="triggerTableExportMethod()" title="导出">
                                     <i class="<?= !empty($item['icon']) ? $item['icon'] : 'glyphicon glyphicon-export' ?>" aria-hidden="true"></i>
                                     <span><?= !empty($item['title']) ? $item['title'] : '' // 导出 ?></span>
                                 </a>
                                 <?php break; default: // custom ?>
                                 <!--自定义-->
-                                <a href="#" type="button" class="btn btn-default" ng-click="ymTableCustomMethod(<?= html_escape(Json::encode($item)) ?>)">
+                                <a href="#" type="button" class="btn btn-default" ng-click="triggerTableCustomMethod(<?= html_escape(Json::encode($item)) ?>)">
                                     <i class="<?= !empty($item['icon']) ? $item['icon'] : '' ?>" aria-hidden="true"></i>
                                     <span><?= !empty($item['title']) ? $item['title'] : '' ?></span>
                                 </a>
@@ -120,7 +120,7 @@ use app\builder\table\ToolbarFilterOptions;
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="(key, value) in ymTablelist track by key" on-finish-render="ev-repeat-finished">
+            <tr ng-repeat="(key, value) in tableListData track by key" on-finish-render="ev-repeat-finished">
 
                 <!--隐藏多选框-->
                 <?php if(!$hideCheckbox): ?>
@@ -146,7 +146,7 @@ use app\builder\table\ToolbarFilterOptions;
                                         <li role="separator" class="divider"></li>
                                         <?php break; default: ?>
                                         <li>
-                                            <a href="#" ng-click="ymTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
+                                            <a href="#" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
                                                 <i class="actions-icon <?= $actionItem['options']['icon'] ?>"></i>
                                                 <?= html_escape($actionItem['options']['title']) ?>
                                             </a>
@@ -169,7 +169,7 @@ use app\builder\table\ToolbarFilterOptions;
             </tbody>
         </table>
         <!--空-->
-        <div class="panel-body text-center" ng-if="YmTableEmpty">
+        <div class="panel-body text-center" ng-if="isEmptyOfTable">
             <img style="margin-top:48px;font-size:0;" src="<?= Yii::getAlias('@web/media/image/empty.png') ?>" alt>
         </div>
     </div>
@@ -178,14 +178,14 @@ use app\builder\table\ToolbarFilterOptions;
     <?php Table::beginTablePage($widgets); ?>
 
     <!--分页-->
-    <div class="panel-body border-top" ng-show="ymTablePage" angular-ajax-page page-model="ymTablePage"></div>
+    <div class="panel-body border-top" ng-show="tablePaging" angular-ajax-page page-model="tablePaging"></div>
 
     <!--分页结束-->
     <?php Table::endTablePage($widgets); ?>
 
     <!--筛选表单-->
     <?php if (!empty($filterColumns) && is_array($filterColumns)): ?>
-        <div class="panel-body px-24 pt-16" style="display:none;" id="YmTableFilterForm">
+        <div class="panel-body px-24 pt-16" style="display:none;" id="_EasyApp_tableFilterForm">
             <form>
                 <?php foreach ($filterColumns as $field => $options): ?>
                     <?php switch ($options['control']): case ToolbarFilterOptions::CONTROL_TEXT: // text ?>
@@ -194,7 +194,7 @@ use app\builder\table\ToolbarFilterOptions;
                                 <div class="input-group-addon">
                                     <span class="addon-fix"><?= $options['label'] ?></span>
                                 </div>
-                                <input type="text"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="ymTableFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                                <input type="text"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="tableFilterData['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
                             </div>
                         </div>
                         <?php break; case ToolbarFilterOptions::CONTROL_SELECT: // select ?>
@@ -203,7 +203,7 @@ use app\builder\table\ToolbarFilterOptions;
                                 <div class="input-group-addon">
                                     <span class="addon-fix"><?= $options['label'] ?></span>
                                 </div>
-                                <select id="ymTableFilter_<?= $field ?>"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ui-select2="{width:'100%'}" ng-model="ymTableFilter['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>">
+                                <select id="ymTableFilter_<?= $field ?>"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ui-select2="{width:'100%'}" ng-model="tableFilterData['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>">
                                     <option value=""><?= $options['placeholder'] ?></option>
                                     <?php foreach ($options['options'] as $value => $label): ?>
                                         <option value="<?= $value ?>"><?= $label ?></option>
@@ -217,7 +217,7 @@ use app\builder\table\ToolbarFilterOptions;
                                 <div class="input-group-addon">
                                     <span class="addon-fix"><?= $options['label'] ?></span>
                                 </div>
-                                <input type="number"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" string-to-number ng-model="ymTableFilter['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
+                                <input type="number"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" string-to-number ng-model="tableFilterData['<?= $field ?>']" class="form-control" placeholder="<?= $options['placeholder'] ?>">
                             </div>
                         </div>
                         <?php break; case ToolbarFilterOptions::CONTROL_DATETIME: // datetime ?>
@@ -230,7 +230,7 @@ use app\builder\table\ToolbarFilterOptions;
                                 <div class="input-group-addon">
                                     <span class="addon-fix"><?= $options['label'] ?></span>
                                 </div>
-                                <input type="text"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="ymTableFilter['<?= $field ?>']" tag="<?= $options['control'] ?>" range="<?= $options['range'] ?>" id="ymTableFilter_<?= $field ?>" class="YmTableFilterDate form-control" placeholder="<?= $options['placeholder'] ?>" readonly>
+                                <input type="text"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ng-model="tableFilterData['<?= $field ?>']" tag="<?= $options['control'] ?>" range="<?= $options['range'] ?>" id="ymTableFilter_<?= $field ?>" class="ymTablefilterDate form-control" placeholder="<?= $options['placeholder'] ?>" readonly>
                             </div>
                         </div>
                         <?php break; case ToolbarFilterOptions::CONTROL_CUSTOM: // custom ?>
@@ -246,7 +246,7 @@ use app\builder\table\ToolbarFilterOptions;
     <?php if($exportFlag): ?>
         <div class="panel-body px-24 f-13" style="display:none;" id="YmExportForm">
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="(key, value) in ymTableExportMap track by key">
+                <li class="list-group-item" ng-repeat="(key, value) in tableExportList track by key">
                     <div class="row text-dark">
                         <p class="col-sm-4 f-14 m-0 text-left">
                             <span><?= t('number', 'app.admin') ?></span><span ng-bind="value.page"></span><span><?= t('block', 'app.admin') ?></span>
@@ -254,7 +254,7 @@ use app\builder\table\ToolbarFilterOptions;
                         <p class="col-sm-4 f-14 m-0 text-center">
                             <span><?= t('total', 'app.admin') ?></span><span ng-bind="value.rows"></span><span><?= t('rows', 'app.admin') ?></span>
                         </p>
-                        <a class="col-sm-4 f-14 text-right" ng-href="{{value.url}}" ng-click="ymTableFlagExport($event)">
+                        <a class="col-sm-4 f-14 text-right" ng-href="{{value.url}}" ng-click="triggerTableFlagExport($event)">
                             <i class="glyphicon glyphicon-export"></i>
                             <span><?= t('export', 'app.admin') ?></span>
                         </a>

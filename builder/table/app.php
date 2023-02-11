@@ -20,7 +20,7 @@
      */
     !function (window, _EasyApp) {
         "use strict";
-        _EasyApp.controller('_tableCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "layui",function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, layui) {
+        _EasyApp.controller('_EasyApp_tableCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "layui",function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, layui) {
             // ------ 列表 start ------
             var link = '<?= $link ?>';
             var pageNumber;
@@ -47,49 +47,49 @@
                 return link + '?' + jQuery.param(param);
             };
             // 获取表格列表
-            var ymGetTableList = function (page, perPage, param) {
+            var getTableList = function (page, perPage, param) {
                 // 节流
                 var i = YmSpinner.show();
                 // 初始化页面
-                $scope.YmTableEmpty = false;
+                $scope.isEmptyOfTable = false;
                 $http.get(getUrl(page, perPage, param)).then(function (result) {
                     YmSpinner.hide(i);
                     var data = result.data;
-                    $scope.ymTablePage = data.page;
-                    $scope.ymTablelist = data.data || [];
-                    if ($scope.ymTablelist.length <= 0) {
+                    $scope.tablePaging = data.page;
+                    $scope.tableListData = data.data || [];
+                    if ($scope.tableListData.length <= 0) {
                         // 显示空
-                        $scope.YmTableEmpty = true;
+                        $scope.isEmptyOfTable = true;
                     }
                     // 列表刷新时，取消多选框的选中状态
                     YmApp.uncheckTableIcheck();
                 }, function (error) {
                     YmSpinner.hide(i);
                     // 显示空
-                    $scope.YmTableEmpty = true;
+                    $scope.isEmptyOfTable = true;
                     toastr.error(error.data || "数据加载失败，请稍后重试", "通知");
                     console.error(error);
                 });
             };
 
-            // 挂载到window._EasyFrameModalSuccessCallback
-            if (typeof window._EasyFrameModalSuccessCallback !== "undefined") {
-                window._EasyFrameModalSuccessCallback.ymGetTableList = ymGetTableList;
+            // 挂载到window._EasyApp_ParentTableRefresh
+            if (typeof window._EasyApp_ParentTableRefresh !== "undefined") {
+                window._EasyApp_ParentTableRefresh.getTableList = getTableList;
             } else {
-                window._EasyFrameModalSuccessCallback = {
-                    ymGetTableList: ymGetTableList,
+                window._EasyApp_ParentTableRefresh = {
+                    getTableList: getTableList,
                 };
             }
 
             // 初始化表格
-            var ymInitTable = function () {
+            var initTableList = function () {
                 // 初始化页面
-                $scope.YmTableEmpty = false;
+                $scope.isEmptyOfTable = false;
                 // 初始化导出列表
-                $scope.ymTableExportMap = [];
+                $scope.tableExportList = [];
 
                 // 初始化筛选表单中的日期控件
-                jQuery(".YmTableFilterDate").each(function () {
+                jQuery(".ymTablefilterDate").each(function () {
 
                     var id = jQuery(this).attr('id');
                     var range = jQuery(this).attr('range');
@@ -119,23 +119,23 @@
                 initScript<?= $i ?>();
                 <?php endforeach; ?>
 
-                $scope.ymTableFilter = <?= $filterColumns ?>;
+                $scope.tableFilterData = <?= $filterColumns ?>;
 
                 // 初始化列表
-                ymGetTableList();
+                getTableList();
             };
             // 分页跳转
-            $scope.ymTableDumpPage = function (page, perPage) {
-                ymGetTableList(page, perPage);
+            $scope.triggerTableDumpPage = function (page, perPage) {
+                getTableList(page, perPage);
             };
             // 跳转到指定页
-            $scope.ymTableDumpSpecialPage = function (perPage) {
-                var page = $scope.ymTableCurrentPage;
-                ymGetTableList(page, perPage);
+            $scope.triggerTableDumpSpecialPage = function (perPage) {
+                var page = $scope.tableCurrentPage;
+                getTableList(page, perPage);
             };
             // 设置数据条数
             jQuery('body').on('change', '#YmTablePageSelect', function () {
-                ymGetTableList(1, jQuery(this).val());
+                getTableList(1, jQuery(this).val());
             });
             // 监听表格列表渲染完成
             $scope.$on('ev-repeat-finished', function () {
@@ -206,7 +206,7 @@
                                 toastr.success(data.msg, "通知");
                                 // reload list
                                 $timeout(function () {
-                                    ymGetTableList();
+                                    getTableList();
                                 }, 150);
                             } else if (data.code === 500) {
                                 toastr.warning(data.msg, "通知");
@@ -230,7 +230,7 @@
                 });
             };
             // 表格行操作-入口
-            $scope.ymTableRowActions = function (item, config) {
+            $scope.triggerTableRowActions = function (item, config) {
                 config = config || {};
                 var type = config.type;
                 var options = config.options;
@@ -262,7 +262,7 @@
 
             // ------ 工具栏 start ------
             // 表格筛选
-            $scope.ymTableFilterMethod = function () {
+            $scope.triggerTableFilterMethod = function () {
                 var layerParams = YmApp.layerParseParams('750px');
 
                 layer.open({
@@ -276,7 +276,7 @@
                     area: [layerParams.width],
                     btn: ['确定筛选', '清空'],
                     yes: function (index, layero) {
-                        var param = $scope.ymTableFilter;
+                        var param = $scope.tableFilterData;
 
                         // custom
                         <?php foreach ($filterCustoms['getScript'] as $i => $jsFunction): ?>
@@ -291,7 +291,7 @@
 
                         // 提交筛选
                         $scope.$apply(function () {
-                            ymGetTableList(1, null, param);
+                            getTableList(1, null, param);
                         });
                         layer.close(index);
                     },
@@ -299,11 +299,11 @@
                         // 清空筛选
                         $scope.$apply(function () {
                             var tempObj = {};
-                            for (var i in $scope.ymTableFilter) {
+                            for (var i in $scope.tableFilterData) {
                                 tempObj[i] = "";
                             }
 
-                            $scope.ymTableFilter = tempObj;
+                            $scope.tableFilterData = tempObj;
 
                             // custom
                             <?php foreach ($filterCustoms['clearScript'] as $i => $jsFunction): ?>
@@ -314,11 +314,11 @@
                         });
                         return false;
                     },
-                    content: jQuery("#YmTableFilterForm"),
+                    content: jQuery("#_EasyApp_tableFilterForm"),
                 });
             };
             // 表格列表导出
-            $scope.ymTableExportMethod = function () {
+            $scope.triggerTableExportMethod = function () {
                 var query = jQuery.extend({}, queryParams || {});
                 query['__export'] = 1;
                 var u = link + '?' + jQuery.param(query);
@@ -345,7 +345,7 @@
                             });
                         });
 
-                        $scope.ymTableExportMap = tempMap;
+                        $scope.tableExportList = tempMap;
                         var layerParams = YmApp.layerParseParams('500px');
 
                         layer.open({
@@ -370,7 +370,7 @@
 
             };
             // 标记已导出
-            $scope.ymTableFlagExport = function (e) {
+            $scope.triggerTableFlagExport = function (e) {
                 var elem = e.currentTarget;
                 $timeout(function () {
                     jQuery(elem).text("重新导出");
@@ -447,7 +447,7 @@
                                 toastr.success(data.msg, "通知");
                                 // reload list
                                 $timeout(function () {
-                                    ymGetTableList();
+                                    getTableList();
                                 }, 150);
                             } else if (data.code === 500) {
                                 toastr.warning(data.msg, "通知");
@@ -471,7 +471,7 @@
                 });
             };
             // 自定义操作项-入口
-            $scope.ymTableCustomMethod = function (options) {
+            $scope.triggerTableCustomMethod = function (options) {
                 var data = YmApp.getTableCheckedData() || [];
                 options = options || {};
 
@@ -511,7 +511,7 @@
             // ------ 工具栏 end ------
 
             // 初始化表格
-            ymInitTable();
+            initTableList();
 
             <?php foreach ($innerScript as $js): ?>
             <?= $js ?>

@@ -23,7 +23,7 @@ use app\builder\form\FieldsOptions;
      */
     !function (window, _EasyApp) {
         "use strict";
-        _EasyApp.controller('_formCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "wangEditor", "Upload", "layui", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, wangEditor, Upload, layui) {
+        _EasyApp.controller('_EasyApp_FormCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "wangEditor", "Upload", "layui", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, wangEditor, Upload, layui) {
             // 封装Layer插件
             var parentLayer = window.parent.layer;
             var tips = function (msg, title, icon, callback) {
@@ -111,9 +111,9 @@ use app\builder\form\FieldsOptions;
                     }
 
                     // 初始化预览图
-                    $scope['ymFormFileLink<?= $field ?>' + i] = fileDefaultLink[i] ? fileDefaultLink[i] : "";
+                    $scope['formFileLink<?= $field ?>' + i] = fileDefaultLink[i] ? fileDefaultLink[i] : "";
                     // 初始化上传进度值
-                    $scope['ymFormFileLoadingProcess<?= $field ?>' + i] = 0;
+                    $scope['formFileLoadingProcess<?= $field ?>' + i] = 0;
                 }
 
                 scopeFields['<?= $field ?>'] = fileDefaults.join(',');
@@ -150,7 +150,7 @@ use app\builder\form\FieldsOptions;
                 <?php endswitch; ?>
                 <?php endforeach; ?>
 
-                $scope.ymFormFields = scopeFields;
+                $scope.formFieldsData = scopeFields;
             };
             // 清空表单
             var clearFormValus = function () {
@@ -180,9 +180,9 @@ use app\builder\form\FieldsOptions;
                 for (var i = 0; i < fileNumbers; i++) {
                     fileDefaults[i] = "0";
                     // 初始化预览图
-                    $scope['ymFormFileLink<?= $field ?>' + i] = "";
+                    $scope['formFileLink<?= $field ?>' + i] = "";
                     // 初始化上传进度值
-                    $scope['ymFormFileLoadingProcess<?= $field ?>' + i] = 0;
+                    $scope['formFileLoadingProcess<?= $field ?>' + i] = 0;
                 }
 
                 scopeFields['<?= $field ?>'] = fileDefaults.join(',');
@@ -207,7 +207,7 @@ use app\builder\form\FieldsOptions;
                 <?php endswitch; ?>
                 <?php endforeach; ?>
 
-                $scope.ymFormFields = scopeFields;
+                $scope.formFieldsData = scopeFields;
             };
             // 获取表单数据
             var getFormValus = function () {
@@ -231,7 +231,7 @@ use app\builder\form\FieldsOptions;
                 <?php case FieldsOptions::CONTROL_HIDDEN: // 隐藏 ?>
                 <?php case FieldsOptions::CONTROL_TEXTAREA: // 文本域 ?>
                 <?php case FieldsOptions::CONTROL_FILE: // 文件 ?>
-                formData['<?= $field ?>'] = $scope.ymFormFields['<?= $field ?>'];
+                formData['<?= $field ?>'] = $scope.formFieldsData['<?= $field ?>'];
                 <?php break; case FieldsOptions::CONTROL_CHECKBOX: // 多选 ?>
                 checkboxTempMap = [];
                 jQuery(".ymFormCheckbox_<?= $field ?>").each(function () {
@@ -266,9 +266,9 @@ use app\builder\form\FieldsOptions;
                 return formData;
             };
             // 上传图片
-            $scope.ymFormUploadImage = function (files, saveDirectory, pathPrefix, fileScenario, field, index) {
+            $scope.triggerSelectImage = function (files, saveDirectory, pathPrefix, fileScenario, field, index) {
                 if (files) {
-                    var attachIds = $scope.ymFormFields[field].split(',');
+                    var attachIds = $scope.formFieldsData[field].split(',');
                     var mineType = files.type;
 
                     // 文件大小限制(M)
@@ -287,9 +287,9 @@ use app\builder\form\FieldsOptions;
                     fields['isBase64'] = 0;
                     fields[window.yii.getCsrfParam()] = window.yii.getCsrfToken();
                     // 显示上传进度
-                    $scope['ymFormFileLoading' + field + index] = true;
+                    $scope['formFileLoadingIsShow' + field + index] = true;
                     // 初始化上传进度值
-                    $scope['ymFormFileLoadingProcess' + field + index] = 0;
+                    $scope['formFileLoadingProcess' + field + index] = 0;
                     Upload.upload({
                         url: '<?= into_full_url('/admin/upload/one') ?>',
                         fields: fields,
@@ -298,15 +298,15 @@ use app\builder\form\FieldsOptions;
                         var progressPercentage = parseInt(100 * evt.loaded / evt.total);
                         // console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
                         // 实时同步上传进度值
-                        $scope['ymFormFileLoadingProcess' + field + index] = progressPercentage === 100 ? 99 : progressPercentage;
+                        $scope['formFileLoadingProcess' + field + index] = progressPercentage === 100 ? 99 : progressPercentage;
                     }).success(function (data, status, headers, config) {
                         // 关闭上传进度
-                        $scope['ymFormFileLoading' + field + index] = false;
+                        $scope['formFileLoadingIsShow' + field + index] = false;
                         if (data.code === 200) {
                             // 上传成功重新赋值
                             attachIds[index] = data.data;
                             attachIds = attachIds.join(',');
-                            $scope.ymFormFields[field] = attachIds;
+                            $scope.formFieldsData[field] = attachIds;
 
                             // 预览文件
                             Upload.base64DataUrl(files).then(function (urls) {
@@ -316,7 +316,7 @@ use app\builder\form\FieldsOptions;
                                     urlsVal = '<?= into_full_url("/media/image/default-file.png") ?>';
                                 }
 
-                                $scope['ymFormFileLink' + field + index] = urlsVal;
+                                $scope['formFileLink' + field + index] = urlsVal;
                             });
                         } else {
                             tips(data.msg ? data.msg : (data.code == 500 ? '提交失败' : '您没有权限操作!'), "通知", 5);
@@ -324,7 +324,7 @@ use app\builder\form\FieldsOptions;
 
                     }).error(function (data, status, headers, config) {
                         // 关闭上传进度
-                        $scope['ymFormFileLoading' + field + index] = false;
+                        $scope['formFileLoadingIsShow' + field + index] = false;
                         tips(data, '错误', 2);
                         console.error(data);
                     });
@@ -332,7 +332,7 @@ use app\builder\form\FieldsOptions;
                 }
             };
             // 初始化表单
-            var ymInitForm = function () {
+            var initFormItems = function () {
                 // 挂载WangEditor
                 mountedWangEditor();
                 // 挂载Laydate
@@ -341,7 +341,7 @@ use app\builder\form\FieldsOptions;
                 initFormValues();
             };
             // 返回上一页
-            $scope.ymFormGoBack = function () {
+            $scope.triggerGoBack = function () {
                 var referrer = window.document.referrer;
                 if (window.self !== window.top) {
                     // 在iframe中
@@ -355,11 +355,11 @@ use app\builder\form\FieldsOptions;
                 }
             };
             // 清空表单
-            $scope.ymFormClearForm = function () {
+            $scope.triggerClearForm = function () {
                 clearFormValus();
             };
             // 重置表单
-            $scope.ymFormResetForm = function () {
+            $scope.triggerResetForm = function () {
                 initFormValues();
             };
             var submitForm = function () {
@@ -381,7 +381,7 @@ use app\builder\form\FieldsOptions;
                                 // 再执行关闭
                                 parentLayer.close(index);
                                 // 刷新父窗口
-                                var mountedMethods = window.parent._EasyFrameModalSuccessCallback;
+                                var mountedMethods = window.parent._EasyApp_ParentTableRefresh;
                                 if (typeof mountedMethods !== "undefined") {
                                     for (var i in mountedMethods) {
                                         if (mountedMethods.hasOwnProperty(i) && typeof mountedMethods[i] == "function") {
@@ -408,7 +408,7 @@ use app\builder\form\FieldsOptions;
                 });
             };
             // 提交表单
-            $scope.ymFormSubmitForm = function () {
+            $scope.triggerSubmitForm = function () {
                 parentLayer.alert("是否确定当前操作?", {
                     closeBtn: 2,
                     title: "信息",
@@ -419,7 +419,7 @@ use app\builder\form\FieldsOptions;
                 });
             };
             // 初始化表单[调用]
-            ymInitForm();
+            initFormItems();
 
             <?php foreach ($_innerScript as $_js): ?>
             <?= $_js ?>

@@ -12,7 +12,7 @@ QuickSettingAsset::register($this);
 $this->title = '快捷操作设置';
 ?>
 
-<div class="panel panel-white" ng-controller="_quickSettingCtrl">
+<div class="panel panel-white" ng-controller="_EasyApp_quickSettingCtrl">
     <table class="table table-hover">
         <tbody>
         <?php foreach ($allowQuickActions as $item): ?>

@@ -8,10 +8,10 @@
  */
 !function (window, _EasyApp) {
     "use strict";
-    _EasyApp.controller('_countCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
+    _EasyApp.controller('_EasyApp_CountCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
         /*******************概览********************/
 
-    }]).controller('_quickOpCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
+    }]).controller('_EasyApp_QuickOpCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
         /*******************快捷操作********************/
         // 初始化数据
         $scope._initData = function () {
@@ -65,7 +65,7 @@
                 btn: ['关闭'],
                 closeBtn: layerParams.closeBtn,
                 area: [layerParams.width, '85%'],
-                content: url,
+                content: url
             });
         };
 
@@ -74,12 +74,12 @@
         $scope._initList();
 
         // 置顶重载列表方法
-        window._Easy_QuickActionRefresh = window._Easy_QuickActionRefresh || {};
-        window._Easy_QuickActionRefresh._initQuickActionList = function () {
+        window._EasyApp_QuickActionRefresh = window._EasyApp_QuickActionRefresh || {};
+        window._EasyApp_QuickActionRefresh._initQuickActionList = function () {
             $scope._initList();
         };
 
-    }]).controller('_messageCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
+    }]).controller('_EsayApp_MessageCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
         /*******************消息********************/
 
     }]);

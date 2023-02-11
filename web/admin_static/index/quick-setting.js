@@ -8,7 +8,7 @@
  */
 !function (window, _EasyApp) {
     "use strict";
-    _EasyApp.controller('_quickSettingCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "layui", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, layui) {
+    _EasyApp.controller('_EasyApp_quickSettingCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "layui", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, layui) {
         var parentLayer = window.parent.layer;
 
         // 加入快捷项
@@ -29,7 +29,7 @@
                     if (result.code == 200) {
                         YmApp._layerTip(msg, '通知', 1, function () {
                             // 刷新父窗口
-                            var mountedMethods = window.parent._Easy_QuickActionRefresh;
+                            var mountedMethods = window.parent._EasyApp_QuickActionRefresh;
                             if (typeof mountedMethods !== "undefined") {
                                 for (var i in mountedMethods) {
                                     if (mountedMethods.hasOwnProperty(i) && typeof mountedMethods[i] == "function") {
