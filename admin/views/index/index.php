@@ -224,14 +224,17 @@ $this->title = t('home', 'app.admin');
                 </button>
             </div>
             <div class="panel-body" style="min-height:380px;">
-                <div class="col-md-3 col-md-130px pl-0 pr-10" ng-repeat="xxx in ymQuickActionList track by xxx.id">
-                    <div class="panel panel-white hover-light cp" ng-click="hrefTarget(xxx.url, xxx.label)">
-                        <div class="panel-body px-0">
-                            <p class="text-center f-32 text-primary">
-                                <i class="{{ xxx.icon }}"></i>
-                            </p>
-                            <div class="caption">
-                                <p class="f-14 text-center" ng-bind="xxx.label | toHtml"></p>
+                <block-loading ui-class="block-loading-quick-action" display="quickLoadingShow"></block-loading>
+                <div ng-hide="quickLoadingShow">
+                    <div class="col-md-3 col-md-130px pl-0 pr-10" ng-repeat="xxx in ymQuickActionList track by xxx.id">
+                        <div class="panel panel-white hover-light cp" ng-click="hrefTarget(xxx.url, xxx.label)">
+                            <div class="panel-body px-0">
+                                <p class="text-center f-32 text-primary">
+                                    <i class="{{ xxx.icon }}"></i>
+                                </p>
+                                <div class="caption">
+                                    <p class="f-14 text-center" ng-bind="xxx.label | toHtml"></p>
+                                </div>
                             </div>
                         </div>
                     </div>

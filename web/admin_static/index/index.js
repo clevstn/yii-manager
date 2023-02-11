@@ -11,6 +11,7 @@
     _EasyApp.controller('_EasyApp_CountCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
         /*******************概览********************/
 
+
     }]).controller('_EasyApp_QuickOpCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer) {
         /*******************快捷操作********************/
         // 初始化数据
@@ -39,14 +40,14 @@
         // 获取快捷菜单列表
         $scope._initList = function () {
             // 节流
-            var i = YmSpinner.show();
+            $scope.quickLoadingShow = true;
             $http.get(YmApp.$adminApi.indexQuickActionListUrl).then(function (result) {
-                YmSpinner.hide(i);
+                $scope.quickLoadingShow = false;
                 var data = result.data;
 
                 $scope.ymQuickActionList = data.data || [];
             }, function (error) {
-                YmSpinner.hide(i);
+                $scope.quickLoadingShow = false;
                 toastr.error(error.data || "数据加载失败，请稍后重试", "通知");
                 window.console.error(error);
             });

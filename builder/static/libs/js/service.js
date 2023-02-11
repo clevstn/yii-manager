@@ -108,7 +108,23 @@
                 });
             }
         };
-    });
+    }).directive('blockLoading', ["YmSpinner", function (spinner) {
+        return {
+            restrict : "E",
+            replace: true,
+            scope: {
+                imgUrl: '@',
+                uiClass: '@', // class样式字符串 <block-loading ui-class="classname" display="loadingShow"></block-loading>
+                display: '='  // 父scope指定变量，用于隐藏显示组件 <block-loading ui-class="classname" display="loadingShow"></block-loading>
+            },
+            template : '<div ng-show="display" class="{{uiClass}}"><img style="width:20px;" src="{{imgUrl}}" alt><span>&nbsp;请稍后...</span></div>',
+            link: function (scope, element, attrs, ngModel) {
+                // 初始化scope数据
+                scope.uiClass = scope.uiClass || 'ym-block-loading';
+                scope.imgUrl = scope.imgUrl || spinner.options.loadingImage;
+            }
+        };
+    }]);
 
     // 服务驱动配置
     _YmAppModule.factory("httpInterceptor", ["$q", function ($q) {
