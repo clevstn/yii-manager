@@ -143,27 +143,6 @@ $items = [
                     ],
                 ],
                 [
-                    'label' => '运维脚本',
-                    'src' => 'admin/ops-script/index',
-                    'icon' => 'glyphicon glyphicon-flash',
-                    'desc' => '查看运维脚本',
-                    'is_quick' => 1,
-                ],
-                [
-                    'label' => '队列监控',
-                    'src' => 'admin/ops-queue/index',
-                    'icon' => 'fa fa-line-chart',
-                    'desc' => '查看队列监控',
-                    'is_quick' => 1,
-                ],
-                [
-                    'label' => '计划任务监控',
-                    'src' => 'admin/ops-cron/index',
-                    'icon' => 'fa fa-tasks',
-                    'desc' => '查看计划任务监控',
-                    'is_quick' => 1,
-                ],
-                [
                     'label' => '系统日志',
                     'src' => 'admin/system-log/index',
                     'icon' => 'fa fa-exclamation-triangle',
