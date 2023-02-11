@@ -221,7 +221,7 @@ class ManagerController extends CommonController
                 'icon' => 'fa fa-google-plus',
                 'route' => 'admin/manager/mfa-bind',
                 'width' => '780px',
-                'height' => '650px',
+                'height' => '700px',
                 'params' => ['id']
             ]),
         ];

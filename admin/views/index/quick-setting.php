@@ -29,7 +29,7 @@ $this->title = '快捷操作设置';
                     </div>
                 </td>
                 <td class="border-none" style="display:flex;justify-content:center;align-items:center;">
-                    <div class="panel panel-white pt-6" style="width:140px;">
+                    <div class="panel panel-white pt-6" style="width:124px;">
                         <div class="panel-body f-32 text-center text-primary pb-0">
                             <?php if(!empty($item['icon'])): ?>
                                 <i class="<?= $item['icon'] ?>"></i>
@@ -37,8 +37,8 @@ $this->title = '快捷操作设置';
                                 <i class="glyphicon glyphicon-briefcase"></i>
                             <?php endif; ?>
                         </div>
-                        <div class="panel-body pt-0">
-                            <p class="f-15 text-center">
+                        <div class="panel-body pt-6">
+                            <p class="f-14 text-center">
                                 <?= $item['label'] ?>
                             </p>
                         </div>
