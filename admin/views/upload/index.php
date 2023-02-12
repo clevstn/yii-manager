@@ -33,7 +33,10 @@ $this->title = '附件管理';
                     <button type="button" class="btn btn-sm btn-default">选择未分类附件</button>
                 </div>
                 <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-sm btn-danger">删除选中</button>
+                    <button type="button" class="btn btn-default btn-sm" title="刷新">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger" title="删除选中">删除选中</button>
                 </div>
             </div>
             <div class="box-shadow bg-white" style="height: 310px; overflow-y: auto;">
