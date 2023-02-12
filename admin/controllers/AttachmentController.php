@@ -125,9 +125,16 @@ class AttachmentController extends CommonController
                 'icon' => 'fa fa-plus',
                 'option' => 'modal',
                 'route' => 'admin/upload/add',
-                'width' => '700px',
-                'height' => '550px',
-                'params' => ['type' => 1, 'id' => 2],
+                'width' => '600px',
+                'height' => '680px',
+                'params' => [
+                    'type' => '未分类',
+                    'scenario' => '',
+                    'name' => 'file',
+                    'saveDirectory' => 'common',
+                    'pathPrefix' => '',
+                    'isBase64' => false,
+                ],
             ]),
             // 删除
             table_toolbar_custom_helper('left', [

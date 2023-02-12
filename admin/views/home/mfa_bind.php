@@ -17,7 +17,7 @@ OtpBindAsset::register($this);
 
 $this->title = 'MFA绑定';
 ?>
-<div class="panel panel-default" ng-controller="_otpBindCtrl">
+<div class="panel panel-default" ng-controller="_EasyApp_otpBindCtrl">
     <?php if(!empty($titleName)): ?>
     <div class="panel-heading border-bottom clearfix">
         <h4 class="f-13"><?= $titleName ?></h4>

@@ -67,7 +67,9 @@ class UploadController extends CommonController
 
             return $this->asFail($result);
         } else {
+            $this->setLayoutViewPath();
 
+            return $this->render('index');
         }
     }
 }

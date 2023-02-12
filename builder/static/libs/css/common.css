@@ -100,8 +100,10 @@ ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .py-0 {padding-top: 0px !important;padding-bottom: 0px !important;}
 .py-3 {padding-top: 3px;padding-bottom: 3px;}
 .bg-light {background-color: #f2f2f2;}
+.bg-white {background-color: #fff !important;}
 .text-dark {color: #626675 !important;}
 .text-gray {color: #999999 !important;}
+.text-light {color: #ddd !important;}
 .overflow-x {overflow-x: auto !important;overflow-y: visible !important;-webkit-overflow-scrolling: touch;}
 .dropup, .dropdown {position: static;}
 .dropdown-menu {top: auto;left: auto;}

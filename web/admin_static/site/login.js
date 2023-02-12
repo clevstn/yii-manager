@@ -10,7 +10,7 @@
     "use strict";
 
     // 登录 - 基本校验
-    _EasyApp.controller('_loginBaseCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "lang", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, lang) {
+    _EasyApp.controller('_EasyApp_LoginBaseCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "lang", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, lang) {
         window.console.log("%c This is Login-Base-Page with Yii-Manager", 'color:#337ab7;');
         var defaultPhoto = '/media/image/admin_static/login_head.png';
         // 初始化脚本
@@ -95,7 +95,7 @@
 
         // 初始化脚本
         initedScript();
-    }]).controller('_loginSafeCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "lang", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, lang) {
+    }]).controller('_EasyApp_LoginSafeCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "lang", function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, lang) {
         // 登录 - 安全校验
         window.console.log("%c This is Login-Safe-Page with Yii-Manager", 'color:#337ab7;');
         // 初始化应用信息

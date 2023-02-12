@@ -17,7 +17,7 @@ SiteAsset::register($this);
     _ymData._loginErrorMsg = "<?= !empty($errorMsg) ? $errorMsg : '' ?>";
     window.YmData = _ymData;
 </script>
-<div class="ym-login" ng-controller="_loginBaseCtrl" ng-cloak>
+<div class="ym-login" ng-controller="_EasyApp_LoginBaseCtrl" ng-cloak>
     <div class="login-wrap">
         <div class="panel-body">
             <div class="login-header">

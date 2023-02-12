@@ -17,7 +17,7 @@ $this->title = '管理组权限分配';
     _ymData.dispatchPermissionData = <?= $data ?>;
     window.YmData = _ymData;
 </script>
-<div class="panel panel-default" ng-controller="dispatchCtrl">
+<div class="panel panel-default" ng-controller="_EasyApp_DispatchCtrl">
     <div class="panel-body">
         <div class="form-group col-md-12">
             <div id="PermissionNodeTree"></div>

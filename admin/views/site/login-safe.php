@@ -13,7 +13,7 @@ $this->title = t('safety certification', 'app.admin');
 SiteAsset::register($this);
 $safeWay = $this->params['ways'];
 ?>
-<div class="container ym-safe" ng-controller="_loginSafeCtrl" ng-cloak>
+<div class="container ym-safe" ng-controller="_EasyApp_LoginSafeCtrl" ng-cloak>
     <form class="panel panel-default mt-50">
         <div class="panel-body p-24 pt-6 pb-0 row underline">
             <div class="col-sm-12 col-md-9 col-md-offset-1 min-300 px-0">
