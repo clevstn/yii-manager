@@ -8,6 +8,7 @@
 use app\admin\assets\UploadAsset;
 
 /* @var $this \yii\web\View */
+/* @var string $fields 上传请求参数 */
 /* @var $param */
 
 UploadAsset::register($this);
@@ -15,14 +16,14 @@ UploadAsset::register($this);
 $this->title = '附件管理';
 ?>
 
-<div class="panel panel-white pb-0" style="max-width: 600px;" ng-controller="_EasyApp_AttachmentCtrl">
+<div class="panel panel-white pb-0" ng-controller="_EasyApp_AttachmentCtrl">
     <!--上传-->
     <div class="panel-body">
         <!--上传区域-->
         <div class="upload-wap border-dashed-ddd h-130px text-center text-light cp">
             <p class="f-16 pt-16">点击上传或拖放图片到该区域</p>
             <i class="fa fa-upload f-48 pt-6"></i>
-            <input class="upload-input" type="file" title="附件上传" multiple>
+            <input class="upload-input" ngf-change="triggerUpload($files, <?= html_escape($fields) ?>)" ngf-select="true" ngf-multiple="true" type="file" title="附件上传">
         </div>
     </div>
     <!--管理-->
@@ -39,7 +40,7 @@ $this->title = '附件管理';
                     <button type="button" class="btn btn-sm btn-danger" title="删除选中">删除选中</button>
                 </div>
             </div>
-            <div class="box-shadow bg-white" style="height: 310px; overflow-y: auto;">
+            <div class="box-shadow bg-white" style="height: 360px; overflow-y: auto;">
                 <div class="panel-body flex">
                     <div ng-repeat="(key, item) in [1,2,3,4,5,6,7,8,9,10] track by key">
                         <div class="image-wrap cp" ng-click="triggerChooseFile($event, item)">

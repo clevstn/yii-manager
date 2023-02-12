@@ -9,6 +9,8 @@ namespace app\admin\controllers;
 
 use Yii;
 use app\builder\common\CommonController;
+use yii\base\DynamicModel;
+use yii\helpers\Json;
 
 /**
  * 附件上传
@@ -67,9 +69,22 @@ class UploadController extends CommonController
 
             return $this->asFail($result);
         } else {
+            $this->emptyStrToNull = false;
+
+            $queryParam = $this->get;
+            $model = DynamicModel::validateData($queryParam, [
+                [['type', 'name', 'saveDirectory'], 'required'],
+            ]);
+
+            if (!empty($model->errors)) {
+                return current($model->errors);
+            }
+
             $this->setLayoutViewPath();
 
-            return $this->render('index');
+            return $this->render('index', [
+                'fields' => Json::encode($queryParam),
+            ]);
         }
     }
 }

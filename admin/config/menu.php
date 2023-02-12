@@ -269,11 +269,11 @@ $items = [
     // - is_quick 是否允许设置为快捷操作，0：不可以 1：可以；注意：快捷操作为get请求，不可动态传参请求，只能打开独立窗口，请根据功能实际情况进行设置。
     'whiteLists' => [
         [
-            'label' => '添加附件',
+            'label' => '上传附件',
             'src' => 'admin/upload/add',
             'icon' => 'glyphicon glyphicon-open',
             'dump_way' => '_self',
-            'desc' => '管理员添加附件',
+            'desc' => '管理员上传附件',
             'is_quick' => 1,
         ],
         [

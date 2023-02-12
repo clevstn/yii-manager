@@ -289,7 +289,15 @@ class Uploads extends Component
     {
         settype($filesBase64Map, 'array');
 
-        return count($filesBase64Map) <= $this->attachMaxFiles ?: t('The file "{file}" is too big. Its size cannot exceed {formattedLimit}.', 'yii', ['file' => '--', 'formattedLimit' => $this->attachMaxFiles]);
+        if (count($filesBase64Map) == 0) {
+            return t('{param} can not be empty', 'app.admin', ['param' => 'files']);
+        }
+
+        if (count($filesBase64Map) > $this->attachMaxFiles) {
+            return t('The file "{file}" is too big. Its size cannot exceed {formattedLimit}.', 'yii', ['file' => '--', 'formattedLimit' => $this->attachMaxFiles]);
+        }
+
+        return true;
     }
 
     /**

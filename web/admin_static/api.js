@@ -32,6 +32,11 @@
         indexQuickActionUrl: '/admin/index/quick-setting',
         // 快捷菜单列表
         indexQuickActionListUrl: '/admin/index/quick-list',
+
+        /* -------------- 附件上传 ---------------------   */
+        // 附件上传
+        fileUploadUrl: '/admin/upload/add',
+
     };
 
     YmApp.$adminApi = api;

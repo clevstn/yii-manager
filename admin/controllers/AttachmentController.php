@@ -126,14 +126,14 @@ class AttachmentController extends CommonController
                 'option' => 'modal',
                 'route' => 'admin/upload/add',
                 'width' => '620px',
-                'height' => '680px',
+                'height' => '750px',
                 'params' => [
+                    'name' => 'file',
                     'type' => '未分类',
                     'scenario' => '',
-                    'name' => 'file',
                     'saveDirectory' => 'common',
                     'pathPrefix' => '',
-                    'isBase64' => false,
+                    'isBase64' => 0,
                 ],
             ]),
             // 删除

@@ -4,6 +4,9 @@
 #### 一、db迁移命令
 + yii-manager
 `yii migrate/* --migrationPath=@app/builder/database/migrations`
+  
+  如：数据迁移命令`yii migrate --migrationPath=@app/builder/database/migrations`
+  
 + 当前应用
 `yii migrate/* --migrationPath=@app/migrations/db`
 
