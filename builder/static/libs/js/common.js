@@ -274,6 +274,48 @@
     };
 
     /**
+     * URL拼接请求参数
+     * @param url
+     * @param params
+     * @returns {*}
+     */
+    YmAppConstructor.prototype.addUrlQueryParam = function (url, params) {
+        params = params || {};
+
+        if (this.keys(params).length) {
+            var hash = [];
+            var queryParam = jQuery.param(params);
+
+            // 处理#
+            if (url.indexOf('#') > -1) {
+                var map = url.split('#');
+                url = map.shift();
+                hash = map;
+            }
+
+            // 处理?
+            if (url.indexOf('?') > -1) {
+                if (url.slice(-1) === '&') {
+                    url += queryParam;
+                } else {
+                    url += '&' + queryParam;
+                }
+            } else {
+                url += '?' + queryParam;
+            }
+
+            // 拼接#
+            hash.forEach(function (item) {
+                url += '#' + item;
+            });
+
+            return url;
+        }
+
+        return url;
+    };
+
+    /**
      * 字符串首字母大写
      * @param str
      * @return {string}

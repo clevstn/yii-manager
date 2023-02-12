@@ -24,7 +24,6 @@ class AttachmentController extends CommonController
      */
     public $actionVerbs = [
         'index' => ['get', 'post'],
-        'add' => ['get', 'post'],
         'remove' => ['post'],
         'copy' => ['post'],
     ];
@@ -122,12 +121,13 @@ class AttachmentController extends CommonController
         $table->toolbarCustom = [
             // 添加
             table_toolbar_custom_helper('left', [
-                'title' => '添加附件',
+                'title' => '添加未分类附件',
                 'icon' => 'fa fa-plus',
                 'option' => 'modal',
-                'route' => 'admin/attachment/add',
+                'route' => 'admin/upload/add',
                 'width' => '700px',
                 'height' => '550px',
+                'params' => ['type' => 1, 'id' => 2],
             ]),
             // 删除
             table_toolbar_custom_helper('left', [
@@ -150,12 +150,6 @@ class AttachmentController extends CommonController
         ];
 
         return $table->render($this);
-    }
-
-
-    public function actionAdd()
-    {
-        
     }
 
     public function actionRemove()

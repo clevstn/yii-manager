@@ -223,14 +223,6 @@ $items = [
                     'is_quick' => 1,
                     'items' => [
                         [
-                            'label' => '新增附件',
-                            'src' => 'admin/attachment/add',
-                            'icon' => 'fa fa-plus',
-                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
-                            'desc' => '新增附件',
-                            'is_quick' => 1,
-                        ],
-                        [
                             'label' => '复制到未分类',
                             'src' => 'admin/attachment/copy',
                             'icon' => 'fa fa-copy',
@@ -277,12 +269,12 @@ $items = [
     // - is_quick 是否允许设置为快捷操作，0：不可以 1：可以；注意：快捷操作为get请求，不可动态传参请求，只能打开独立窗口，请根据功能实际情况进行设置。
     'whiteLists' => [
         [
-            'label' => '文件上传',
-            'src' => 'admin/upload/one',
+            'label' => '添加附件',
+            'src' => 'admin/upload/add',
             'icon' => 'glyphicon glyphicon-open',
             'dump_way' => '_self',
-            'desc' => '管理员上传文件',
-            'is_quick' => 0,
+            'desc' => '管理员添加附件',
+            'is_quick' => 1,
         ],
         [
             'label' => '退出',

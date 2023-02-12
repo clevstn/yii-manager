@@ -26,6 +26,7 @@
             var pageNumber;
             var perPageNumber;
             var queryParams;
+
             // 获取当前构建器操作链接
             var getUrl = function (page, perPage, query) {
                 page = page || pageNumber || 1;
@@ -44,7 +45,7 @@
 
                 /* 使用Jq的对象合并方案 */
                 jQuery.extend(param, query);
-                return link + '?' + jQuery.param(param);
+                return YmApp.addUrlQueryParam(link, param);
             };
             // 获取表格列表
             var getTableList = function (page, perPage, param) {
@@ -52,6 +53,7 @@
                 var i = YmSpinner.show();
                 // 初始化页面
                 $scope.isEmptyOfTable = false;
+
                 $http.get(getUrl(page, perPage, param)).then(function (result) {
                     YmSpinner.hide(i);
                     var data = result.data;
@@ -159,7 +161,8 @@
             // 表格行操作-打开模态框
             var openModalOnRow = function (title, params, route, width, height) {
                 var layerParams = YmApp.layerParseParams(width);
-                var u = YmApp.keys(params).length ? (route + '?' + jQuery.param(params)) : route;
+                var u = YmApp.addUrlQueryParam(route, params);
+
                 layer.open({
                     type: 2,
                     shade: 0.3,
@@ -175,7 +178,8 @@
             // 表格行操作-打开页面
             var openPageOnRow = function (title, params, route) {
                 params['pageTitle'] = title;
-                var u = YmApp.keys(params).length ? (route + '?' + jQuery.param(params)) : route;
+                var u = YmApp.addUrlQueryParam(route, params);
+
                 window.location.href = u;
             };
             // 表格行操作-ajax请求
@@ -193,7 +197,8 @@
 
                         var instance;
                         if (method === "get") {
-                            var u = YmApp.keys(params).length ? (route + '?' + jQuery.param(params)) : route;
+                            var u = YmApp.addUrlQueryParam(route, params);
+
                             instance = $http.get(u);
                         } else if (method === "post") {
                             instance = $http.post(route, params);
@@ -321,7 +326,7 @@
             $scope.triggerTableExportMethod = function () {
                 var query = jQuery.extend({}, queryParams || {});
                 query['__export'] = 1;
-                var u = link + '?' + jQuery.param(query);
+                var u = YmApp.addUrlQueryParam(link, query);
 
                 // 节流
                 var i = YmSpinner.show();
@@ -337,7 +342,9 @@
                             query['_offset'] = value.offset;
                             query['_limit'] = value.limit;
                             query['_filename'] = value.filename;
-                            var u = link + '?' + jQuery.param(query);
+
+                            var u = YmApp.addUrlQueryParam(link, query);
+
                             tempMap.push({
                                 page: value.page,
                                 rows: value.rows,
@@ -400,7 +407,8 @@
             // 自定义操作项-打开模态框
             var openModalOnToolbar = function (title, params, route, width, height) {
                 var layerParams = YmApp.layerParseParams(width);
-                var u = YmApp.keys(params).length ? (route + '?' + jQuery.param(params)) : route;
+                var u = YmApp.addUrlQueryParam(route, params);
+
                 layer.open({
                     type: 2,
                     shade: 0.3,
@@ -416,8 +424,7 @@
             // 自定义操作项-打开页面
             var openPageOnToolbar = function (title, params, route) {
                 params['pageTitle'] = title;
-                var u = YmApp.keys(params).length ? (route + '?' + jQuery.param(params)) : route;
-                window.location.href = u;
+                window.location.href = YmApp.addUrlQueryParam(route, params);
             };
             // 自定义操作项-ajax请求
             var ajaxRequestOnToolbar = function (method, params, route) {
@@ -434,7 +441,7 @@
 
                         var instance;
                         if (method === "get") {
-                            var u = YmApp.keys(params).length ? (route + '?' + jQuery.param(params)) : route;
+                            var u = YmApp.addUrlQueryParam(route, params);
                             instance = $http.get(u);
                         } else if (method === "post") {
                             instance = $http.post(route, params);
@@ -483,11 +490,19 @@
                 var width = options.width || '800px';
                 var height = options.height || '520px';
 
-                var plen = YmApp.typeOf(params) === 'object' ? YmApp.keys(params).length : params.length;
-                if (plen && !data.length) {
+                var notAllUserDefinedParam = false;
+                for (var i in params) {
+                    if (i % 1 === 0) {
+                        // 存在变量参数
+                        notAllUserDefinedParam = true;
+                    }
+                }
+
+                if (notAllUserDefinedParam && !data.length) {
                     layer.alert("请选择数据列", {
                         title: "提示",
                     });
+
                     return true;
                 }
 

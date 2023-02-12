@@ -291,7 +291,7 @@ use app\builder\form\FieldsOptions;
                     // 初始化上传进度值
                     $scope['formFileLoadingProcess' + field + index] = 0;
                     Upload.upload({
-                        url: '<?= into_full_url('/admin/upload/one') ?>',
+                        url: '<?= into_full_url('/admin/upload/add') ?>',
                         fields: fields,
                         file: files
                     }).progress(function (evt) {
