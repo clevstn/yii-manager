@@ -125,7 +125,7 @@ class AttachmentController extends CommonController
                 'icon' => 'fa fa-plus',
                 'option' => 'modal',
                 'route' => 'admin/upload/add',
-                'width' => '600px',
+                'width' => '620px',
                 'height' => '680px',
                 'params' => [
                     'type' => '未分类',

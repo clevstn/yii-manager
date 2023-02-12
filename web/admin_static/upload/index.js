@@ -22,9 +22,11 @@
             if (othis.hasClass('selected')) {
                 othis.removeClass('selected');
                 $scope.chooseAttachments.splice($scope.chooseAttachments.indexOf(id), 1)
+                console.log($scope.chooseAttachments)
             } else {
                 othis.addClass('selected');
                 $scope.chooseAttachments.push(id);
+                console.log($scope.chooseAttachments)
             }
         };
 

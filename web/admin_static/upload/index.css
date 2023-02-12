@@ -6,6 +6,7 @@
 .f-16 {font-size: 16px;}
 .flex {display: flex;flex-direction:row;flex-wrap: wrap;}
 .box-shadow {box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, .1) inset}
+
 .upload-wap {position: relative;}
 .upload-wap .upload-input {z-index: 2;-moz-opacity: 0;opacity: 0;-ms-filter: 'alpha(opacity=0)';-webkit-user-select: none;outline: 0; -webkit-appearance: none; appearance: none; -moz-appearance:none; -ms-progress-appearance: unset; position: absolute; left: 0; right: 0; top: 0; bottom: 0; cursor: pointer; border: none;}
 

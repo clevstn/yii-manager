@@ -38,9 +38,11 @@ $this->title = '附件管理';
             </div>
             <div class="box-shadow bg-white" style="height: 310px; overflow-y: auto;">
                 <div class="panel-body flex">
-                    <div class="image-wrap cp" ng-click="triggerChooseFile($event, 1)">
-                        <img class="image-ui" src="/media/image/admin_static/default-0.jpg" alt>
-                        <span class="success-icon"></span>
+                    <div ng-repeat="(key, item) in [1,2,3,4,5,6,7,8,9,10] track by key">
+                        <div class="image-wrap cp" ng-click="triggerChooseFile($event, item)">
+                            <img class="image-ui" src="/media/image/admin_static/default-0.jpg" alt>
+                            <span class="success-icon"></span>
+                        </div>
                     </div>
                 </div>
             </div>
