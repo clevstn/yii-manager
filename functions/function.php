@@ -237,3 +237,37 @@ if (!function_exists('curl_request')) {
         return ['code' => 200, 'result' => $result];
     }
 }
+
+if (!function_exists('filesize_unit_convert')) {
+
+    /**
+     * 文件大小单位转换
+     * @param integer|string|float $size 大小
+     * @param string $unit 单位，默认传入的大小单位是字节
+     * @return string
+     */
+    function filesize_unit_convert($size, $unit = 'B')
+    {
+      settype($size, 'float');
+
+      if ($size > 1024) {
+          if (strncasecmp($unit, 'B', 1) === 0) {
+              $nextUnit = 'KB';
+          } elseif (strncasecmp($unit, 'K', 1) === 0) {
+              $nextUnit = 'MB';
+          } elseif (strncasecmp($unit, 'M', 1) === 0) {
+              $nextUnit = 'GB';
+          } elseif (strncasecmp($unit, 'G', 1) === 0) {
+              $nextUnit = 'TB';
+          } elseif (strncasecmp($unit, 'T', 1) === 0) {
+              $nextUnit = 'PB';
+          } else {
+              return xfloor($size) . $unit;
+          }
+
+          return filesize_unit_convert(xdiv($size, 1024), $nextUnit);
+      }
+
+        return xfloor($size) . $unit;
+    }
+}

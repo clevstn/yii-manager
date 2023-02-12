@@ -216,6 +216,39 @@ $items = [
                     ],
                 ],
                 [
+                    'label' => '附件管理',
+                    'src' => 'admin/attachment/index',
+                    'icon' => 'fa fa-medium',
+                    'desc' => '查看附件管理列表',
+                    'is_quick' => 1,
+                    'items' => [
+                        [
+                            'label' => '新增附件',
+                            'src' => 'admin/attachment/add',
+                            'icon' => 'fa fa-plus',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '新增附件',
+                            'is_quick' => 1,
+                        ],
+                        [
+                            'label' => '复制到未分类',
+                            'src' => 'admin/attachment/copy',
+                            'icon' => 'fa fa-copy',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '复制指定文件到未分类',
+                            'is_quick' => 0,
+                        ],
+                        [
+                            'label' => '删除未分类附件',
+                            'src' => 'admin/attachment/remove',
+                            'icon' => 'fa fa-remove',
+                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                            'desc' => '删除未分类附件',
+                            'is_quick' => 0,
+                        ],
+                    ],
+                ],
+                [
                     'label' => '系统设置',
                     'src' => 'admin/system-setting/index',
                     'icon' => 'glyphicon glyphicon-cog',
@@ -243,6 +276,14 @@ $items = [
     // - desc 备注   注：用于行为日志记录，建议填写
     // - is_quick 是否允许设置为快捷操作，0：不可以 1：可以；注意：快捷操作为get请求，不可动态传参请求，只能打开独立窗口，请根据功能实际情况进行设置。
     'whiteLists' => [
+        [
+            'label' => '文件上传',
+            'src' => 'admin/upload/one',
+            'icon' => 'glyphicon glyphicon-open',
+            'dump_way' => '_self',
+            'desc' => '管理员上传文件',
+            'is_quick' => 0,
+        ],
         [
             'label' => '退出',
             'src' => 'admin/site/logout',
