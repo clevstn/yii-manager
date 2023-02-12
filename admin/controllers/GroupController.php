@@ -7,6 +7,8 @@
 
 namespace app\admin\controllers;
 
+use app\models\AdminUser;
+use app\models\AdminUserQuickAction;
 use Yii;
 use app\builder\common\CommonController;
 use app\builder\form\FieldsOptions;
@@ -15,6 +17,7 @@ use app\builder\table\ToolbarFilterOptions;
 use app\builder\ViewBuilder;
 use app\models\AuthGroups;
 use app\models\AuthRelations;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 /**
@@ -326,13 +329,40 @@ class GroupController extends CommonController
                 return $this->asFail(t('parameter type error', 'app.admin'));
             }
 
+            // 获取已经不存在的权限
+            $groupMap = AuthRelations::query('menu_id')->where(['group_id' => $id])->column();
+            $notExistRelations = array_diff($groupMap, $bodyParams['menuIds']);
+
+            // 获取需要新增的权限
+            $addMap = array_diff($bodyParams['menuIds'], $groupMap);
+
+            // 获取该管理组下所有管理员的快捷操作数据
+            $quickActionMap = AdminUserQuickAction::query([
+                'q.id',         // 快捷菜单表ID
+                'q.menu_id',    // 菜单ID
+            ], 'q')
+                ->leftJoin(['u' => AdminUser::tableName()], 'q.admin_id=u.id')
+                ->where(['u.group' => $id])
+                ->all();
+
+            // 获取需要删除的快捷操作数据ID
+            $needDelActionMap = [];
+            foreach ($quickActionMap as $item) {
+                if (ArrayHelper::isIn($item['menu_id'], $notExistRelations)) {
+                    array_push($needDelActionMap, $item['id']);
+                }
+            }
+
+
             $transaction = Yii::$app->db->beginTransaction();
             try {
-                // 先删除所有权限
-                AuthRelations::deleteAll(['group_id' => $id]);
+                if (!empty($notExistRelations)) {
+                    // 先删除所有已经不存在权限
+                    AuthRelations::deleteAll(['group_id' => $id, 'menu_id' => $notExistRelations]);
+                }
 
-                // 重新添加权限
-                foreach ($bodyParams['menuIds'] as $menuId) {
+                // 新增权限
+                foreach ($addMap as $menuId) {
                     $model = new AuthRelations();
                     $model->group_id = $id;
                     $model->menu_id = $menuId;
@@ -340,6 +370,11 @@ class GroupController extends CommonController
                         $transaction->rollBack();
                         return $this->asFail($model->error);
                     }
+                }
+
+                // 删除该管理组下无法使用的快捷操作
+                if (!empty($needDelActionMap)) {
+                    AdminUserQuickAction::deleteAll(['id' => $needDelActionMap]);
                 }
 
                 $transaction->commit();
