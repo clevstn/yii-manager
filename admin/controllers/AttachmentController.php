@@ -128,11 +128,11 @@ class AttachmentController extends CommonController
                 'width' => '620px',
                 'height' => '750px',
                 'params' => [
-                    'name' => 'file',
                     'type' => '未分类',
-                    'scenario' => '',
                     'saveDirectory' => 'common',
                     'pathPrefix' => '',
+                    'name' => 'file',
+                    'scenario' => '',
                     'isBase64' => 0,
                 ],
             ]),
