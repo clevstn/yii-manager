@@ -10,6 +10,11 @@
 .upload-wap {position: relative;}
 .upload-wap .upload-input {z-index: 2;-moz-opacity: 0;opacity: 0;-ms-filter: 'alpha(opacity=0)';-webkit-user-select: none;outline: 0; -webkit-appearance: none; appearance: none; -moz-appearance:none; -ms-progress-appearance: unset; position: absolute; left: 0; right: 0; top: 0; bottom: 0; cursor: pointer; border: none;}
 
+.upload-wap .loading-preview {position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 3; display: flex; flex-direction: row; flex-wrap: wrap;}
+.upload-wap .loading-preview .preview-wrap {width:96px; height: 120px; padding: 4px; box-sizing: content-box;}
+.upload-wap .loading-preview .preview-wrap>img {width: 100%; height: 100px;padding: 3px; border: 1px solid #ddd; border-radius: 3px;}
+.upload-wap .loading-preview .preview-wrap>.loading-progress {width: 100%; height: 20px; font-size: 15px; display: flex; justify-content: center; align-items: center; background-color: #337ab7; color: #f3f3f3;}
+
 .image-wrap {border: 3px solid rgba(0, 0, 0, 0); position: relative;}
 .image-wrap:hover {border: 3px solid #337ab7; box-sizing: border-box;}
 .image-wrap .image-ui {width:80px; height: 90px; padding: 3px; border: 1px solid #ddd; border-radius: 3px;}

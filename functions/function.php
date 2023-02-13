@@ -271,3 +271,48 @@ if (!function_exists('filesize_unit_convert')) {
         return xfloor($size) . $unit;
     }
 }
+
+if (!function_exists('empty_set_default')) {
+    /**
+     * 如果数据中指定字段为空则赋予默认值
+     * @param array $data 要验证的数据
+     * @param array $fields 指定字段
+     * - key 字段
+     * - value 默认值
+     *
+     * @return array
+     * @see isset_return
+     */
+    function empty_set_default(array $data, array $fields)
+    {
+        foreach ($fields as $field => $defaultValue) {
+            if (empty($data[$field])) {
+                $data[$field] = $defaultValue;
+            }
+        }
+
+        return $data;
+    }
+}
+
+if (!function_exists('notset_set_default')) {
+    /**
+     * 如果数据中指定字段没有定义则赋予默认值
+     * @param array $data 要验证的数据
+     * @param array $fields 指定字段
+     * - key 字段
+     * - value 默认值
+     *
+     * @return array
+     */
+    function notset_set_default(array $data, array $fields)
+    {
+        foreach ($fields as $field => $defaultValue) {
+            if (!isset($data[$field])) {
+                $data[$field] = $defaultValue;
+            }
+        }
+
+        return $data;
+    }
+}

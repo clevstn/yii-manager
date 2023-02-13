@@ -738,6 +738,7 @@ if (!function_exists('isset_return')) {
      * - value: 字段
      *
      * @return bool|mixed|string
+     * @see notset_set_default()
      */
     function isset_return(array $data, array $fields)
     {

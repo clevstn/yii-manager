@@ -145,28 +145,39 @@ class Uploads extends Component
     /**
      * 上传附件
      * @param string $name 附件字段名，如：photo
-     * @param string $saveDirectory 保存目录，如：order
-     * @param string $pathPrefix 路径前缀，如：100.1.0
-     * @param string|null $scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
-     * @param boolean $isBase64 是否是base64字符串
+     * @param array $config 配置项
+     * - string type 分类名称
+     * - string saveDirectory 保存目录，如：order
+     * - string pathPrefix 路径前缀，如：100.1.0
+     * - string|null scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
+     * - boolean|int isBase64 是否是base64字符串
+     *
      * @return string|true
-     * @throws \yii\base\Exception
+     * @throws
      */
-    public function execute($name, $saveDirectory = 'common', $pathPrefix = '', $scenario = self::SCENARIO_IMAGE, $isBase64 = false)
+    public function execute($name, array $config = [])
     {
+        $config = notset_set_default($config, [
+            'type' => '未定义',
+            'saveDirectory' => 'common',
+            'pathPrefix' => '',
+            'scenario' => '',
+            'isBase64' => false,
+        ]);
+
         switch ($this->type) {
             case self::LOCAL_UPLOAD_ENGINE_SYMBOL: // 本地
-                if ($isBase64 === false) {
-                    return $this->uploadAttachmentLocalForBinary($name, $saveDirectory, $pathPrefix, $scenario);
+                if (!$config['isBase64']) {
+                    return $this->uploadAttachmentLocalForBinary($name, $config);
                 }
 
-                return $this->uploadAttachmentLocalForBase64($name, $saveDirectory, $pathPrefix, $scenario);
+                return $this->uploadAttachmentLocalForBase64($name, $config);
             case self::QINIU_UPLOAD_ENGINE_SYMBOL: // 七牛
-                if ($isBase64 === false) {
-                    return $this->uploadAttachmentQiniuForBinary($name, $saveDirectory, $pathPrefix, $scenario);
+                if (!$config['isBase64']) {
+                    return $this->uploadAttachmentQiniuForBinary($name, $config);
                 }
 
-                return $this->uploadAttachmentQiniuForBase64($name, $saveDirectory, $pathPrefix, $scenario);
+                return $this->uploadAttachmentQiniuForBase64($name, $config);
             default:
                 throw new UnexpectedValueException(t('the upload engine is not defined'));
         }
@@ -174,26 +185,31 @@ class Uploads extends Component
 
     /**
      * 二进制上传附件(七牛云)
-     * @param $name
-     * @param $saveDirectory
-     * @param $pathPrefix
-     * @param $scenario
+     * @param string $name 上传字段名
+     * @param array $config 配置项
+     * - string type 分类名称
+     * - string saveDirectory 保存目录，如：order
+     * - string pathPrefix 路径前缀，如：100.1.0
+     * - string|null scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
+     *
      * @return true|string
      */
-    protected function uploadAttachmentQiniuForBinary($name, $saveDirectory, $pathPrefix, $scenario)
+    protected function uploadAttachmentQiniuForBinary($name, array $config)
     {
         return true;
     }
 
     /**
      * Base64上传附件(七牛云)
-     * @param $name
-     * @param $saveDirectory
-     * @param $pathPrefix
-     * @param $scenario
+     * @param string $name 上传字段名
+     * @param array $config 配置项
+     * - string type 分类名称
+     * - string saveDirectory 保存目录，如：order
+     * - string pathPrefix 路径前缀，如：100.1.0
+     * - string|null scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
      * @return true|string
      */
-    protected function uploadAttachmentQiniuForBase64($name, $saveDirectory, $pathPrefix, $scenario)
+    protected function uploadAttachmentQiniuForBase64($name, array $config)
     {
         return true;
     }
@@ -201,18 +217,22 @@ class Uploads extends Component
     /**
      * Base64上传附件(本地)
      * @param string $name 附件字段名，如：photo
-     * @param string $saveDirectory 保存目录，如：order
-     * @param string $pathPrefix 路径前缀，如：100.1.0
-     * @param string|null $scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
+     * @param array $config 配置项
+     * - string type 分类名称
+     * - string saveDirectory 保存目录，如：order
+     * - string pathPrefix 路径前缀，如：100.1.0
+     * - string|null scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
      * - base64数据组成
-     *   // `log`为客户端拼接上的文件扩展名。 拼接格式为：扩展名+英文逗号+base64字符
-     *   log,data:application/octet-stream;base64,ICdodHRwczovL2x4LmRhbWFuemouY29tL2FkbWluLnBocD9zPS9vcmRlci9pbmRleC...
+     *   - `log`为客户端拼接上的文件扩展名。 拼接格式为：扩展名+英文逗号+base64字符，如下所示：
+     *      log,data:application/octet-stream;base64,ICdodHRwczovL2x4LmRhbWFuemouY29tL2FkbWluLnBocD9zPS9vcmRlci9pbmRleC...
      *
      * @return true|string
-     * @throws \yii\base\Exception
+     * @throws \Exception
      */
-    protected function uploadAttachmentLocalForBase64($name, $saveDirectory = 'common', $pathPrefix = '', $scenario = self::SCENARIO_IMAGE)
+    protected function uploadAttachmentLocalForBase64($name, array $config)
     {
+        $scenario = $config['scenario'];
+
         $fileBase64Map = (array)Yii::$app->request->post($name);
         $validateCountsResult = $this->validateFilesCountsForBase64($fileBase64Map);
         if ($validateCountsResult !== true) {
@@ -239,7 +259,7 @@ class Uploads extends Component
             }
 
             // 获取文件保存路径
-            $savePath = $this->generateAttachmentSavePath($scenario, $saveDirectory, $pathPrefix);
+            $savePath = $this->generateAttachmentSavePath($scenario, $config['saveDirectory'], $config['pathPrefix']);
             // 递归创建目录
             $ifSuccess = FileHelper::createDirectory($savePath);
             if (!$ifSuccess) {
@@ -447,14 +467,18 @@ class Uploads extends Component
     /**
      * 二进制上传附件(本地)
      * @param string $name 附件字段名，如：photo
-     * @param string $saveDirectory 保存目录，如：order
-     * @param string $pathPrefix 路径前缀，如：100.1.0
-     * @param string|null $scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
+     * @param array $config 配置项
+     * - string type 分类名称
+     * - string saveDirectory 保存目录，如：order
+     * - string pathPrefix 路径前缀，如：100.1.0
+     * - string|null scenario 上传附件类型场景，如：self::SCENARIO_IMAGE
+     *
      * @return true|string
-     * @throws \yii\base\Exception
+     * @throws \Exception
      */
-    protected function uploadAttachmentLocalForBinary($name, $saveDirectory = 'common', $pathPrefix = '', $scenario = self::SCENARIO_IMAGE)
+    protected function uploadAttachmentLocalForBinary($name, array $config)
     {
+        $scenario = $config['scenario'];
         // 文件实例集合
         $uploadedFileInstanceMap = UploadedFile::getInstancesByName($name);
         // 上传前校验
@@ -471,7 +495,7 @@ class Uploads extends Component
             }
 
             // 获取文件保存路径
-            $savePath = $this->generateAttachmentSavePath($scenario, $saveDirectory, $pathPrefix);
+            $savePath = $this->generateAttachmentSavePath($scenario, $config['saveDirectory'], $config['pathPrefix']);
             // 递归创建目录
             $ifSuccess = FileHelper::createDirectory($savePath);
             if (!$ifSuccess) {
@@ -738,6 +762,7 @@ class Uploads extends Component
      * 删除附件
      * @param string|array $filepath 文件路径
      * @return boolean
+     * @throws \Exception
      */
     public function unlinkFile($filepath)
     {

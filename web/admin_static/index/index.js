@@ -61,10 +61,10 @@
                 shade: 0.3,
                 anim: -1,
                 title: label,
-                maxmin: false,
+                maxmin: true,
                 shadeClose: false,
                 btn: ['关闭'],
-                closeBtn: layerParams.closeBtn,
+                closeBtn: 1,
                 area: [layerParams.width, '95%'],
                 content: url
             });
