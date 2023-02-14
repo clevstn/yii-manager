@@ -964,7 +964,7 @@ class Uploads extends Component
      * @param string $pathPrefix 路径前缀（如：100.10.1）
      * @return false|string
      */
-    protected function generateAttachmentSavePath($bucket, $saveDirectory, $pathPrefix)
+    public function generateAttachmentSavePath($bucket, $saveDirectory, $pathPrefix)
     {
         $_pathPrefix = $this->getPathPrefix($pathPrefix);
 

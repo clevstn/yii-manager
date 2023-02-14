@@ -213,6 +213,7 @@ class AttachmentController extends CommonController
     /**
      * 删除附件
      * @return string
+     * @throws \Exception
      */
     public function actionRemove()
     {
@@ -223,7 +224,18 @@ class AttachmentController extends CommonController
             return $this->asFail($result);
         }
 
+        $all = Attachment::query()->where(['id' => $this->post['id']])->all();
+        $filePath = [];
+        foreach ($all as $item) {
+            array_push(
+                $filePath,
+                Yii::$app->uploads->generateAttachmentSavePath($item['bucket'], $item['save_directory'], $item['path_prefix']) . $item['basename']
+            );
+        }
+
         Attachment::deleteAll(['id' => $this->post['id']]);
+        Yii::$app->uploads->unlinkFile($filePath);
+
         return $this->asSuccess('删除成功');
     }
 
