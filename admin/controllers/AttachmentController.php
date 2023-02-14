@@ -224,7 +224,12 @@ class AttachmentController extends CommonController
             return $this->asFail($result);
         }
 
-        $all = Attachment::query()->where(['id' => $this->post['id']])->all();
+        $body = $this->post;
+        if (is_string($body['id'])) {
+            $body['id'] = explode(',', $body['id']);
+        }
+
+        $all = Attachment::query()->where(['id' => $body['id']])->all();
         $filePath = [];
         foreach ($all as $item) {
             array_push(
@@ -233,7 +238,7 @@ class AttachmentController extends CommonController
             );
         }
 
-        Attachment::deleteAll(['id' => $this->post['id']]);
+        Attachment::deleteAll(['id' => $body['id']]);
         Yii::$app->uploads->unlinkFile($filePath);
 
         return $this->asSuccess('删除成功');
