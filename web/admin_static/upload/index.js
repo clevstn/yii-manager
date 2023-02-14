@@ -51,14 +51,15 @@
                 fields.id[index] = item.id;
             });
 
-            YmApp._layerTip('确认删除么？删除后不可恢复！', '询问', 3, function () {
+            layer.confirm('确认删除么？删除后不可恢复！', {
+                btn: ['确定','取消'] //按钮
+            }, function(index){
+                layer.close(index);
                 $http.post(YmApp.$adminApi.removeAttachmentUrl, fields).then(function (result) {
                     var data = result.data;
                     if (data.code === 200) {
                         // 刷新列表
                         $scope.getList();
-
-                        YmApp._layerTip(data.msg, '提示', 1);
                     } else {
                         YmApp._layerTip(data.msg, '警告', 5);
                     }
@@ -66,6 +67,8 @@
                     window.console.log(error);
                     YmApp._layerTip(error.toString(), '错误', 2);
                 });
+            }, function (index) {
+                layer.close(index);
             });
         };
 
