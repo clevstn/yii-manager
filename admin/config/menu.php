@@ -277,6 +277,14 @@ $items = [
             'is_quick' => 1,
         ],
         [
+            'label' => '指定分类附件简洁分页',
+            'src' => 'admin/attachment/list',
+            'icon' => '',
+            'dump_way' => '_self',
+            'desc' => '获取指定分类附件简洁分页',
+            'is_quick' => 0,
+        ],
+        [
             'label' => '退出',
             'src' => 'admin/site/logout',
             'icon' => 'glyphicon glyphicon-off',

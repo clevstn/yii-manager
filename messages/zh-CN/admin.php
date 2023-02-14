@@ -134,4 +134,6 @@ return [
     'The mail function is unavailable, Please check the Mailer configuration information' => '邮件功能不可用，请检查Mailer配置信息',
     'The user name cannot be sensitive character' => '用户名不可以是敏感字符!',
     'Login authorization error' => '登录授权错误!',
+    'The classification and save directory are inconsistent' => '分类和保存目录不一致!',
+    'unknown error' => '未知错误',
 ];

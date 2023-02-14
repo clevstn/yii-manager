@@ -281,7 +281,7 @@ if (!function_exists('empty_set_default')) {
      * - value 默认值
      *
      * @return array
-     * @see isset_return
+     * @see notset_return
      */
     function empty_set_default(array $data, array $fields)
     {

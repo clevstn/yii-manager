@@ -163,14 +163,15 @@
         });
     };
 
+    // undefined: 无  0:警告 1:完成 2:错误 3:询问 4:锁定 5:失败 6:成功
     // 封装Layer弹窗插件
     YmAppConstructor.prototype._layerTip = function (msg, title, icon, callback) {
         var parentLayer = window.parent.layer;
 
         msg = msg || '';
         title = title || '通知';
-        icon = icon || 1;
         callback = callback || (new Function());
+
         parentLayer.alert(msg, {
             closeBtn: 0,
             title: title,

@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\builder\common\CommonActiveRecord;
+use app\builder\contract\AttachmentModelInterface;
 
 /**
  * This is the model class for table "{{%attachment}}".
@@ -21,7 +22,7 @@ use app\builder\common\CommonActiveRecord;
  * @property string $created_at 创建时间
  * @property string|null $updated_at 更新时间
  */
-class Attachment extends CommonActiveRecord
+class Attachment extends CommonActiveRecord implements AttachmentModelInterface
 {
     /**
      * {@inheritdoc}
@@ -79,5 +80,30 @@ class Attachment extends CommonActiveRecord
             'created_at' => Yii::t('app.admin', 'Created At'),
             'updated_at' => Yii::t('app.admin', 'Updated At'),
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function saveData(array $data)
+    {
+        $_this = new static();
+        $_this->setScenario('add');
+
+        $_this->load($data);
+        if ($_this->validate()) {
+            $one = static::findOne(['type' => $data['type'], 'save_directory' => $data['save_directory']]);
+            if (empty($one)) {
+                $orOne = static::query('id')->where(['type' => $data['type']])->orWhere(['save_directory' => $data['save_directory']])->one();
+                if (!empty($orOne)) {
+                    $_this->addError('type', t('The classification and save directory are inconsistent', 'app.admin'));
+                    return $_this;
+                }
+            }
+
+            $_this->save(false);
+        }
+
+        return $_this;
     }
 }

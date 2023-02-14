@@ -77,7 +77,7 @@ class CommonActiveRecord extends ActiveRecord
     public function getError()
     {
         $firstErrors = $this->firstErrors;
-        return reset($firstErrors) ?: '';
+        return reset($firstErrors) ?: t('unknown error', 'app.admin');
     }
 
     /**

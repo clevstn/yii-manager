@@ -39,11 +39,9 @@ class UploadController extends CommonController
      */
     public function actionAdd()
     {
-        $this->emptyStrToNull = false;
-
         if ($this->isPost) {
             $bodyParams = $this->post;
-            $issetResult = isset_return($bodyParams, [
+            $issetResult = notset_return($bodyParams, [
                 'name',     // 字段
             ]);
 
@@ -52,12 +50,13 @@ class UploadController extends CommonController
             }
 
             $result = Yii::$app->uploads->execute($bodyParams['name'], $bodyParams);
-            if ($result === true) {
-                return $this->asSuccess('提交成功', time());
+            if (is_array($result)) {
+                return $this->asSuccess('上传成功', $result);
             }
 
             return $this->asFail($result);
         } else {
+            $this->emptyStrToNull = false;
             $queryParam = $this->get;
             $queryParam = empty_set_default($queryParam, ['name' => 'file']);
 

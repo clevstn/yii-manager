@@ -15,8 +15,10 @@ UploadAsset::register($this);
 
 $this->title = '附件管理';
 ?>
-
-<div class="panel panel-white pb-0" ng-controller="_EasyApp_AttachmentCtrl">
+<script>
+    window._EasyApp_UploadQueryParams = <?= $fields ?>;
+</script>
+<div class="panel panel-white pb-0 upload-container" ng-controller="_EasyApp_AttachmentCtrl">
     <!--上传-->
     <div class="panel-body">
         <!--上传区域-->
@@ -30,7 +32,7 @@ $this->title = '附件管理';
             <div ng-hide="previewFiles.length">
                 <p class="f-16 pt-16">点击上传或拖放图片到该区域</p>
                 <i class="fa fa-upload f-48 pt-6"></i>
-                <input class="upload-input" ngf-change="triggerUpload($files, <?= html_escape($fields) ?>)" ngf-select="true" ngf-multiple="true" type="file" title="附件上传">
+                <input class="upload-input" ngf-change="triggerUpload($files)" ngf-select="true" ngf-multiple="true" type="file" title="附件上传">
             </div>
         </div>
     </div>
@@ -38,21 +40,26 @@ $this->title = '附件管理';
     <div class="panel-body pt-0">
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
+                <?php if (isset($fields['save_directory']) && $fields['save_directory'] != 'common'): ?>
                 <div class="btn-group pull-left">
                     <button type="button" class="btn btn-sm btn-default">选择未分类附件</button>
                 </div>
+                <?php endif; ?>
                 <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-default btn-sm" title="刷新">
+                    <button type="button" class="btn btn-default btn-sm" title="刷新" ng-click="getList(1)">
                         <i class="fa fa-refresh"></i>
                     </button>
-                    <button type="button" class="btn btn-sm btn-danger" title="删除选中">删除选中</button>
+                    <?php if (vv('admin/attachment/remove') !== false): ?>
+                    <button type="button" class="btn btn-sm btn-danger" title="删除选中" ng-click="removeSelected()">删除选中</button>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="box-shadow bg-white" style="height: 360px; overflow-y: auto;">
-                <div class="panel-body flex">
-                    <div ng-repeat="(key, item) in [1,2,3,4,5,6,7,8,9,10] track by key">
-                        <div class="image-wrap cp" ng-click="triggerChooseFile($event, item, key)">
-                            <img class="image-ui" src="/media/image/admin_static/default-0.jpg" alt>
+            <div class="box-shadow bg-white" style="min-height: 320px; overflow-y: auto;">
+                <block-loading display="attachmentListLoadingShow"></block-loading>
+                <div class="panel-body flex" ng-hide="attachmentListLoadingShow">
+                    <div ng-repeat="(key, item) in data track by key">
+                        <div class="ymImgSelect image-wrap cp" ng-click="triggerChooseFile($event, item.id, item.url)">
+                            <img class="image-ui" ng-src="{{ item.url }}" alt>
                             <span class="success-icon"></span>
                         </div>
                     </div>
@@ -61,12 +68,12 @@ $this->title = '附件管理';
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-xs-6 clearfix">
-                        <button type="button" title="上一页" class="layui-btn layui-btn-sm btn-default pull-left">
+                        <button type="button" title="上一页" class="layui-btn layui-btn-sm btn-default pull-left cp" ng-click="prevPage()">
                             <i class="layui-icon layui-icon-left text-primary"></i>
                         </button>
                     </div>
                     <div class="col-xs-6 clearfix">
-                        <button type="button" title="下一页" class="layui-btn layui-btn-sm btn-default pull-right">
+                        <button type="button" title="下一页" class="layui-btn layui-btn-sm btn-default pull-right cp" ng-click="nextPage()">
                             <i class="layui-icon layui-icon-right text-primary"></i>
                         </button>
                     </div>

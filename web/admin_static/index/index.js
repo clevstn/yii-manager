@@ -55,7 +55,7 @@
 
         // 点击快捷菜单
         $scope.hrefTarget = function (url, label) {
-            var layerParams = YmApp.layerParseParams('65%');
+            var layerParams = YmApp.layerParseParams('80%');
             layer.open({
                 type: 2,
                 shade: 0.3,
@@ -65,7 +65,7 @@
                 shadeClose: false,
                 btn: ['关闭'],
                 closeBtn: 1,
-                area: [layerParams.width, '95%'],
+                area: [layerParams.width, '90%'],
                 content: url
             });
         };

@@ -540,13 +540,12 @@ if (!function_exists('attach_url')) {
     {
         if (!empty($attachId)) {
             // SQL查询附件
-            // ...
-
+            $data = \app\models\Attachment::findOne($attachId);
             // 判断是否存在，如果存在返回处理过后的`path`，否则返回默认文件。
             // path: 附件路径
             // attachment_scenario: 附件上传类型场景
-            if (!empty($attachmentData)) {
-                return Yii::$app->uploads->getAttachmentUrl($attachmentData['path'], $attachmentData['attachment_scenario']);
+            if (!empty($data)) {
+                return Yii::$app->uploads->getAttachmentUrl($data['bucket'], $data['save_directory'], $data['path_prefix'], $data['basename']);
             }
         }
 
@@ -725,7 +724,7 @@ if (!function_exists('xround')) {
     }
 }
 
-if (!function_exists('isset_return')) {
+if (!function_exists('notset_return')) {
 
     /**
      * 对数据字段进行`isset`验证，失败返回字段对应的提示语
@@ -737,10 +736,10 @@ if (!function_exists('isset_return')) {
      *
      * - value: 字段
      *
-     * @return bool|mixed|string
+     * @return true|string
      * @see notset_set_default()
      */
-    function isset_return(array $data, array $fields)
+    function notset_return(array $data, array $fields)
     {
         foreach ($fields as $field => $message) {
             if (is_numeric($field)) {

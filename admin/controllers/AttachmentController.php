@@ -5,10 +5,12 @@
 
 namespace app\admin\controllers;
 
+use Yii;
 use app\builder\common\CommonController;
 use app\builder\helper\DateSplitHelper;
 use app\builder\table\ToolbarFilterOptions;
 use app\builder\ViewBuilder;
+use app\components\Uploads;
 use app\models\Attachment;
 
 /**
@@ -20,12 +22,19 @@ class AttachmentController extends CommonController
 {
     /**
      * {@inheritdoc}
-     * @var array
      */
     public $actionVerbs = [
         'index' => ['get', 'post'],
+        'list' => ['get'],
         'remove' => ['post'],
         'copy' => ['post'],
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public $undetectedActions = [
+        'list',
     ];
 
     /**
@@ -78,15 +87,16 @@ class AttachmentController extends CommonController
             'id' => SORT_DESC,
         ];
         $table->columns = [
-            'type' => table_column_helper('分类名', ['style' => ['min-width' => '150px']]),
-            'bucket' => table_column_helper('存储空间', ['style' => ['min-width' => '150px']]),
+            'id' => table_column_helper('ID', ['style' => ['min-width' => '80']]),
+            'type' => table_column_helper('分类名', ['style' => ['min-width' => '120px']]),
+            'bucket' => table_column_helper('存储空间', ['style' => ['min-width' => '80px']]),
             'save_directory' => table_column_helper('目录', ['style' => ['min-width' => '130px']]),
             'path_prefix' => table_column_helper('路径前缀', []),
             'basename' => table_column_helper('文件名', ['style' => ['min-width' => '150px']]),
             'size' => table_column_helper('大小', ['style' => ['min-width' => '120px']], function ($item) {
                 return filesize_unit_convert($item['size']);
             }),
-            'ext' => table_column_helper('扩展名', ['style' => ['min-width' => '150px']]),
+            'ext' => table_column_helper('扩展名', ['style' => ['min-width' => '50px']]),
             'mime' => table_column_helper('文件类型', ['style' => ['min-width' => '150px']]),
             'hash' => table_column_helper('文件Hash值', ['style' => ['min-width' => '150px']]),
             'created_at' => table_column_helper('创建时间', ['style' => ['min-width' => '150px']]),
@@ -151,9 +161,70 @@ class AttachmentController extends CommonController
         return $table->render($this);
     }
 
+    /**
+     * 获取指定分类简洁分页列表
+     * @return string
+     */
+    public function actionList()
+    {
+        $get = empty_set_default($this->get, [
+            'page' => 1,
+            'limit' => 18,
+            'save_directory' => 'common',
+            'path_prefix' => 'default',
+        ]);
+
+        $offset = ($get['page'] - 1) * $get['limit'];
+        $currentPage = (int)$get['page'];
+        $query = Attachment::query([
+            'id',
+            'bucket', // 空间
+            'save_directory', // 保存目录
+            'path_prefix', // 路径前缀
+            'basename', // 文件名
+        ])->where(['save_directory' => $get['save_directory'], 'path_prefix' => $get['path_prefix']])
+            ->offset($offset)
+            ->limit($get['limit'])
+            ->orderBy(['id' => SORT_DESC]);
+        $count = $query->count();
+        $all = $query->all();
+        $data = [];
+        foreach ($all as $val) {
+            if ($val['bucket'] !== Uploads::IMAGE_STORAGE_BUCKET) {
+                $url = into_full_url(Yii::$app->params['admin_default_file_image']);
+            } else {
+                $url = Yii::$app->uploads->getAttachmentUrl($val['bucket'], $val['save_directory'], $val['path_prefix'], $val['basename']);
+            }
+            
+            array_push($data, [
+                'id' => $val['id'],
+                'url' => $url,
+            ]);
+        }
+
+        $surplusCount = $count - ($currentPage * $get['limit']);
+        return $this->asSuccess('请求成功', [
+            'list' => $data,
+            'currentPage' => $currentPage,
+            'surplusCount' => $surplusCount > 0 ? $surplusCount : 0,
+        ]);
+    }
+
+    /**
+     * 删除附件
+     * @return string
+     */
     public function actionRemove()
     {
+        $result = notset_return($this->post, [
+           'id'
+        ]);
+        if ($result !== true) {
+            return $this->asFail($result);
+        }
 
+        Attachment::deleteAll(['id' => $this->post['id']]);
+        return $this->asSuccess('删除成功');
     }
 
     public function actionCopy()

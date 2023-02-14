@@ -36,6 +36,8 @@
         /* -------------- 附件上传 ---------------------   */
         // 附件上传
         fileUploadUrl: '/admin/upload/add',
+        attachmentListUrl: '/admin/attachment/list',
+        removeAttachmentUrl: '/admin/attachment/remove',
 
     };
 
