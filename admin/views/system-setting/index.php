@@ -27,12 +27,13 @@ $this->title = '系统设置';
             <?php endforeach; ?>
         </ul>
 
-        <!-- Tab panes -->
         <div class="tab-content">
+            <!-- Tab panes -->
             <?php foreach ($config as $group => $item): ?>
                 <div class="tab-pane <?= $active == $group ? 'active' : '' ?>" id="<?= $group ?>">
                     <div class="panel-body">
                         <form>
+                            <!--表单项-->
                             <?php foreach ($item as $code => $value): ?>
                                 <div class="row">
                                     <div class="form-group col-md-6">
@@ -95,9 +96,11 @@ $this->title = '系统设置';
                                     </div>
                                 </div>
                             <?php endforeach; ?>
+                            <!--尾部-->
                             <div class="form-group col-md-12">
                                 <div class="addon-fix"></div>
-                                <button type="button" class="btn btn-sm btn-primary" ng-click="triggerSubmitForm()"><?= t('submit', 'app.admin') ?></button>
+                                <button type="button" class="btn btn-sm btn-default" ng-click="triggerResetForm('<?= $group ?>')"><?= t('reset', 'app.admin') ?></button>
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="triggerSubmitForm('<?= $group ?>')"><?= t('submit', 'app.admin') ?></button>
                             </div>
                         </form>
                     </div>

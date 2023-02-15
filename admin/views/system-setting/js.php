@@ -21,6 +21,7 @@
             // 初始化
             var initAll = function () {
                 mountedLaydate(); // 挂载日期插件
+                initFormItem();    // 初始化表单项
             };
             // 挂载日期插件
             var mountedLaydate = function () {
@@ -39,6 +40,26 @@
 
                     laydate.render(options);
                 });
+            };
+
+            // 初始化表单项
+            var initFormItem = function () {
+
+            };
+
+            // 获取表单项
+            var getFormItem = function () {
+                
+            };
+
+            // 重置
+            $scope.triggerResetForm = function (group) {
+                initFormItem();
+            };
+
+            // 提交
+            $scope.triggerSubmitForm = function (group) {
+
             };
 
             // 初始化
