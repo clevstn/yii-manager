@@ -138,6 +138,7 @@ class AttachmentController extends CommonController
                 'route' => 'admin/upload/add',
                 'width' => '620px',
                 'height' => '750px',
+                'params' => ['scenario' => Uploads::SCENARIO_IMAGE],
                 // 不定义，默认如下
                 /*'params' => [
                     'type' => '未分类',
