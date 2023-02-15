@@ -1,0 +1,9 @@
+@charset "UTF-8";
+.flex {display: flex;flex-direction:row;flex-wrap: wrap;}
+.box-shadow {box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, .1) inset}
+
+.image-wrap {border: 3px solid rgba(0, 0, 0, 0); position: relative;}
+.image-wrap:hover {border: 3px solid #337ab7; box-sizing: border-box;}
+.image-wrap .image-ui {width:80px; height: 90px; padding: 3px; border: 1px solid #ddd; border-radius: 3px;}
+.image-wrap .success-icon {z-index: 2;position: absolute;top: 0; bottom: 0; left: 0; right: 0;}
+.selected > .success-icon {background-image: url("/media/image/admin_static/success.png"); background-position: 40px 50px;background-repeat: no-repeat;}

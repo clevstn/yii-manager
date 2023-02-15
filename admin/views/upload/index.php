@@ -6,9 +6,10 @@
  */
 
 use app\admin\assets\UploadAsset;
+use yii\helpers\Json;
 
 /* @var $this \yii\web\View */
-/* @var string $fields 上传请求参数 */
+/* @var array $fields 请求参数 */
 /* @var $param */
 
 UploadAsset::register($this);
@@ -16,7 +17,7 @@ UploadAsset::register($this);
 $this->title = '附件管理';
 ?>
 <script>
-    window._EasyApp_UploadQueryParams = <?= $fields ?>;
+    window._EasyApp_UploadQueryParams = <?= Json::encode($fields) ?>;
 </script>
 <div class="panel panel-white pb-0 upload-container" ng-controller="_EasyApp_AttachmentCtrl">
     <!--上传-->
@@ -42,7 +43,7 @@ $this->title = '附件管理';
             <div class="panel-heading clearfix">
                 <?php if (isset($fields['save_directory']) && $fields['save_directory'] != 'common'): ?>
                 <div class="btn-group pull-left">
-                    <button type="button" class="btn btn-sm btn-default">选择未分类附件</button>
+                    <button type="button" class="btn btn-sm btn-default" ng-click="selectDefaultAttachment()">选择未分类附件</button>
                 </div>
                 <?php endif; ?>
                 <div class="btn-group pull-right">

@@ -223,14 +223,6 @@ $items = [
                     'is_quick' => 1,
                     'items' => [
                         [
-                            'label' => '复制到未分类',
-                            'src' => 'admin/attachment/copy',
-                            'icon' => 'fa fa-copy',
-                            'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
-                            'desc' => '复制指定文件到未分类',
-                            'is_quick' => 0,
-                        ],
-                        [
                             'label' => '删除未分类附件',
                             'src' => 'admin/attachment/remove',
                             'icon' => 'fa fa-remove',
@@ -282,6 +274,14 @@ $items = [
             'icon' => '',
             'dump_way' => '_self',
             'desc' => '获取指定分类附件简洁分页',
+            'is_quick' => 0,
+        ],
+        [
+            'label' => '复制到未分类',
+            'src' => 'admin/attachment/copy',
+            'icon' => 'fa fa-copy',
+            'dump_way' => '_self',
+            'desc' => '复制指定文件到未分类',
             'is_quick' => 0,
         ],
         [

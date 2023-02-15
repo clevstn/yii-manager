@@ -25,8 +25,8 @@ class AttachmentController extends CommonController
      */
     public $actionVerbs = [
         'index' => ['get', 'post'],
-        'list' => ['get'],
         'remove' => ['post'],
+        'list' => ['get'],
         'copy' => ['post'],
     ];
 
@@ -35,6 +35,7 @@ class AttachmentController extends CommonController
      */
     public $undetectedActions = [
         'list',
+        'copy',
     ];
 
     /**
@@ -174,8 +175,20 @@ class AttachmentController extends CommonController
             'path_prefix' => 'default',
         ]);
 
+        if (!$this->isAjax) {
+            $this->setLayoutViewPath();
+
+            return $this->render('list', [
+                'fields' => [
+                    'save_directory' => $get['save_directory'],
+                    'path_prefix' => $get['path_prefix'],
+                ],
+            ]);
+        }
+
         $offset = ($get['page'] - 1) * $get['limit'];
-        $currentPage = (int)$get['page'];
+        $current = (int)$get['page'];
+
         $query = Attachment::query([
             'id',
             'bucket', // 空间
@@ -195,17 +208,18 @@ class AttachmentController extends CommonController
             } else {
                 $url = Yii::$app->uploads->getAttachmentUrl($val['bucket'], $val['save_directory'], $val['path_prefix'], $val['basename']);
             }
-            
+
             array_push($data, [
                 'id' => $val['id'],
                 'url' => $url,
             ]);
         }
 
-        $surplusCount = $count - ($currentPage * $get['limit']);
+        $surplusCount = $count - ($current * $get['limit']);
+
         return $this->asSuccess('请求成功', [
             'list' => $data,
-            'currentPage' => $currentPage,
+            'currentPage' => $current,
             'surplusCount' => $surplusCount > 0 ? $surplusCount : 0,
         ]);
     }
@@ -244,8 +258,57 @@ class AttachmentController extends CommonController
         return $this->asSuccess('删除成功');
     }
 
+    /**
+     * 复制附件
+     * @return string
+     */
     public function actionCopy()
     {
+        $body = $this->post;
+        $res = notset_return($body, [
+            'id' => '请选择要复制的附件',
+            'type',
+            'save_directory',
+            'path_prefix',
+        ]);
 
+        if ($res !== true) {
+            return $this->asFail($res);
+        }
+
+        $tras = Yii::$app->db->beginTransaction();
+        try {
+            $id = $body['id'];
+
+            $data = Attachment::query()->where(['id' => $id])->all();
+            foreach ($data as $item) {
+                // 复制文件
+                Yii::$app->uploads->copy($item, $body);
+
+                // 复制DB数据
+                $model = new Attachment();
+                $model->setScenario('add');
+                $model->setAttributes([
+                    'type' => $body['type'],
+                    'bucket' => $item['bucket'],
+                    'save_directory' => $body['save_directory'],
+                    'path_prefix' => $body['path_prefix'],
+                    'basename' => $item['basename'],
+                    'size' => $item['size'],
+                    'ext' => $item['ext'],
+                    'mime' => $item['mime'],
+                    'hash' => $item['hash'],
+                ]);
+                if (!$model->save()) {
+                    throw new \Exception($model->error);
+                }
+            }
+
+            $tras->commit();
+            return $this->asSuccess('操作成功');
+        } catch (\Exception $e) {
+            $tras->rollBack();
+            return $this->asFail($e->getMessage());
+        }
     }
 }

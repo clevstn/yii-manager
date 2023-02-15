@@ -831,6 +831,36 @@ class Uploads extends Component
     }
 
     /**
+     * 复制文件
+     * @param array $from 来源
+     * - 附件表数据信息
+     *
+     * @param array $to 目标
+     * - save_directory 保存目录
+     * - path_prefix 路径前缀
+     * @return bool
+     * @throws \yii\base\Exception
+     */
+    public function copy(array $from, array $to)
+    {
+        switch ($this->type) {
+            case self::LOCAL_UPLOAD_ENGINE_SYMBOL:
+                $fromFilename = $this->generateAttachmentSavePath($from['bucket'], $from['save_directory'], $from['path_prefix']) . $from['basename'];
+                $toDir = $this->generateAttachmentSavePath($from['bucket'], $to['save_directory'], $to['path_prefix']);
+                if (!is_dir($toDir)) {
+                    FileHelper::createDirectory($toDir);
+                }
+
+                copy($fromFilename, $toDir . $from['basename']);
+                return true;
+            case self::QINIU_UPLOAD_ENGINE_SYMBOL:
+                return true;
+            default:
+                throw new UnexpectedValueException(t('the upload engine is not defined'));
+        }
+    }
+
+    /**
      * 删除附件
      * @param string|array $filepath 文件路径
      * @return boolean

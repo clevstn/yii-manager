@@ -34,12 +34,14 @@
         indexQuickActionListUrl: '/admin/index/quick-list',
 
         /* -------------- 附件上传 ---------------------   */
-        // 附件上传
+        // 上传
         fileUploadUrl: '/admin/upload/add',
-        // 附件列表
+        // 简易列表
         attachmentListUrl: '/admin/attachment/list',
-        // 移除附件
+        // 移除
         removeAttachmentUrl: '/admin/attachment/remove',
+        // 复制
+        copyAttachmentUrl: '/admin/attachment/copy',
 
     };
 

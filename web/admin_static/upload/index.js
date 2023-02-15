@@ -37,6 +37,74 @@
             });
         }
 
+        // 选择未分类
+        $scope.selectDefaultAttachment = function () {
+            if (!uploadQueryParam.save_directory || uploadQueryParam.save_directory === 'common') {
+                YmApp._layerTip('无法选择未分类附件组', '提示', 0);
+                return;
+            }
+
+            var currentType = uploadQueryParam.type;
+            var currentSaveDirectory = uploadQueryParam.save_directory;
+            var currentPathPrefix = uploadQueryParam.path_prefix || 'default';
+
+            window.layer.open({
+                type: 2,
+                shade: 0.3,
+                anim: -1,
+                title: '未分类附件',
+                maxmin: false,
+                shadeClose: false,
+                btn: ['加入当前分类', '关闭'],
+                closeBtn: 1,
+                area: ['100%', '90%'],
+                content: YmApp.addUrlQueryParam(YmApp.$adminApi.attachmentListUrl, {
+                    save_directory: 'common',
+                    path_prefix: 'default'
+                }),
+                yes: function (index, layero) {
+                    var win = window[layero.find('iframe')[0].name];
+                    var choose = win._EasyApp_UploadUndefinedChooseAttachments();
+                    if (choose.length <= 0) {
+                        YmApp._layerTip('请您选择一张图片', '提示', 0);
+                        return;
+                    }
+
+                    var ids = [];
+                    choose.forEach(function (item) {
+                        ids.push(item.id);
+                    });
+
+                    $http.post(YmApp.$adminApi.copyAttachmentUrl, {
+                        'id': ids,
+                        'type': currentType,
+                        'save_directory': currentSaveDirectory,
+                        'path_prefix': currentPathPrefix,
+                    }).then(function (result) {
+                        layer.close(index);
+                        var data = result.data;
+                        if (data.code !== 200) {
+                            YmApp._layerTip(data.msg, '警告', 0);
+                        } else {
+                            // 刷新列表
+                            $scope.getList();
+                        }
+                    }, function (error) {
+                        layer.close(index);
+                        YmApp._layerTip(error.toString(), '错误', 2);
+                        window.console.error(error);
+                    });
+
+
+
+                },
+                btn2: function (index) {
+                    layer.close(index);
+                }
+            });
+
+        };
+
         // 删除选中
         $scope.removeSelected = function () {
             if ($scope.chooseAttachments.length <= 0) {

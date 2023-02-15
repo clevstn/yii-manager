@@ -9,7 +9,6 @@ namespace app\admin\controllers;
 
 use Yii;
 use app\builder\common\CommonController;
-use yii\helpers\Json;
 
 /**
  * 附件上传
@@ -62,7 +61,7 @@ class UploadController extends CommonController
 
             $this->setLayoutViewPath();
             return $this->render('index', [
-                'fields' => Json::encode($queryParam),
+                'fields' => $queryParam,
             ]);
         }
     }
