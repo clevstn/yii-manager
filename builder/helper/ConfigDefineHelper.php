@@ -17,7 +17,7 @@ use app\builder\contract\ConfigureInterface;
  * @author cleverstone
  * @since ym1.0
  */
-class ConfigHelper
+class ConfigDefineHelper
 {
     /**
      * 获取项目配置定义

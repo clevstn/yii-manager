@@ -47,7 +47,7 @@ class EmailGroup extends Group
             $this->normalizeItem('SMTP_PORT', '465', SystemConfig::NUMBER, '', 'SMTP端口', 'SMTP端口', 'SMTP端口,不加密默认25/SSL默认465/TLS默认587'),
             $this->normalizeItem('SMTP_USER', '', SystemConfig::TEXT, '', 'SMTP用户名', 'SMTP用户名', 'SMTP用户名'),
             $this->normalizeItem('SMTP_PASSWORD', '', SystemConfig::TEXT, '', 'SMTP密码', 'SMTP密码', 'SMTP密码'),
-            $this->normalizeItem('SMTP_SECRET_WAY', '', SystemConfig::SELECT, 'None:无|SSL:SSL|TLS:TLS', '加密方式', '加密方式,None:无 SSL:对应默认端口465 TLS:对应默认端口587', ''),
+            $this->normalizeItem('SMTP_SECRET_WAY', '', SystemConfig::RADIO, 'None:无|SSL:SSL|TLS:TLS', '加密方式', '加密方式,None:无 SSL:对应默认端口465 TLS:对应默认端口587', ''),
             $this->normalizeItem('SMTP_SIGN', '', SystemConfig::TEXT, '', '签名', '发送人签名, 默认使用用户名', '发送人签名, 默认使用用户名'),
         ];
     }

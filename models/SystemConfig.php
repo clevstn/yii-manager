@@ -36,16 +36,19 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
      * -- text[文本]: 无
      * -- number[数字]: 无
      * -- password[密码]: 无
-     * -- time[时间]: 无
+     * -- datetime[日期]: 无
      * -- date[日期]: 无
-     * -- hidden[隐藏]: 无
+     * -- year[年]: 无
+     * -- year[月]: 无
+     * -- time[时间]: 无
+     * -- hidden[静态]: 无
      * -- range[区间]: min:1|max:2|default:3|step:1
      * -- file[图片]: 无
      * -- textarea[文本域]: 无
+     * -- richtext[富文本]: 无
      * -- radio[单选]: 1:开启|2:关闭
      * -- checkbox[多选]: 1:yii|2:yii-manager|3:thinkphp|4:laravel
-     * -- select[下拉选择框<单>]: 1:yii|2:yii-manager|3:thinkphp
-     * -- multiple[下拉选择框<多>]: 1:yii|2:yii-manager|3:thinkphp
+     * -- select[下拉选择框]: 1:yii|2:yii-manager|3:thinkphp
      * -- switch[开关]: 0:开启|1:关闭
      * -- custom[自定义]: class|method
      *
@@ -54,16 +57,19 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
     const TEXT = 'text';
     const NUMBER = 'number';
     const PASSWORD = 'password';
-    const TIME = 'time';
+    const DATETIME = 'datetime';
     const DATE = 'date';
+    const YEAR = 'year';
+    const MONTH = 'month';
+    const TIME = 'time';
     const HIDDEN = 'hidden';
     const RANGE = 'range';
     const FILE = 'file';
     const TEXTAREA = 'textarea';
+    const RICHTEXT = 'richtext';
     const RADIO = 'radio';
     const CHECKBOX = 'checkbox';
     const SELECT = 'select';
-    const MULTIPLE = 'multiple';
     const SW = 'switch';
     const CUSTOM = 'custom';
 
@@ -74,19 +80,39 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
         self::TEXT,
         self::NUMBER,
         self::PASSWORD,
-        self::TIME,
+        self::DATETIME,
         self::DATE,
+        self::YEAR,
+        self::MONTH,
+        self::TIME,
         self::HIDDEN,
         self::RANGE,
         self::FILE,
         self::TEXTAREA,
+        self::RICHTEXT,
         self::RADIO,
         self::CHECKBOX,
         self::SELECT,
-        self::MULTIPLE,
         self::SW,
         self::CUSTOM,
     ];
+
+    /**
+     * 解析选项为PHP数组
+     * @param string $options 配置选项
+     * @return array
+     */
+    public static function resolveOption($options)
+    {
+        $list = explode('|', $options);
+        $array = [];
+        foreach ($list as $item) {
+            list($key, $value) = explode(':', $item);
+            $array[$key] = $value;
+        }
+
+        return $array;
+    }
 
     /**
      * {@inheritdoc}

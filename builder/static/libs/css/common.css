@@ -189,4 +189,6 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .position-relative {position: relative !important;}
 .display-none {display: none!important;}
 .ym-block-loading {width:100%;height:100%;padding:20px;display:flex;justify-content:center;align-items:center;}
-
+.layui-form-switch {box-sizing: content-box !important; margin-top: 5px;}
+.layui-form-radio {margin: 4px 10px 0 0;}
+.box-shadow-none {box-shadow: none;}

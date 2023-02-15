@@ -1,7 +1,7 @@
 <?php
 
 use yii\db\Migration;
-use app\builder\helper\ConfigHelper;
+use app\builder\helper\ConfigDefineHelper;
 
 /**
  * Handles the creation of table `{{%system_config}}`.
@@ -46,8 +46,8 @@ class m200814_133439_create_system_config_table extends Migration
             self::TABLE_NAME,
             ['code', 'value', 'control', 'options', 'name', 'desc', 'tips', 'type', 'group', 'created_at'],
             array_merge(
-                ConfigHelper::normalizeGroupDefine(),
-                ConfigHelper::normalizeConfigDefine()
+                ConfigDefineHelper::normalizeGroupDefine(),
+                ConfigDefineHelper::normalizeConfigDefine()
             )
         );
     }
