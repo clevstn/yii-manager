@@ -223,11 +223,11 @@ $items = [
                     'is_quick' => 1,
                     'items' => [
                         [
-                            'label' => '删除未分类附件',
+                            'label' => '删除附件',
                             'src' => 'admin/attachment/remove',
                             'icon' => 'fa fa-remove',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
-                            'desc' => '删除未分类附件',
+                            'desc' => '删除附件',
                             'is_quick' => 0,
                         ],
                     ],

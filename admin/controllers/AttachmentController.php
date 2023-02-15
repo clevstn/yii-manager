@@ -132,21 +132,19 @@ class AttachmentController extends CommonController
         $table->toolbarCustom = [
             // 添加
             table_toolbar_custom_helper('left', [
-                'title' => '添加未分类附件',
+                'title' => '上传附件',
                 'icon' => 'fa fa-plus',
                 'option' => 'modal',
                 'route' => 'admin/upload/add',
                 'width' => '620px',
                 'height' => '750px',
-            ]),
-            // 删除
-            table_toolbar_custom_helper('left', [
-                'title' => '删除未分类附件',
-                'icon' => 'fa fa-remove',
-                'option' => 'ajax',
-                'method' => 'post',
-                'route' => 'admin/attachment/remove',
-                'params' => ['id'],
+                // 不定义，默认如下
+                /*'params' => [
+                    'type' => '未分类',
+                    'save_directory' => 'common',
+                    'path_prefix' => 'default',
+                    'scenario' => '',
+                ],*/
             ]),
             // 复制到未分类
             table_toolbar_custom_helper('left', [
@@ -282,6 +280,17 @@ class AttachmentController extends CommonController
 
             $data = Attachment::query()->where(['id' => $id])->all();
             foreach ($data as $item) {
+                // 检查是否存在
+                $one = Attachment::query('id')->where([
+                    'bucket' => $item['bucket'],
+                    'save_directory' => $body['save_directory'],
+                    'path_prefix' => $body['path_prefix'],
+                    'basename' => $item['basename'],
+                ])->one();
+                if (!empty($one)) {
+                    continue;
+                }
+
                 // 复制文件
                 Yii::$app->uploads->copy($item, $body);
 

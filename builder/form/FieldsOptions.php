@@ -113,7 +113,7 @@ class FieldsOptions extends BaseOptions
     public $fileScenario = '';
 
     /**
-     * @var string 文件分类名称，如：未定义； 注意：fileType和saveDirectory必须定义一致
+     * @var string 文件分类名称，如：未分类； 注意：fileType和saveDirectory必须定义一致
      */
     public $fileType = '';
 

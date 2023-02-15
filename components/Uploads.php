@@ -168,7 +168,7 @@ class Uploads extends Component
     public function execute($name, array $config = [])
     {
         $config = notset_set_default($config, [
-            'type' => '未定义',
+            'type' => '未分类',
             'save_directory' => 'common',
             'path_prefix' => 'default',
             'scenario' => '',

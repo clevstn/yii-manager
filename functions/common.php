@@ -441,7 +441,7 @@ if (!function_exists('form_fields_helper')) {
      * - rows 行数，用于文本域
      * - number 文件数量，用于文件上传
      * - fileScenario 文件上传类型场景，为空则可以上传任意类型，用于文件上传
-     * - fileType 文件分类名称，如：未定义； 注意：fileType和saveDirectory必须定义一致
+     * - fileType 文件分类名称，如：未分类； 注意：fileType和saveDirectory必须定义一致
      * - saveDirectory 文件保存目录(建议使用数据表名称作为保存目录名)，用于文件上传，如：common； 注意：fileType和saveDirectory必须定义一致
      * - pathPrefix 文件路径前缀(建议使用数据表格当前数据ID作为路径前缀)，用于文件上传，如default、100.1
      * - layouts bootstrap布局，默认`12`

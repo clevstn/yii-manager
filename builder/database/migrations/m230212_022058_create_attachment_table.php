@@ -29,10 +29,10 @@ class m230212_022058_create_attachment_table extends Migration
             'updated_at' => $this->dateTime()->comment('更新时间'),
         ]);
 
-        $this->createIndex('index_type', self::TABLE_NAME, ['type']);
         $this->createIndex('index_bucket', self::TABLE_NAME, ['bucket']);
         $this->createIndex('index_save_directory', self::TABLE_NAME, ['save_directory']);
         $this->createIndex('index_path_prefix', self::TABLE_NAME, ['path_prefix']);
+        $this->createIndex('index_basename', self::TABLE_NAME, ['basename']);
     }
 
     /**
