@@ -154,7 +154,12 @@ class AttachmentController extends CommonController
                 'option' => 'ajax',
                 'method' => 'post',
                 'route' => 'admin/attachment/copy',
-                'params' => ['id', 'type'],
+                'params' => [
+                    'id',
+                    'type' => '未分类',
+                    'save_directory' => 'common',
+                    'path_prefix' => 'default',
+                ],
             ]),
         ];
 
@@ -275,13 +280,25 @@ class AttachmentController extends CommonController
             return $this->asFail($res);
         }
 
+        // 检查目标目录和分类名是否一致
+        $one = Attachment::findOne(['type' => $body['type'], 'save_directory' => $body['save_directory']]);
+        if (empty($one)) {
+            $orOne = Attachment::query('id')->where(['type' => $body['type']])->orWhere(['save_directory' => $body['save_directory']])->one();
+            if (!empty($orOne)) {
+                return $this->asFail(t('The classification and save directory are inconsistent', 'app.admin'));
+            }
+        }
+
+        $id = $body['id'];
+        if (is_string($id)) {
+            $id = explode(',', $id);
+        }
+
         $tras = Yii::$app->db->beginTransaction();
         try {
-            $id = $body['id'];
-
             $data = Attachment::query()->where(['id' => $id])->all();
             foreach ($data as $item) {
-                // 检查是否存在
+                // 检查是否存在，如果目标分类已经存在该文件则不复制
                 $one = Attachment::query('id')->where([
                     'bucket' => $item['bucket'],
                     'save_directory' => $body['save_directory'],

@@ -41,11 +41,13 @@ $this->title = '附件管理';
     <div class="panel-body pt-0">
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
-                <?php if (isset($fields['save_directory']) && $fields['save_directory'] != 'common'): ?>
+
                 <div class="btn-group pull-left">
+                    <?php if (isset($fields['save_directory']) && $fields['save_directory'] != 'common'): ?>
                     <button type="button" class="btn btn-sm btn-default" ng-click="selectDefaultAttachment()">选择未分类附件</button>
+                    <?php endif; ?>
                 </div>
-                <?php endif; ?>
+
                 <div class="btn-group pull-right">
                     <button type="button" class="btn btn-default btn-sm" title="刷新" ng-click="getList(1)">
                         <i class="fa fa-refresh"></i>
@@ -54,6 +56,9 @@ $this->title = '附件管理';
                     <button type="button" class="btn btn-sm btn-danger" title="删除选中" ng-click="removeSelected()">删除选中</button>
                     <?php endif; ?>
                 </div>
+            </div>
+            <div class="panel-heading">
+                <span class="text-info">提示：如需查看原图片，请右键图片选择【在新标签页中打开图片】</span>
             </div>
             <div class="box-shadow bg-white" style="min-height: 320px; overflow-y: auto;">
                 <block-loading display="attachmentListLoadingShow"></block-loading>

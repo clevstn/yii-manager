@@ -284,7 +284,7 @@ use app\builder\form\FieldsOptions;
                     shadeClose: false,
                     btn: ['确认选择', '取消'],
                     closeBtn: layerParams.closeBtn,
-                    area: [layerParams.width, '730px'],
+                    area: [layerParams.width, '780px'],
                     content: u,
                     yes: function(i, layero){
                         var win = window[layero.find('iframe')[0]['name']];
