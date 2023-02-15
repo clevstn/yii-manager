@@ -38,13 +38,16 @@ class m200814_133439_create_system_config_table extends Migration
         $this->addPrimaryKey('code', self::TABLE_NAME, ['code']);
         // 类型索引
         $this->createIndex('index_type', self::TABLE_NAME, ['type']);
+        // 所属分组索引
+        $this->createIndex('index_group', self::TABLE_NAME, ['group']);
+
         // 配置项
         $this->batchInsert(
             self::TABLE_NAME,
             ['code', 'value', 'control', 'options', 'name', 'desc', 'tips', 'type', 'group', 'created_at'],
             array_merge(
-                ConfigHelper::normalizeGroup(),
-                ConfigHelper::normalizeConfig()
+                ConfigHelper::normalizeGroupDefine(),
+                ConfigHelper::normalizeConfigDefine()
             )
         );
     }

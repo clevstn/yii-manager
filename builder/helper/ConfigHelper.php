@@ -50,7 +50,7 @@ class ConfigHelper
      * @return array
      * @throws ErrorException
      */
-    public static function normalizeConfig()
+    public static function normalizeConfigDefine()
     {
         $config = self::getConfig();
         $map = [];
@@ -92,7 +92,7 @@ class ConfigHelper
      * @return array
      * @throws ErrorException
      */
-    public static function normalizeGroup()
+    public static function normalizeGroupDefine()
     {
         $groups = self::getGroup();
         return array_values($groups);

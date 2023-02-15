@@ -7,7 +7,6 @@
 
 use app\builder\database\config\AdminGroup;
 use app\builder\database\config\EmailGroup;
-use app\builder\database\config\UploadGroup;
 use app\builder\database\config\WebsiteGroup;
 
 /**
@@ -41,6 +40,5 @@ return [
         WebsiteGroup::class,
         AdminGroup::class,
         EmailGroup::class,
-        UploadGroup::class,
     ],
 ];

@@ -7,6 +7,7 @@
 
 namespace app\admin\controllers;
 
+use app\components\Uploads;
 use app\models\AdminUser;
 use app\models\AdminUserQuickAction;
 use app\models\AuthGroups;
@@ -162,12 +163,26 @@ class IndexController extends CommonController
         $whiteQuickList = [];
         foreach ($whiteData as $key => $value) {
             if (isset($value['is_quick']) && $value['is_quick'] == AuthMenu::QUICK_YES) {
+
+                switch ($value['src']) {
+                    // 附件上传
+                    case 'admin/upload/add':
+                        $url = Url::to([
+                            '/' . trim($value['src'], '/'),
+                            '__partial__' => 1,
+                            'scenario' => Uploads::SCENARIO_IMAGE
+                        ], '');
+                        break;
+                    default:
+                        $url = Url::to(['/' . trim($value['src'], '/'), '__partial__' => 1], '');
+                }
+
                 $whiteQuickList[] = [
                     'id' => "_ID{$key}",
                     'label' => $value['label'],
                     'icon' => $value['icon'],
                     'src' => $value['src'],
-                    'url' => Url::to(['/' . trim($value['src'], '/'), '__partial__' => 1], ''),
+                    'url' => $url,
                 ];
             }
         }
