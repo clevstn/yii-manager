@@ -8,6 +8,9 @@
 namespace app\admin\controllers;
 
 use app\components\Uploads;
+use app\models\AdminUserQuickAction;
+use app\models\AuthMenu;
+use app\models\AuthRelations;
 use Yii;
 use app\extend\Extend;
 use yii\helpers\ArrayHelper;
@@ -534,6 +537,23 @@ class ManagerController extends CommonController
             $model->setScenario('update-group');
             if ($model->load($bodyParams)) {
                 if ($model->save()) {
+
+                    // 更新快捷菜单
+                    $group = $model->group;
+                    $canMap = AuthRelations::query('menu_id')
+                        ->where(['group_id' => $group])
+                        ->column();
+                    $ownMap = AdminUserQuickAction::query('menu_id')
+                        ->where(['admin_id' => $bodyParams['id']])
+                        ->column();
+                    $diff = array_diff($ownMap, $canMap);
+                    if (!empty($diff)) {
+                        AdminUserQuickAction::deleteAll([
+                            'admin_id' => $bodyParams['id'],
+                            'menu_id' => array_unique($diff),
+                        ]);
+                    }
+
                     return $this->asSuccess(t('submitted successfully', 'app.admin'));
                 }
 
