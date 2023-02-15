@@ -157,7 +157,7 @@ class ConfigManager extends Component
      * 从DB获取
      * @return array
      */
-    protected function getFromDb()
+    public function getFromDb()
     {
         /* @var \app\models\SystemConfig $class */
         $class = $this->model;
