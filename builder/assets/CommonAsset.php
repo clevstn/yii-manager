@@ -18,6 +18,21 @@ use yii\bootstrap\BootstrapPluginAsset;
 class CommonAsset extends BaseAsset
 {
     /**
+     * @var array
+     */
+    public $css = [
+        'libs/css/common.css',
+    ];
+
+    /**
+     * @var array
+     */
+    public $js = [
+        'libs/js/common.js',
+        'libs/js/service.js',
+    ];
+
+    /**
      * @var array 注册依赖包
      */
     public $depends = [

@@ -88,9 +88,11 @@ class HomeController extends CommonController
                     'required' => false,
                     'comment' => '管理员头像，用于展示',
                     'number' => 1,
+
                     'fileScenario' => Uploads::SCENARIO_IMAGE,
-                    'saveDirectory' => 'admin',
-                    'pathPrefix' => '666666',
+                    'fileType' => '管理员列表',
+                    'saveDirectory' => 'admin_user',
+                    'pathPrefix' => $identify->id,
                     'layouts' => '8',
                 ]),
                 'an' => form_fields_helper(FieldsOptions::CONTROL_SELECT, [

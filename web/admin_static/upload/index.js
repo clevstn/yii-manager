@@ -194,8 +194,10 @@
             }
         };
 
-        // 传址并暴露
-        window._EasyApp_UploadChooseAttachments = $scope.chooseAttachments;
+        // 暴露给父窗口
+        window._EasyApp_UploadChooseAttachments = function () {
+            return $scope.chooseAttachments;
+        };
         // 初始化列表
         $scope.getList();
     }]);

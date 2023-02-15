@@ -7,25 +7,24 @@
 
 namespace app\builder\assets;
 
+use yii\web\AssetBundle;
+
 /**
- * Main Asset
+ * 应用主体包
  * @author cleverstone
  * @since ym1.0
  */
-class MainAsset extends CommonAsset
+class MainAsset extends AssetBundle
 {
     /**
      * @var array
      */
-    public $css = [
-        'libs/css/common.css',
+    public $js = [
+        'admin_static/lang.js',
+        'admin_static/api.js',
     ];
 
-    /**
-     * @var array
-     */
-    public $js = [
-        'libs/js/common.js',
-        'libs/js/service.js',
+    public $depends = [
+        CommonAsset::class, // 公共依赖包
     ];
 }

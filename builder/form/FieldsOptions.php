@@ -108,19 +108,24 @@ class FieldsOptions extends BaseOptions
     public $number = 1;
 
     /**
-     * @var string 文件上传类型场景
+     * @var string 文件上传类型场景，为空则可以上传任意类型，用于文件上传
      */
     public $fileScenario = '';
 
     /**
-     * @var string 文件保存目录
+     * @var string 文件分类名称，如：未定义； 注意：fileType和saveDirectory必须定义一致
      */
-    public $saveDirectory = 'common';
+    public $fileType = '';
+
+    /**
+     * @var string 文件保存目录(建议使用数据表名称作为保存目录名)，用于文件上传，如：common； 注意：fileType和saveDirectory必须定义一致
+     */
+    public $saveDirectory = '';
 
     /**
      * @var string 文件路径前缀
      */
-    public $pathPrefix = '000000';
+    public $pathPrefix = '';
 
     /**
      * @var string bootstrap布局，默认`12`

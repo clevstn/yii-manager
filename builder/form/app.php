@@ -29,8 +29,8 @@ use app\builder\form\FieldsOptions;
             var tips = function (msg, title, icon, callback) {
                 msg = msg || '';
                 title = title || '通知';
-                icon = icon || 1;
-                callback = callback || (new Function())
+                callback = callback || (new Function());
+
                 parentLayer.alert(msg, {
                     closeBtn: 0,
                     title: title,
@@ -112,8 +112,6 @@ use app\builder\form\FieldsOptions;
 
                     // 初始化预览图
                     $scope['formFileLink<?= $field ?>' + i] = fileDefaultLink[i] ? fileDefaultLink[i] : "";
-                    // 初始化上传进度值
-                    $scope['formFileLoadingProcess<?= $field ?>' + i] = 0;
                 }
 
                 scopeFields['<?= $field ?>'] = fileDefaults.join(',');
@@ -181,8 +179,6 @@ use app\builder\form\FieldsOptions;
                     fileDefaults[i] = "0";
                     // 初始化预览图
                     $scope['formFileLink<?= $field ?>' + i] = "";
-                    // 初始化上传进度值
-                    $scope['formFileLoadingProcess<?= $field ?>' + i] = 0;
                 }
 
                 scopeFields['<?= $field ?>'] = fileDefaults.join(',');
@@ -265,72 +261,66 @@ use app\builder\form\FieldsOptions;
 
                 return formData;
             };
+
             // 上传图片
-            $scope.triggerSelectImage = function (files, saveDirectory, pathPrefix, fileScenario, field, index) {
-                if (files) {
-                    var attachIds = $scope.formFieldsData[field].split(',');
-                    var mineType = files.type;
+            $scope.triggerSelectImage = function (files, fileType, saveDirectory, pathPrefix, fileScenario, field, key) {
+                var queryParam = {
+                    'name': 'file',
+                    'type': fileType,
+                    'save_directory': saveDirectory,
+                    'path_prefix': pathPrefix,
+                    'scenario': fileScenario,
+                    '_': YmApp.getTime()
+                };
+                var u = YmApp.addUrlQueryParam(YmApp.$adminApi.fileUploadUrl, queryParam);
 
-                    // 文件大小限制(M)
-                    var size = files.size / 1024 / 1024;
-                    if (size > 50) {
-                        tips('文件大于50M，请分片或FTP上传！', '通知', 2);
-                        return false;
-                    }
-
-                    // 上传文件
-                    var fields = {};
-                    fields['scenario'] = fileScenario;
-                    fields['name'] = 'file';
-                    fields['saveDirectory'] = saveDirectory;
-                    fields['pathPrefix'] = pathPrefix;
-                    fields['isBase64'] = 0;
-                    fields[window.yii.getCsrfParam()] = window.yii.getCsrfToken();
-                    // 显示上传进度
-                    $scope['formFileLoadingIsShow' + field + index] = true;
-                    // 初始化上传进度值
-                    $scope['formFileLoadingProcess' + field + index] = 0;
-                    Upload.upload({
-                        url: '<?= into_full_url('/admin/upload/add') ?>',
-                        fields: fields,
-                        file: files
-                    }).progress(function (evt) {
-                        var progressPercentage = parseInt(100 * evt.loaded / evt.total);
-                        // console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-                        // 实时同步上传进度值
-                        $scope['formFileLoadingProcess' + field + index] = progressPercentage === 100 ? 99 : progressPercentage;
-                    }).success(function (data, status, headers, config) {
-                        // 关闭上传进度
-                        $scope['formFileLoadingIsShow' + field + index] = false;
-                        if (data.code === 200) {
-                            // 上传成功重新赋值
-                            attachIds[index] = data.data;
-                            attachIds = attachIds.join(',');
-                            $scope.formFieldsData[field] = attachIds;
-
-                            // 预览文件
-                            Upload.base64DataUrl(files).then(function (urls) {
-                                // 如果文件不是图片
-                                var urlsVal = urls;
-                                if (!/image\//i.test(mineType)) {
-                                    urlsVal = '<?= into_full_url("/media/image/default-file.png") ?>';
-                                }
-
-                                $scope['formFileLink' + field + index] = urlsVal;
-                            });
-                        } else {
-                            tips(data.msg ? data.msg : (data.code == 500 ? '提交失败' : '您没有权限操作!'), "通知", 5);
+                var layerParams = YmApp.layerParseParams('620px');
+                window.layer.open({
+                    type: 2,
+                    shade: 0.3,
+                    anim: -1,
+                    title: '附件管理',
+                    maxmin: false,
+                    shadeClose: false,
+                    btn: ['确认选择', '取消'],
+                    closeBtn: layerParams.closeBtn,
+                    area: [layerParams.width, '730px'],
+                    content: u,
+                    yes: function(i, layero){
+                        var win = window[layero.find('iframe')[0]['name']];
+                        var choose = win._EasyApp_UploadChooseAttachments();
+                        if (choose.length <= 0) {
+                            tips('请您选择一张图片', '提示', 0);
+                            return;
                         }
 
-                    }).error(function (data, status, headers, config) {
-                        // 关闭上传进度
-                        $scope['formFileLoadingIsShow' + field + index] = false;
-                        tips(data, '错误', 2);
-                        console.error(data);
-                    });
+                        if (choose.length > 1) {
+                            tips('只能选择一张，禁止多张', '提示', 0);
+                            return;
+                        }
 
-                }
+                        // 更新该字段值
+                        var attachIds = $scope.formFieldsData[field].split(',');
+                        choose.forEach(function (item) {
+                            attachIds[key] = item.id;
+                            // 预览图
+                            $scope.$apply(function () {
+                                // 预览图
+                                $scope['formFileLink' + field + key] = item.url;
+                            });
+                        });
+
+                        attachIds = attachIds.join(',');
+                        $scope.formFieldsData[field] = attachIds;
+
+                        window.layer.close(i);
+                    },
+                    btn2: function (i) {
+                        window.layer.close(i);
+                    }
+                });
             };
+
             // 初始化表单
             var initFormItems = function () {
                 // 挂载WangEditor

@@ -60,7 +60,7 @@ class NavHelper
         ]);
         $headSrc = $adminUser->isGuest ? '@web/media/image/head.png' : attach_url($adminUser->identity->photo);
         $headContent = Html::img($headSrc, [
-            'style' => ['max-width' => '80%', 'height' => '66px', 'border-radius' => '50%',],
+            'style' => ['max-width' => '80%', 'height' => '66px', 'border-radius' => '3px', 'padding' => '6px', 'border' => '1px solid #ddd'],
         ]);
 
         return Html::tag(

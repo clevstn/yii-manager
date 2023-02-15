@@ -285,6 +285,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
                 /* @var Query $query */
                 $query->andWhere(['<>', 'id', $this->id]);
             }, 'on' => ['edit']],
+            ['photo', 'integer', 'on' => ['edit']],
             ['an', 'number'],
             ['mobile', 'string', 'min' => 5, 'max' => 11],
             ['mobile', 'validateMobileIsUnique'],
@@ -347,7 +348,7 @@ class AdminUser extends CommonActiveRecord implements IdentityInterface
         // 场景`解封和封停`
         $scenarios['status-action'] = ['id', 'action', 'deny_end_time'];
         // 场景`编辑`
-        $scenarios['edit'] = ['password', 'repassword', 'email', 'an', 'mobile'];
+        $scenarios['edit'] = ['password', 'repassword', 'email', 'an', 'mobile', 'photo'];
         // 登录 - 基本校验
         $scenarios['login-base'] = ['usernameOrEmail', 'password'];
         // 登录 - 生成访问令牌

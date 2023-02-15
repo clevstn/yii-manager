@@ -7,6 +7,7 @@
 
 namespace app\admin\controllers;
 
+use app\components\Uploads;
 use Yii;
 use app\extend\Extend;
 use yii\helpers\ArrayHelper;
@@ -206,8 +207,8 @@ class ManagerController extends CommonController
                 'title' => '基本编辑',
                 'icon' => 'fa fa-pencil-square-o',
                 'route' => 'admin/manager/edit',
-                'width' => '700px',
-                'height' => '550px',
+                'width' => '70%',
+                'height' => '97%',
             ]),
             table_action_helper('modal', [
                 'title' => '更改管理组',
@@ -374,6 +375,21 @@ class ManagerController extends CommonController
                     'placeholder' => '请填写手机号',
                     'default' => $identify->mobile,
                 ]),
+                'photo' => form_fields_helper(FieldsOptions::CONTROL_FILE, [
+                    'label' => '头像',
+                    'placeholder' => '请上传头像',
+                    'default' => $identify->photo,
+                    'defaultLink' => attach_url($identify->photo),
+                    'required' => false,
+                    'comment' => '管理员头像，用于展示',
+                    'number' => 1,
+
+                    'fileScenario' => Uploads::SCENARIO_IMAGE,
+                    'fileType' => '管理员列表',
+                    'saveDirectory' => 'admin_user',
+                    'pathPrefix' => $identify->id,
+                    'layouts' => '8',
+                ]),
             ];
 
             return $form->render($this);
@@ -386,7 +402,7 @@ class ManagerController extends CommonController
             }
 
             // 查询校验
-            $model = AdminUser::activeQuery(['id', 'username', 'password', 'email', 'an', 'mobile'])->where(['id' => $bodyParams['id']])->one();
+            $model = AdminUser::activeQuery(['id', 'username', 'password', 'email', 'an', 'mobile', 'photo'])->where(['id' => $bodyParams['id']])->one();
             if (empty($model)) {
                 return $this->asFail('管理员不存在');
             }

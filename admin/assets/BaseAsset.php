@@ -22,6 +22,5 @@ abstract class BaseAsset extends AssetBundle
      */
     public $depends = [
         MainAsset::class,
-        ApiAsset::class,
     ];
 }
