@@ -232,14 +232,15 @@ $items = [
                         ],
                     ],
                 ],
-                [
-                    'label' => '系统设置',
-                    'src' => 'admin/system-setting/index',
-                    'icon' => 'glyphicon glyphicon-cog',
-                    'desc' => '查看系统设置项',
-                    'is_quick' => 1,
-                ],
             ],
+        ],
+        // 系统设置
+        [
+            'label' => '系统设置',
+            'src' => 'admin/system-setting/index',
+            'icon' => 'glyphicon glyphicon-cog',
+            'desc' => '编辑系统配置',
+            'is_quick' => 1,
         ],
     ],
     // 配置不需要rbac授权访问的菜单项，该配置用于页面展示控制。
