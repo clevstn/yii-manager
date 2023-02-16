@@ -16,6 +16,7 @@ class m230212_022058_create_attachment_table extends Migration
     {
         $this->createTable(self::TABLE_NAME, [
             'id' => $this->primaryKey(),
+            'origin_name' => $this->string(255)->notNull()->defaultValue('')->comment('文件原名称'),
             'type' => $this->string(100)->notNull()->defaultValue('未分类')->comment('文件分类，分类名称可按后台菜单名称命名。'),
             'bucket' => $this->string(50)->notNull()->comment('存储空间'),
             'save_directory' => $this->string(50)->notNull()->comment('保存目录'),

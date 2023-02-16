@@ -25,7 +25,7 @@ $this->title = '列表';
             <block-loading display="attachmentListLoadingShow"></block-loading>
             <div class="panel-body flex" ng-hide="attachmentListLoadingShow">
                 <div ng-repeat="(key, item) in data track by key">
-                    <div class="ymImgSelect image-wrap cp" ng-click="triggerChooseFile($event, item.id, item.url)">
+                    <div title="{{item.origin_name}}" class="ymImgSelect image-wrap cp" ng-click="triggerChooseFile($event, item.id, item.url)">
                         <img class="image-ui" ng-src="{{ item.url }}" alt>
                         <span class="success-icon"></span>
                     </div>

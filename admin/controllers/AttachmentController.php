@@ -73,6 +73,7 @@ class AttachmentController extends CommonController
 
                 $query->filterWhere([
                     'and',
+                    ['like', 'origin_name', isset($queryParams['keyword']) ? $queryParams['keyword'] : null],
                     // 分类名
                     ['type' => isset($queryParams['type']) ? $queryParams['type'] : null],
                     // 存储空间
@@ -89,6 +90,7 @@ class AttachmentController extends CommonController
         ];
         $table->columns = [
             'id' => table_column_helper('ID', ['style' => ['min-width' => '80']]),
+            'origin_name' => table_column_helper('文件原名', ['style' => ['min-width' => '120px']]),
             'type' => table_column_helper('分类名', ['style' => ['min-width' => '120px']]),
             'bucket' => table_column_helper('存储空间', ['style' => ['min-width' => '80px']]),
             'save_directory' => table_column_helper('目录', ['style' => ['min-width' => '130px']]),
@@ -108,6 +110,11 @@ class AttachmentController extends CommonController
         // 筛选
         $table->toolbarFilter = [
             'columns' => [
+                'keyword' => table_toolbar_filter_helper([
+                    'control' => ToolbarFilterOptions::CONTROL_TEXT,
+                    'label' => '文件原名',
+                    'placeholder' => '请输入文件原名',
+                ]),
                 'type' => table_toolbar_filter_helper([
                     'control' => ToolbarFilterOptions::CONTROL_SELECT,
                     'label' => '分类名',
@@ -195,6 +202,7 @@ class AttachmentController extends CommonController
 
         $query = Attachment::query([
             'id',
+            'origin_name', // 原名称
             'bucket', // 空间
             'save_directory', // 保存目录
             'path_prefix', // 路径前缀
@@ -216,6 +224,7 @@ class AttachmentController extends CommonController
             array_push($data, [
                 'id' => $val['id'],
                 'url' => $url,
+                'origin_name' => $val['origin_name'],
             ]);
         }
 
@@ -316,6 +325,7 @@ class AttachmentController extends CommonController
                 $model = new Attachment();
                 $model->setScenario('add');
                 $model->setAttributes([
+                    'origin_name' => $item['origin_name'],
                     'type' => $body['type'],
                     'bucket' => $item['bucket'],
                     'save_directory' => $body['save_directory'],

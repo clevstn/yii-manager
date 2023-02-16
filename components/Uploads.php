@@ -290,6 +290,7 @@ class Uploads extends Component
 
             array_push($saveMap, [
                 'filePath' => $fileSavePath,
+                'origin_name' => $map['origin_name'],
                 'type' => $config['type'],
                 'bucket' => $bucket,
                 'save_directory' => $config['save_directory'],
@@ -485,8 +486,8 @@ class Uploads extends Component
      * base64数据分离
      * @param string $originalFileBase64 base64原始数据
      * - base64数据组成
-     *   // `log`为客户端拼接上的文件扩展名。 拼接格式为：扩展名+英文逗号+base64字符
-     *   log,data:application/octet-stream;base64,ICdodHRwczovL2x4LmRhbWFuemouY29tL2FkbWluLnBocD9zPS9vcmRlci9pbmRleC...
+     *   // `log`为客户端拼接上的文件扩展名。 拼接格式为：文件原名称(encodeURIComponent)+英文逗号+扩展名+英文逗号+base64字符
+     *   1%2C2%2C3%3A4%3B5,bin,data:application/octet-stream;base64,ICdodHRwczovL2x4LmRhbWFuemouY29tL2FkbWluLnBocD9zPS9vcmRlci9pbmRleC...
      *
      * @return array|string
      */
@@ -494,14 +495,15 @@ class Uploads extends Component
     {
         $fileBase64 = str_replace([':', ';'], ',', $originalFileBase64);
         $fileBase64Array = explode(',', $fileBase64);
-        $string = $fileBase64Array[2];
-        if ($string === 'base64') {
-            return t('concatenate the extension before the string');
+        $string = !isset($fileBase64Array[4]) ? '' : $fileBase64Array[4];
+        if ($string != 'base64') {
+            return t('Concatenate the name and extension before the string');
         }
 
-        $extension = $fileBase64Array[0];
-        $mineType = $fileBase64Array[2];
-        $fileData = $fileBase64Array[4];
+        $originName = urldecode($fileBase64Array[0]);
+        $extension = $fileBase64Array[1];
+        $mineType = $fileBase64Array[3];
+        $fileData = $fileBase64Array[5];
 
         if (empty($extension)) {
             // //通过`mimeType`获取扩展名，会出现多个扩展名。
@@ -519,7 +521,7 @@ class Uploads extends Component
 
         // 文件二进制数据
         $fileBinaryData = base64_decode($fileData);
-        return ['extension' => $extension, 'data' => $fileBinaryData];
+        return ['origin_name' => $originName, 'extension' => $extension, 'data' => $fileBinaryData];
     }
 
     /**
@@ -578,6 +580,7 @@ class Uploads extends Component
 
             array_push($data, [
                 'filePath' => $fileSavePath,
+                'origin_name' => $uploadedFileInstance->name,
                 'type' => $config['type'],
                 'bucket' => $bucket,
                 'save_directory' => $config['save_directory'],
