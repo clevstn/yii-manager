@@ -94,7 +94,8 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
         self::CHECKBOX,
         self::SELECT,
         self::SW,
-        self::CUSTOM,
+        // 暂不支持
+        //self::CUSTOM,
     ];
 
     /**
