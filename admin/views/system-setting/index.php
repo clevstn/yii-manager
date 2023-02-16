@@ -15,6 +15,15 @@ use app\models\SystemConfig as Sc;
 $this->title = '系统设置';
 ?>
 <div class="panel panel-default" ng-controller="_EasyApp_SystemConfigCtrl">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-default" ng-click="triggerLoaded()">加载本地配置项</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="panel-body">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs f-13" role="tablist">

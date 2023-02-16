@@ -241,6 +241,16 @@ $items = [
             'icon' => 'glyphicon glyphicon-cog',
             'desc' => '编辑系统配置',
             'is_quick' => 1,
+            'items' => [
+                [
+                    'label' => '加载配置',
+                    'src' => 'admin/system-setting/load',
+                    'icon' => 'glyphicon glyphicon-retweet',
+                    'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
+                    'desc' => '加载本地配置定义',
+                    'is_quick' => 0,
+                ],
+            ],
         ],
     ],
     // 配置不需要rbac授权访问的菜单项，该配置用于页面展示控制。

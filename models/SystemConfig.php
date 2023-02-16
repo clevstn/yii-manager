@@ -141,6 +141,17 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
     /**
      * {@inheritdoc}
      */
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios['add'] = ['code', 'value', 'control', 'options', 'name', 'desc', 'tips', 'type', 'group', 'created_at'];
+
+        return $scenarios;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function attributeLabels()
     {
         return [

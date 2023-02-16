@@ -313,6 +313,31 @@ use yii\helpers\Url;
                 });
             };
 
+            // 加载本地配置定义
+            $scope.triggerLoaded = function () {
+                var u = YmApp.addUrlQueryParam(YmApp.$adminApi.loadingConfigItemUrl, {
+                    _: YmApp.getTime(),
+                });
+                var i = YmSpinner.show();
+                YmApp._layerTip('是否确定当前操作？', '提示', void 0, function () {
+                    $http.get(u).then(function (result) {
+                        YmSpinner.hide(i);
+                        var data = result.data;
+                        if (data.code === 200) {
+                            YmApp._layerTip(data.msg, '通知', 1, function () {
+                                window.location.reload(true);
+                            });
+                        } else {
+                            YmApp._layerTip(data.msg, '警告', 0);
+                        }
+                    }, function (error) {
+                        YmSpinner.hide(i);
+                        window.console.error(error.toString());
+                        YmApp._layerTip(error, '错误', 2);
+                    })
+                });
+            };
+
             // 初始化
             initAll();
         }]);

@@ -43,6 +43,10 @@
         // 复制
         copyAttachmentUrl: '/admin/attachment/copy',
 
+        /* -------------- 系统配置 ---------------------   */
+        // 加载配置项
+        loadingConfigItemUrl: '/admin/system-setting/load',
+
     };
 
     YmApp.$adminApi = api;
