@@ -100,9 +100,15 @@
         return {
             require: 'ngModel',
             link: function(scope, element, attrs, ngModel) {
+                // 输出转换为字符串
                 ngModel.$parsers.push(function(value) {
-                    return '' + value;
+                    if (value !== void 0 && value !== null) {
+                        return '' + value;
+                    } else {
+                        return '';
+                    }
                 });
+                // 格式化
                 ngModel.$formatters.push(function(value) {
                     return parseFloat(value);
                 });

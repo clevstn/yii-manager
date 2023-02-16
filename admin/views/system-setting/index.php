@@ -31,78 +31,89 @@ $this->title = '系统设置';
             <!-- Tab panes -->
             <?php foreach ($config as $group => $item): ?>
                 <div class="tab-pane <?= $active == $group ? 'active' : '' ?>" id="<?= $group ?>">
-                    <div class="panel-body">
-                        <form>
-                            <!--表单项-->
-                            <?php foreach ($item as $code => $value): ?>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <span class="addon-fix"><?= $value['name'] ?></span>
-                                            </div>
-                                            <?php switch ($value['control']): case Sc::TEXT: ?>
-                                                <input type="text" autocomplete="off" class="form-control" placeholder="<?= $value['tips'] ?>">
-                                            <?php break; case Sc::NUMBER: ?>
-                                                <input type="number" string-to-number autocomplete="off" class="form-control" ng-model="aaa" placeholder="">
-                                            <?php break; case Sc::PASSWORD: ?>
-                                                <input type="password" autocomplete="off" class="form-control" placeholder="">
-                                            <?php break; case Sc::DATETIME: ?>
-                                            <?php case Sc::DATE: ?>
-                                            <?php case Sc::YEAR: ?>
-                                            <?php case Sc::MONTH: ?>
-                                            <?php case Sc::TIME: ?>
-                                                <input id="eeeeeee" class="ymSysConfDates form-control" type="text" data-type="<?= $value['control'] ?>" autocomplete="off" ng-model="eee" placeholder="" readonly>
-                                            <?php break; case Sc::HIDDEN: ?>
-                                                <input type="text" autocomplete="off" class="form-control" placeholder="" disabled>
-                                            <?php break; case Sc::RANGE: ?>
-                                                <input type="range" autocomplete="off" class="form-control pt-0 pb-0 border-y-none border-right-none box-shadow-none" placeholder="">
-                                            <?php break; case Sc::FILE: ?>
-                                            <div class="form-upload-group">
-                                                <div class="inline-block">
-                                                    <div class="form-upload-control">
-                                                        <div class="form-upload-item">
-                                                            <i ng-hide="1" class="fa fa-file-image-o f-32 text-dark"></i>
-                                                            <img ng-show="1" class="form-upload-img" ng-src="" alt>
+                    <div class="panel panel-white pt-16" style="margin-top: 22px;">
+                        <div class="panel-body">
+                            <form>
+                                <!--表单项-->
+                                <?php foreach ($item as $code => $value): ?>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <span class="addon-fix"><?= $value['name'] ?></span>
+                                                </div>
+                                                <?php switch ($value['control']): case Sc::TEXT: ?>
+                                                    <input type="text" autocomplete="off" ng-model="<?= $code ?>" class="form-control">
+                                                    <?php break; case Sc::NUMBER: ?>
+                                                    <input type="number" autocomplete="off" class="form-control" ng-model="<?= $code ?>" string-to-number>
+                                                    <?php break; case Sc::PASSWORD: ?>
+                                                    <input type="password" autocomplete="off" class="form-control" ng-model="<?= $code ?>">
+                                                    <?php break; case Sc::DATETIME: ?>
+                                                    <?php case Sc::DATE: ?>
+                                                    <?php case Sc::YEAR: ?>
+                                                    <?php case Sc::MONTH: ?>
+                                                    <?php case Sc::TIME: ?>
+                                                    <input id="<?= $code ?>" class="ymSysConfDates form-control" type="text" data-type="<?= $value['control'] ?>" autocomplete="off" ng-model="<?= $code ?>" readonly>
+                                                    <?php break; case Sc::STATIC_: ?>
+                                                    <input type="text" autocomplete="off" ng-model="<?= $code ?>" class="form-control border-y-none border-right-none box-shadow-none" readonly>
+                                                    <?php break; case Sc::RANGE: ?>
+                                                    <input string-to-number type="range" autocomplete="off" ng-model="<?= $code ?>" min="<?= $value['options']['min'] ?>" max="<?= $value['options']['max'] ?>" step="<?= $value['options']['step'] ?>" class="form-control p-0 border-y-none border-right-none box-shadow-none">
+                                                    <?php break; case Sc::SELECT: ?>
+                                                    <select ui-select2="{width:'100%'}" name="<?= $code ?>" ng-model="<?= $code ?>" id="<?= $code ?>">
+                                                        <option value="">请选择</option>
+                                                        <?php foreach ($value['options'] as $v => $label): ?>
+                                                        <option value="<?= $v ?>"<?= $v == $value['value'] ? ' checked' : '' ?>><?= $label ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <?php break; case Sc::TEXTAREA: ?>
+                                                    <textarea class="form-control" ng-model="<?= $code ?>" name="<?= $code ?>" id="<?= $code ?>" rows="6"></textarea>
+                                                    <?php break; case Sc::FILE: ?>
+                                                    <div class="form-upload-group">
+                                                        <div class="inline-block">
+                                                            <div class="form-upload-control">
+                                                                <div class="form-upload-item" ng-click="triggerSelectImage('<?= $code ?>')">
+                                                                    <i ng-hide="<?= $code ?>" class="fa fa-file-image-o f-32 text-dark"></i>
+                                                                    <img ng-show="<?= $code ?>" class="form-upload-img" ng-src="{{<?= $code ?>_preview}}" alt>
+                                                                    <input type="hidden" ng-model="<?= $code ?>">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    <?php break; case Sc::RICHTEXT: ?>
+                                                    <div class="YmSysConfWangEditor" id="<?= $code ?>"></div>
+                                                    <?php break; case Sc::CHECKBOX: ?>
+                                                    <div lay-filter="<?= $code ?>" class="layui-form form-control pt-0 pb-0 border-y-none border-right-none box-shadow-none">
+                                                        <?php foreach ($value['options'] as $v => $label): ?>
+                                                            <input type="checkbox" name="<?= $code ?>[<?= $v ?>]" lay-filter="<?= $code ?>" value="<?= $v ?>" title="<?= $label ?>"<?= $v == $value['value'] ? ' checked' : '' ?>>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                    <?php break; case Sc::RADIO: ?>
+                                                    <div lay-filter="<?= $code ?>" class="layui-form form-control pt-0 pb-0 border-y-none border-right-none box-shadow-none">
+                                                        <?php foreach ($value['options'] as $v => $label): ?>
+                                                        <input type="radio" name="<?= $code ?>" lay-filter="<?= $code ?>" value="<?= $v ?>" title="<?= $label ?>"<?= $v == $value['value'] ? ' checked' : '' ?>>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                    <?php break; case Sc::SW: ?>
+                                                    <div lay-filter="<?= $code ?>" class="layui-form form-control pt-0 pb-0 border-y-none border-right-none box-shadow-none">
+                                                        <input type="checkbox" name="<?= $code ?>" value="1" lay-filter="<?= $code ?>" lay-text="开启|关闭" lay-skin="switch">
+                                                    </div>
+                                                    <?php break; case Sc::CUSTOM: ?>
+                                                    <?php break; endswitch; ?>
                                             </div>
-                                            <?php break; case Sc::TEXTAREA: ?>
-                                                <textarea class="form-control" name="" id="" rows="6"></textarea>
-                                            <?php break; case Sc::RADIO: ?>
-                                                <div class="layui-form form-control pt-0 pb-0 border-y-none border-right-none box-shadow-none">
-                                                    <input type="radio" name="sex" value="男" title="男">
-                                                    <input type="radio" name="sex" value="女" title="女" checked>
-                                                </div>
-                                            <?php break; case Sc::CHECKBOX: ?>
-                                                <div class="layui-form form-control pt-0 pb-0 border-y-none border-right-none box-shadow-none">
-                                                    <input type="checkbox" name="like[write]" title="写作">
-                                                    <input type="checkbox" name="like[read]" title="阅读" checked>
-                                                    <input type="checkbox" name="like[dai]" title="发呆">
-                                                </div>
-                                            <?php break; case Sc::SELECT: ?>
-                                                <select ui-select2="{width:'100%'}" name="cc" ng-model="ccc" id="cc">
-                                                    <option value="">测试一下</option>
-                                                </select>
-                                            <?php break; case Sc::SW: ?>
-                                                <div class="layui-form form-control pt-0 pb-0 border-y-none border-right-none box-shadow-none">
-                                                    <input type="checkbox" name="switch" lay-skin="switch">
-                                                </div>
-                                            <?php break; case Sc::CUSTOM: ?>
-                                            <?php break; endswitch; ?>
+                                            <div class="form-comment pt-16"><?= $value['tips'] ? '注：' . $value['tips'] : '' ?></div>
                                         </div>
-                                        <div class="form-comment"><?= $value['tips'] ?></div>
                                     </div>
-                                </div>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            </form>
+                        </div>
+                        <div class="panel-footer clearfix">
                             <!--尾部-->
-                            <div class="form-group col-md-12">
+                            <div class="form-group mb-0 col-md-12">
                                 <div class="addon-fix"></div>
                                 <button type="button" class="btn btn-sm btn-default" ng-click="triggerResetForm('<?= $group ?>')"><?= t('reset', 'app.admin') ?></button>
                                 <button type="button" class="btn btn-sm btn-primary" ng-click="triggerSubmitForm('<?= $group ?>')"><?= t('submit', 'app.admin') ?></button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>

@@ -263,7 +263,7 @@ use app\builder\form\FieldsOptions;
             };
 
             // 上传图片
-            $scope.triggerSelectImage = function (files, fileType, saveDirectory, pathPrefix, fileScenario, field, key) {
+            $scope.triggerSelectImage = function (fileType, saveDirectory, pathPrefix, fileScenario, field, key) {
                 var queryParam = {
                     'name': 'file',
                     'type': fileType,

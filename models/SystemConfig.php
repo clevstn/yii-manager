@@ -41,18 +41,18 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
      * -- year[年]: 无
      * -- year[月]: 无
      * -- time[时间]: 无
-     * -- hidden[静态]: 无
-     * -- range[区间]: min:1|max:2|default:3|step:1
+     * -- static[静态]: 无
      * -- file[图片]: 无
      * -- textarea[文本域]: 无
      * -- richtext[富文本]: 无
-     * -- radio[单选]: 1:开启|2:关闭
+     * -- switch[开关]: 无
+     * -- range[区间]: min:1|max:2|step:1
+     * -- radio[单选]: 1:支付宝|2:微信
      * -- checkbox[多选]: 1:yii|2:yii-manager|3:thinkphp|4:laravel
      * -- select[下拉选择框]: 1:yii|2:yii-manager|3:thinkphp
-     * -- switch[开关]: 0:开启|1:关闭
-     * -- custom[自定义]: class|method
+     * -- custom[自定义]: class:MyClass|method:MyMethod
      *
-     * 注意: switch选项格式顺序不可改变
+     * 注意: switch的值只有0和1；0是关闭，1:是开启
      */
     const TEXT = 'text';
     const NUMBER = 'number';
@@ -62,7 +62,7 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
     const YEAR = 'year';
     const MONTH = 'month';
     const TIME = 'time';
-    const HIDDEN = 'hidden';
+    const STATIC_ = 'static';
     const RANGE = 'range';
     const FILE = 'file';
     const TEXTAREA = 'textarea';
@@ -85,7 +85,7 @@ class SystemConfig extends \app\builder\common\CommonActiveRecord
         self::YEAR,
         self::MONTH,
         self::TIME,
-        self::HIDDEN,
+        self::STATIC_,
         self::RANGE,
         self::FILE,
         self::TEXTAREA,

@@ -229,7 +229,7 @@ use app\builder\form\FieldsOptions;
                     <div class="form-upload-group">
                         <?php for ($i = 0; $i < $options['number']; $i++): ?>
                         <div class="inline-block">
-                            <div class="form-upload-control" ng-click="triggerSelectImage($file, '<?= $options["fileType"] ?>', '<?= $options["saveDirectory"] ?>', '<?= $options["pathPrefix"] ?>', '<?= $options["fileScenario"] ?>', '<?= $field ?>', <?= $i ?>)">
+                            <div class="form-upload-control" ng-click="triggerSelectImage('<?= $options["fileType"] ?>', '<?= $options["saveDirectory"] ?>', '<?= $options["pathPrefix"] ?>', '<?= $options["fileScenario"] ?>', '<?= $field ?>', <?= $i ?>)">
                                 <div class="form-upload-item">
                                     <i ng-hide="formFileLink<?= $field . $i ?>" class="fa fa-file-image-o f-32 text-dark"></i>
                                     <img ng-show="formFileLink<?= $field . $i ?>" class="form-upload-img" ng-src="{{formFileLink<?= $field . $i ?>}}" alt>

@@ -37,6 +37,14 @@ class SystemSettingController extends CommonController
         $configMap = Yii::$app->config->getFromDb();
         $groupMap = SystemConfig::query('*')->where(['type' => SystemConfig::TYPE_GROUP])->all();
 
+        foreach ($configMap as &$item) {
+            foreach ($item as &$value) {
+                if (!empty($value['options'])) {
+                    $value['options'] = SystemConfig::resolveOption($value['options']);
+                }
+            }
+        }
+
         $params = [
             'config' => $configMap,
             'group' => $groupMap,
