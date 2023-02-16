@@ -112,6 +112,40 @@ class ConfigManager extends Component
     }
 
     /**
+     * 更改配置
+     * @param array $config 配置项
+     * @return bool|string
+     */
+    public function set(array $config)
+    {
+        $trans = $this->db->beginTransaction();
+        /* @var \app\models\SystemConfig $class */
+        $class = $this->model;
+        try {
+            foreach ($config as $code => $value) {
+                $one = $class::findOne(['code' => $code]);
+                if (empty($one)) {
+                    throw new \Exception(t('the parameter {param} is not defined', 'app.admin', ['param' => $code]));
+                }
+
+                $one->value = $value;
+                if (!$one->save()) {
+                    throw new \Exception($one->error);
+                }
+            }
+
+            $trans->commit();
+            // 清除缓存
+            $this->invalidateCache();
+            
+            return true;
+        } catch (\Exception $e) {
+            $trans->rollBack();
+            return $e->getMessage();
+        }
+    }
+
+    /**
      * 清除所有权限缓存
      */
     public function invalidateCache()

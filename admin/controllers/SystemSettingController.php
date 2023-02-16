@@ -27,32 +27,46 @@ class SystemSettingController extends CommonController
     ];
 
     /**
-     * 系统设置列表
+     * 系统设置
      * @return string
      * @throws \Throwable
      */
     public function actionIndex()
     {
-        // group => [code => ...]
-        $configMap = Yii::$app->config->getFromDb();
-        $groupMap = SystemConfig::query('*')->where(['type' => SystemConfig::TYPE_GROUP])->all();
+        if ($this->isPost) {
+            $this->emptyStrToNull = false;
 
-        foreach ($configMap as &$item) {
-            foreach ($item as &$value) {
-                if (!empty($value['options'])) {
-                    $value['options'] = SystemConfig::resolveOption($value['options']);
+            $post = $this->post;
+            unset($post['_csrf']);
+
+            $result = Yii::$app->config->set($post);
+            if ($result !== true) {
+                return $this->asFail($result);
+            }
+
+            return $this->asSuccess('操作成功');
+        } else {
+            // group => [code => ...]
+            $configMap = Yii::$app->config->getFromDb();
+            $groupMap = SystemConfig::query('*')->where(['type' => SystemConfig::TYPE_GROUP])->all();
+
+            foreach ($configMap as &$item) {
+                foreach ($item as &$value) {
+                    if (!empty($value['options'])) {
+                        $value['options'] = SystemConfig::resolveOption($value['options']);
+                    }
                 }
             }
+
+            $params = [
+                'config' => $configMap,
+                'group' => $groupMap,
+            ];
+            // Register js script
+            $jsScript = $this->view->renderPhpFile(Yii::getAlias('@app/admin/views/system-setting/js.php'), $params);
+            $this->view->registerJs(preg_script($jsScript), View::POS_END);
+
+            return $this->render('index', $params);
         }
-
-        $params = [
-            'config' => $configMap,
-            'group' => $groupMap,
-        ];
-        // Register js script
-        $jsScript = $this->view->renderPhpFile(Yii::getAlias('@app/admin/views/system-setting/js.php'), $params);
-        $this->view->registerJs(preg_script($jsScript), View::POS_END);
-
-        return $this->render('index', $params);
     }
 }

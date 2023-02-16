@@ -7,6 +7,7 @@
 
 use app\models\SystemConfig as Sc;
 use app\components\Uploads;
+use yii\helpers\Url;
 
 ?>
 <script>
@@ -22,6 +23,7 @@ use app\components\Uploads;
     !function (window, _EasyApp) {
         "use strict";
         _EasyApp.controller('_EasyApp_SystemConfigCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "layui", 'wangEditor', function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, layui, wangEditor) {
+            var parentLayer = window.parent.layer;
             // 初始化
             var initAll = function () {
                 mountedLaydate();       // 挂载日期插件
@@ -286,7 +288,29 @@ use app\components\Uploads;
             // 提交
             $scope.triggerSubmitForm = function (group) {
                 var formData = getFormItem(group);
-                console.log(formData);
+                parentLayer.alert("是否确定当前操作?", {
+                    closeBtn: 2,
+                    title: "信息",
+                    icon: 0,
+                }, function (index) {
+                    parentLayer.close(index);
+
+                    var currentUrl = '<?= Url::current() ?>';
+                    var i = YmSpinner.show();
+                    $http.post(currentUrl, formData).then(function (data) {
+                        YmSpinner.hide(i);
+                        var result = data.data;
+                        if (result.code == 200) {
+                            YmApp._layerTip(result.msg ? result.msg : '提交成功', '通知', 1);
+                        } else {
+                            YmApp._layerTip(result.msg ? result.msg : (result.code == 500 ? '提交失败' : '您没有权限操作!'), "通知", 5);
+                        }
+                    }, function (errors) {
+                        YmSpinner.hide(i);
+                        console.error(errors);
+                        YmApp._layerTip(errors.data || "系统错误，请稍后重试!", "通知", 2);
+                    });
+                });
             };
 
             // 初始化
