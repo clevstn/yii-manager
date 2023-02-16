@@ -65,7 +65,7 @@
                 shadeClose: false,
                 btn: ['关闭'],
                 closeBtn: 1,
-                area: [layerParams.width, '90%'],
+                area: [layerParams.width, '99%'],
                 content: url
             });
         };
