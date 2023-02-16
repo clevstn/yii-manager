@@ -69,7 +69,7 @@ $config = [
             // for the mailer to send real emails.
             // 当`true`时：开启调试模式，邮件不真正发送，只是保存到`@runtime/mail`。
             // `false`时：想要真正发送，需要配置`transport`参数。
-            'useFileTransport' => true,
+            'useFileTransport' => false,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.163.com',

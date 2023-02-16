@@ -8,6 +8,8 @@ namespace app\components;
 use app\models\EmailRecord;
 use yii\base\Component;
 use yii\di\Instance;
+use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * 邮件发送器
@@ -22,13 +24,36 @@ class MailManager extends Component
     public $sender = 'mailer';
 
     /**
-     * @throws \yii\base\InvalidConfigException
+     * @var string 签名
+     */
+    public $sign;
+
+    /**
+     * @throws \Exception
      */
     public function init()
     {
         parent::init();
 
         $this->sender = Instance::ensure($this->sender, 'yii\mail\MailerInterface');
+
+        $emailConfig = Yii::$app->config->get('EMAIL_GROUP.*');
+
+        $server = ArrayHelper::getValue($emailConfig, 'SMTP_SERVER.value');    // SMTP服务器
+        $port = ArrayHelper::getValue($emailConfig, 'SMTP_PORT.value');      // SMTP端口
+        $username = ArrayHelper::getValue($emailConfig, 'SMTP_USER.value');      // SMTP用户名
+        $password = ArrayHelper::getValue($emailConfig, 'SMTP_PASSWORD.value');  // SMTP密码
+        $encryption = ArrayHelper::getValue($emailConfig, 'SMTP_SECRET_WAY.value');// 加密方式
+        $sign = ArrayHelper::getValue($emailConfig, 'SMTP_SIGN.value');      // SMTP_SIGN
+
+        /* @var \Swift_SmtpTransport $transport */
+        $transport = $this->sender->transport;
+        !empty($server) && $transport->setHost($server);
+        !empty($port) && $transport->setPort($port);
+        !empty($username) && $transport->setUsername($username);
+        !empty($password) && $transport->setPassword($password);
+        !empty($encryption) && $encryption != 'None' && $transport->setEncryption($encryption);
+        !empty($sign) && $this->sign = $sign;
     }
 
     /**
@@ -86,7 +111,7 @@ class MailManager extends Component
         $transport = $this->sender->transport;
 
         $result = $messageManager
-            ->setFrom([$transport->getUsername() => \Yii::$app->params['admin_team_name']])
+            ->setFrom([$transport->getUsername() => $this->sign ?: \Yii::$app->params['admin_team_name']])
             ->setTo($receiveEmail)
             ->setSubject($params['use'])
             ->send();
