@@ -98,6 +98,7 @@ $this->title = '系统设置';
                                                         <input type="checkbox" name="<?= $code ?>" value="1" lay-filter="<?= $code ?>" lay-text="开启|关闭" lay-skin="switch">
                                                     </div>
                                                     <?php break; case Sc::CUSTOM: ?>
+                                                    <!--自定义....-->
                                                     <?php break; endswitch; ?>
                                             </div>
                                             <div class="form-comment pt-16"><?= $value['tips'] ? '注：' . $value['tips'] : '' ?></div>
