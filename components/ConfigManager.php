@@ -137,7 +137,7 @@ class ConfigManager extends Component
             $trans->commit();
             // 清除缓存
             $this->invalidateCache();
-            
+
             return true;
         } catch (\Exception $e) {
             $trans->rollBack();
