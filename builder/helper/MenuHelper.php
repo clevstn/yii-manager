@@ -62,19 +62,27 @@ class MenuHelper
     {
         if ($identify = get_admin_user_identify()) {
             $items = Yii::$app->rbacManager->getBannerByGroup($identify->group);
-            if (!empty($items)) {
-                // 首页不用加入rbac
-                $items = array_merge([
-                    [
-                        'label' => '首页',
-                        // 用于yii\widgets\Menu->isItemActive()
-                        'url' => ['/admin/index/index'],
-                        // 用于视图外链
-                        'src' => 'admin/index/index',
-                        'icon' => 'glyphicon glyphicon-home',
-                    ]
-                ], $items);
-            }
+            $items = array_merge([
+                // 首页
+                [
+                    'label' => '首页',
+                    // 用于yii\widgets\Menu->isItemActive()
+                    'url' => ['/admin/index/index'],
+                    // 用于视图外链
+                    'src' => 'admin/index/index',
+                    'icon' => 'glyphicon glyphicon-home',
+                ]
+            ], $items, [
+                // 退出
+                [
+                    'label' => '退出',
+                    // 用于yii\widgets\Menu->isItemActive()
+                    'url' => ['/admin/site/logout'],
+                    // 用于视图外链
+                    'src' => 'admin/site/logout',
+                    'icon' => 'glyphicon glyphicon-off',
+                ]
+            ]);
 
             return $items;
         }
