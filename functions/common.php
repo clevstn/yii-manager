@@ -7,6 +7,44 @@
 
 /**
  * Yii-manager 内置函数库
+ *
+ * @see vv() 检查当前管理员是否允许视图渲染(用于视图)
+ * @see t() I18N字符语言转换
+ * @see now() 获取当前时间
+ * @see xadd() 高精度加法函数
+ * @see xsub() 高精度减法函数
+ * @see xmul() 高精度乘法函数
+ * @see xdiv() 高精度除法函数
+ * @see xfloor() 数字向下保留
+ * @see xceil() 数字向上保留
+ * @see xround() 数字四舍五入保留
+ * @see dd() 打印调试
+ * @see load_file() 加载引入文件
+ * @see export_str() 返回代码字符串
+ * @see encrypt_password() 密码加密
+ * @see check_password() 密码校验
+ * @see random_string() 生成指定长度的字符串
+ * @see x_highlight_string() 高亮字符串
+ * @see random_number() 生成指定长度的数字串
+ * @see order_number() 生成指定前缀的订单号
+ * @see xss_filter() XSS过滤
+ * @see html_label() 字符串转（html）label
+ * @see html_escape() html字符转义
+ * @see html_popover() HTML弹出框
+ * @see html_modal() HTML模态框
+ * @see table_column_helper() ViewBuilder快捷设置表格列
+ * @see table_action_helper() ViewBuilder快捷设置表格行操作项
+ * @see table_toolbar_filter_helper() ViewBuilder快捷设置表格工具栏筛选项
+ * @see table_toolbar_custom_helper() ViewBuilder快捷设置表格工具栏自定义项
+ * @see form_fields_helper() ViewBuilder快捷注册表单字段项
+ * @see resolve_pages() 生成表格分页
+ * @see accept_json() 检查当前请求是否返回JSON格式数据
+ * @see preg_script() 从script标签中提取js脚本
+ * @see attach_url() 获取附件URL
+ * @see into_full_url() url相对路径转绝对绝对路径
+ * @see notset_return() 对数据字段进行`isset`验证，失败返回字段对应的提示语
+ * @see get_admin_user_identify() 获取admin模块中的身份认证类实例
+ *
  * @author cleverstone
  * @since ym1.0
  */

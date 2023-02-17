@@ -7,6 +7,18 @@
 
 /**
  * 建议用户自定义的函数在这里编写
+ *
+ * @see is_function() 判断一个变量是否为函数
+ * @see app_log() 记录应用日志（即端业务日志）
+ * @see system_log_error() 记录类型为错误的系统日志（即yii框架和后台日志）
+ * @see system_log_info() 记录类型为信息的系统日志（即yii框架和后台日志）
+ * @see xml_to_array() XML转数组
+ * @see data_to_xml() 数组或对象转XML
+ * @see curl_request() CURL
+ * @see filesize_unit_convert() 文件大小单位转换
+ * @see empty_set_default() 如果数据中指定字段为空则赋予默认值
+ * @see notset_set_default() 如果数据中指定字段没有定义则赋予默认值
+ *
  * @since ym1.0
  */
 
