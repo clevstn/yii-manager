@@ -89,11 +89,11 @@ $items = [
                     'is_quick' => 1,
                     'items' => [
                         [
-                            'label' => '从本地更新菜单',
+                            'label' => '加载本地菜单项',
                             'src' => 'admin/menu/update',
                             'icon' => 'glyphicon glyphicon-open',
                             'label_type' => AuthMenu::LABEL_TYPE_FUNCTION,
-                            'desc' => '从本地更新菜单列表',
+                            'desc' => '从本地加载菜单项定义',
                         ],
                         [
                             'label' => '编辑菜单',

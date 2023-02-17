@@ -76,7 +76,7 @@ class MenuController extends CommonController
         $table->toolbarCustom = [
             // 新增
             table_toolbar_custom_helper('left', [
-                'title' => '更新菜单',
+                'title' => '加载本地菜单项',
                 'icon' => 'glyphicon glyphicon-open',
                 'option' => 'ajax',
                 'route' => 'admin/menu/update',
