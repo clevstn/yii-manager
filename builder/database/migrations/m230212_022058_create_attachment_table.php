@@ -14,6 +14,11 @@ class m230212_022058_create_attachment_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB COMMENT="附件文件表"';
+        }
+
         $this->createTable(self::TABLE_NAME, [
             'id' => $this->primaryKey(),
             'origin_name' => $this->string(255)->notNull()->defaultValue('')->comment('文件原名称'),
@@ -28,7 +33,7 @@ class m230212_022058_create_attachment_table extends Migration
             'hash' => $this->string(255)->notNull()->defaultValue('')->comment('文件hash值'),
             'created_at' => $this->dateTime()->notNull()->comment('创建时间'),
             'updated_at' => $this->dateTime()->comment('更新时间'),
-        ]);
+        ], $tableOptions);
 
         $this->createIndex('index_bucket', self::TABLE_NAME, ['bucket']);
         $this->createIndex('index_save_directory', self::TABLE_NAME, ['save_directory']);

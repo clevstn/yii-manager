@@ -14,13 +14,18 @@ class m230210_084146_create_admin_user_quick_action_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB COMMENT="快捷操作菜单表"';
+        }
+
         $this->createTable(self::TABLE_NAME, [
             'id' => $this->primaryKey(),
             'admin_id' => $this->integer()->notNull()->comment('管理员ID'),
             'menu_id' => $this->integer()->notNull()->comment('菜单ID'),
             'created_at' => $this->dateTime()->notNull()->comment('创建时间'),
             'updated_at' => $this->dateTime()->comment('更新时间'),
-        ]);
+        ], $tableOptions);
 
         $this->createIndex('index_admin_id', self::TABLE_NAME, ['admin_id']);
         $this->createIndex('index_menu_id', self::TABLE_NAME, ['menu_id']);
