@@ -192,3 +192,13 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .layui-form-switch {box-sizing: content-box !important; margin-top: 5px;}
 .layui-form-radio {margin: 4px 10px 0 0;}
 .box-shadow-none {box-shadow: none;}
+
+.media-body-inner p{font-size:12px;margin-bottom:3px;color:#777;}
+.media-body-inner label{padding-right:6px;margin-bottom:0px!important;}
+.media-body-inner span{padding-right:16px;}
+.media-left img {width:60px;height:60px;border:1px solid #ddd;padding:3px;}
+
+.media-list {padding:5px 0 0 3px}
+.media-list p {font-size:12px;margin-bottom:3px!important;color:#777;}
+.media-list label {padding-right:6px;margin-bottom:0px!important;}
+.media-list span {padding-right:16px;}

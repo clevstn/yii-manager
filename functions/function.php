@@ -18,6 +18,7 @@
  * @see filesize_unit_convert() 文件大小单位转换
  * @see empty_set_default() 如果数据中指定字段为空则赋予默认值
  * @see notset_set_default() 如果数据中指定字段没有定义则赋予默认值
+ * @see html_media_list() html媒体对象列表
  *
  * @since ym1.0
  */
@@ -326,5 +327,53 @@ if (!function_exists('notset_set_default')) {
         }
 
         return $data;
+    }
+}
+
+if (!function_exists('html_media_list')) {
+
+    /**
+     * html媒体对象列表
+     * @param string $imgUrl 图像外链
+     * - 如：http://local.testbuerzuzu.com/media/image/admin_static/default-0.jpg
+     *
+     * @param string $mediaHeader 媒体头部内容
+     * - 佳能 EOS 5D4单机身【镜头根据需求搭配另拍】
+     *
+     * @param array $extraOptions 其他选项
+     * - array mediaBody 媒体内容
+     *          - string|int key 标题标签
+     *          - value 内容
+     *
+     * -  array list 底部列表
+     *          - string|int key 标题标签
+     *          - value 内容
+     *
+     * - array options 选项
+     *
+     *          - media => ...
+     *
+     *          - mediaLeft => ['class' => .., 'style' => ...]
+     *          - img => ['class' => .., 'style' => ...]
+     *
+     *          - mediaRight => ...
+     *          - mediaHeader => ['class' => .., 'style' => ...]
+     *          - mediaBody => ...
+     *
+     *          - list => ...
+     *
+     * @return string
+     * @throws Throwable
+     * @see \app\widgets\MediaList::widget()
+     */
+    function html_media_list($imgUrl, $mediaHeader = null, array $extraOptions = [])
+    {
+        return \app\widgets\MediaList::widget([
+            'imgUrl' => $imgUrl,
+            'mediaHeader' => $mediaHeader,
+            'mediaBody' => isset($extraOptions['mediaBody']) ? $extraOptions['mediaBody'] : [],
+            'list' => isset($extraOptions['list']) ? $extraOptions['list'] : [],
+            'options' => isset($extraOptions['options']) ? $extraOptions['options'] : [],
+        ]);
     }
 }
