@@ -20,6 +20,8 @@ yii-manager
 + `endroid/qr-code` QrCode处理库
 + `GoogleAuthenticator` MFA安全认证
 
+#### 注意：`web`软件安装和命令执行必须使用网站服务所属`www`用户去执行
 
+###注：列表视图组件待开发
 
 

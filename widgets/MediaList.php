@@ -165,9 +165,9 @@ class MediaList extends Widget
         if (!empty($this->mediaHeader)) {
             if (!empty($this->options['mediaHeader'])) {
                 $mediaHeaderOptions = $this->options['mediaHeader'];
-                Html::addCssClass($mediaHeaderOptions, ['media-heading', 'text-primary']);
+                Html::addCssClass($mediaHeaderOptions, ['media-heading', 'layui-font-cyan']);
             } else {
-                $mediaHeaderOptions = ['class' => ['media-heading', 'text-primary']];
+                $mediaHeaderOptions = ['class' => ['media-heading', 'layui-font-cyan']];
             }
 
             $h5 = Html::tag('h5', $this->mediaHeader, $mediaHeaderOptions);

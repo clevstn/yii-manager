@@ -189,8 +189,25 @@ class CommonController extends Controller
      * 设置视图继承路径
      * @param string $layoutPath 视图继承路径
      */
-    public function setLayoutViewPath($layoutPath = '')
+    public function setLayoutViewPath($layoutPath = '@builder/layouts/partial.php')
     {
-        $this->layout = $layoutPath ?: '@builder/layouts/partial.php';
+        if (!empty($layoutPath)) {
+            $this->layout = $layoutPath;
+        }
+    }
+
+    /**
+     * 渲染内容(renderContent方法扩展)
+     * @param string $content 要渲染的内容
+     * @param bool $partial 是否是独立渲染(带前端静态包)
+     * @return string
+     */
+    public function renderContentX($content, $partial = true)
+    {
+        if ($partial === true) {
+            $this->setLayoutViewPath();
+        }
+
+        return parent::renderContent($content);
     }
 }

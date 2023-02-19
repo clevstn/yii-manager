@@ -19,6 +19,7 @@
  * @see empty_set_default() 如果数据中指定字段为空则赋予默认值
  * @see notset_set_default() 如果数据中指定字段没有定义则赋予默认值
  * @see html_media_list() html媒体对象列表
+ * @see html_tips_page() html无数据,错误等提示页
  *
  * @since ym1.0
  */
@@ -44,17 +45,29 @@ if (!function_exists('app_log')) {
      * - info 业务信息
      * - warning 业务警告
      * - error 业务出错
-     * @param string|array $params 执行参数
-     * @param string|array $result 返回结果
+     * @param string|array|object $params 执行参数
+     * @param string|array|object $result 返回结果
      */
     function app_log($subject, $logLevel, $params, $result)
     {
         if (is_array($params)) {
-            $params = \yii\helpers\Json::encode($params);
+            $params = export_str($params);
+        } elseif (is_object($params)) {
+            if ($params instanceof JsonSerializable) {
+                $params = export_str(\yii\helpers\Json::decode(\yii\helpers\Json::encode($params)));
+            } else {
+                $params = export_str(get_object_vars($params));
+            }
         }
 
         if (is_array($result)) {
-            $result = \yii\helpers\Json::encode($result);
+            $result = export_str($result);
+        } elseif (is_object($result)) {
+            if ($result instanceof JsonSerializable) {
+                $result = export_str(\yii\helpers\Json::decode(\yii\helpers\Json::encode($result)));
+            } else {
+                $result = export_str(get_object_vars($result));
+            }
         }
 
         $model = new \app\models\AppLog();
@@ -64,6 +77,7 @@ if (!function_exists('app_log')) {
             'params_content' => $params,
             'result_content' => $result,
         ]);
+
         $model->save();
     }
 }
@@ -342,10 +356,14 @@ if (!function_exists('html_media_list')) {
      *
      * @param array $extraOptions 其他选项
      * - array mediaBody 媒体内容
+     *          - array
+     *          ||
      *          - string|int key 标题标签
      *          - value 内容
      *
      * -  array list 底部列表
+     *          - array
+     *          ||
      *          - string|int key 标题标签
      *          - value 内容
      *
@@ -374,6 +392,40 @@ if (!function_exists('html_media_list')) {
             'mediaBody' => isset($extraOptions['mediaBody']) ? $extraOptions['mediaBody'] : [],
             'list' => isset($extraOptions['list']) ? $extraOptions['list'] : [],
             'options' => isset($extraOptions['options']) ? $extraOptions['options'] : [],
+        ]);
+    }
+}
+
+if (!function_exists('html_tips_page')) {
+    /**
+     * html无数据,错误等提示页
+     * @param string $message 消息字符串
+     * @param string $alertType 提示类型
+     * - info 信息
+     * - error 错误
+     * - danger 危险
+     * - success 成功
+     * - warning 警告
+     *
+     * @param array $options 其他选项
+     * @return string
+     * @throws Throwable
+     */
+    function html_tips_page($message, $alertType = 'info', $options = [])
+    {
+        $alertTypes = [
+            'error'   => 'alert-danger',
+            'danger'  => 'alert-danger',
+            'success' => 'alert-success',
+            'info'    => 'alert-info',
+            'warning' => 'alert-warning'
+        ];
+
+        return \yii\bootstrap\Alert::widget([
+            'body' => $message,
+            'options' => array_merge($options, [
+                'class' => $alertTypes[$alertType],
+            ]),
         ]);
     }
 }

@@ -79,10 +79,10 @@ class AppLogController extends CommonController
                 return html_label($item['log_level'], true, 'default');
             }),
             'params_content' => table_column_helper('执行参数', [], function ($item) {
-                return html_modal($item['params_content']);
+                return html_modal(x_highlight_string($item['params_content']));
             }),
             'result_content' => table_column_helper('返回结果', [], function ($item) {
-                return html_modal($item['result_content']);
+                return html_modal(x_highlight_string($item['result_content']));
             }),
         ];
         // 刷新
