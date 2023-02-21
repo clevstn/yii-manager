@@ -2,19 +2,19 @@
 /**
  *
  * @copyright Copyright (c) 2020 cleverstone
- * 
+ *
  */
 
-namespace app\api;
+namespace app\notify;
 
 use Yii;
 
 /**
- * 接口模块继承类
+ * 通知模块
  * @author cleverstone
  * @since ym1.0
  */
-abstract class Module extends \yii\base\Module
+class Module extends \yii\base\Module
 {
     /**
      * @var string the default route of this module. Defaults to `default`.
@@ -26,9 +26,23 @@ abstract class Module extends \yii\base\Module
     public $defaultRoute = 'index';
 
     /**
-     * @var string|bool the layout that should be applied for views within this module. This refers to a view name
-     * relative to [[layoutPath]]. If this is not set, it means the layout value of the [[module|parent module]]
-     * will be taken. If this is `false`, layout will be disabled within this module.
+     * {@inheritdoc}
      */
-    public $layout = 'index';
+    public $controllerNamespace = 'app\notify\controllers';
+
+    /**
+     * {@inheritdoc}
+     */
+    public function init()
+    {
+        $this->setErrorHandler();
+    }
+
+    /**
+     * 设置当前模块的错误处理动作
+     */
+    public function setErrorHandler()
+    {
+        Yii::$app->errorHandler->errorAction = 'notify/index/error';
+    }
 }

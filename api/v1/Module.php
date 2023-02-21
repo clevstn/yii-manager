@@ -7,6 +7,7 @@
 
 namespace app\api\v1;
 
+use Yii;
 use app\api\Module as BaseModule;
 
 /**
@@ -25,4 +26,22 @@ class Module extends BaseModule
      * {@inheritdoc}
      */
     public $controllerNamespace = 'app\api\v1\controllers';
+
+    /**
+     * {@inheritdoc}
+     */
+    public function init()
+    {
+        parent::init();
+
+        $this->setErrorHandler();
+    }
+
+    /**
+     * 设置当前模块的错误处理动作
+     */
+    public function setErrorHandler()
+    {
+        Yii::$app->errorHandler->errorAction = 'v1/error/error';
+    }
 }

@@ -16,6 +16,7 @@ use app\api\RestController;
  */
 class IndexController extends RestController
 {
+    public $guestActions = ['index'];
     /**
      * Renders the index view for the module
      * @return string

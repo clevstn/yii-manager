@@ -78,6 +78,17 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        // 接口用户认证类配置
+        // 用于api模块
+        'apiUser' => [
+            'class' => 'yii\web\User',
+            'identityClass' => 'app\models\User',
+            'enableSession' => false,
+        ],
+        // 网站用户认证类配置
+        // 用于basic模块
+        // 会话期内,自动登录
+        // (!!!!!!!!!!!!! 注: 该模块还未开发 !!!!!!!!!!!!)
         'user' => [
             'class' => 'yii\web\User',
             'identityClass' => 'app\models\User',
@@ -90,21 +101,37 @@ $config = [
             'authTimeoutParam' => '__front_expire',
             'absoluteAuthTimeoutParam' => '__front_absoluteExpire',
         ],
+        // 后台用户认证类配置
+        // 用于admin模块
+        // 会话期内,未活动30分钟自动退出
         'adminUser' => [
             'class' => 'yii\web\User',
             // rbac认证
             'accessChecker' => 'rbacManager',
             // 身份认证
             'identityClass' => 'app\models\AdminUser',
-            'enableAutoLogin' => true,
+            // 登录路由
             'loginUrl' => ['admin/site/login'],
-            'identityCookie' => ['name' => '_identity_backend', 'httpOnly' => true],
+
+            // ------ 以下参数在配置enableSession=true时生效 ------
             'idParam' => '__admin_id',
             'returnUrlParam' => '__admin_returnUrl',
+
+            // 在会话期内, 是否开启自动登录
+            // 开启后再cookie有效期（平台设置的时3天）内登陆，自动刷新cookie有效期。
+            'enableAutoLogin' => true,
+            // 该属性当前enableAutoLogin=true时,生效
+            'identityCookie' => ['name' => '_identity_backend', 'httpOnly' => true],
 
             // when `enableAutoLogin` is `false`
             'authTimeoutParam' => '__admin_expire',
             'absoluteAuthTimeoutParam' => '__admin_absoluteExpire',
+            // 在会话期内(平台设置的时3天),如果用户未活动则在24小时后,自动退出登录.
+            // 如果enableAutoLogin=true请注释该配置
+            //'authTimeout' => 86400,
+            // 在会话期内(平台设置的时3天),自用户登录后24小时以后,自动退出登录(无论用户是否存在活动).
+            // 如果enableAutoLogin=true请注释该配置
+            // absoluteAuthTimeout => 86400,
         ],
         'errorHandler' => [
             'errorAction' => 'error/error',

@@ -22,4 +22,3 @@ $this->title = !empty($name) ? $name : '系统错误';
         </div>
     </div>
 </div>
-
