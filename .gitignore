@@ -36,6 +36,9 @@ tests/_support/_generated
 # .idea
 .idea
 
-# 忽略入口和db配置
+# 项目配置文件
 /web/index.php
 /config/db.php
+
+# 服务器文件
+/web/.well-known
