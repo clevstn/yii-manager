@@ -11,12 +11,12 @@ use Yii;
 use yii\base\Component;
 use yii\db\ActiveRecord;
 use yii\db\Connection;
-use yii\db\Exception;
 use yii\di\Instance;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 use yii\base\DynamicModel;
-use http\Exception\UnexpectedValueException;
+use app\models\Attachment;
+use yii\base\InvalidArgumentException;
 
 /**
  * 附件上传组件
@@ -189,7 +189,7 @@ class Uploads extends Component
 
                 return $this->uploadAttachmentQiniuForBase64($name, $config);
             default:
-                throw new UnexpectedValueException(t('the upload engine is not defined'));
+                throw new InvalidArgumentException(t('the upload engine is not defined'));
         }
     }
 
@@ -316,20 +316,25 @@ class Uploads extends Component
     {
         $transaction = $this->db->beginTransaction();
 
-        $id = [];
+        $map = [];
         try {
             foreach ($data as $item) {
+                /* @var Attachment $model */
                 $model = $this->attachmentModel->saveData($item);
                 if ($model->hasErrors()) {
                     throw new \Exception($model->error);
                 }
 
-                array_push($id, $model->id);
+                $linkMap = $this->getAttachmentLink($model->bucket, $model->save_directory, $model->path_prefix, $model->basename);
+                array_push($map, [
+                    'id' => $model->id,
+                    'path' => $linkMap['path'],
+                ]);
             }
 
             $transaction->commit();
 
-            return $id;
+            return $map;
         } catch (\Exception $e) {
             $transaction->rollBack();
             $this->unlinkFile(array_column($data, 'filePath'));
@@ -796,19 +801,22 @@ class Uploads extends Component
     }
 
     /**
-     * 附件外链
+     * 生成附件外链和路径
      * @param string $bucket 空间名
      * @param string $saveDirectory 保存目录
      * @param string $pathPrefix 路径前缀
      * @param string $basename 文件名
-     * @return string
+     * @return array
      */
-    public function getAttachmentUrl($bucket, $saveDirectory, $pathPrefix, $basename)
+    public function getAttachmentLink($bucket, $saveDirectory, $pathPrefix, $basename)
     {
-        $relativePath = $saveDirectory . '/' . $this->getPathPrefix($pathPrefix, '/') . '/' . $basename;
-        $attachmentUrl = rtrim(Yii::getAlias($this->configs['rootUrl']), '/') . '/' . $bucket . '/' . $relativePath;
+        $relativePath = $bucket . '/' . $saveDirectory . '/' . $this->getPathPrefix($pathPrefix, '/') . '/' . $basename;
+        $attachmentUrl = rtrim(Yii::getAlias($this->configs['rootUrl']), '/') . '/' . $relativePath;
 
-        return into_full_url($attachmentUrl);
+        return [
+            'url' => into_full_url($attachmentUrl),
+            'path' => $relativePath,
+        ];
     }
 
     /**
@@ -859,7 +867,7 @@ class Uploads extends Component
             case self::QINIU_UPLOAD_ENGINE_SYMBOL:
                 return true;
             default:
-                throw new UnexpectedValueException(t('the upload engine is not defined'));
+                throw new InvalidArgumentException(t('the upload engine is not defined'));
         }
     }
 
@@ -895,7 +903,7 @@ class Uploads extends Component
             case self::QINIU_UPLOAD_ENGINE_SYMBOL:
                 return true;
             default:
-                throw new UnexpectedValueException(t('the upload engine is not defined'));
+                throw new InvalidArgumentException(t('the upload engine is not defined'));
         }
     }
 
@@ -980,7 +988,7 @@ class Uploads extends Component
      * @param string $separator 路径分隔符
      * @return array|string|string[]|null
      */
-    protected function getPathPrefix($pathPrefix, $separator = DIRECTORY_SEPARATOR)
+    public function getPathPrefix($pathPrefix, $separator = DIRECTORY_SEPARATOR)
     {
         $_pathPrefix = '';
         if (!empty($pathPrefix)) {

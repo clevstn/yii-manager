@@ -215,14 +215,16 @@ class AttachmentController extends CommonController
         $all = $query->all();
         $data = [];
         foreach ($all as $val) {
+            $linkMap = Yii::$app->uploads->getAttachmentLink($val['bucket'], $val['save_directory'], $val['path_prefix'], $val['basename']);
             if ($val['bucket'] !== Uploads::IMAGE_STORAGE_BUCKET) {
                 $url = into_full_url(Yii::$app->params['admin_default_file_image']);
             } else {
-                $url = Yii::$app->uploads->getAttachmentUrl($val['bucket'], $val['save_directory'], $val['path_prefix'], $val['basename']);
+                $url = $linkMap['url'];
             }
 
             array_push($data, [
                 'id' => $val['id'],
+                'path' => $linkMap['path'],
                 'url' => $url,
                 'origin_name' => $val['origin_name'],
             ]);
@@ -305,6 +307,7 @@ class AttachmentController extends CommonController
 
         $tras = Yii::$app->db->beginTransaction();
         try {
+            /* @var array $data */
             $data = Attachment::query()->where(['id' => $id])->all();
             foreach ($data as $item) {
                 // 检查是否存在，如果目标分类已经存在该文件则不复制

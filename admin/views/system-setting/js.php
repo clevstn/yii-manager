@@ -102,7 +102,7 @@ use yii\helpers\Url;
 
                         // 更新该字段值
                         choose.forEach(function (item) {
-                            $scope[code] = item.id;
+                            $scope[code] = item.path;
                             // 预览图
                             $scope.$apply(function () {
                                 // 预览图

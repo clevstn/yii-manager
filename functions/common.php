@@ -573,19 +573,34 @@ if (!function_exists('t')) {
 if (!function_exists('attach_url')) {
     /**
      * 获取附件URL
-     * @param int $attachId 附件ID
+     * @param int|string $attachStr 附件ID|附件path|外链地址
      * @return string
      */
-    function attach_url($attachId)
+    function attach_url($attachStr)
     {
-        if (!empty($attachId)) {
-            // SQL查询附件
-            $data = \app\models\Attachment::findOne($attachId);
-            // 判断是否存在，如果存在返回处理过后的`path`，否则返回默认文件。
-            // path: 附件路径
-            // attachment_scenario: 附件上传类型场景
-            if (!empty($data)) {
-                return Yii::$app->uploads->getAttachmentUrl($data['bucket'], $data['save_directory'], $data['path_prefix'], $data['basename']);
+        if (!empty($attachStr)) {
+            if (!is_numeric($attachStr)) {
+                // 传参类型是字符串,则是附件path或外链
+                // 附件Path
+                if (strncasecmp($attachStr, 'http', 4) && strncmp($attachStr, '//', 2)) {
+                    // 获取相对URL
+                    $relativeUrl = rtrim(Yii::getAlias(Yii::$app->uploads->configs['rootUrl']), '/') . '/' . ltrim($attachStr, '/');
+                    return into_full_url($relativeUrl);
+                } else {
+                    // 外链
+                    return $attachStr;
+                }
+            } else {
+                // 传参类型是数字类型，则是附件ID
+                // SQL查询附件
+                $data = \app\models\Attachment::findOne($attachStr);
+                // 判断是否存在，如果存在返回处理过后的`path`，否则返回默认文件。
+                // path: 附件路径
+                // attachment_scenario: 附件上传类型场景
+                if (!empty($data)) {
+                    $linkMap = Yii::$app->uploads->getAttachmentLink($data['bucket'], $data['save_directory'], $data['path_prefix'], $data['basename']);
+                    return $linkMap['url'];
+                }
             }
         }
 
