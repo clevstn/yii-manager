@@ -841,12 +841,16 @@ class Builder extends BaseObject implements BuilderInterface
                 // not empty
                 $tempMap = [];
                 foreach ($columns as $i => $col) {
-                    if (is_int($i) && isset($item[$col])) {
-                        $tempMap[$col] = $item[$col];
-                    } elseif ($col instanceof \Closure) {
+                    if (is_int($i)) {
+                        if (isset($item[$col])) {
+                            $tempMap[$col] = $item[$col];
+                        } else {
+                            $tempMap[$col] = '--';
+                        }
+                    } elseif (is_callable($col)) {
                         $tempMap[$i] = call_user_func($col, $item);
                     } else {
-                        $tempMap[] = $col;
+                        $tempMap[$i] = $col;
                     }
                 }
 
