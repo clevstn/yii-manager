@@ -6,6 +6,7 @@
  */
 
 use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 use app\builder\table\Table;
 use app\builder\table\ToolbarFilterOptions;
 
@@ -14,6 +15,7 @@ use app\builder\table\ToolbarFilterOptions;
 /* @var boolean $hideCheckbox   是否隐藏第一列复选框 */
 /* @var array $checkboxOptions  第一列复选框选项 */
 /* @var array $rowActions       表格行操作项 */
+/* @var array $rowActionIds     表格行操作项ID */
 /* @var array $widgets          切点处要加入组件 */
 /* @var array $toolbars         工具栏操作项 */
 /* @var array $filterColumns    筛选表单选项 */
@@ -111,10 +113,12 @@ use app\builder\table\ToolbarFilterOptions;
                 <?php endif; ?>
 
                 <!--渲染表头-->
-                <?php foreach ($columns as $item): ?>
+                <?php foreach ($columns as $field => $item): ?>
+                    <?php if (!ArrayHelper::isIn($field, $rowActionIds)): ?>
                     <th style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>>
                         <?= $item['title'] ?>
                     </th>
+                    <?php endif; ?>
                 <?php endforeach; ?>
 
             </tr>
@@ -132,37 +136,79 @@ use app\builder\table\ToolbarFilterOptions;
 
                 <!--操作项渲染-->
                 <?php if (!empty($rowActions)): ?>
-                    <td class="row-handle" style="width:50px;">
-                        <div class="dropdown">
-                            <a href="#" type="button" class="btn btn-sm btn-default dropdown-toggle"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?= t('operation', 'app.admin') ?>
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!--遍历设置操作项-->
+                    <?php if (count($rowActions) >= 2): ?>
+                        <td class="row-handle" style="width:50px;">
+                            <div class="dropdown">
+                                <a href="#" type="button" class="btn btn-sm btn-default dropdown-toggle"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <?= t('operation', 'app.admin') ?>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!--遍历设置操作项-->
+                                    <?php foreach ($rowActions as $actionItem): ?>
+                                        <?php switch ($actionItem['type']): case 'division': ?>
+                                            <!--存在分割线,并渲染-->
+                                            <li role="separator" class="divider"></li>
+                                            <?php break; default: ?>
+                                            <?php if (empty($actionItem['options']['actionId'])): ?>
+                                                <!--操作ID为空,直接显示操作项-->
+                                                <li>
+                                                    <a href="#" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
+                                                        <i class="actions-icon <?= $actionItem['options']['icon'] ?>"></i>
+                                                        &nbsp;
+                                                        <?= html_escape($actionItem['options']['title']) ?>
+                                                    </a>
+                                                </li>
+                                            <?php else: ?>
+                                                <!--操作ID存在,判断是否允许显示-->
+                                                <li ng-show="value['<?= $actionItem["options"]["actionId"] ?>']">
+                                                    <a href="#" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
+                                                        <i class="actions-icon <?= $actionItem['options']['icon'] ?>"></i>
+                                                        &nbsp;
+                                                        <?= html_escape($actionItem['options']['title']) ?>
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
+                                        <?php endswitch; ?>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        </td>
+                    <?php else: ?>
+                        <td style="max-width: 200px">
+                            <div class="btn-group">
                                 <?php foreach ($rowActions as $actionItem): ?>
                                     <?php switch ($actionItem['type']): case 'division': ?>
-                                        <li role="separator" class="divider"></li>
-                                        <?php break; default: ?>
-                                        <li>
-                                            <a href="#" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
+                                        <?php break;default: ?>
+                                        <!--操作项;根据操作ID判断是否显示该操作项-->
+                                        <?php if (empty($actionItem['options']['actionId'])): ?>
+                                            <!--操作ID为空,直接显示操作项-->
+                                            <a href="#" type="button" class="btn btn-sm btn-default" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
                                                 <i class="actions-icon <?= $actionItem['options']['icon'] ?>"></i>
                                                 <?= html_escape($actionItem['options']['title']) ?>
                                             </a>
-                                        </li>
+                                        <?php else: ?>
+                                            <!--操作ID存在,判断是否允许显示-->
+                                            <a ng-show="value['<?= $actionItem["options"]["actionId"] ?>']" href="#" type="button" class="btn btn-sm btn-default" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
+                                                <i class="actions-icon <?= $actionItem['options']['icon'] ?>"></i>
+                                                <?= html_escape($actionItem['options']['title']) ?>
+                                            </a>
+                                        <?php endif; ?>
                                     <?php endswitch; ?>
                                 <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </td>
+                            </div>
+                        </td>
+                    <?php endif; ?>
                 <?php endif; ?>
 
                 <!--渲染列表-->
                 <?php foreach ($columns as $field => $item): ?>
+                    <?php if (!ArrayHelper::isIn($field, $rowActionIds)): ?>
                     <td style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>>
                         <span ng-bind-html="value['<?= $field ?>'] | toHtml"></span>
                     </td>
+                    <?php endif; ?>
                 <?php endforeach; ?>
 
             </tr>

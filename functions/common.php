@@ -361,6 +361,7 @@ if (!function_exists('table_action_helper')) {
      * - method 请求动作，当type为ajax时，该配置项有效
      * - width  当前type为modal时有效，指定modal的宽，默认500px
      * - height 当前type为modal时有效，指定modal的高，默认500px
+     * - actionId 操作ID,用于动态展示操作项,需要在`columns`中定义是否展示,返回true则显示, 返回false则隐藏; 注意: 该值必须可以作为js变量
      *
      * @return array
      * @throws \Exception

@@ -139,6 +139,7 @@ class Builder extends BaseObject implements BuilderInterface
      *      - method    访问动作，ajax类型有效
      *      - width     当前type为modal时有效，指定modal的宽，默认800px
      *      - height    当前type为modal时有效，指定modal的高，默认520px
+     *      - actionId 操作ID,用于动态展示操作项,需要在`columns`中定义是否展示,返回true则显示, 返回false则隐藏; 注意: 该值必须可以作为js变量
      *
      * @see $rowActions
      * @see table_action_helper()
@@ -361,7 +362,7 @@ class Builder extends BaseObject implements BuilderInterface
                     continue;
                 }
 
-                throw new NotSupportedException('The columns item is not supported. ');
+                throw new NotSupportedException('The columns item data type is not supported. Only support string type!');
             } else {
                 // resolve options
                 if (!empty($item['options'])) {
@@ -946,6 +947,7 @@ class Builder extends BaseObject implements BuilderInterface
             'hideCheckbox'      => $this->hideCheckbox,
             'checkboxOptions'   => $this->checkboxOptions,
             'rowActions'        => $this->rowActions,
+            'rowActionIds'      => array_filter(ArrayHelper::getColumn($this->rowActions, 'options.actionId', false)),
             'widgets'           => $this->widget,
             'toolbars'          => $this->toolbars,
             'filterColumns'     => $this->_filterColumns,

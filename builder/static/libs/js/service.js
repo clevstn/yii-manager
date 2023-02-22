@@ -55,7 +55,7 @@
     // 自定义过滤器
     _YmAppModule.filter("toHtml", ['$sce', function ($sce) {
         return function (value) { // 过滤html
-            return $sce.trustAsHtml(value);
+            return $sce.trustAsHtml(String(value));
         };
     }]).filter("default", function () {
         return function (value, defaultVal) { // 默认值

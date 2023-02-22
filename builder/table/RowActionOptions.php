@@ -54,6 +54,12 @@ class RowActionOptions extends BaseOptions
     public $height = '520px';
 
     /**
+     * @var string actionId 操作ID,用于动态展示操作项,需要在`columns`中定义是否展示,返回true则显示, 返回false则隐藏; 注意: 该值必须可以作为js变量
+     * 注: 该值必须可以作为js变量
+     */
+    public $actionId;
+
+    /**
      * 配置初始化
      */
     public function init()
