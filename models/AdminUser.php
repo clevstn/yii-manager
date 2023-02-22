@@ -22,7 +22,7 @@ use app\models\AdminUserLoginLog as LoginLog;
  * @property string $username 用户名
  * @property string $password 密码
  * @property string $email 邮箱
- * @property int $photo 头像
+ * @property string $photo 头像
  * @property string $an 电话区号
  * @property string $mobile 电话号码
  * @property string $google_key 谷歌令牌

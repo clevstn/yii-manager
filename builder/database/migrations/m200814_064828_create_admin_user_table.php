@@ -26,7 +26,7 @@ class m200814_064828_create_admin_user_table extends Migration
             'username' => $this->string(20)->unique()->notNull()->comment('管理员用户名'),
             'password' => $this->string()->defaultValue('')->notNull()->comment('密码'),
             'email' => $this->string()->unique()->notNull()->comment('邮箱'),
-            'photo' => $this->integer()->defaultValue(0)->notNull()->comment('头像'),
+            'photo' => $this->string()->defaultValue('')->notNull()->comment('头像'),
             'an' => $this->string(10)->defaultValue('86')->notNull()->comment('电话区号'),
             'mobile' => $this->string(20)->defaultValue('')->notNull()->comment('电话号码'),
             'google_key' => $this->string()->defaultValue('')->notNull()->comment('谷歌令牌'),
