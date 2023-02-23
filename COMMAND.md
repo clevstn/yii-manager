@@ -10,6 +10,8 @@
 + 当前应用
 `yii migrate/* --migrationPath=@app/migrations/db`
 
+  如：数据迁移命令`yii migrate --migrationPath=@app/migrations/db`
+
 #### 二、db1迁移命令
 + yii-manager
 `无`
