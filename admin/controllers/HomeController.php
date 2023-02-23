@@ -125,6 +125,7 @@ class HomeController extends CommonController
 
             return $form->render($this);
         } else {
+            $this->emptyStrToNull = false;
             $bodyParams = $this->post;
             // 设置验证场景
             $identify->setScenario('edit');

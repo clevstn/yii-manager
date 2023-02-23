@@ -396,6 +396,8 @@ class ManagerController extends CommonController
 
             return $form->render($this);
         } else {
+            $this->emptyStrToNull = false;
+
             // 提交编辑
             $bodyParams = $this->post;
             // 参数校验
