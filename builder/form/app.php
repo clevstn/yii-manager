@@ -107,7 +107,7 @@ use app\builder\form\FieldsOptions;
                 for (var i = 0; i < fileNumbers; i++) {
                     // 初始化附件ID
                     if (!fileDefaults[i]) {
-                        fileDefaults[i] = "0";
+                        fileDefaults[i] = "";
                     }
 
                     // 初始化预览图
@@ -176,7 +176,7 @@ use app\builder\form\FieldsOptions;
                 fileDefaults = [];
                 fileNumbers = <?= $options['number'] ?>;
                 for (var i = 0; i < fileNumbers; i++) {
-                    fileDefaults[i] = "0";
+                    fileDefaults[i] = "";
                     // 初始化预览图
                     $scope['formFileLink<?= $field ?>' + i] = "";
                 }
@@ -299,9 +299,9 @@ use app\builder\form\FieldsOptions;
                         }
 
                         // 更新该字段值
-                        var attachIds = $scope.formFieldsData[field].split(',');
+                        var attachPaths = $scope.formFieldsData[field].split(',');
                         choose.forEach(function (item) {
-                            attachIds[key] = item.id;
+                            attachPaths[key] = item.path;
                             // 预览图
                             $scope.$apply(function () {
                                 // 预览图
@@ -309,8 +309,8 @@ use app\builder\form\FieldsOptions;
                             });
                         });
 
-                        attachIds = attachIds.join(',');
-                        $scope.formFieldsData[field] = attachIds;
+                        attachPaths = attachPaths.join(',');
+                        $scope.formFieldsData[field] = attachPaths;
 
                         window.layer.close(i);
                     },

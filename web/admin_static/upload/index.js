@@ -243,7 +243,7 @@
 
 
         // 点击选中、取消选中文件
-        $scope.triggerChooseFile = function ($event, id, url) {
+        $scope.triggerChooseFile = function ($event, id, path, url) {
             var othis = jQuery($event.currentTarget);
 
             if (othis.hasClass('selected')) {
@@ -257,6 +257,7 @@
                 othis.addClass('selected');
                 $scope.chooseAttachments.push({
                     id: id,
+                    path: path,
                     url: url
                 });
             }

@@ -9,7 +9,6 @@ namespace app\admin\controllers;
 
 use app\components\Uploads;
 use app\models\AdminUserQuickAction;
-use app\models\AuthMenu;
 use app\models\AuthRelations;
 use Yii;
 use app\extend\Extend;
