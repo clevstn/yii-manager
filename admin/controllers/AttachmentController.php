@@ -99,7 +99,7 @@ class AttachmentController extends CommonController
             'size' => table_column_helper('大小', ['style' => ['min-width' => '120px']], function ($item) {
                 return filesize_unit_convert($item['size']);
             }),
-            'ext' => table_column_helper('扩展名', ['style' => ['min-width' => '50px']]),
+            'ext' => table_column_helper('扩展名', ['style' => ['min-width' => '80px']]),
             'mime' => table_column_helper('文件类型', ['style' => ['min-width' => '150px']]),
             'hash' => table_column_helper('文件Hash值', ['style' => ['min-width' => '150px']]),
             'created_at' => table_column_helper('创建时间', ['style' => ['min-width' => '150px']]),

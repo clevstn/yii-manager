@@ -76,7 +76,22 @@ class SystemLogController extends CommonController
             }),
             'category' => table_column_helper('日志种类', ['style' => ['min-width' => '140px']]),
             'level' => table_column_helper('日志等级', ['style' => ['min-width' => '100px']], function ($item) {
-                return html_label(Logger::getLevelName($item['level']), true, 'default');
+                $levelName = Logger::getLevelName($item['level']);
+                switch ($item['level']) {
+                    case Logger::LEVEL_ERROR:
+                        $labelType = 'danger';
+                        break;
+                    case Logger::LEVEL_WARNING:
+                        $labelType = 'warning';
+                        break;
+                    case Logger::LEVEL_INFO:
+                        $labelType = 'info';
+                        break;
+                    default:
+                        $labelType = 'default';
+                }
+
+                return html_label($levelName, true, $labelType);
             }),
             'prefix' => table_column_helper('请求主体', [], function ($item) {
                 return $item['prefix'];

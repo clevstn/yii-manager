@@ -110,7 +110,13 @@ class MediaList extends Widget
             $media = '';
         }
 
-        return $media . $this->renderList();
+        $list = $this->renderList();
+        if (!empty($media) && !empty($list)) {
+            $hr = Html::tag('hr', '', ['class' => ['m-0', 'pt-6']]);
+            return $media . $hr . $list;
+        }
+
+        return $media . $list;
     }
 
     /**
@@ -150,8 +156,7 @@ class MediaList extends Widget
                 $listOptions = ['class' => ['media-list']];
             }
 
-            $hr = Html::tag('hr', '', ['class' => ['m-0', 'pt-6']]);
-            $list = $hr . Html::tag('div', $p, $listOptions);
+            $list = Html::tag('div', $p, $listOptions);
         } else {
             $list = '';
         }

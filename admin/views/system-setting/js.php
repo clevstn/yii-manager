@@ -70,8 +70,7 @@ use yii\helpers\Url;
                     'type': '系统设置',
                     'save_directory': 'system_setting',
                     'path_prefix': code,
-                    'scenario': '<?= Uploads::SCENARIO_IMAGE ?>',
-                    '_': YmApp.getTime()
+                    'scenario': '<?= Uploads::SCENARIO_IMAGE ?>'
                 };
                 var u = YmApp.addUrlQueryParam(YmApp.$adminApi.fileUploadUrl, queryParam);
 

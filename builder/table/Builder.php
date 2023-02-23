@@ -805,6 +805,7 @@ class Builder extends BaseObject implements BuilderInterface
 
     /**
      * 数据导出
+     * @throws \Exception
      */
     protected function exportData()
     {
@@ -814,22 +815,32 @@ class Builder extends BaseObject implements BuilderInterface
         $queryParams = Yii::$app->request->get();
         $filename = Yii::$app->request->getQueryParam('_filename', 'export_default_' . time());
 
-        /* @var \yii\db\Query $query */
+        /* @var array|\yii\db\Query $query */
         $query = call_user_func($this->query);
 
-        /* Reset select */
-        if (!empty($this->_exportOptions['fields'])) {
-            $query->select($this->_exportOptions['fields']);
+        $offset = isset($queryParams['_offset']) ? $queryParams['_offset'] : 0;
+        $limit = isset($queryParams['_limit']) ? $queryParams['_limit'] : self::PER_ROW;
+
+        if (is_object($query) && $query instanceof \yii\db\QueryInterface) {
+            // the query is db query instance
+
+            /* Reset select */
+            if (!empty($this->_exportOptions['fields'])) {
+                $query->select($this->_exportOptions['fields']);
+            }
+
+            $all = $query->offset($offset)
+                ->limit($limit)
+                ->orderBy($this->orderBy)
+                ->all();
+        } else {
+            // the query is array
+            $all = array_slice($query, $offset, $limit);
         }
 
-        $columns = $this->_exportOptions['columns'];
-        $all = $query->offset(isset($queryParams['_offset']) ? $queryParams['_offset'] : 0)
-            ->limit(isset($queryParams['_limit']) ? $queryParams['_limit'] : self::PER_ROW)
-            ->orderBy($this->orderBy)
-            ->all();
         $dataMap = [];
         foreach ($all as $item) {
-            if (empty($columns)) {
+            if (empty($this->_exportOptions['columns'])) {
                 // empty
                 /* @var \yii\base\Model $item */
                 if ($item instanceof \yii\base\Model) {
@@ -840,7 +851,7 @@ class Builder extends BaseObject implements BuilderInterface
             } else {
                 // not empty
                 $tempMap = [];
-                foreach ($columns as $i => $col) {
+                foreach ($this->_exportOptions['columns'] as $i => $col) {
                     if (is_int($i)) {
                         if (isset($item[$col])) {
                             $tempMap[$col] = $item[$col];
@@ -894,10 +905,15 @@ class Builder extends BaseObject implements BuilderInterface
                 'pagination' => $this->_pagination,
             ]);
         }
-        return Json::encode([
+
+        $data = [
             'data' => $this->_data,
-            'page' => $page,
-        ]);
+        ];
+
+        if (!empty($page)) {
+            $data['page'] = $page;
+        }
+        return Json::encode($data);
     }
 
     /**
@@ -968,9 +984,14 @@ class Builder extends BaseObject implements BuilderInterface
     {
         /* 每页5000条 */
         $perRow = self::PER_ROW;
-        /* @var \yii\db\QueryInterface $query */
+        /* @var array|\yii\db\QueryInterface $query */
         $query = call_user_func($this->query);
-        $count = $query->count();
+        if (is_object($query) && $query instanceof \yii\db\QueryInterface) {
+            $count = $query->count();
+        } else {
+            $count = count($query);
+        }
+
         $totalPage = ceil($count / $perRow);
         $data = [];
 
@@ -1041,7 +1062,7 @@ class Builder extends BaseObject implements BuilderInterface
     }
 
     /**
-     * 解析表格组件JS脚本
+     * 解析表格组件的JS脚本
      * @return string
      * @throws \Throwable
      */
@@ -1067,7 +1088,8 @@ class Builder extends BaseObject implements BuilderInterface
         }
 
         $scriptTag = $this->_view->renderPhpFile(__DIR__ . '/app.php', [
-            'link'              => Url::toRoute('/' . Yii::$app->controller->route),
+            'isPage'            => $this->page ? 1 : 0,
+            'link'              => Url::current([], ''),
             'filterColumns'     => Json::encode($tempCommonMap),
             'filterCustoms'     => $tempCustomMap,
             'innerScript'       => !empty($this->_js[Table::JS_SCRIPT_INNER]) ? $this->_js[Table::JS_SCRIPT_INNER] : [],

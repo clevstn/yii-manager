@@ -6,6 +6,7 @@
  */
 
 /* @var string $link 列表链接 */
+/* @var boolean $isPage 是否是分页 */
 /* @var array $filterCustoms 筛选自定义控件选项 */
 /* @var array $filterColumns 筛选表单选项 */
 /* @var array $innerScript 额外Js脚本 */
@@ -23,6 +24,7 @@
         _EasyApp.controller('_EasyApp_tableCtrl', ["$scope", "$http", "$timeout", "$interval", "$rootScope", "YmApp", "toastr", "jQuery", "yii", "YmSpinner", "Swal", "laydate", "layer", "layui",function ($scope, $http, $timeout, $interval, $rootScope, YmApp, toastr, jQuery, yii, YmSpinner, Swal, laydate, layer, layui) {
             // ------ 列表 start ------
             var link = '<?= $link ?>';
+            var isPageList = <?= $isPage ?>;
             var pageNumber;
             var perPageNumber;
             var queryParams;
@@ -37,11 +39,10 @@
                 perPageNumber = perPage;
                 queryParams = query;
 
-                var param = {
+                var param = isPageList ? {
                     page: page,
-                    'per-page': perPage,
-                    _: YmApp.getTime(),
-                };
+                    'per-page': perPage
+                } : {};
 
                 /* 使用Jq的对象合并方案 */
                 jQuery.extend(param, query);
@@ -57,7 +58,7 @@
                 $http.get(getUrl(page, perPage, param)).then(function (result) {
                     YmSpinner.hide(i);
                     var data = result.data;
-                    $scope.tablePaging = data.page;
+                    $scope.tablePaging = data.page || '';
                     $scope.tableListData = data.data || [];
                     if ($scope.tableListData.length <= 0) {
                         // 显示空
@@ -240,7 +241,7 @@
                 var type = config.type;
                 var options = config.options;
                 var method = options.method || 'get';
-                var params = options.params || [];
+                var params = options.params || {};
                 var route = options.route;
                 var title = options.title || '默认标题';
                 var width = options.width || '800px';
@@ -248,7 +249,6 @@
 
                 // 解析参数
                 params = resolveActionParams(item, params);
-                params["_"] = YmApp.getTime();
                 switch (type) {
                     case "page":
                         openPageOnRow(title, params, route);
@@ -484,7 +484,7 @@
 
                 var type = options.option;
                 var method = options.method || 'get';
-                var params = options.params || [];
+                var params = options.params || {};
                 var route = options.route;
                 var title = options.title || '默认标题';
                 var width = options.width || '800px';
@@ -508,7 +508,6 @@
 
                 // 解析参数
                 params = resolveRequestParams(data, params);
-                params["_"] = YmApp.getTime();
                 switch (type) {
                     case "page":
                         openPageOnToolbar(title, params, route);

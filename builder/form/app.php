@@ -269,8 +269,7 @@ use app\builder\form\FieldsOptions;
                     'type': fileType,
                     'save_directory': saveDirectory,
                     'path_prefix': pathPrefix,
-                    'scenario': fileScenario,
-                    '_': YmApp.getTime()
+                    'scenario': fileScenario
                 };
                 var u = YmApp.addUrlQueryParam(YmApp.$adminApi.fileUploadUrl, queryParam);
 
