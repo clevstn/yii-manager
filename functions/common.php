@@ -270,6 +270,7 @@ if (!function_exists('html_popover')) {
 return <<<HTML
 <button type="button"
    class="btn btn-sm btn-default"
+   x-data-toggle-popover="popover"
    data-toggle="popover" 
    title="{$title}"
    data-placement="right"

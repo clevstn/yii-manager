@@ -348,7 +348,7 @@ if (!function_exists('html_media_list')) {
 
     /**
      * html媒体对象列表
-     * @param string|null $imgUrl 图像外链
+     * @param string|null|array $imgUrl 图像外链
      * - 如：http://local.testbuerzuzu.com/media/image/admin_static/default-0.jpg
      *
      * @param string|null $mediaHeader 媒体头部内容

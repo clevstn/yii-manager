@@ -88,6 +88,7 @@ class MediaList extends Widget
 
     /**
      * @return string
+     * @throws \Throwable
      */
     public function run()
     {
@@ -237,6 +238,7 @@ class MediaList extends Widget
     /**
      * 渲染媒体对象内左
      * @return string
+     * @throws \Throwable
      */
     public function renderMediaLeft()
     {
@@ -248,8 +250,18 @@ class MediaList extends Widget
         }
 
         // media left
-        if (!empty($this->imgUrl)) {
-            $imgTag = Html::img($this->imgUrl, $imgOptions);
+        if (!empty($imgUrl = $this->imgUrl)) {
+            if (is_array($imgUrl)) {
+                $imgTag = Carousel::widget([
+                    'images' => $imgUrl,
+                    'carouselClass' => !empty($imgOptions['class']) ? $imgOptions['class'] : [],
+                    'carouselStyle' => !empty($imgOptions['style']) ? $imgOptions['style'] : ['width' => '60px', 'height' => '60px'],
+                    'controlsClass' => ['f-15'],
+                    'hideIndicators' => true,
+                ]);
+            } else {
+                $imgTag = Html::a(Html::img($imgUrl, $imgOptions), $imgUrl, ['target' => '_blank']);
+            }
 
             if (!empty($this->options['mediaLeft'])) {
                 $mediaLeftOptions = $this->options['mediaLeft'];
@@ -258,7 +270,7 @@ class MediaList extends Widget
                 $mediaLeftOptions = ['class' => 'media-left'];
             }
 
-            return Html::tag('div', Html::a($imgTag, $this->imgUrl, ['target' => '_blank']), $mediaLeftOptions);
+            return Html::tag('div', $imgTag, $mediaLeftOptions);
         }
 
         return '';

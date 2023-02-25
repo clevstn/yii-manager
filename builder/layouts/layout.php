@@ -60,7 +60,10 @@ MainAsset::register($this);
     <!--navbar-->
     <?php
     NavBar::begin([
-        'options' => ['class' => 'navbar-default navbar-fixed-top ym-navbar-custom'],
+        'options' => [
+            'id' => 'YmAdminNavbar',
+            'class' => 'navbar-default navbar-fixed-top ym-navbar-custom',
+        ],
         'headerContent' => NavbarHelper::renderToggleButton(),
         'innerContainerOptions' => ['class' => 'ym-inner-container'],
         'brandLabel' => $this->title ?: Yii::$app->params['admin_title'],

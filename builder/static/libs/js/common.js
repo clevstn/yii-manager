@@ -154,13 +154,23 @@
         });
 
         // 初始化Bootstrap Popover
-        jQuery(global.document).on('click', '[data-toggle="popover"]', function (e) {
-            if (!jQuery(window.document.body).attr('popover-plugins-init')) {
-                jQuery(window.document.body).attr('popover-plugins-init', true);
-                jQuery('[data-toggle="popover"]').popover();
+        jQuery(global.document).on('click', '[x-data-toggle-popover="popover"]', function (e) {
+            if (!jQuery(window.document.body).attr('x-popover-plugins-init')) {
+                jQuery(window.document.body).attr('x-popover-plugins-init', true);
+                jQuery('[x-data-toggle-popover="popover"]').popover();
                 jQuery(this).click();
             }
         });
+
+        // 初始化Bootstrap carousel
+        jQuery(global.document).on('click', '[x-data-ride="carousel"]', function (e) {
+            if (!jQuery(window.document.body).attr('x-carousel-plugins-init')) {
+                jQuery(window.document.body).attr('x-carousel-plugins-init', true);
+                jQuery('[x-data-ride="carousel"]').carousel();
+                jQuery(this).click();
+            }
+        });
+
     };
 
     // undefined: 无  0:警告 1:完成 2:错误 3:询问 4:锁定 5:失败 6:成功
