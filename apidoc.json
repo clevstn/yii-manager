@@ -1,0 +1,9 @@
+{
+  "name": "V1接口文档",
+  "version": "1.0.0",
+  "description": "yii-manager v1",
+  "apidoc": {
+    "title": "V1接口文档",
+    "url" : "http://demoapi.com"
+  }
+}

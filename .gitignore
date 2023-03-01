@@ -42,3 +42,6 @@ tests/_support/_generated
 
 # 服务器文件
 /web/.well-known
+
+# 接口文档文件
+/apidoc
