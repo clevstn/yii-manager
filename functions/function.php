@@ -16,6 +16,7 @@
  * @see data_to_xml() 数组或对象转XML
  * @see curl_request() CURL
  * @see filesize_unit_convert() 文件大小单位转换
+ * @see noset_unset() 删除数组中值为null的元素
  * @see empty_set_default() 如果数据中指定字段为空则赋予默认值
  * @see notset_set_default() 如果数据中指定字段没有定义则赋予默认值
  * @see html_media_list() html媒体对象列表
@@ -427,5 +428,25 @@ if (!function_exists('html_tips_page')) {
                 'class' => $alertTypes[$alertType],
             ]),
         ]);
+    }
+}
+
+if (!function_exists('noset_unset')) {
+    /**
+     * 删除数组中值为null的元素
+     * @param array $data 数据数组
+     * @param string|array $needle 要过滤的数据
+     * @return array
+     */
+    function noset_unset(array $data, $needle)
+    {
+        $needle = (array)$needle;
+        foreach ($needle as $item) {
+            if (!isset($data[$item])) {
+                unset($data[$item]);
+            }
+        }
+
+        return $data;
     }
 }
