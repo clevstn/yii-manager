@@ -43,6 +43,7 @@
  * @see attach_url() 获取附件URL
  * @see into_full_url() url相对路径转绝对绝对路径
  * @see notset_return() 对数据字段进行`isset`验证，失败返回字段对应的提示语
+ * @see empty_return() 对数据字段进行`empty`验证，如果是空，则返回字段对应的提示语
  * @see get_admin_user_identify() 获取admin模块中的身份认证类实例
  *
  * @author cleverstone
@@ -807,6 +808,41 @@ if (!function_exists('notset_return')) {
                 // 关联
                 if (!isset($data[$field])) {
                     return $message ?: t('request parameter {param} is not defined', 'app', ['param' => $field]);
+                }
+            }
+        }
+
+        return true;
+    }
+}
+
+if (!function_exists('empty_return')) {
+
+    /**
+     * 对数据字段进行`empty`验证，为空返回字段对应的提示语
+     * @param array $data 待验证的数据
+     * @param array $fields 要验证的字段和对应的提示语
+     * - key: 字段
+     * - value: 自定义提示语
+     * --------------
+     *
+     * - value: 字段
+     *
+     * @return true|string
+     * @see empty_set_default()
+     */
+    function empty_return(array $data, array $fields)
+    {
+        foreach ($fields as $field => $message) {
+            if (is_numeric($field)) {
+                // 索引
+                if (empty($data[$message])) {
+                    return t('request parameter {param} is empty', 'app', ['param' => $message]);
+                }
+            } else {
+                // 关联
+                if (empty($data[$field])) {
+                    return $message ?: t('request parameter {param} is empty', 'app', ['param' => $field]);
                 }
             }
         }
