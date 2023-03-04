@@ -14,7 +14,7 @@ return [
     'home' => '首页',
     'sign out' => '退出',
     'the user does not exist' => '用户不存在',
-    'the account has been permanently suspended' => '该账号已被永久封停',
+    'the account has been permanently suspended' => '您的账号已被永久封停',
     'the account has been suspended until {date}' => '您的账号已被封停,封停截止时间为:{date}',
     'the login password was entered incorrectly' => '登录密码输入错误',
     'login successful' => '登录成功',
