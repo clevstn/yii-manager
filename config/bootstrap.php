@@ -32,7 +32,7 @@ return [
     // 系统管理团队名称，用于邮件发送签名、短信签名
     'admin_team_name' => 'YM开发团队',
     // 后台默认附件，当前获取的附件不存在时返回。
-    'admin_default_photo' => '/media/image/admin_static/default-0.jpg',
+    'admin_default_photo' => '/media/image/admin_static/default-0.png',
     // 后台默认文件预览图
     'admin_default_file_image' => '/media/image/default-file.png',
     // 后台分组配置，用于应用配置

@@ -350,7 +350,7 @@ if (!function_exists('html_media_list')) {
     /**
      * html媒体对象列表
      * @param string|null|array $imgUrl 图像外链
-     * - 如：http://local.testbuerzuzu.com/media/image/admin_static/default-0.jpg
+     * - 如：http://local.testbuerzuzu.com/media/image/admin_static/default-0.png
      *
      * @param string|null $mediaHeader 媒体头部内容
      * - 佳能 EOS 5D4单机身【镜头根据需求搭配另拍】
