@@ -363,13 +363,16 @@ if (!function_exists('table_action_helper')) {
      * - method 请求动作，当type为ajax时，该配置项有效
      * - width  当前type为modal时有效，指定modal的宽，默认500px
      * - height 当前type为modal时有效，指定modal的高，默认500px
+     *  --- 扩展参数 ---
      * - actionId 操作ID,用于动态展示操作项,需要在`columns`中定义是否展示,返回true则显示, 返回false则隐藏; 注意: 该值必须可以作为js变量
+     * - _isRender 是否渲染当前行操作项，默认true，通过 [table_action_helper] 设置，该值则会根据 [rbac] 权限动态设置。
      *
      * @return array
      * @throws \Exception
      */
     function table_action_helper($type, $options)
     {
+        $_isRender = true;
         if (isset($options['route']) && !empty($options['route'])) {
             $checkAccessResult = Yii::$app->rbacManager->checkAccessForViewRender($options['route']);
             if ($checkAccessResult !== false && is_array($checkAccessResult)) {
@@ -382,8 +385,12 @@ if (!function_exists('table_action_helper')) {
                 }
 
             } else {
-                return [];
+                $_isRender = false;
             }
+        }
+
+        if (!isset($options['_isRender'])) {
+            $options['_isRender'] = $_isRender;
         }
 
         $optionsInstance = new \app\builder\table\RowActionOptions($options);

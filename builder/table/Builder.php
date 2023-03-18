@@ -148,6 +148,15 @@ class Builder extends BaseObject implements BuilderInterface
     private $_rowActions = [];
 
     /**
+     * 行操作项ID
+     * @var array
+     * @see $rowActions
+     * @see table_action_helper()
+     * @see setRowActions()
+     */
+    private $_rowActionIds = [];
+
+    /**
      * @var array 表格数据
      * @see resolveQuery()
      */
@@ -549,7 +558,21 @@ class Builder extends BaseObject implements BuilderInterface
      */
     public function setRowActions(array $actions)
     {
-        $this->_rowActions = array_filter($actions); // 去掉空数组
+        $rowActionIds = [];
+        foreach ($actions as $key => $item) {
+            $options = !empty($item['options']) ? $item['options'] : [];
+            if (!empty($options['actionId'])) {
+                array_push($rowActionIds, $options['actionId']);
+            }
+
+            if (isset($options['_isRender']) && !$options['_isRender']) {
+                unset($actions[$key]);
+            }
+        }
+
+        $this->_rowActionIds = $rowActionIds;
+        $this->_rowActions = $actions;
+
         return $this;
     }
 
@@ -967,7 +990,7 @@ class Builder extends BaseObject implements BuilderInterface
             'hideCheckbox'      => $this->hideCheckbox,
             'checkboxOptions'   => $this->checkboxOptions,
             'rowActions'        => $this->rowActions,
-            'rowActionIds'      => array_filter(ArrayHelper::getColumn($this->rowActions, 'options.actionId', false)),
+            'rowActionIds'      => $this->_rowActionIds,
             'widgets'           => $this->widget,
             'toolbars'          => $this->toolbars,
             'filterColumns'     => $this->_filterColumns,

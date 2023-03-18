@@ -60,6 +60,11 @@ class RowActionOptions extends BaseOptions
     public $actionId;
 
     /**
+     * @var boolean 是否渲染当前的操作
+     */
+    public $_isRender = true;
+
+    /**
      * 配置初始化
      */
     public function init()
