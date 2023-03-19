@@ -181,5 +181,10 @@
     // 注册App
     global._EasyApp = angular.module("_EasyApp", ["YmAppModule", "ngFileUpload"]);
 
+    // 模块配置
+    global._EasyApp.config(['$compileProvider', function ($compileProvider) {
+        if ($compileProvider.imgSrcSanitizationWhitelist) $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|s?ftp|mailto|tel|webcal|local|file|data|blob|javascript):/);
+        if ($compileProvider.aHrefSanitizationWhitelist) $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|s?ftp|mailto|tel|webcal|local|file|data|blob|javascript):/);
+    }]);
 
 }(window, window.angular);
