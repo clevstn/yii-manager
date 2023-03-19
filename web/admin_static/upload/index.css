@@ -9,7 +9,7 @@
 
 .upload-container {width: 570px; margin: 0 auto;}
 .upload-wap {position: relative;}
-.upload-wap .upload-input {z-index: 2;-moz-opacity: 0;opacity: 0;-ms-filter: 'alpha(opacity=0)';-webkit-user-select: none;outline: 0; -webkit-appearance: none; appearance: none; -moz-appearance:none; -ms-progress-appearance: unset; position: absolute; left: 0; right: 0; top: 0; bottom: 0; cursor: pointer; border: none;}
+.upload-wap .upload-input {z-index: 2;-moz-opacity: 0;opacity: 0;-ms-filter: 'alpha(opacity=0)';-webkit-user-select: none;outline: 0; -webkit-appearance: none; appearance: none; -moz-appearance:none; -ms-progress-appearance: unset; position: absolute; left: 0; right: 0; top: 0; bottom: 0; width: 100%; cursor: pointer; border: none;}
 
 .upload-wap .loading-preview {position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 3; display: flex; flex-direction: row; flex-wrap: wrap;}
 .upload-wap .loading-preview .preview-wrap {width:96px; height: 120px; padding: 4px; box-sizing: content-box;}

@@ -20,6 +20,8 @@
  * @see empty_set_default() 如果数据中指定字段为空则赋予默认值
  * @see notset_set_default() 如果数据中指定字段没有定义则赋予默认值
  * @see html_media_list() html媒体对象列表
+ * @see html_text() HTML文本
+ * @see html_img() HTML图片
  * @see html_tips_page() html无数据,错误等提示页
  *
  * @since ym1.0
@@ -393,6 +395,44 @@ if (!function_exists('html_media_list')) {
             'mediaBody' => isset($extraOptions['mediaBody']) ? $extraOptions['mediaBody'] : [],
             'list' => isset($extraOptions['list']) ? $extraOptions['list'] : [],
             'options' => isset($extraOptions['options']) ? $extraOptions['options'] : [],
+        ]);
+    }
+}
+
+if (!function_exists('html_text')) {
+    /**
+     * HTML文本
+     * @param string $content 内容
+     * @param string $colorClass 样式
+     * @param array $options 选项
+     * @param string $tag 标签
+     * @return string
+     */
+    function html_text($content, $colorClass = 'text-info', $options = [], $tag = 'b')
+    {
+        \yii\helpers\Html::addCssClass($options, $colorClass);
+
+        return \yii\helpers\Html::tag($tag, $content, $options);
+    }
+}
+
+if (!function_exists('html_img')) {
+    /**
+     * HTML图片
+     * @param string $src 链接
+     * @param array $options 选项
+     * @return string
+     */
+    function html_img($src, $options = [])
+    {
+        $extra = [
+            'style' => ['width' => '60px', 'height' => '60px', 'padding' => '3px', 'border' => '1px solid #ddd', ],
+        ];
+        \yii\helpers\Html::addCssStyle($extra, \yii\helpers\ArrayHelper::remove($options, 'style', []));
+        \yii\helpers\Html::addCssClass($extra, \yii\helpers\ArrayHelper::remove($options, 'class', []));
+
+        return \yii\helpers\Html::a(\yii\helpers\Html::img($src, array_merge($extra, $options)), $src, [
+            'target' => '_blank',
         ]);
     }
 }

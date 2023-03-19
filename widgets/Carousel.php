@@ -123,7 +123,7 @@ class Carousel extends Widget
                 $itemClass[] = 'active';
             }
 
-            $img = Html::img($src);
+            $img = Html::a(Html::img($src), $src, ['target' => '_blank']);
             $results[] = Html::tag('div', $img, [
                 'class' => $itemClass,
             ]);
