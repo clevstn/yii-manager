@@ -148,8 +148,12 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .select2-dropdown {z-index: 20200815 !important;}
 .addon-fix {display: inline-block !important;width: 130px !important;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .icheck-control {}
+.label {font-size: 100% !important; font-weight:lighter!important;}
 .label-helper {display: inline-block;vertical-align: middle;margin-left: 4px;user-select: none;-webkit-user-select: none;}
 .label-primary {background-color: #008ab7 !important;}
+.label-purple {background-color: purple !important;}
+.label-brown {background-color: #cc9966 !important; }
+.label-blue {background-color: #003399 !important;}
 .text-red {color: red !important;}
 .sup {top: 0 !important;font-size: 13px !important;}
 .YmWangEditor {}

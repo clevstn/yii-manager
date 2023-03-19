@@ -89,6 +89,9 @@ if (!function_exists('html_label')) {
      * - primary
      * - helper
      * - warning
+     * - purple
+     * - brown
+     * - blue
      * @return string
      */
     function html_label($str, $toHtml = true, $labelType = 'success')
