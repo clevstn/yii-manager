@@ -7,9 +7,11 @@
 
 namespace app\builder\form;
 
+use yii\base\InvalidArgumentException;
 use yii\helpers\Html;
 use app\builder\common\BaseOptions;
 use app\builder\contract\InvalidInstanceException;
+use yii\helpers\Json;
 
 /**
  * 表单字段设置选项
@@ -40,6 +42,8 @@ class FieldsOptions extends BaseOptions
     const CONTROL_TIME = 'time';
     // 下拉选择
     const CONTROL_SELECT = 'select';
+    // 下拉选择（多）
+    const CONTROL_SELECT_MULTI = 'select_multi';
     // 隐藏
     const CONTROL_HIDDEN = 'hidden';
     // 文件
@@ -93,9 +97,9 @@ class FieldsOptions extends BaseOptions
 
     /**
      * @var array 选项，用于`radio`、`checkbox`、`select`控件，
-     * 格式：[`value` => `label`]
+     * 格式：[`value` => `label`] 或 [`value` => ['label' => '选项1', 'attribute' => 'disabled=disabled']]
      */
-    public $options;
+    public $options = [];
 
     /**
      * @var string 行数，用于文本域
@@ -159,6 +163,43 @@ class FieldsOptions extends BaseOptions
 
         if (!empty($this->attribute) && is_array($this->attribute)) {
             $this->attribute = Html::renderTagAttributes($this->attribute);
+        }
+
+        if (is_array($this->options) && count($this->options) > 0) {
+            foreach ($this->options as $key => &$value) {
+                if (is_array($value)) {
+                    if (!isset($value['label'])) {
+                        throw new InvalidArgumentException('控件选项中缺少【label】!');
+                    }
+
+                    if (!empty($value['attribute'])) {
+                        if (is_array($value['attribute'])) {
+                            $value['attribute'] = Html::renderTagAttributes($value['attribute']);
+                        } else {
+                            $attribute = trim($value['attribute']);
+                            $value['attribute'] = " $attribute";
+                        }
+                    } else {
+                        $value['attribute'] = '';
+                    }
+                } else {
+                    $value = [
+                        'label' => $value,
+                        'attribute' => '',
+                    ];
+                }
+            }
+        }
+
+        if ($this->control == self::CONTROL_SELECT_MULTI && !preg_match('/^\[.*\]$/', trim($this->default))) {
+            $defaultArray = array_filter(explode(',', $this->default), function ($item) {
+                if (trim($item) === '' || $item === null) {
+                    return false;
+                }
+
+                return true;
+            });
+            $this->default = Json::encode($defaultArray);
         }
 
         if (

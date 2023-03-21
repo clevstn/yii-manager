@@ -93,18 +93,18 @@ use app\builder\form\FieldsOptions;
                 <div class="input-group">
                     <div class="input-group-addon">
                         <span class="addon-fix">
-                            <?php if ($options['required']): ?>
-                                <sup class="sup text-red">*</sup>
-                            <?php endif; ?>
-                            <?= $options['label'] ?>
+                        <?php if ($options['required']): ?>
+                            <sup class="sup text-red">*</sup>
+                        <?php endif; ?>
+                        <?= $options['label'] ?>
                         </span>
                     </div>
                     <div class="form-control">
-                        <?php foreach ($options['options'] as $value => $label): ?>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" class="ymFormCheckbox_<?= $field ?> icheck-control" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> value="<?= $value ?>">
-                            <span class="label-helper"><?= $label ?></span>
-                        </label>
+                        <?php foreach ($options['options'] as $value => $extra): ?>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" class="ymFormCheckbox_<?= $field ?> icheck-control" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> value="<?= $value ?>"<?= $extra['attribute'] ?>>
+                                <span class="label-helper"><?= $extra['label'] ?></span>
+                            </label>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -117,18 +117,18 @@ use app\builder\form\FieldsOptions;
                 <div class="input-group">
                     <div class="input-group-addon">
                         <span class="addon-fix">
-                            <?php if ($options['required']): ?>
-                                <sup class="sup text-red">*</sup>
-                            <?php endif; ?>
-                            <?= $options['label'] ?>
+                        <?php if ($options['required']): ?>
+                            <sup class="sup text-red">*</sup>
+                        <?php endif; ?>
+                        <?= $options['label'] ?>
                         </span>
                     </div>
                     <div class="form-control">
-                        <?php foreach ($options['options'] as $value => $label): ?>
-                        <label class="radio-inline">
-                            <input type="radio" class="ymFormRadio_<?= $field ?> icheck-control" name="ymFormFields<?= $field ?>" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> value="<?= $value ?>">
-                            <span class="label-helper"><?= $label ?></span>
-                        </label>
+                        <?php foreach ($options['options'] as $value => $extra): ?>
+                            <label class="radio-inline">
+                                <input type="radio" class="ymFormRadio_<?= $field ?> icheck-control" name="ymFormFields<?= $field ?>" style="<?= $options['style'] ?>"<?= $options['attribute'] ?> value="<?= $value ?>"<?= $extra['attribute'] ?>>
+                                <span class="label-helper"><?= $extra['label'] ?></span>
+                            </label>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -162,16 +162,38 @@ use app\builder\form\FieldsOptions;
                 <div class="input-group">
                     <div class="input-group-addon">
                         <span class="addon-fix">
-                            <?php if ($options['required']): ?>
-                                <sup class="sup text-red">*</sup>
-                            <?php endif; ?>
-                            <?= $options['label'] ?>
+                        <?php if ($options['required']): ?>
+                            <sup class="sup text-red">*</sup>
+                        <?php endif; ?>
+                        <?= $options['label'] ?>
                         </span>
                     </div>
                     <select id="ymFormSelect2_<?= $field ?>"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ui-select2="{width:'100%'}" ng-model="formFieldsData['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>">
                         <option value=""><?= $options['placeholder'] ?></option>
-                        <?php foreach ($options['options'] as $value => $label): ?>
-                            <option value="<?= $value ?>"><?= $label ?></option>
+                        <?php foreach ($options['options'] as $value => $extra): ?>
+                            <option value="<?= $value ?>"<?= $extra['attribute'] ?>><?= $extra['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <?php if (!empty($options['comment'])): ?>
+                    <div class="form-comment"><?= t('note', 'app.admin') ?>: <?= $options['comment'] ?></div>
+                <?php endif; ?>
+            </div>
+            <?php break;case FieldsOptions::CONTROL_SELECT_MULTI: // 下拉选择(多) ?>
+            <div class="form-group col-md-<?= $options['layouts'] ?>">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class="addon-fix">
+                        <?php if ($options['required']): ?>
+                            <sup class="sup text-red">*</sup>
+                        <?php endif; ?>
+                        <?= $options['label'] ?>
+                        </span>
+                    </div>
+                    <select id="ymFormSelect2Multi_<?= $field ?>"<?= $options['attribute'] ?> style="<?= $options['style'] ?>" ui-select2="{width:'100%'}" ng-model="formFieldsData['<?= $field ?>']" data-placeholder="<?= $options['placeholder'] ?>" multiple>
+                        <option value=""><?= $options['placeholder'] ?></option>
+                        <?php foreach ($options['options'] as $value => $extra): ?>
+                            <option value="<?= $value ?>"<?= $extra['attribute'] ?>><?= $extra['label'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

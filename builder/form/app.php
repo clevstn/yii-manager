@@ -98,6 +98,8 @@ use app\builder\form\FieldsOptions;
                 <?php case FieldsOptions::CONTROL_HIDDEN: // 隐藏 ?>
                 <?php case FieldsOptions::CONTROL_TEXTAREA: // 文本域 ?>
                 scopeFields['<?= $field ?>'] = '<?= $options['default'] ?>';
+                <?php break; case FieldsOptions::CONTROL_SELECT_MULTI: // 下拉选择(多) ?>
+                scopeFields['<?= $field ?>'] = <?= $options['default'] ?>;
                 <?php break; case FieldsOptions::CONTROL_FILE: // 文件 ?>
                 fileDefaults = '<?= $options['default'] ?>';
                 fileDefaults = fileDefaults.split(',');
@@ -170,6 +172,8 @@ use app\builder\form\FieldsOptions;
                 <?php case FieldsOptions::CONTROL_SELECT: // 下拉选择 ?>
                 <?php case FieldsOptions::CONTROL_TEXTAREA: // 文本域 ?>
                 scopeFields['<?= $field ?>'] = "";
+                <?php break; case FieldsOptions::CONTROL_SELECT_MULTI: // 下拉选择(多) ?>
+                scopeFields['<?= $field ?>'] = [];
                 <?php break; case FieldsOptions::CONTROL_HIDDEN: // 隐藏 ?>
                 scopeFields['<?= $field ?>'] = '<?= $options['default'] ?>';
                 <?php break; case FieldsOptions::CONTROL_FILE: // 文件 ?>
@@ -224,6 +228,7 @@ use app\builder\form\FieldsOptions;
                 <?php case FieldsOptions::CONTROL_MONTH: // 月，格式：m ?>
                 <?php case FieldsOptions::CONTROL_TIME: // 时，格式：H:i:s ?>
                 <?php case FieldsOptions::CONTROL_SELECT: // 下拉选择 ?>
+                <?php case FieldsOptions::CONTROL_SELECT_MULTI: // 下拉选择(多) ?>
                 <?php case FieldsOptions::CONTROL_HIDDEN: // 隐藏 ?>
                 <?php case FieldsOptions::CONTROL_TEXTAREA: // 文本域 ?>
                 <?php case FieldsOptions::CONTROL_FILE: // 文件 ?>
@@ -277,7 +282,7 @@ use app\builder\form\FieldsOptions;
                 window.layer.open({
                     type: 2,
                     shade: 0.3,
-                    anim: -1,
+                    anim: 0,
                     title: '附件管理',
                     maxmin: false,
                     shadeClose: false,

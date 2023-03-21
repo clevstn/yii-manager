@@ -488,7 +488,7 @@ if (!function_exists('form_fields_helper')) {
      * - required 是否必填项
      * - comment 注释语
      * - range 是否是区间，用于日期控件
-     * - options 选项，用于`radio`、`checkbox`、`select`控件，格式：[`value` => `label`]
+     * - options 选项，用于`radio`、`checkbox`、`select`控件，格式：[`value` => `label`] 或 [`value` => ['label' => '选项1', 'attribute' => 'disabled=disabled']]
      * - rows 行数，用于文本域
      * - number 文件数量，用于文件上传
      * - fileScenario 文件上传类型场景，为空则可以上传任意类型，用于文件上传
