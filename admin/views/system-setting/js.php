@@ -63,6 +63,14 @@ use yii\helpers\Url;
                 }
             };
 
+            // 删除图片
+            $scope.removeConfigImage = function (code) {
+                // 清空值
+                $scope[code] = '';
+                // 删除预览图
+                $scope[code + '_preview'] = '';
+            };
+
             // 上传图片
             $scope.triggerSelectImage = function (code) {
                 var queryParam = {
@@ -78,7 +86,7 @@ use yii\helpers\Url;
                 window.layer.open({
                     type: 2,
                     shade: 0.3,
-                    anim: -1,
+                    anim: 0,
                     title: '附件管理',
                     maxmin: false,
                     shadeClose: false,

@@ -267,8 +267,30 @@ use app\builder\form\FieldsOptions;
                 return formData;
             };
 
-            // 上传图片
-            $scope.triggerSelectImage = function (fileType, saveDirectory, pathPrefix, fileScenario, field, key) {
+            // 删除文件
+            $scope.removeFiles = function (e, field, key) {
+                e.stopPropagation();
+                // 设置该key的path为空
+                var attachPaths = $scope.formFieldsData[field].split(',');
+                attachPaths[key] = "";
+                // 设置该key的预览为空
+                $scope['formFileLink' + field + key] = '';
+
+                attachPaths = attachPaths.join(',');
+                $scope.formFieldsData[field] = attachPaths;
+            };
+
+            /**
+             * 上传图片
+             * @param fileType 文件分类名
+             * @param saveDirectory 文件保存目录
+             * @param pathPrefix 文件路径前缀
+             * @param fileScenario 上传场景
+             * @param field 文件对应的字段
+             * @param key 文件的索引
+             * @param maxNumber 文件的最大数量
+             */
+            $scope.triggerSelectImage = function (fileType, saveDirectory, pathPrefix, fileScenario, field, key, maxNumber) {
                 var queryParam = {
                     'name': 'file',
                     'type': fileType,
@@ -298,20 +320,24 @@ use app\builder\form\FieldsOptions;
                             return;
                         }
 
-                        if (choose.length > 1) {
-                            tips('只能选择一张，禁止多张', '提示', 0);
-                            return;
-                        }
-
                         // 更新该字段值
                         var attachPaths = $scope.formFieldsData[field].split(',');
-                        choose.forEach(function (item) {
-                            attachPaths[key] = item.path;
-                            // 预览图
-                            $scope.$apply(function () {
+                        // 当前图片是第几个
+                        var current = key + 1;
+                        choose.forEach(function (item, arrayIndex) {
+                            if (current <= maxNumber) {
+                                // 数组指针
+                                var ptr = key + arrayIndex;
+
+                                attachPaths[ptr] = item.path;
                                 // 预览图
-                                $scope['formFileLink' + field + key] = item.url;
-                            });
+                                $scope.$apply(function () {
+                                    // 预览图
+                                    $scope['formFileLink' + field + ptr] = item.url;
+                                });
+                            }
+
+                            current++;
                         });
 
                         attachPaths = attachPaths.join(',');

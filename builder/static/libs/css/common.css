@@ -4,8 +4,8 @@
  * @copyright Copyright (c) 2020 cleverstone
  *
  */
-
 html, body {margin: 0;font-size: 12px;background-color: #f5f5f5;}
+body {font-family: PingFangSC-Regular,sans-serif,PingFangSC-Light,sans-serif,"Source Han Sans","Microsoft YaHei",arial;-webkit-font-smoothing: antialiased;}
 ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .ym-app {height: 100%;position: relative;}
 .ym-navbar-custom {background-color: #ffffff;font-size: 13px;}
@@ -63,7 +63,7 @@ ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .table > tfoot > tr > th,
 .table > thead > tr > td,
 .table > tbody > tr > td,
-.table > tfoot > tr > td {min-width: 50px; vertical-align :top;}
+.table > tfoot > tr > td {min-width: 50px; vertical-align: top;}
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th {border-bottom: 1px solid #ddd;font-size: 14px;}
@@ -129,6 +129,7 @@ ul, ol, dl {list-style: none;margin: 0;padding: 0;}
 .f-15 {font-size: 15px !important;}
 .f-14 {font-size: 14px !important;}
 .f-13 {font-size: 13px !important;}
+.f-12 {font-size: 12px !important;}
 .font-bold {font-weight:700;}
 .min-300 {min-width: 300px;}
 .border-left-none {border-left: none !important;}
@@ -162,7 +163,9 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .form-header-btn:hover, .form-header-btn:visited, .form-header-btn:active {text-decoration: none !important;}
 .form-upload-group {width: 100%;min-height: 100px;border: 1px solid #e6e6e6;position: relative;}
 .form-upload-control {width: 80px;height: 80px;margin-left: 10px;margin-top: 10px;display: table;border: 1px dotted #ccc;cursor: pointer;}
-.form-upload-item {display: table-cell;text-align: center;vertical-align: middle;}
+.form-upload-item {display: table-cell;text-align: center;vertical-align: middle; position: relative;}
+.img-remove {position: absolute; top: -8px; right: -8px; font-size:18px; color: red;}
+.img-remove:hover {font-size: 25px;}
 .form-upload-img {width: 80px;height: 80px;font-size: 0;}
 .inline-block {display: inline-block;}
 .w-auto {width: auto!important;}
@@ -206,3 +209,10 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .media-list p {font-size:12px;margin-bottom:3px!important;color:#777; line-height:18px;}
 .media-list label {padding-right:6px;margin-bottom:0px!important;}
 .media-list span {padding-right:16px;}
+
+.son-img-w150 {width: 150px !important; height:150px !important;}
+.son-img-w150 img {width: 150px !important; height:150px !important;}
+.son-img-w200 {width: 200px !important; height:200px !important;}
+.son-img-w200 img {width: 200px !important; height:200px !important;}
+.son-img-w300 {width: 300px !important; height:300px !important;}
+.son-img-w300 img {width: 300px !important; height:300px !important;}

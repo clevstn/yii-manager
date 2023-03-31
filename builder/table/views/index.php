@@ -115,9 +115,9 @@ use app\builder\table\ToolbarFilterOptions;
                 <!--渲染表头-->
                 <?php foreach ($columns as $field => $item): ?>
                     <?php if (!ArrayHelper::isIn($field, $rowActionIds)): ?>
-                    <th style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>>
-                        <?= $item['title'] ?>
-                    </th>
+                        <th style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>>
+                            <?= $item['title'] ?>
+                        </th>
                     <?php endif; ?>
                 <?php endforeach; ?>
 
@@ -139,7 +139,7 @@ use app\builder\table\ToolbarFilterOptions;
                     <?php if (count($rowActions) >= 2): ?>
                         <td class="row-handle" style="width:50px;">
                             <div class="dropdown">
-                                <a href="#" type="button" class="btn btn-sm btn-default dropdown-toggle"
+                                <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default dropdown-toggle"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <?= t('operation', 'app.admin') ?>
                                     <span class="caret"></span>
@@ -154,7 +154,7 @@ use app\builder\table\ToolbarFilterOptions;
                                             <?php if (empty($actionItem['options']['actionId'])): ?>
                                                 <!--操作ID为空,直接显示操作项-->
                                                 <li>
-                                                    <a href="#" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
+                                                    <a href="javascript:void 0;" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
                                                         <i class="actions-icon <?= $actionItem['options']['icon'] ?>"></i>
                                                         &nbsp;
                                                         <?= html_escape($actionItem['options']['title']) ?>
@@ -163,7 +163,7 @@ use app\builder\table\ToolbarFilterOptions;
                                             <?php else: ?>
                                                 <!--操作ID存在,判断是否允许显示-->
                                                 <li ng-show="value['<?= $actionItem["options"]["actionId"] ?>']">
-                                                    <a href="#" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
+                                                    <a href="javascript:void 0;" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
                                                         <i class="actions-icon <?= $actionItem['options']['icon'] ?>"></i>
                                                         &nbsp;
                                                         <?= html_escape($actionItem['options']['title']) ?>
@@ -184,13 +184,13 @@ use app\builder\table\ToolbarFilterOptions;
                                         <!--操作项;根据操作ID判断是否显示该操作项-->
                                         <?php if (empty($actionItem['options']['actionId'])): ?>
                                             <!--操作ID为空,直接显示操作项-->
-                                            <a href="#" type="button" class="btn btn-sm btn-default" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
+                                            <a href="javascript:void 0;" type="button" class="btn btn-sm btn-default" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
                                                 <i class="actions-icon <?= $actionItem['options']['icon'] ?>"></i>
                                                 <?= html_escape($actionItem['options']['title']) ?>
                                             </a>
                                         <?php else: ?>
                                             <!--操作ID存在,判断是否允许显示-->
-                                            <a ng-show="value['<?= $actionItem["options"]["actionId"] ?>']" href="#" type="button" class="btn btn-sm btn-default" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
+                                            <a ng-show="value['<?= $actionItem["options"]["actionId"] ?>']" href="javascript:void 0;" type="button" class="btn btn-sm btn-default" ng-click="triggerTableRowActions(value, <?= html_escape(Json::encode($actionItem)) ?>)">
                                                 <i class="actions-icon <?= $actionItem['options']['icon'] ?>"></i>
                                                 <?= html_escape($actionItem['options']['title']) ?>
                                             </a>
@@ -205,9 +205,9 @@ use app\builder\table\ToolbarFilterOptions;
                 <!--渲染列表-->
                 <?php foreach ($columns as $field => $item): ?>
                     <?php if (!ArrayHelper::isIn($field, $rowActionIds)): ?>
-                    <td style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>>
-                        <span ng-bind-html="value['<?= $field ?>'] | toHtml"></span>
-                    </td>
+                        <td style="<?= $item['options']['style'] ?>"<?= $item['options']['attribute'] ?>>
+                            <span ng-bind-html="value['<?= $field ?>'] | toHtml"></span>
+                        </td>
                     <?php endif; ?>
                 <?php endforeach; ?>
 

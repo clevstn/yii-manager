@@ -58,10 +58,10 @@ $this->title = '系统设置';
                                                     <?php break; case Sc::PASSWORD: ?>
                                                     <input type="password" autocomplete="off" class="form-control" ng-model="<?= $code ?>">
                                                     <?php break; case Sc::DATETIME: ?>
-                                                    <?php case Sc::DATE: ?>
-                                                    <?php case Sc::YEAR: ?>
-                                                    <?php case Sc::MONTH: ?>
-                                                    <?php case Sc::TIME: ?>
+                                                <?php case Sc::DATE: ?>
+                                                <?php case Sc::YEAR: ?>
+                                                <?php case Sc::MONTH: ?>
+                                                <?php case Sc::TIME: ?>
                                                     <input id="<?= $code ?>" class="ymSysConfDates form-control" type="text" data-type="<?= $value['control'] ?>" autocomplete="off" ng-model="<?= $code ?>" readonly>
                                                     <?php break; case Sc::STATIC_: ?>
                                                     <input type="text" autocomplete="off" ng-model="<?= $code ?>" class="form-control border-y-none border-right-none box-shadow-none" readonly>
@@ -71,7 +71,7 @@ $this->title = '系统设置';
                                                     <select ui-select2="{width:'100%'}" name="<?= $code ?>" ng-model="<?= $code ?>" id="<?= $code ?>">
                                                         <option value="">请选择</option>
                                                         <?php foreach ($value['options'] as $v => $label): ?>
-                                                        <option value="<?= $v ?>"<?= $v == $value['value'] ? ' checked' : '' ?>><?= $label ?></option>
+                                                            <option value="<?= $v ?>"<?= $v == $value['value'] ? ' checked' : '' ?>><?= $label ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                     <?php break; case Sc::TEXTAREA: ?>
@@ -82,6 +82,7 @@ $this->title = '系统设置';
                                                             <div class="form-upload-control">
                                                                 <div class="form-upload-item" ng-click="triggerSelectImage('<?= $code ?>')">
                                                                     <i ng-hide="<?= $code ?>" class="fa fa-file-image-o f-32 text-dark"></i>
+                                                                    <span ng-show="<?= $code ?>" class="img-remove fa fa-remove" ng-click="removeConfigImage($event, '<?= $code ?>')"></span>
                                                                     <img ng-show="<?= $code ?>" class="form-upload-img" ng-src="{{<?= $code ?>_preview}}" alt>
                                                                     <input type="hidden" ng-model="<?= $code ?>">
                                                                 </div>
@@ -99,7 +100,7 @@ $this->title = '系统设置';
                                                     <?php break; case Sc::RADIO: ?>
                                                     <div lay-filter="<?= $code ?>" class="layui-form form-control pt-0 pb-0 border-y-none border-right-none box-shadow-none">
                                                         <?php foreach ($value['options'] as $v => $label): ?>
-                                                        <input type="radio" name="<?= $code ?>" lay-filter="<?= $code ?>" value="<?= $v ?>" title="<?= $label ?>"<?= $v == $value['value'] ? ' checked' : '' ?>>
+                                                            <input type="radio" name="<?= $code ?>" lay-filter="<?= $code ?>" value="<?= $v ?>" title="<?= $label ?>"<?= $v == $value['value'] ? ' checked' : '' ?>>
                                                         <?php endforeach; ?>
                                                     </div>
                                                     <?php break; case Sc::SW: ?>

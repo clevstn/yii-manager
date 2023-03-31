@@ -41,7 +41,7 @@
 
                 var param = isPageList ? {
                     page: page,
-                    'per-page': perPage
+                    'per-page': perPage,
                 } : {};
 
                 /* 使用Jq的对象合并方案 */
@@ -70,7 +70,7 @@
                     YmSpinner.hide(i);
                     // 显示空
                     $scope.isEmptyOfTable = true;
-                    toastr.error(error.data || "数据加载失败，请稍后重试", "通知");
+                    toastr.error(error.data || "数据加载失败，请稍后重试", "错误提示");
                     console.error(error);
                 });
             };
@@ -167,7 +167,7 @@
                 layer.open({
                     type: 2,
                     shade: 0.3,
-                    anim: -1,
+                    anim: 0,
                     title: title,
                     maxmin: false,
                     shadeClose: false,
@@ -209,22 +209,22 @@
                             YmSpinner.hide(flag);
                             var data = result.data;
                             if (data.code === 200) {
-                                toastr.success(data.msg, "通知");
+                                toastr.success(data.msg, "成功提示");
                                 // reload list
                                 $timeout(function () {
                                     getTableList();
                                 }, 150);
                             } else if (data.code === 500) {
-                                toastr.warning(data.msg, "通知");
+                                toastr.warning(data.msg, "警告提示");
                             } else if (data.code === 401) {
-                                toastr.error(data.msg, "通知");
+                                toastr.error(data.msg, "错误提示");
                             } else {
-                                toastr.error(data.msg, "通知");
+                                toastr.error(data.msg, "错误提示");
                             }
 
                         }, function (error) {
                             YmSpinner.hide(flag);
-                            toastr.error(error.data || "操作执行失败", "通知");
+                            toastr.error(error.data || "操作执行失败", "错误提示");
                             console.error(error);
                         });
                         // For more information about handling dismissals please visit
@@ -260,7 +260,7 @@
                         ajaxRequestOnRow(method, params, route);
                         break;
                     default:
-                        toastr.warning("行类型" + type + "暂不支持", "通知");
+                        toastr.warning("行类型" + type + "暂不支持", "警告提示");
                 }
             };
             // ------ 列表 end ------
@@ -273,7 +273,7 @@
                 layer.open({
                     type: 1,
                     shade: 0.3,
-                    anim: -1,
+                    anim: 0,
                     title: '筛选',
                     maxmin: false,
                     shadeClose: false,
@@ -358,7 +358,7 @@
                         layer.open({
                             type: 1,
                             shade: 0.3,
-                            anim: -1,
+                            anim: 0,
                             title: '导出',
                             maxmin: false,
                             shadeClose: false,
@@ -367,11 +367,11 @@
                             content: jQuery("#YmExportForm"),
                         });
                     } else {
-                        toastr.info('数据列表为空,没有需要导出的数据!', "通知");
+                        toastr.info('数据列表为空,没有需要导出的数据!', "信息提示");
                     }
                 }, function (error) {
                     YmSpinner.hide(i);
-                    toastr.error(error.data || "数据导出列表加载失败，请稍后重试", "通知");
+                    toastr.error(error.data || "数据导出列表加载失败，请稍后重试", "错误提示");
                     console.error(error);
                 });
 
@@ -412,7 +412,7 @@
                 layer.open({
                     type: 2,
                     shade: 0.3,
-                    anim: -1,
+                    anim: 0,
                     title: title,
                     maxmin: false,
                     shadeClose: false,
@@ -451,22 +451,22 @@
                             YmSpinner.hide(flag);
                             var data = result.data;
                             if (data.code === 200) {
-                                toastr.success(data.msg, "通知");
+                                toastr.success(data.msg, "成功提示");
                                 // reload list
                                 $timeout(function () {
                                     getTableList();
                                 }, 150);
                             } else if (data.code === 500) {
-                                toastr.warning(data.msg, "通知");
+                                toastr.warning(data.msg, "警告提示");
                             } else if (data.code === 401) {
-                                toastr.error(data.msg, "通知");
+                                toastr.error(data.msg, "错误提示");
                             } else {
-                                toastr.error(data.msg, "通知");
+                                toastr.error(data.msg, "错误提示");
                             }
 
                         }, function (error) {
                             YmSpinner.hide(flag);
-                            toastr.error(error.data || "操作执行失败", "通知");
+                            toastr.error(error.data || "操作执行失败", "错误提示");
                             console.error(error);
                         });
                         // For more information about handling dismissals please visit
@@ -519,7 +519,7 @@
                         ajaxRequestOnToolbar(method, params, route);
                         break;
                     default:
-                        toastr.warning("工具栏操作类型" + type + "暂不支持", "通知");
+                        toastr.warning("工具栏操作类型" + type + "暂不支持", "警告提示");
                 }
             };
             // ------ 工具栏 end ------
