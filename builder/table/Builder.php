@@ -882,7 +882,7 @@ class Builder extends BaseObject implements BuilderInterface
                             $tempMap[$col] = '--';
                         }
                     } elseif (is_callable($col)) {
-                        $tempMap[$i] = call_user_func($col, $item);
+                        $tempMap[$i] = call_user_func($col, $item, $all);
                     } else {
                         $tempMap[$i] = $col;
                     }
@@ -1068,7 +1068,7 @@ class Builder extends BaseObject implements BuilderInterface
 
             foreach ($this->columns as $field => $options) {
                 if (!empty($options['callback']) && is_callable($options['callback'])) {
-                    $value = call_user_func($options['callback'], $item);
+                    $value = call_user_func($options['callback'], $item, $models);
                 } elseif (isset($item[$field])) {
                     $value = html_escape($item[$field]);
                 } else {
