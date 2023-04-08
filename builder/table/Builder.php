@@ -31,6 +31,8 @@ use app\builder\contract\NotFoundAttributeException;
  * @property boolean $page   是否设置分页
  * @property array $columns  表格列
  * @property \Closure $query 查询器实例或数据数组
+ * @property \Closure|array $columnDependency 列依赖
+ * @property \Closure|array $exportColumnDependency 导出列依赖
  * @property-write array $js 设置额外的Js代码
  * @property-write array $css 设置额外的Css代码
  * @property boolean $partial 是否独立布局；该配置也可通过get参数__partial__进行设置
@@ -74,6 +76,20 @@ class Builder extends BaseObject implements BuilderInterface
      * @see setColumns()
      */
     private $_columns = [];
+
+    /**
+     * @var \Closure|array 列依赖数据，作为列中闭包的第二个参数传入
+     * @see $columnDependency
+     * @see setColumnDependency()
+     */
+    private $_columnDependency;
+
+    /**
+     * @var \Closure|array 导出列依赖数据，作为列中闭包的第二个参数传入
+     * @see $exportColumnDependency
+     * @see setExportColumnDependency()
+     */
+    private $_exportColumnDependency;
 
     /**
      * @var \Closure|array 查询器实例或数据数组
@@ -410,6 +426,46 @@ class Builder extends BaseObject implements BuilderInterface
     public function getColumns()
     {
         return $this->_columns;
+    }
+
+    /**
+     * 设置列依赖
+     * @param array|\Closure $columnDependency
+     * @return $this
+     */
+    public function setColumnDependency($columnDependency)
+    {
+        $this->_columnDependency = $columnDependency;
+        return $this;
+    }
+
+    /**
+     * 获取列依赖
+     * @return array|\Closure
+     */
+    public function getColumnDependency()
+    {
+        return $this->_columnDependency;
+    }
+
+    /**
+     * 设置导出列依赖
+     * @param array|\Closure $exportColumnDependency
+     * @return $this
+     */
+    public function setExportColumnDependency($exportColumnDependency)
+    {
+        $this->_exportColumnDependency = $exportColumnDependency;
+        return $this;
+    }
+
+    /**
+     * 获取导出列依赖
+     * @return array|\Closure
+     */
+    public function getExportColumnDependency()
+    {
+        return $this->_exportColumnDependency;
     }
 
     /**
@@ -862,6 +918,14 @@ class Builder extends BaseObject implements BuilderInterface
         }
 
         $dataMap = [];
+
+        // get导出列依赖
+        if (!empty($this->_exportColumnDependency) && is_callable($this->_exportColumnDependency)) {
+            $di = call_user_func($this->_exportColumnDependency, $all);
+        } else {
+            $di = $this->_exportColumnDependency;
+        }
+
         foreach ($all as $item) {
             if (empty($this->_exportOptions['columns'])) {
                 // empty
@@ -882,7 +946,7 @@ class Builder extends BaseObject implements BuilderInterface
                             $tempMap[$col] = '--';
                         }
                     } elseif (is_callable($col)) {
-                        $tempMap[$i] = call_user_func($col, $item, $all);
+                        $tempMap[$i] = call_user_func($col, $item, $di);
                     } else {
                         $tempMap[$i] = $col;
                     }
@@ -1060,6 +1124,13 @@ class Builder extends BaseObject implements BuilderInterface
 
         $this->_pagination = $pages;
 
+        // 列依赖
+        if (!empty($this->_columnDependency) && is_callable($this->_columnDependency)) {
+            $di = call_user_func($this->_columnDependency, $models);
+        } else {
+            $di = $this->_columnDependency;
+        }
+
         foreach ($models as $item) {
             /* @var \yii\base\Model $item */
             if ($item instanceof \yii\base\Model) {
@@ -1068,7 +1139,7 @@ class Builder extends BaseObject implements BuilderInterface
 
             foreach ($this->columns as $field => $options) {
                 if (!empty($options['callback']) && is_callable($options['callback'])) {
-                    $value = call_user_func($options['callback'], $item, $models);
+                    $value = call_user_func($options['callback'], $item, $di);
                 } elseif (isset($item[$field])) {
                     $value = html_escape($item[$field]);
                 } else {
