@@ -200,15 +200,17 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .layui-form-radio {margin: 4px 10px 0 0;}
 .box-shadow-none {box-shadow: none;}
 
-.media-body-inner p{font-size:12px;margin-bottom:3px;color:#777; line-height:18px;}
-.media-body-inner label{padding-right:6px;margin-bottom:0px!important;}
-.media-body-inner span{padding-right:16px;}
+.media-body-inner .block-p {font-size:12px;margin-bottom:3px;color:#777; line-height:18px;}
+.media-body-inner .inline-span {margin-right:16px; display: inline-block;}
+.media-body-inner label{margin-right:6px;margin-bottom:0px!important;}
+.media-body-inner span{margin-right:16px;}
 .media-left img {width:60px;height:60px;border:1px solid #ddd;padding:3px;}
 
 .media-list {padding:5px 0 0 3px}
-.media-list p {font-size:12px;margin-bottom:3px!important;color:#777; line-height:18px;}
-.media-list label {padding-right:6px;margin-bottom:0px!important;}
-.media-list span {padding-right:16px;}
+.media-list .block-p {font-size:12px;margin-bottom:3px!important;color:#777; line-height:18px;}
+.media-list .line-span {margin-right:16px; display: inline-block;}
+.media-list label {margin-right:6px;margin-bottom:0px!important;}
+.media-list span {margin-right:16px;}
 
 .son-img-w150 {width: 150px !important; height:150px !important;}
 .son-img-w150 img {width: 150px !important; height:150px !important;}

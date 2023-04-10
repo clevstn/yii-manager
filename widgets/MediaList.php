@@ -133,19 +133,19 @@ class MediaList extends Widget
                     $lineInner = '';
                     foreach ($text as $lineLabel => $lineText) {
                         if (is_int($lineLabel)) {
-                            $lineInner .= Html::tag('span', $lineText);
+                            $lineInner .= Html::tag('div', $lineText, ['class' => ['line-span']]);
                         } else {
                             $lineInner .= Html::label($lineLabel) . Html::tag('span', $lineText);
                         }
                     }
 
-                    $p .= Html::tag('p', $lineInner);
+                    $p .= Html::tag('div', $lineInner, ['class' => ['block-p']]);
                 } else {
-                    $p .= Html::tag('p', $text);
+                    $p .= Html::tag('div', $text, ['class' => ['block-p']]);
                 }
 
             } else {
-                $p .= Html::tag('p', Html::label($label) . Html::tag('span', $text));
+                $p .= Html::tag('div', Html::label($label) . Html::tag('span', $text), ['class' => ['block-p']]);
             }
         }
 
@@ -189,21 +189,21 @@ class MediaList extends Widget
                     $lineInner = '';
                     foreach ($text as $lineLabel => $lineText) {
                         if (is_int($lineLabel)) {
-                            $lineInner .= Html::tag('span', $lineText);
+                            $lineInner .= Html::tag('div', $lineText, ['class' => ['inline-span']]);
                         } else {
                             $lineInner .= Html::label($lineLabel) . Html::tag('span', $lineText);
                         }
                     }
 
-                    $p .= Html::tag('p', $lineInner);
+                    $p .= Html::tag('div', $lineInner, ['class' => ['block-p']]);
                 } else {
-                    $p .= Html::tag('p', $text);
+                    $p .= Html::tag('div', $text, ['class' => ['block-p']]);
                 }
 
             } else {
                 $label = Html::label($label);
                 $span = Html::tag('span', $text);
-                $p .= Html::tag('p', $label . $span);
+                $p .= Html::tag('div', $label . $span, ['class' => ['block-p']]);
             }
         }
 
