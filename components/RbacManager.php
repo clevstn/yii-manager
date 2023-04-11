@@ -366,6 +366,7 @@ class RbacManager extends Component implements CheckAccessInterface
                     'src' => $value['src'],
                     'icon' => $value['icon'],
                     'sort' => $value['sort'],
+                    'dump_way' => $value['dump_way'],
                     'items' => $this->extractBannerFromPermissions($permissions, $value['id']),
                 ];
             }

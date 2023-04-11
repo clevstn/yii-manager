@@ -71,6 +71,7 @@ class MenuHelper
                     // 用于视图外链
                     'src' => 'admin/index/index',
                     'icon' => 'glyphicon glyphicon-home',
+                    'dump_way' => '_self',
                 ]
             ], $items, [
                 // 退出
@@ -81,6 +82,7 @@ class MenuHelper
                     // 用于视图外链
                     'src' => 'admin/site/logout',
                     'icon' => 'glyphicon glyphicon-off',
+                    'dump_way' => '_self',
                 ]
             ]);
 

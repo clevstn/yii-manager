@@ -41,7 +41,7 @@ class Menu extends \yii\widgets\Menu
     /**
      * {@inheritDoc}
      */
-    public $linkTemplate = '<a class="ym-menu-item-link" href="{url}">{icon}{label}</a>';
+    public $linkTemplate = '<a class="ym-menu-item-link" href="{url}" target="{target}">{icon}{label}</a>';
 
     /**
      * {@inheritDoc}
@@ -153,6 +153,7 @@ class Menu extends \yii\widgets\Menu
                 '{url}' => isset($item['url']) ? Html::encode(Url::to($item['src'], '')) : '',
                 '{label}' => $item['label'],
                 '{id}' => "#{$item['targetId']}",
+                '{target}' => !empty($item['dump_way']) ? $item['dump_way'] : '_self',
                 '{icon}' => $icon,
             ]);
         }
