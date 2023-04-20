@@ -218,3 +218,7 @@ input[type="checkbox"] {margin-top: 2px !important;}
 .son-img-w200 img {width: 200px !important; height:200px !important;}
 .son-img-w300 {width: 300px !important; height:300px !important;}
 .son-img-w300 img {width: 300px !important; height:300px !important;}
+
+.select2-results__option--selected {background-color: #eeeeee;}
+.select2-container--bootstrap .select2-results__option[aria-selected=true] {background-color: #eeeeee;}
+.select2-container--bootstrap .select2-results__option--highlighted[aria-selected] {background-color: #337ab7;}
