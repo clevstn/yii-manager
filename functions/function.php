@@ -23,6 +23,7 @@
  * @see html_text() HTML文本
  * @see html_img() HTML图片
  * @see html_tips_page() html无数据,错误等提示页
+ * @see escape_special() 转义回车换行符
  *
  * @since ym1.0
  */
@@ -488,5 +489,22 @@ if (!function_exists('noset_unset')) {
         }
 
         return $data;
+    }
+}
+
+if (!function_exists('escape_special')) {
+    /**
+     * 转义特殊字符
+     * - \r
+     * - \n
+     * @param $text
+     * @return string
+     */
+    function escape_special($text)
+    {
+        return strtr($text, [
+            "\r" => "\\r",
+            "\n" => "\\n",
+        ]);
     }
 }

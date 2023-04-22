@@ -203,9 +203,10 @@ use yii\helpers\Url;
                     <?php case Sc::MONTH: //月?>
                     <?php case Sc::TIME: //时间?>
                     <?php case Sc::RANGE: //范围?>
-                    <?php case Sc::TEXTAREA: //文本域?>
                     <?php case Sc::SELECT: //下拉选择?>
                     $scope['<?= $code ?>'] = '<?= $value['value'] ?>';
+                    <?php break; case Sc::TEXTAREA: //文本域?>
+                    $scope['<?= $code ?>'] = '<?= escape_special($value['value']) ?>';
                     // end
                     <?php break; case Sc::FILE: ?>
                     $scope['<?= $code ?>'] = '<?= $value['value'] ?>';

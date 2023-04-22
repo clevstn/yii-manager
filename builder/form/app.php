@@ -96,8 +96,9 @@ use app\builder\form\FieldsOptions;
                 <?php case FieldsOptions::CONTROL_TIME: // 时，格式：H:i:s ?>
                 <?php case FieldsOptions::CONTROL_SELECT: // 下拉选择 ?>
                 <?php case FieldsOptions::CONTROL_HIDDEN: // 隐藏 ?>
-                <?php case FieldsOptions::CONTROL_TEXTAREA: // 文本域 ?>
                 scopeFields['<?= $field ?>'] = '<?= $options['default'] ?>';
+                <?php break; case FieldsOptions::CONTROL_TEXTAREA: // 文本域 ?>
+                scopeFields['<?= $field ?>'] = '<?= escape_special($options['default']) ?>';
                 <?php break; case FieldsOptions::CONTROL_SELECT_MULTI: // 下拉选择(多) ?>
                 scopeFields['<?= $field ?>'] = <?= $options['default'] ?>;
                 <?php break; case FieldsOptions::CONTROL_FILE: // 文件 ?>
