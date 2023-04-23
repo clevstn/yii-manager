@@ -209,14 +209,17 @@ class SiteController extends CommonController
                     'safeWay' => AdminUser::SAFE_AUTH_CLOSE,
                 ]);
 
+                // 尝试登录唯一标记
+                $uniqueAttemptLoginIdentity = $this->attemptLoginIdentify . '_' . $userData['username'];
+
                 // 检查最大登陆次数
-                $attemptSize = $size = Yii::$app->cache->get($this->attemptLoginIdentify);
+                $attemptSize = $size = Yii::$app->cache->get($uniqueAttemptLoginIdentity);
                 if ($attemptSize && $attemptSize >= self::MAX_ATTEMPT_SIZE) {
                     // 封停当前登陆管理员
                     $freezeUntilDate = date('Y-m-d H:i:s', time() + self::FREEZE_TIME);
                     AdminUser::banUser($userData['id'], $freezeUntilDate);
                     // 初始化尝试次数
-                    Yii::$app->cache->delete($this->attemptLoginIdentify);
+                    Yii::$app->cache->delete($uniqueAttemptLoginIdentity);
 
                     // 返回冻结信息
                     return $this->asFail(
@@ -238,20 +241,18 @@ class SiteController extends CommonController
 
                 // 校验用户密码是否正确
                 if (!$userData->validatePassword($password)) {
-                    $size = Yii::$app->cache->get($this->attemptLoginIdentify);
-
                     // 设置尝试登陆次数缓存时间为超限冻结时间(秒)
                     if (empty($size)) {
-                        Yii::$app->cache->set($this->attemptLoginIdentify, 1, self::FREEZE_TIME);
+                        Yii::$app->cache->set($uniqueAttemptLoginIdentity, 1, self::FREEZE_TIME);
                     } else {
-                        Yii::$app->cache->set($this->attemptLoginIdentify, ++$size, self::FREEZE_TIME);
+                        Yii::$app->cache->set($uniqueAttemptLoginIdentity, ++$size, self::FREEZE_TIME);
                     }
 
                     return $this->asFail(t('the login password was entered incorrectly', 'app.admin'));
                 }
 
                 // 基本校验成功,初始化尝试登陆次数
-                Yii::$app->cache->delete($this->attemptLoginIdentify);
+                Yii::$app->cache->delete($uniqueAttemptLoginIdentity);
 
                 // 获取2FA
                 $safeWays = Yii::$app->config->get('ADMIN_GROUP.ADMIN_CCEE', AdminUser::SAFE_AUTH_CLOSE);
